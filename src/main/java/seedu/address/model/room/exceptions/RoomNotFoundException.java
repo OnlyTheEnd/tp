@@ -1,4 +1,10 @@
 package seedu.address.model.room.exceptions;
 
-public class RoomNotFoundException {
+/**
+ * Signals that the operation is unable to find the specified room.
+ */
+public class RoomNotFoundException extends RuntimeException {
+    public RoomNotFoundException() {
+        super("Room could not be found");
+    }
 }

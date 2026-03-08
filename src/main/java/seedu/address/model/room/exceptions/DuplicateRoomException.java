@@ -1,4 +1,10 @@
 package seedu.address.model.room.exceptions;
 
-public class DuplicateRoomException {
+/**
+ * Signals that the operation will result in duplicate Rooms (Rooms are considered duplicates if they have the same name).
+ */
+public class DuplicateRoomException extends RuntimeException {
+    public DuplicateRoomException() {
+        super("Operation would result in duplicate rooms");
+    }
 }

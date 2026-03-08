@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.room.Room;
 
 /**
  * The API of the Model component.
@@ -13,6 +14,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true for rooms */
+    Predicate<Room> PREDICATE_SHOW_ALL_ROOMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -84,4 +88,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns true if a room with the same identity as {@code room} exists in the system. */
+    boolean hasRoom(Room room);
+
+    /** Adds the given room. */
+    void addRoom(Room room);
+
+    /** Returns an unmodifiable view of the filtered room list. */
+    ObservableList<Room> getFilteredRoomList();
+
+    void updateFilteredRoomList(Predicate<Room> predicate);
 }
