@@ -10,15 +10,35 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.StudentId;
+import seedu.address.model.reservation.Reservation;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
+
+    private static final Reservation HALL_TWO_SLOT_ONE = new Reservation("Hall-2", new StudentId("a1234567a"),
+            LocalDateTime.of(2026, 3, 1, 14, 0),
+            LocalDateTime.of(2026, 3, 1, 16, 0));
+
+    private static final Reservation HALL_TWO_CONFLICTING = new Reservation("Hall-2", new StudentId("a2345678b"),
+            LocalDateTime.of(2026, 3, 1, 15, 0),
+            LocalDateTime.of(2026, 3, 1, 17, 0));
+
+    private static final Reservation HALL_TWO_ADJACENT = new Reservation("Hall-2", new StudentId("a2345678b"),
+            LocalDateTime.of(2026, 3, 1, 16, 0),
+            LocalDateTime.of(2026, 3, 1, 18, 0));
+
+    private static final Reservation MPSH_ONE_SAME_TIME = new Reservation("MPSH-1", new StudentId("a2345678b"),
+            LocalDateTime.of(2026, 3, 1, 14, 0),
+            LocalDateTime.of(2026, 3, 1, 16, 0));
 
     private ModelManager modelManager = new ModelManager();
 
@@ -27,6 +47,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(0, modelManager.getReservationList().size());
     }
 
     @Test
@@ -42,7 +63,6 @@ public class ModelManagerTest {
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
-        // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
@@ -89,42 +109,109 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasStudentId_nullStudentId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasStudentId(null));
+    }
+
+    @Test
+    public void hasStudentId_studentIdNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasStudentId(ALICE.getStudentId()));
+    }
+
+    @Test
+    public void hasStudentId_studentIdInAddressBook_returnsTrue() {
+        modelManager.addPerson(ALICE);
+        assertTrue(modelManager.hasStudentId(ALICE.getStudentId()));
+    }
+
+    @Test
+    public void hasReservableItem_nullResourceId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasReservableItem(null));
+    }
+
+    @Test
+    public void hasReservableItem_validResource_returnsTrue() {
+        assertTrue(modelManager.hasReservableItem("Hall-2"));
+        assertTrue(modelManager.hasReservableItem("hall-2"));
+    }
+
+    @Test
+    public void hasReservableItem_invalidResource_returnsFalse() {
+        assertFalse(modelManager.hasReservableItem("Invalid-Room"));
+    }
+
+    @Test
+    public void hasConflictingReservation_nullReservation_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasConflictingReservation(null));
+    }
+
+    @Test
+    public void hasConflictingReservation_conflictingReservation_returnsTrue() {
+        modelManager.addReservation(HALL_TWO_SLOT_ONE);
+        assertTrue(modelManager.hasConflictingReservation(HALL_TWO_CONFLICTING));
+    }
+
+    @Test
+    public void hasConflictingReservation_nonConflictingReservation_returnsFalse() {
+        modelManager.addReservation(HALL_TWO_SLOT_ONE);
+        assertFalse(modelManager.hasConflictingReservation(HALL_TWO_ADJACENT));
+        assertFalse(modelManager.hasConflictingReservation(MPSH_ONE_SAME_TIME));
+    }
+
+    @Test
+    public void getConflictingReservation_conflictingReservation_returnsReservation() {
+        modelManager.addReservation(HALL_TWO_SLOT_ONE);
+        assertEquals(Optional.of(HALL_TWO_SLOT_ONE),
+                modelManager.getConflictingReservation(HALL_TWO_CONFLICTING));
+    }
+
+    @Test
+    public void getConflictingReservation_nonConflictingReservation_returnsEmpty() {
+        modelManager.addReservation(HALL_TWO_SLOT_ONE);
+        assertEquals(Optional.empty(), modelManager.getConflictingReservation(HALL_TWO_ADJACENT));
+    }
+
+    @Test
+    public void addReservation_validReservation_success() {
+        modelManager.addReservation(HALL_TWO_SLOT_ONE);
+        assertTrue(modelManager.getReservationList().contains(HALL_TWO_SLOT_ONE));
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getReservationList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getReservationList().remove(0));
     }
 
     @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
+        AddressBook addressBookWithReservation = new AddressBook(addressBook);
+        addressBookWithReservation.addReservation(HALL_TWO_SLOT_ONE);
         UserPrefs userPrefs = new UserPrefs();
 
-        // same values -> returns true
         modelManager = new ModelManager(addressBook, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
-        // same object -> returns true
         assertTrue(modelManager.equals(modelManager));
-
-        // null -> returns false
         assertFalse(modelManager.equals(null));
-
-        // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBookWithReservation, userPrefs)));
 
-        // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
-        // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
