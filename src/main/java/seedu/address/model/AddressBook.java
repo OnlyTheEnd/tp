@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.issue.IssueRecord;
+import seedu.address.model.issue.UniqueIssueRecordList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.reservation.Reservation;
@@ -20,16 +22,18 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueReservationList reservations;
+    private final UniqueIssueRecordList issueRecords;
 
     {
         persons = new UniquePersonList();
         reservations = new UniqueReservationList();
+        issueRecords = new UniqueIssueRecordList();
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the data in the {@code toBeCopied}
+     * Creates an AddressBook using the data in the {@code toBeCopied}.
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -51,6 +55,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the issue record list with {@code issueRecords}.
+     */
+    public void setIssueRecords(List<IssueRecord> issueRecords) {
+        this.issueRecords.setIssueRecords(issueRecords);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -58,12 +69,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setReservations(newData.getReservationList());
+        setIssueRecords(newData.getIssueRecordList());
     }
 
-
-
     /**
-     * Returns true if have person
+     * Returns true if the address book contains a person with the same identity as {@code person}.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -71,14 +81,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person
+     * Adds a person to the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
     }
 
     /**
-     * Edit a person's detail
+     * Replaces the given person {@code target} with {@code editedPerson}.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -86,7 +96,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Remove a person
+     * Removes {@code key} from this {@code AddressBook}.
      */
     public void removePerson(Person key) {
         persons.remove(key);
@@ -115,13 +125,35 @@ public class AddressBook implements ReadOnlyAddressBook {
         reservations.add(reservation);
     }
 
+    /**
+     * Returns true if the given item is currently issued.
+     */
+    public boolean hasIssuedItem(String itemId) {
+        requireNonNull(itemId);
+        return issueRecords.hasIssuedItem(itemId);
+    }
 
+    /**
+     * Returns the issue record for the given item, if any.
+     */
+    public Optional<IssueRecord> getIssueRecordByItemId(String itemId) {
+        requireNonNull(itemId);
+        return issueRecords.getIssueRecordByItemId(itemId);
+    }
+
+    /**
+     * Adds an issue record to the address book.
+     */
+    public void addIssueRecord(IssueRecord issueRecord) {
+        issueRecords.add(issueRecord);
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
                 .add("reservations", reservations)
+                .add("issueRecords", issueRecords)
                 .toString();
     }
 
@@ -141,6 +173,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         return reservations.asUnmodifiableObservableList();
     }
 
+    /**
+     * Returns an unmodifiable view of the issue record list.
+     */
+    @Override
+    public ObservableList<IssueRecord> getIssueRecordList() {
+        return issueRecords.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -153,11 +193,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         AddressBook otherAddressBook = (AddressBook) other;
         return persons.equals(otherAddressBook.persons)
-                && reservations.equals(otherAddressBook.reservations);
+                && reservations.equals(otherAddressBook.reservations)
+                && issueRecords.equals(otherAddressBook.issueRecords);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, reservations);
+        return Objects.hash(persons, reservations, issueRecords);
     }
 }

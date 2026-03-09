@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.reservation.Reservation;
@@ -63,8 +64,8 @@ public class ReserveCommandTest {
         ReserveCommand reserveCommand = new ReserveCommand(VALID_RESERVATION);
 
         assertThrows(CommandException.class,
-                String.format(ReserveCommand.MESSAGE_INVALID_RESOURCE,
-                        VALID_RESERVATION.getResourceId()), () -> reserveCommand.execute(modelStub));
+                String.format(ReserveCommand.MESSAGE_INVALID_RESOURCE, VALID_RESERVATION
+                        .getResourceId()), () -> reserveCommand.execute(modelStub));
     }
 
     @Test
@@ -84,8 +85,8 @@ public class ReserveCommandTest {
         ReserveCommand reserveCommand = new ReserveCommand(VALID_RESERVATION);
 
         assertThrows(CommandException.class,
-                String.format(ReserveCommand.MESSAGE_INVALID_STUDENT,
-                        VALID_RESERVATION.getStudentId()), () -> reserveCommand.execute(modelStub));
+                String.format(ReserveCommand.MESSAGE_INVALID_STUDENT, VALID_RESERVATION
+                        .getStudentId()), () -> reserveCommand.execute(modelStub));
     }
 
     @Test
@@ -117,7 +118,8 @@ public class ReserveCommandTest {
                 String.format(ReserveCommand.MESSAGE_CONFLICT,
                         conflictingReservation.getResourceId(),
                         conflictingReservation.getFormattedStartDateTime(),
-                        conflictingReservation.getFormattedEndDateTime()), () -> reserveCommand.execute(modelStub));
+                        conflictingReservation.getFormattedEndDateTime()), () -> reserveCommand
+                        .execute(modelStub));
     }
 
     /**
@@ -222,6 +224,31 @@ public class ReserveCommandTest {
 
         @Override
         public ObservableList<Reservation> getReservationList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public boolean hasIssuableItem(String itemId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasIssuedItem(String itemId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<IssueRecord> getIssueRecordByItemId(String itemId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addIssueRecord(IssueRecord issueRecord) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<IssueRecord> getIssueRecordList() {
             return FXCollections.observableArrayList();
         }
     }

@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.reservation.Reservation;
@@ -35,6 +36,21 @@ public class ModelManager implements Model {
                     "MPSH-1", "MPSH-2",
                     "COURT-1", "COURT-2",
                     "MPR-1", "MPR-2"
+            )));
+
+    /**
+     * Temporary item registry for the MVP.
+     */
+    private static final Set<String> VALID_ITEMS = Collections.unmodifiableSet(
+            new HashSet<>(Arrays.asList(
+                    "WILSON-EVOLUTION-BASKETBALL-1",
+                    "WILSON-EVOLUTION-BASKETBALL-2",
+                    "MOLTEN-VOLLEYBALL",
+                    "MOLTEN-VOLLEYBALL-1",
+                    "MOLTEN-VOLLEYBALL-2",
+                    "YONEX-BADMINTON-RACKET-1",
+                    "YONEX-BADMINTON-RACKET-2",
+                    "YONEX-BADMINTON-RACKET-3"
             )));
 
     private final AddressBook addressBook;
@@ -128,7 +144,7 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    //Reservation
+    //=========== Reservation ================================================================================
 
     @Override
     public boolean hasStudentId(StudentId studentId) {
@@ -166,7 +182,37 @@ public class ModelManager implements Model {
         return addressBook.getReservationList();
     }
 
-    //Filtered Person List Accessors
+
+    @Override
+    public boolean hasIssuableItem(String itemId) {
+        requireNonNull(itemId);
+        return VALID_ITEMS.contains(IssueRecord.normalizeItemId(itemId));
+    }
+
+    @Override
+    public boolean hasIssuedItem(String itemId) {
+        requireNonNull(itemId);
+        return addressBook.hasIssuedItem(itemId);
+    }
+
+    @Override
+    public Optional<IssueRecord> getIssueRecordByItemId(String itemId) {
+        requireNonNull(itemId);
+        return addressBook.getIssueRecordByItemId(itemId);
+    }
+
+    @Override
+    public void addIssueRecord(IssueRecord issueRecord) {
+        requireNonNull(issueRecord);
+        addressBook.addIssueRecord(issueRecord);
+    }
+
+    @Override
+    public ObservableList<IssueRecord> getIssueRecordList() {
+        return addressBook.getIssueRecordList();
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {

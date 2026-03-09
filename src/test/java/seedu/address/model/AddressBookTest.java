@@ -18,11 +18,11 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.reservation.Reservation;
 import seedu.address.testutil.PersonBuilder;
-
 
 public class AddressBookTest {
 
@@ -32,6 +32,7 @@ public class AddressBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertEquals(Collections.emptyList(), addressBook.getReservationList());
+        assertEquals(Collections.emptyList(), addressBook.getIssueRecordList());
     }
 
     @Test
@@ -48,7 +49,6 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
@@ -87,10 +87,21 @@ public class AddressBookTest {
     }
 
     @Test
+    public void getReservationList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getReservationList().remove(0));
+    }
+
+    @Test
+    public void getIssueRecordList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getIssueRecordList().remove(0));
+    }
+
+    @Test
     public void toStringMethod() {
         String expected = AddressBook.class.getCanonicalName()
                 + "{persons=" + addressBook.getPersonList()
-                + ", reservations=" + addressBook.getReservationList() + "}";
+                + ", reservations=" + addressBook.getReservationList()
+                + ", issueRecords=" + addressBook.getIssueRecordList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -105,13 +116,18 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Reservation> getReservationList() {
-            return FXCollections.observableArrayList();
-        }
-        @Override
         public ObservableList<Person> getPersonList() {
             return persons;
         }
-    }
 
+        @Override
+        public ObservableList<Reservation> getReservationList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public ObservableList<IssueRecord> getIssueRecordList() {
+            return FXCollections.observableArrayList();
+        }
+    }
 }

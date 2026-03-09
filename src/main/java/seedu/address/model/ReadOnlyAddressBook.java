@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.reservation.Reservation;
 
@@ -18,4 +19,8 @@ public interface ReadOnlyAddressBook {
      * Returns an unmodifiable view of the reservations list.
      */
     ObservableList<Reservation> getReservationList();
+    /**
+     * Returns an unmodifiable view of the issue record list.
+     */
+    ObservableList<IssueRecord> getIssueRecordList();
 }

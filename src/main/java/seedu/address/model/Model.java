@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.reservation.Reservation;
@@ -58,4 +59,9 @@ public interface Model {
     void addReservation(Reservation reservation);
 
     ObservableList<Reservation> getReservationList();
+    boolean hasIssuableItem(String itemId);
+    boolean hasIssuedItem(String itemId);
+    Optional<IssueRecord> getIssueRecordByItemId(String itemId);
+    void addIssueRecord(IssueRecord issueRecord);
+    ObservableList<IssueRecord> getIssueRecordList();
 }
