@@ -11,6 +11,7 @@ import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.reservation.Reservation;
+import seedu.address.model.room.Room;
 
 /**
  * The API of the Model component.
@@ -18,6 +19,9 @@ import seedu.address.model.reservation.Reservation;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true for rooms */
+    Predicate<Room> PREDICATE_SHOW_ALL_ROOMS = unused -> true;
 
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
@@ -47,7 +51,21 @@ public interface Model {
 
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    default void addRoom(Room room) {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
 
+    default boolean hasRoom(Room room) {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
+
+    default ObservableList<Room> getFilteredRoomList() {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
+
+    default void updateFilteredRoomList(Predicate<Room> predicate) {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
 
     boolean hasStudentId(StudentId studentId);
 

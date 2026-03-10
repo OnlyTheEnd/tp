@@ -16,6 +16,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.reservation.Reservation;
 import seedu.address.model.reservation.UniqueReservationList;
+import seedu.address.model.room.Room;
+import seedu.address.model.room.UniqueRoomList;
 
 /**
  * Wraps all data at the address-book level.
@@ -23,12 +25,14 @@ import seedu.address.model.reservation.UniqueReservationList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueRoomList rooms;
     private final UniqueReservationList reservations;
     private final UniqueIssueRecordList issueRecords;
     private final UniqueAliasMappingList aliasMappings;
 
     {
         persons = new UniquePersonList();
+        rooms = new UniqueRoomList();
         reservations = new UniqueReservationList();
         issueRecords = new UniqueIssueRecordList();
         aliasMappings = new UniqueAliasMappingList();
@@ -72,6 +76,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setRooms(newData.getRoomList());
         setReservations(newData.getReservationList());
         setIssueRecords(newData.getIssueRecordList());
     }
@@ -104,6 +109,30 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    //=========== Room-level Operations =====================================================================
+
+    /**
+     * Replaces the contents of the room list with {@code room}.
+     */
+    public void setRooms(List<Room> rooms) {
+        this.rooms.setRooms(rooms);
+    }
+
+    /**
+     * Returns true if the address book contains a room with the same identity as {@code room}.
+     */
+    public boolean hasRoom(Room room) {
+        requireNonNull(room);
+        return rooms.contains(room);
+    }
+
+    /**
+     * Adds a room to the address book.
+     */
+    public void addRoom(Room r) {
+        rooms.add(r);
     }
 
     /**
@@ -168,6 +197,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the rooms list.
+     */
+    @Override
+    public ObservableList<Room> getRoomList() {
+        return rooms.asUnmodifiableObservableList();
     }
 
     /**
