@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class StudentId {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Student ID should be in the format letter + 7 digits + letter, e.g. a1234567a";
+            "Matric number should start with an alphabet, followed by 7 digits, and end with an alphabet, e.g. a1234567a";
 
     public static final String VALIDATION_REGEX = "[A-Za-z]\\d{7}[A-Za-z]";
 

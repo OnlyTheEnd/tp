@@ -71,13 +71,15 @@ public class Person {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                && otherPerson.getStudentId().equals(getStudentId());
+    if (otherPerson == this) {
+        return true;
     }
+
+    return otherPerson != null
+            && (otherPerson.getStudentId().equals(getStudentId())
+            || otherPerson.getPhone().equals(getPhone())
+            || otherPerson.getEmail().equals(getEmail()));
+}
 
     /**
      * Returns true if both persons have the same identity and data fields.
