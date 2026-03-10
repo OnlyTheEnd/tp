@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.alias.AliasMapping;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
@@ -64,8 +65,8 @@ public class ReserveCommandTest {
         ReserveCommand reserveCommand = new ReserveCommand(VALID_RESERVATION);
 
         assertThrows(CommandException.class,
-                String.format(ReserveCommand.MESSAGE_INVALID_RESOURCE, VALID_RESERVATION
-                        .getResourceId()), () -> reserveCommand.execute(modelStub));
+                String.format(ReserveCommand.MESSAGE_INVALID_RESOURCE,
+                        VALID_RESERVATION.getResourceId()), () -> reserveCommand.execute(modelStub));
     }
 
     @Test
@@ -85,8 +86,8 @@ public class ReserveCommandTest {
         ReserveCommand reserveCommand = new ReserveCommand(VALID_RESERVATION);
 
         assertThrows(CommandException.class,
-                String.format(ReserveCommand.MESSAGE_INVALID_STUDENT, VALID_RESERVATION
-                        .getStudentId()), () -> reserveCommand.execute(modelStub));
+                String.format(ReserveCommand.MESSAGE_INVALID_STUDENT,
+                        VALID_RESERVATION.getStudentId()), () -> reserveCommand.execute(modelStub));
     }
 
     @Test
@@ -118,8 +119,7 @@ public class ReserveCommandTest {
                 String.format(ReserveCommand.MESSAGE_CONFLICT,
                         conflictingReservation.getResourceId(),
                         conflictingReservation.getFormattedStartDateTime(),
-                        conflictingReservation.getFormattedEndDateTime()), () -> reserveCommand
-                        .execute(modelStub));
+                        conflictingReservation.getFormattedEndDateTime()), () -> reserveCommand.execute(modelStub));
     }
 
     /**
@@ -250,6 +250,36 @@ public class ReserveCommandTest {
         @Override
         public ObservableList<IssueRecord> getIssueRecordList() {
             return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public boolean hasAliasableTarget(String targetId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasAliasName(String aliasName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<AliasMapping> getAliasMappingByName(String aliasName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAliasMapping(AliasMapping aliasMapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<AliasMapping> getAliasMappingList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public String resolveAlias(String input) {
+            return input;
         }
     }
 

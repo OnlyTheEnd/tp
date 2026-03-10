@@ -72,6 +72,12 @@ public class IssueCommand extends Command {
                     issued.getFormattedDueDateTime()));
         }
 
+        String resolvedItemId = model.resolveAlias(issueRecordToAdd.getItemId());
+        IssueRecord resolvedIssueRecord = new IssueRecord(
+                resolvedItemId,
+                issueRecordToAdd.getStudentId(),
+                issueRecordToAdd.getDueDateTime());
+
         model.addIssueRecord(issueRecordToAdd);
         return new CommandResult(String.format(
                 MESSAGE_SUCCESS,

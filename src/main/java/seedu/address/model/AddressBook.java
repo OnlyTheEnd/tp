@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.alias.AliasMapping;
+import seedu.address.model.alias.UniqueAliasMappingList;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.issue.UniqueIssueRecordList;
 import seedu.address.model.person.Person;
@@ -23,11 +25,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueReservationList reservations;
     private final UniqueIssueRecordList issueRecords;
+    private final UniqueAliasMappingList aliasMappings;
 
     {
         persons = new UniquePersonList();
         reservations = new UniqueReservationList();
         issueRecords = new UniqueIssueRecordList();
+        aliasMappings = new UniqueAliasMappingList();
     }
 
     public AddressBook() {}
@@ -154,6 +158,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .add("persons", persons)
                 .add("reservations", reservations)
                 .add("issueRecords", issueRecords)
+                .add("aliasMappings", aliasMappings)
                 .toString();
     }
 
@@ -200,5 +205,33 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return Objects.hash(persons, reservations, issueRecords);
+    }
+    public void setAliasMappings(List<AliasMapping> aliasMappings) {
+        this.aliasMappings.setAliasMappings(aliasMappings);
+    }
+
+    /**
+     * Returns true if alias name exists
+     */
+    public boolean hasAliasName(String aliasName) {
+        requireNonNull(aliasName);
+        return aliasMappings.hasAliasName(aliasName);
+    }
+
+    /**
+     * Returns the alias mapping by name.
+     */
+    public Optional<AliasMapping> getAliasMappingByName(String aliasName) {
+        requireNonNull(aliasName);
+        return aliasMappings.getAliasMappingByName(aliasName);
+    }
+
+    public void addAliasMapping(AliasMapping aliasMapping) {
+        aliasMappings.add(aliasMapping);
+    }
+
+    @Override
+    public ObservableList<AliasMapping> getAliasMappingList() {
+        return aliasMappings.asUnmodifiableObservableList();
     }
 }
