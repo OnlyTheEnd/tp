@@ -65,8 +65,8 @@ public class ReserveCommandTest {
         ReserveCommand reserveCommand = new ReserveCommand(VALID_RESERVATION);
 
         assertThrows(CommandException.class,
-                String.format(ReserveCommand.MESSAGE_INVALID_RESOURCE, VALID_RESERVATION.getResourceId()),
-                () -> reserveCommand.execute(modelStub));
+                String.format(ReserveCommand.MESSAGE_INVALID_RESOURCE,
+                        VALID_RESERVATION.getResourceId()), () -> reserveCommand.execute(modelStub));
     }
 
     @Test
@@ -86,8 +86,8 @@ public class ReserveCommandTest {
         ReserveCommand reserveCommand = new ReserveCommand(VALID_RESERVATION);
 
         assertThrows(CommandException.class,
-                String.format(ReserveCommand.MESSAGE_INVALID_STUDENT, VALID_RESERVATION.getStudentId()),
-                () -> reserveCommand.execute(modelStub));
+                String.format(ReserveCommand.MESSAGE_INVALID_STUDENT,
+                        VALID_RESERVATION.getStudentId()), () -> reserveCommand.execute(modelStub));
     }
 
     @Test
@@ -119,8 +119,7 @@ public class ReserveCommandTest {
                 String.format(ReserveCommand.MESSAGE_CONFLICT,
                         conflictingReservation.getResourceId(),
                         conflictingReservation.getFormattedStartDateTime(),
-                        conflictingReservation.getFormattedEndDateTime()),
-                () -> reserveCommand.execute(modelStub));
+                        conflictingReservation.getFormattedEndDateTime()), () -> reserveCommand.execute(modelStub));
     }
 
     /**

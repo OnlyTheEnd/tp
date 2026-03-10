@@ -1,13 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -71,8 +70,7 @@ public class AliasCommandTest {
 
         assertThrows(CommandException.class,
                 String.format(AliasCommand.MESSAGE_INVALID_TARGET,
-                        VALID_ALIAS_MAPPING.getTargetId()),
-                () -> aliasCommand.execute(modelStub));
+                        VALID_ALIAS_MAPPING.getTargetId()), () -> aliasCommand.execute(modelStub));
     }
 
     @Test
@@ -93,8 +91,7 @@ public class AliasCommandTest {
 
         assertThrows(CommandException.class,
                 String.format(AliasCommand.MESSAGE_DUPLICATE_ALIAS,
-                        VALID_ALIAS_MAPPING.getAliasName()),
-                () -> aliasCommand.execute(modelStub));
+                        VALID_ALIAS_MAPPING.getAliasName()), () -> aliasCommand.execute(modelStub));
     }
 
     @Test

@@ -14,14 +14,13 @@ public class AliasMappingTest {
 
     @Test
     public void constructor_invalidTargetId_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class,
-                () -> new AliasMapping("!invalid", "b1"));
+        assertThrows(IllegalArgumentException.class, () -> new AliasMapping("!invalid", "b1"));
     }
 
     @Test
     public void constructor_invalidAliasName_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class,
-                () -> new AliasMapping("Wilson-Evolution-Basketball-1", "b-1"));
+        assertThrows(IllegalArgumentException
+                .class, () -> new AliasMapping("Wilson-Evolution-Basketball-1", "b-1"));
     }
 
 

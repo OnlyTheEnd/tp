@@ -63,8 +63,8 @@ public class IssueCommandTest {
         IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
 
         assertThrows(CommandException.class,
-                String.format(IssueCommand.MESSAGE_INVALID_ITEM, VALID_ISSUE_RECORD.getItemId()),
-                () -> issueCommand.execute(modelStub));
+                String.format(IssueCommand.MESSAGE_INVALID_ITEM,
+                        VALID_ISSUE_RECORD.getItemId()), () -> issueCommand.execute(modelStub));
     }
 
     @Test
@@ -84,8 +84,8 @@ public class IssueCommandTest {
         IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
 
         assertThrows(CommandException.class,
-                String.format(IssueCommand.MESSAGE_INVALID_STUDENT, VALID_ISSUE_RECORD.getStudentId()),
-                () -> issueCommand.execute(modelStub));
+                String.format(IssueCommand.MESSAGE_INVALID_STUDENT,
+                        VALID_ISSUE_RECORD.getStudentId()), () -> issueCommand.execute(modelStub));
     }
 
     @Test
@@ -117,8 +117,8 @@ public class IssueCommandTest {
                 String.format(IssueCommand.MESSAGE_ALREADY_ISSUED,
                         existingIssueRecord.getItemId(),
                         existingIssueRecord.getStudentId(),
-                        existingIssueRecord.getFormattedDueDateTime()),
-                () -> issueCommand.execute(modelStub));
+                        existingIssueRecord
+                                .getFormattedDueDateTime()), () -> issueCommand.execute(modelStub));
     }
 
     /**

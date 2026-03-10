@@ -86,8 +86,7 @@ public class UniqueAliasMappingListTest {
     @Test
     public void add_duplicateAlias_throwsDuplicateAliasException() {
         uniqueAliasMappingList.add(BASKETBALL_ALIAS);
-        assertThrows(DuplicateAliasException.class,
-                () -> uniqueAliasMappingList.add(BASKETBALL_ALIAS_COPY));
+        assertThrows(DuplicateAliasException.class, () -> uniqueAliasMappingList.add(BASKETBALL_ALIAS_COPY));
     }
 
     @Test
@@ -125,16 +124,15 @@ public class UniqueAliasMappingListTest {
         List<AliasMapping> aliasMappings =
                 Arrays.asList(BASKETBALL_ALIAS, SAME_ALIAS_DIFFERENT_TARGET);
 
-        assertThrows(DuplicateAliasException.class,
-                () -> uniqueAliasMappingList.setAliasMappings(aliasMappings));
+        assertThrows(DuplicateAliasException.class, () -> uniqueAliasMappingList.setAliasMappings(aliasMappings));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         uniqueAliasMappingList.add(BASKETBALL_ALIAS);
 
-        assertThrows(UnsupportedOperationException.class,
-                () -> uniqueAliasMappingList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException
+                .class, () -> uniqueAliasMappingList.asUnmodifiableObservableList().remove(0));
     }
 
     @Test
