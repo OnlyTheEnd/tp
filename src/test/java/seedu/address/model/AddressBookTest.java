@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.alias.AliasMapping;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
@@ -35,6 +36,7 @@ public class AddressBookTest {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertEquals(Collections.emptyList(), addressBook.getReservationList());
         assertEquals(Collections.emptyList(), addressBook.getIssueRecordList());
+        assertEquals(Collections.emptyList(), addressBook.getAliasMappingList());
     }
 
     @Test
@@ -99,11 +101,17 @@ public class AddressBookTest {
     }
 
     @Test
+    public void getAliasMappingList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getAliasMappingList().remove(0));
+    }
+
+    @Test
     public void toStringMethod() {
         String expected = AddressBook.class.getCanonicalName()
                 + "{persons=" + addressBook.getPersonList()
                 + ", reservations=" + addressBook.getReservationList()
-                + ", issueRecords=" + addressBook.getIssueRecordList() + "}";
+                + ", issueRecords=" + addressBook.getIssueRecordList()
+                + ", aliasMappings=" + addressBook.getAliasMappingList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -154,5 +162,42 @@ public class AddressBookTest {
         public ObservableList<IssueRecord> getIssueRecordList() {
             return FXCollections.observableArrayList();
         }
+
+        @Override
+        public ObservableList<AliasMapping> getAliasMappingList() {
+            return FXCollections.observableArrayList();
+        }
+
+    }
+    @Test
+    public void hasAliasName_nullAliasName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasAliasName(null));
+    }
+
+    @Test
+    public void hasAliasName_aliasNotPresent_returnsFalse() {
+        assertFalse(addressBook.hasAliasName("b1"));
+    }
+
+    @Test
+    public void hasAliasName_aliasPresent_returnsTrue() {
+        AliasMapping aliasMapping = new AliasMapping("Wilson-Evolution-Basketball-1", "b1");
+        addressBook.addAliasMapping(aliasMapping);
+        assertTrue(addressBook.hasAliasName("b1"));
+    }
+
+    @Test
+    public void getAliasMappingByName_nullAliasName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.getAliasMappingByName(null));
+    }
+
+    @Test
+    public void addAliasMapping_andGetAliasMappingByName_success() {
+        AliasMapping aliasMapping = new AliasMapping("Wilson-Evolution-Basketball-1", "b1");
+
+        addressBook.addAliasMapping(aliasMapping);
+
+        assertTrue(addressBook.hasAliasName("b1"));
+        assertEquals(Optional.of(aliasMapping), addressBook.getAliasMappingByName("b1"));
     }
 }

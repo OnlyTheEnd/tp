@@ -24,6 +24,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.alias.AliasMapping;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
@@ -56,7 +57,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand
+                .MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -84,7 +86,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A default model stub that has all of the methods failing.
+     * A default model stub that has all methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -231,10 +233,40 @@ public class AddCommandTest {
         public ObservableList<IssueRecord> getIssueRecordList() {
             return FXCollections.observableArrayList();
         }
+
+        @Override
+        public boolean hasAliasableTarget(String targetId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasAliasName(String aliasName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<AliasMapping> getAliasMappingByName(String aliasName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAliasMapping(AliasMapping aliasMapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<AliasMapping> getAliasMappingList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public String resolveAlias(String input) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A model stub that contains a single person.
      */
     private class ModelStubWithPerson extends ModelStub {
         private final Person person;
@@ -252,7 +284,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accepts the person being added.
+     * A model stub that always accepts the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         private final ArrayList<Person> personsAdded = new ArrayList<>();

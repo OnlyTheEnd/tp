@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.alias.AliasMapping;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
@@ -241,6 +242,44 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasAliasableTarget(String targetId) {
+        requireNonNull(targetId);
+        String normalizedTargetId = AliasMapping.normalizeTargetId(targetId);
+        return VALID_RESOURCES.contains(normalizedTargetId) || VALID_ITEMS.contains(normalizedTargetId);
+    }
+
+    @Override
+    public boolean hasAliasName(String aliasName) {
+        requireNonNull(aliasName);
+        return addressBook.hasAliasName(aliasName);
+    }
+
+    @Override
+    public Optional<AliasMapping> getAliasMappingByName(String aliasName) {
+        requireNonNull(aliasName);
+        return addressBook.getAliasMappingByName(aliasName);
+    }
+
+    @Override
+    public void addAliasMapping(AliasMapping aliasMapping) {
+        requireNonNull(aliasMapping);
+        addressBook.addAliasMapping(aliasMapping);
+    }
+
+    @Override
+    public ObservableList<AliasMapping> getAliasMappingList() {
+        return addressBook.getAliasMappingList();
+    }
+
+    @Override
+    public String resolveAlias(String input) {
+        requireNonNull(input);
+        return getAliasMappingByName(input)
+                .map(AliasMapping::getTargetId)
+                .orElse(input);
     }
 
     @Override

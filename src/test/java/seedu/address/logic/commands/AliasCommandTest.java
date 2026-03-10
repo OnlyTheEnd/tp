@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -23,102 +25,87 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.reservation.Reservation;
 
-public class IssueCommandTest {
+/**
+ * Tests for {@link AliasCommand}.
+ */
+public class AliasCommandTest {
 
-    private static final String VALID_ITEM_ID = "Wilson-Evolution-Basketball-1";
-    private static final StudentId VALID_STUDENT_ID = new StudentId("a1234567a");
-    private static final LocalDateTime VALID_DUE_DATE_TIME = LocalDateTime.of(2099, 3, 15, 17, 0);
-    private static final IssueRecord VALID_ISSUE_RECORD =
-            new IssueRecord(VALID_ITEM_ID, VALID_STUDENT_ID, VALID_DUE_DATE_TIME);
+    private static final AliasMapping VALID_ALIAS_MAPPING =
+            new AliasMapping("Wilson-Evolution-Basketball-1", "b1");
 
     @Test
-    public void execute_issueAccepted_addSuccessful() throws Exception {
-        ModelStubAcceptingIssueRecordAdded modelStub = new ModelStubAcceptingIssueRecordAdded();
-        IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
+    public void constructor_nullAliasMapping_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AliasCommand(null));
+    }
 
-        CommandResult commandResult = issueCommand.execute(modelStub);
+    @Test
+    public void execute_aliasAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingAliasAdded modelStub = new ModelStubAcceptingAliasAdded();
+        AliasCommand aliasCommand = new AliasCommand(VALID_ALIAS_MAPPING);
 
-        assertEquals(VALID_ISSUE_RECORD, modelStub.issueRecordAdded);
-        assertEquals(String.format(IssueCommand.MESSAGE_SUCCESS,
-                        VALID_ISSUE_RECORD.getItemId(),
-                        VALID_ISSUE_RECORD.getStudentId(),
-                        VALID_ISSUE_RECORD.getFormattedDueDateTime()),
+        CommandResult commandResult = aliasCommand.execute(modelStub);
+
+        assertEquals(VALID_ALIAS_MAPPING, modelStub.aliasAdded);
+        assertEquals(String.format(AliasCommand.MESSAGE_SUCCESS,
+                        VALID_ALIAS_MAPPING.getTargetId(),
+                        VALID_ALIAS_MAPPING.getAliasName()),
                 commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_invalidItem_throwsCommandException() {
+    public void execute_invalidTarget_throwsCommandException() {
         ModelStub modelStub = new ModelStub() {
             @Override
-            public boolean hasIssuableItem(String itemId) {
+            public boolean hasAliasableTarget(String targetId) {
                 return false;
             }
 
             @Override
-            public boolean hasStudentId(StudentId studentId) {
-                return true;
-            }
-        };
-
-        IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
-
-        assertThrows(CommandException.class,
-                String.format(IssueCommand.MESSAGE_INVALID_ITEM,
-                        VALID_ISSUE_RECORD.getItemId()), () -> issueCommand.execute(modelStub));
-    }
-
-    @Test
-    public void execute_invalidStudent_throwsCommandException() {
-        ModelStub modelStub = new ModelStub() {
-            @Override
-            public boolean hasIssuableItem(String itemId) {
-                return true;
-            }
-
-            @Override
-            public boolean hasStudentId(StudentId studentId) {
+            public boolean hasAliasName(String aliasName) {
                 return false;
             }
         };
 
-        IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
+        AliasCommand aliasCommand = new AliasCommand(VALID_ALIAS_MAPPING);
 
         assertThrows(CommandException.class,
-                String.format(IssueCommand.MESSAGE_INVALID_STUDENT,
-                        VALID_ISSUE_RECORD.getStudentId()), () -> issueCommand.execute(modelStub));
+                String.format(AliasCommand.MESSAGE_INVALID_TARGET,
+                        VALID_ALIAS_MAPPING.getTargetId()), () -> aliasCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_itemAlreadyIssued_throwsCommandException() {
-        IssueRecord existingIssueRecord = new IssueRecord("Wilson-Evolution-Basketball-1",
-                new StudentId("a2345678b"),
-                LocalDateTime.of(2099, 3, 12, 12, 0));
-
+    public void execute_duplicateAlias_throwsCommandException() {
         ModelStub modelStub = new ModelStub() {
             @Override
-            public boolean hasIssuableItem(String itemId) {
+            public boolean hasAliasableTarget(String targetId) {
                 return true;
             }
 
             @Override
-            public boolean hasStudentId(StudentId studentId) {
+            public boolean hasAliasName(String aliasName) {
                 return true;
-            }
-
-            @Override
-            public Optional<IssueRecord> getIssueRecordByItemId(String itemId) {
-                return Optional.of(existingIssueRecord);
             }
         };
 
-        IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
+        AliasCommand aliasCommand = new AliasCommand(VALID_ALIAS_MAPPING);
 
         assertThrows(CommandException.class,
-                String.format(IssueCommand.MESSAGE_ALREADY_ISSUED,
-                        existingIssueRecord.getItemId(),
-                        existingIssueRecord.getStudentId(),
-                        existingIssueRecord
-                                .getFormattedDueDateTime()), () -> issueCommand.execute(modelStub));
+                String.format(AliasCommand.MESSAGE_DUPLICATE_ALIAS,
+                        VALID_ALIAS_MAPPING.getAliasName()), () -> aliasCommand.execute(modelStub));
+    }
+
+    @Test
+    public void equals() {
+        AliasCommand aliasFirstCommand = new AliasCommand(VALID_ALIAS_MAPPING);
+        AliasCommand aliasSecondCommand = new AliasCommand(new AliasMapping("Hall-2", "h2"));
+        AliasCommand aliasFirstCommandCopy = new AliasCommand(VALID_ALIAS_MAPPING);
+
+        assertTrue(aliasFirstCommand.equals(aliasFirstCommand));
+        assertTrue(aliasFirstCommand.equals(aliasFirstCommandCopy));
+
+        assertFalse(aliasFirstCommand.equals(1));
+        assertFalse(aliasFirstCommand.equals(null));
+        assertFalse(aliasFirstCommand.equals(aliasSecondCommand));
     }
 
     /**
@@ -238,7 +225,7 @@ public class IssueCommandTest {
 
         @Override
         public Optional<IssueRecord> getIssueRecordByItemId(String itemId) {
-            return Optional.empty();
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -278,29 +265,32 @@ public class IssueCommandTest {
 
         @Override
         public String resolveAlias(String input) {
-            return input;
+            throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A model stub that always accepts an issue record.
+     * A model stub that always accepts the alias being added.
      */
-    private static class ModelStubAcceptingIssueRecordAdded extends ModelStub {
-        private IssueRecord issueRecordAdded;
+    private static class ModelStubAcceptingAliasAdded extends ModelStub {
+        private AliasMapping aliasAdded;
 
         @Override
-        public boolean hasIssuableItem(String itemId) {
+        public boolean hasAliasableTarget(String targetId) {
+            requireNonNull(targetId);
             return true;
         }
 
         @Override
-        public boolean hasStudentId(StudentId studentId) {
-            return true;
+        public boolean hasAliasName(String aliasName) {
+            requireNonNull(aliasName);
+            return false;
         }
 
         @Override
-        public void addIssueRecord(IssueRecord issueRecord) {
-            issueRecordAdded = issueRecord;
+        public void addAliasMapping(AliasMapping aliasMapping) {
+            requireNonNull(aliasMapping);
+            aliasAdded = aliasMapping;
         }
     }
 }

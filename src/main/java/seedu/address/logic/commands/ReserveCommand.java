@@ -69,6 +69,13 @@ public class ReserveCommand extends Command {
                     existing.getFormattedEndDateTime()));
         }
 
+        String resolvedResourceId = model.resolveAlias(reservationToAdd.getResourceId());
+        Reservation resolvedReservation = new Reservation(
+                resolvedResourceId,
+                reservationToAdd.getStudentId(),
+                reservationToAdd.getStartDateTime(),
+                reservationToAdd.getEndDateTime());
+
         model.addReservation(reservationToAdd);
         return new CommandResult(String.format(
                 MESSAGE_SUCCESS,

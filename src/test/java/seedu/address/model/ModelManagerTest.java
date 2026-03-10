@@ -17,6 +17,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.alias.AliasMapping;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.StudentId;
@@ -44,6 +45,8 @@ public class ModelManagerTest {
     private static final IssueRecord HALL_TWO_ISSUE = new IssueRecord("Wilson-Evolution-Basketball-1",
             new StudentId("a1234567a"),
             LocalDateTime.of(2099, 3, 15, 17, 0));
+    private static final AliasMapping BASKETBALL_ALIAS =
+            new AliasMapping("Wilson-Evolution-Basketball-1", "b1");
     private ModelManager modelManager = new ModelManager();
 
     @Test
@@ -235,6 +238,90 @@ public class ModelManagerTest {
     @Test
     public void hasIssuableItem_invalidItem_returnsFalse() {
         assertFalse(modelManager.hasIssuableItem("Invalid-Item"));
+    }
+
+    @Test
+    public void hasAliasableTarget_nullTargetId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasAliasableTarget(null));
+    }
+
+    @Test
+    public void hasAliasableTarget_validRoom_returnsTrue() {
+        assertTrue(modelManager.hasAliasableTarget("Hall-2"));
+    }
+
+    @Test
+    public void hasAliasableTarget_validItem_returnsTrue() {
+        assertTrue(modelManager.hasAliasableTarget("Wilson-Evolution-Basketball-1"));
+    }
+
+    @Test
+    public void hasAliasableTarget_invalidTarget_returnsFalse() {
+        assertFalse(modelManager.hasAliasableTarget("Invalid-Target"));
+    }
+
+    @Test
+    public void hasAliasName_nullAliasName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasAliasName(null));
+    }
+
+    @Test
+    public void hasAliasName_aliasNotPresent_returnsFalse() {
+        assertFalse(modelManager.hasAliasName("b1"));
+    }
+
+    @Test
+    public void hasAliasName_aliasPresent_returnsTrue() {
+        modelManager.addAliasMapping(BASKETBALL_ALIAS);
+        assertTrue(modelManager.hasAliasName("b1"));
+    }
+
+    @Test
+    public void getAliasMappingByName_nullAliasName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.getAliasMappingByName(null));
+    }
+
+    @Test
+    public void getAliasMappingByName_aliasNotPresent_returnsEmpty() {
+        assertEquals(Optional.empty(), modelManager.getAliasMappingByName("b1"));
+    }
+
+    @Test
+    public void getAliasMappingByName_aliasPresent_returnsAliasMapping() {
+        modelManager.addAliasMapping(BASKETBALL_ALIAS);
+        assertEquals(Optional.of(BASKETBALL_ALIAS), modelManager.getAliasMappingByName("b1"));
+    }
+
+    @Test
+    public void addAliasMapping_nullAliasMapping_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addAliasMapping(null));
+    }
+
+    @Test
+    public void addAliasMapping_validAliasMapping_success() {
+        modelManager.addAliasMapping(BASKETBALL_ALIAS);
+        assertTrue(modelManager.getAliasMappingList().contains(BASKETBALL_ALIAS));
+    }
+
+    @Test
+    public void getAliasMappingList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getAliasMappingList().remove(0));
+    }
+
+    @Test
+    public void resolveAlias_nullInput_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.resolveAlias(null));
+    }
+
+    @Test
+    public void resolveAlias_aliasExists_returnsTargetId() {
+        modelManager.addAliasMapping(BASKETBALL_ALIAS);
+        assertEquals("WILSON-EVOLUTION-BASKETBALL-1", modelManager.resolveAlias("b1"));
+    }
+
+    @Test
+    public void resolveAlias_aliasDoesNotExist_returnsOriginalInput() {
+        assertEquals("Hall-2", modelManager.resolveAlias("Hall-2"));
     }
 
     @Test

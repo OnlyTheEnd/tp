@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.alias.AliasMapping;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
@@ -82,4 +83,17 @@ public interface Model {
     Optional<IssueRecord> getIssueRecordByItemId(String itemId);
     void addIssueRecord(IssueRecord issueRecord);
     ObservableList<IssueRecord> getIssueRecordList();
+
+    boolean hasAliasableTarget(String targetId);
+
+    boolean hasAliasName(String aliasName);
+
+    Optional<AliasMapping> getAliasMappingByName(String aliasName);
+
+    void addAliasMapping(AliasMapping aliasMapping);
+
+    ObservableList<AliasMapping> getAliasMappingList();
+
+    String resolveAlias(String input);
+
 }
