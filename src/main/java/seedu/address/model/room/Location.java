@@ -35,4 +35,24 @@ public class Location {
     public String toString() {
         return value;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Location)) {
+            return false;
+        }
+
+        Location otherLocation = (Location) other;
+        return value.equals(otherLocation.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

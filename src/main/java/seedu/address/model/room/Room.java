@@ -2,6 +2,8 @@ package seedu.address.model.room;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
+
 /**
  * Represents a Room in the system.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -61,10 +63,21 @@ public class Room {
         if (other == this) {
             return true;
         }
+
+        // instanceof handles nulls
         if (!(other instanceof Room)) {
             return false;
         }
+
         Room otherRoom = (Room) other;
-        return name.equals(otherRoom.name) && location.equals(otherRoom.location);
+        return name.equals(otherRoom.name)
+                && location.equals(otherRoom.location)
+                && status.equals(otherRoom.status);
+    }
+
+    @Override
+    public int hashCode() {
+        // use this to ensure consistent hashing for collections
+        return Objects.hash(name, location, status);
     }
 }

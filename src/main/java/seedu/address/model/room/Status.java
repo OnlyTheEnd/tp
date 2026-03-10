@@ -51,4 +51,23 @@ public class Status {
     public String toString() {
         return value;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Status)) {
+            return false;
+        }
+
+        Status otherStatus = (Status) other;
+        return value.equals(otherStatus.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

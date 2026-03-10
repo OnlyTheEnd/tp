@@ -36,4 +36,16 @@ public class RoomName {
     public String toString() {
         return fullName;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RoomName // instanceof handles nulls
+                && fullName.equals(((RoomName) other).fullName)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return fullName.hashCode();
+    }
 }

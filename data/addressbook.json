@@ -44,11 +44,11 @@
   } ],
   "rooms" : [ {
     "name" : "MPSH-1",
-    "location" : "Sports Centre",
+    "location" : "Sports-Centre",
     "status" : "Available"
   }, {
     "name" : "MPSH-5",
-    "location" : "Sports Centre",
+    "location" : "Sports-Centre",
     "status" : "Available"
   }, {
     "name" : "Sports-Hall-1",
@@ -62,6 +62,10 @@
     "name" : "Sports-Hall-2",
     "location" : "University-Town",
     "status" : "Available"
+  }, {
+    "name" : "MPSH-3",
+    "location" : "Sports-Centre",
+    "status" : "Booked"
   } ],
   "reservations" : [ ]
 }

@@ -52,6 +52,27 @@ public class UniqueRoomList implements Iterable<Room> {
     }
 
     /**
+     * Replaces the room {@code target} in the list with {@code editedRoom}.
+     * {@code target} must exist in the list.
+     * The room identity of {@code editedRoom} must not be the same as another existing room in the list.
+     */
+    public void setRoom(Room target, Room editedRoom) {
+        requireNonNull(target);
+        requireNonNull(editedRoom);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new RoomNotFoundException();
+        }
+
+        if (!target.isSameRoom(editedRoom) && contains(editedRoom)) {
+            throw new DuplicateRoomException();
+        }
+
+        internalList.set(index, editedRoom);
+    }
+
+    /**
      * Returns true if {@code rooms} contains only unique rooms.
      */
     private boolean roomsAreUnique(List<Room> rooms) {

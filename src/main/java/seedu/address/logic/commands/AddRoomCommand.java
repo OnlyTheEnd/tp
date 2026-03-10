@@ -50,4 +50,19 @@ public class AddRoomCommand extends Command {
         model.addRoom(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddRoomCommand)) {
+            return false;
+        }
+
+        AddRoomCommand otherAddRoomCommand = (AddRoomCommand) other;
+        return toAdd.equals(otherAddRoomCommand.toAdd);
+    }
 }
