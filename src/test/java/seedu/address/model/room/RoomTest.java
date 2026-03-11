@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalRooms.ROOM_A;
 import static seedu.address.testutil.TypicalRooms.ROOM_B;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.RoomBuilder;
 
 public class RoomTest {
