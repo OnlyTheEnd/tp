@@ -18,8 +18,23 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.StudentId;
 
+/**
+ * Parses input arguments and creates a new AddStudentCommand object
+ * Creates an AddStudentCommand to add the specified {@code Person}
+ *
+ * @return AddStudentCommand
+ * @throws ParseException if the user input does not conform the expected format
+ */
 public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddStudentCommand
+     * and returns an AddStudentCommand object for execution.
+     *
+     * @param args the input arguments
+     * @return AddStudentCommand
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddStudentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_NAME, PREFIX_STUDENT_ID, PREFIX_PHONE, PREFIX_EMAIL);

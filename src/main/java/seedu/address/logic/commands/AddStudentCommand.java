@@ -6,11 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 
-
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Adds a student profile to the database.
@@ -40,6 +39,10 @@ public class AddStudentCommand extends Command {
 
     private final Person toAdd;
 
+    /**
+     * Creates an AddStudentCommand to add the specified {@code Person}
+     * @param student
+     */
     public AddStudentCommand(Person student) {
         requireNonNull(student);
         toAdd = student;
