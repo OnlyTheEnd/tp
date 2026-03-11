@@ -30,6 +30,7 @@ public class DeleteStudentCommandParserTest {
 
         // Case insensitivity check
         assertParseSuccess(parser, "A1234567A", new DeleteStudentCommand(expectedId));
+        assertParseSuccess(parser, "A1234567a", new DeleteStudentCommand(expectedId));
     }
 
     @Test
