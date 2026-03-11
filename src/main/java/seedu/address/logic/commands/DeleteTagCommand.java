@@ -6,15 +6,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.room.Room;
+import seedu.address.model.room.RoomName;
 import seedu.address.model.tag.Tag;
 
 
 /**
  * Command class to delete a tag
  */
-public class DeleteTagCommand {
+public class DeleteTagCommand extends Command {
     public static final String COMMAND_WORD = "untag";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": untags an existing tag from an existing room in the system. "
             + "Parameters: "
@@ -26,7 +27,7 @@ public class DeleteTagCommand {
     public static final String MESSAGE_ERROR = "Failure! Untagging was unsuccessful";
 
 
-    private final Room roomName;
+    private final RoomName roomName;
     private final Tag roomTag;
 
     /**
@@ -35,7 +36,7 @@ public class DeleteTagCommand {
     public DeleteTagCommand(RoomName roomName, Tag roomTag) {
         requireNonNull(roomName);
 
-        this.room = new Room(roomName);
+        this.roomName = roomName;
         this.roomTag = roomTag;
     }
 
@@ -43,14 +44,13 @@ public class DeleteTagCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        requireNonNull(tag);
+        requireNonNull(roomTag);
 
-
-        if (!model.hasRoom(room)) {
+        if (!model.hasRoom(new Room(roomName))) {
             throw new CommandException(MESSAGE_ERROR);
         }
 
-        model.deleteTag(roomName, tag);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, tag));
+        model.deleteTag(roomName, roomTag);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, roomTag));
     }
 }

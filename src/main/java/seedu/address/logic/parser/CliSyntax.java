@@ -18,6 +18,5 @@ public class CliSyntax {
     /* Room command prefixes */
     public static final Prefix PREFIX_LOCATION = new Prefix("l/");
     public static final Prefix PREFIX_STATUS = new Prefix("s/");
-    public static final Prefix PREFIX_ROOM = new Prefix("r/");
 
 }

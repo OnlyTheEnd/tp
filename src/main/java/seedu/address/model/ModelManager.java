@@ -22,7 +22,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.reservation.Reservation;
 import seedu.address.model.room.Room;
-import seedu.address.model.room.UniqueRoomList;
+import seedu.address.model.room.RoomName;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -314,22 +314,25 @@ public class ModelManager implements Model {
         filteredRooms.setPredicate(predicate);
     }
 
-    //============ Add tags =================================================================================
+    //============ Add tags ================================================================================
     @Override
     public void addTag(RoomName roomName, Tag tag) {
         requireAllNonNull(roomName, tag);
-        Room room = addressBook.getRoomList().stream()
+        Room targetRoom = addressBook.getRoomList().stream()
                 .filter(room -> room.getName().equals(roomName))
-                .findFirst();
-        room.addTag(tag);
+                .findFirst()
+                .orElse(null);
+        assert targetRoom != null;
+        targetRoom.addTag(tag);
     }
 
     @Override
     public void deleteTag(RoomName roomName, Tag tag) {
-        requireAllNonNull(roomName, tags);
-        Room room = addressBook.getRoomList().stream()
+        requireAllNonNull(roomName, tag);
+        Room targetRoom = addressBook.getRoomList().stream()
                 .filter(room -> room.getName().equals(roomName))
-                .findFirst();
-        room.deleteTag(tag);
+                .findFirst()
+                .orElse(null);
+        targetRoom.deleteTag(tag);
     }
 }

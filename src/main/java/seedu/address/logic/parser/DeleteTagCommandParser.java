@@ -1,20 +1,22 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddTagCommand;
+import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.room.RoomName;
 import seedu.address.model.tag.Tag;
 
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class DeleteTagCommandParser implements Parser<AddTagCommand> {
+public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddTagCommand
@@ -22,26 +24,26 @@ public class DeleteTagCommandParser implements Parser<AddTagCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddTagCommand parse(String args) throws ParseException {
+    public DeleteTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
-                        PREFIX_ROOM, PREFIX_TAG);
+                        PREFIX_LOCATION, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap,
-                PREFIX_ROOM, PREFIX_TAG)
+                PREFIX_LOCATION, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(
-                PREFIX_ROOM, PREFIX_TAG);
+                PREFIX_LOCATION, PREFIX_TAG);
 
 
-        RoomName roomName = ParserUtil.parseRoomName(argMultimap.getValue(PREFIX_ROOM).get());
+        RoomName roomName = ParserUtil.parseRoomName(argMultimap.getValue(PREFIX_LOCATION).get());
         Tag roomTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
 
 
-        return new AddTagCommand(roomName, roomTag);
+        return new DeleteTagCommand(roomName, roomTag);
     }
 
     /**

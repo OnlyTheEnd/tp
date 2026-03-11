@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -13,6 +12,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.reservation.Reservation;
 import seedu.address.model.room.Room;
+import seedu.address.model.room.RoomName;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -99,7 +99,11 @@ public interface Model {
     String resolveAlias(String input);
 
     //============ Add tags =================================================================================
-    void addTag(RoomName roomName, Tag tag);
+    default void addTag(RoomName roomName, Tag tag) {
+        throw new UnsupportedOperationException("Not implemented.");
+    };
 
-    void deleteTag(RoomName roomName, Tag tag);
+    default void deleteTag(RoomName roomName, Tag tag) {
+        throw new UnsupportedOperationException("Not implemented.");
+    };
 }
