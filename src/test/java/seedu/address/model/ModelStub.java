@@ -1,11 +1,12 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Predicate;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.alias.AliasMapping;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
@@ -14,9 +15,7 @@ import seedu.address.model.reservation.Reservation;
 import seedu.address.model.room.RoomName;
 import seedu.address.model.tag.Tag;
 
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.function.Predicate;
+
 
 
 /**

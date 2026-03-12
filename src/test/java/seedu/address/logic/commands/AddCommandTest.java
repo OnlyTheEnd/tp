@@ -12,16 +12,12 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-
 import seedu.address.model.ModelStub;
 import seedu.address.model.ReadOnlyAddressBook;
-
 import seedu.address.model.person.Person;
-
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {

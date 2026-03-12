@@ -6,16 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.function.Predicate;
-
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.ModelStub;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ModelStub;
 import seedu.address.model.alias.AliasMapping;
-
 /**
  * Tests for {@link AliasCommand}.
  */

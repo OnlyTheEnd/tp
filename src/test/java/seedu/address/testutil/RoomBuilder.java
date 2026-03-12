@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.room.Location;
 import seedu.address.model.room.Room;
 import seedu.address.model.room.RoomName;
@@ -7,8 +10,7 @@ import seedu.address.model.room.Status;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  * A utility class to help with building Room objects.

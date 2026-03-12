@@ -10,7 +10,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-
 import seedu.address.model.ModelStub;
 import seedu.address.model.room.Room;
 import seedu.address.testutil.RoomBuilder;
