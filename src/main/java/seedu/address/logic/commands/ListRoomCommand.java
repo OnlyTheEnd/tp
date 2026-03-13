@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ROOMS;
 
 import java.util.List;
 
@@ -26,18 +25,16 @@ public class ListRoomCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        model.updateFilteredRoomList(Model.PREDICATE_SHOW_ALL_ROOMS);
         List<Room> lastShownList = model.getFilteredRoomList();
 
         if (lastShownList.isEmpty()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        StringBuilder sb = new StringBuilder(MESSAGE_SUCCESS + ":\n");
+        StringBuilder sb = new StringBuilder(MESSAGE_SUCCESS);
 
-        for (Room room : lastShownList) {
-            sb.append(room.toString()).append("\n");
-        }
-
-        return new CommandResult(sb.toString().trim());
+        return new CommandResult(sb.toString(), false, false, true);
     }
 }

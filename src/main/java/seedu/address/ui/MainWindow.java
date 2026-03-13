@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private RoomListPanel roomListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane roomListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -113,6 +117,12 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        roomListPanel = new RoomListPanel(logic.getFilteredRoomList());
+        roomListPanelPlaceholder.getChildren().add(roomListPanel.getRoot());
+
+        roomListPanelPlaceholder.setVisible(false);
+        roomListPanelPlaceholder.setManaged(false);
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -168,6 +178,34 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Shows the Room List and hides the Person List.
+     */
+    private void handleShowRoomList() {
+        personListPanelPlaceholder.setVisible(false);
+        personListPanelPlaceholder.setManaged(false);
+        roomListPanelPlaceholder.setVisible(true);
+        roomListPanelPlaceholder.setManaged(true);
+    }
+
+    /**
+     * Shows the Person List and hides the Room List.
+     */
+    private void handleShowPersonList() {
+        roomListPanelPlaceholder.setVisible(false);
+        roomListPanelPlaceholder.setManaged(false);
+        personListPanelPlaceholder.setVisible(true);
+        personListPanelPlaceholder.setManaged(true);
+    }
+
+    /**
+     * Returns the room list panel placeholder.
+     * This is package-private for testing purposes to hit Codecov targets.
+     */
+    StackPane getRoomListPanelPlaceholder() {
+        return roomListPanelPlaceholder;
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -184,6 +222,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowRoomList()) {
+                handleShowRoomList();
+            } else {
+                handleShowPersonList();
             }
 
             return commandResult;
