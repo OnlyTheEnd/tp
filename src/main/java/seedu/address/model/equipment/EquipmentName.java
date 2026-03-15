@@ -3,6 +3,10 @@ package seedu.address.model.equipment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Equipment's name in the system.
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ */
 public class EquipmentName {
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -15,6 +19,11 @@ public class EquipmentName {
 
     public final String fullName;
 
+    /**
+     * Constructs a {@code EquipmentName}.
+     *
+     * @param name A valid equipment name.
+     */
     public EquipmentName(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);

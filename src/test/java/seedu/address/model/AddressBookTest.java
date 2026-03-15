@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.alias.AliasMapping;
+import seedu.address.model.equipment.Equipment;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
@@ -165,6 +166,11 @@ public class AddressBookTest {
 
         @Override
         public ObservableList<AliasMapping> getAliasMappingList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public ObservableList<Equipment> getEquipmentList() {
             return FXCollections.observableArrayList();
         }
 

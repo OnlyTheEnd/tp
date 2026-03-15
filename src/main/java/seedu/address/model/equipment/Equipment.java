@@ -2,8 +2,10 @@ package seedu.address.model.equipment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.room.Status;
-
+/**
+ * Represents a Equipment in the system.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Equipment {
     private final EquipmentName name;
     private final String category;
@@ -19,6 +21,10 @@ public class Equipment {
         this.status = status;
     }
 
+    /**
+     * Returns true if both Equipment have the same name.
+     * This defines a weaker notion of equality between two equipments (used for duplicate checking).
+     */
     public boolean isSameEquipment(Equipment otherEquipment) {
         if (otherEquipment == this) {
             return true;
@@ -39,5 +45,26 @@ public class Equipment {
 
     public EquipmentStatus getStatus() {
         return status;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Equipment)) {
+            return false;
+        }
+
+        Equipment otherEquipment = (Equipment) other;
+        return name.equals(otherEquipment.getName())
+                && category.equals(otherEquipment.getCategory())
+                && status.equals(otherEquipment.getStatus());
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(name, category, status);
     }
 }

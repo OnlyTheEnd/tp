@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.alias.AliasMapping;
+import seedu.address.model.equipment.Equipment;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
@@ -188,6 +189,28 @@ public abstract class ModelStub implements Model {
     public void deleteTag(RoomName roomName, Tag tag) {
         throw new AssertionError("This method should not be called.");
     };
+
+    //=========== Equipment =============================================================
+
+    @Override
+    public boolean hasEquipment(Equipment equipment) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addEquipment(Equipment equipment) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Equipment> getFilteredEquipmentList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredEquipmentList(Predicate<Equipment> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
 }
 
 

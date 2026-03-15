@@ -11,7 +11,16 @@ import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
 
+/**
+ * Parses input arguments and creates a new AddEquipmentCommand object
+ */
 public class AddEquipmentCommandParser implements Parser<AddEquipmentCommand> {
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddEquipmentCommand
+     * and returns an AddEquipmentCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddEquipmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CATEGORY, PREFIX_STATUS);

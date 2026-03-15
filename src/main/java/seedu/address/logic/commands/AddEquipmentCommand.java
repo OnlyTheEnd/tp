@@ -9,6 +9,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.equipment.Equipment;
 
+/**
+ * Adds a equipment to the address book.
+ */
 public class AddEquipmentCommand extends Command {
     public static final String COMMAND_WORD = "add-e";
     public static final String MESSAGE_SUCCESS = "New Equipment Added:\nName: %1$s | Category: %2$s | Status: %3$s";
@@ -26,6 +29,9 @@ public class AddEquipmentCommand extends Command {
 
     private final Equipment toAdd;
 
+    /**
+     * Creates an AddEquipmentCommand to add the specified {@code Equipment}
+     */
     public AddEquipmentCommand(Equipment equipment) {
         requireNonNull(equipment);
         toAdd = equipment;
@@ -40,5 +46,24 @@ public class AddEquipmentCommand extends Command {
         model.addEquipment(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 toAdd.getName(), toAdd.getCategory(), toAdd.getStatus()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AddEquipmentCommand)) {
+            return false;
+        }
+
+        AddEquipmentCommand otherAddEquipmentCommand = (AddEquipmentCommand) other;
+        return toAdd.equals(otherAddEquipmentCommand.toAdd);
+    }
+
+    @Override
+    public int hashCode() {
+        return toAdd.hashCode();
     }
 }

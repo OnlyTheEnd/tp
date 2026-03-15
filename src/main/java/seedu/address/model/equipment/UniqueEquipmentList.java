@@ -3,10 +3,14 @@ package seedu.address.model.equipment;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.equipment.exceptions.DuplicateEquipmentException;
 
+/**
+ * A list of equipments that enforces uniqueness between its elements and does not allow nulls.
+ */
 public class UniqueEquipmentList implements Iterable<Equipment> {
 
     private final ObservableList<Equipment> internalList = FXCollections.observableArrayList();

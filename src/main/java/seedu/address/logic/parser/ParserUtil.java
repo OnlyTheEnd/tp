@@ -179,6 +179,12 @@ public class ParserUtil {
         return new EquipmentName(trimmedName);
     }
 
+    /**
+     * Parses a {@code String status} into an {@code EquipmentStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
+     */
     public static EquipmentStatus parseEquipmentStatus(String status) throws ParseException {
         requireNonNull(status);
         String trimmedStatus = status.trim();
