@@ -73,4 +73,16 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
     public Iterator<Equipment> iterator() {
         return internalList.iterator();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof UniqueEquipmentList
+                && internalList.equals(((UniqueEquipmentList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
 }
