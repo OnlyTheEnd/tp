@@ -44,21 +44,37 @@
     "name" : "MPSH-3",
     "location" : "Sports-Centre",
     "status" : "Booked"
+  }, {
+    "name" : "Sport-Hall-2",
+    "location" : "University-Town",
+    "status" : "Available"
+  }, {
+    "name" : "Outdoor-Basketball-Court",
+    "location" : "Kent-Ridge",
+    "status" : "Booked"
+  }, {
+    "name" : "Music-Room-1",
+    "location" : "YIH",
+    "status" : "Booked"
   } ],
   "reservations" : [ ],
   "issueRecords" : [ ],
   "aliasMappings" : [ ],
   "equipments" : [ {
-    "name" : "Wilson-Evolution-Basketball",
-    "category" : "Basketball",
+    "name" : "Wilson-Evolution",
+    "category" : "Baksteball",
     "status" : "Available"
   }, {
     "name" : "Molten-Volleyball",
     "category" : "Volleyball",
-    "status" : "Available"
+    "status" : "Damaged"
   }, {
     "name" : "Tchoukball-Frame",
-    "category" : "Tchoukball",
+    "category" : "Tchoukballs/Booked",
+    "status" : "Available"
+  }, {
+    "name" : "Spalding",
+    "category" : "Basketball",
     "status" : "Booked"
   } ]
 }

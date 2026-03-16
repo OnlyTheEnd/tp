@@ -31,7 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueReservationList reservations;
     private final UniqueIssueRecordList issueRecords;
     private final UniqueAliasMappingList aliasMappings;
-    private final UniqueEquipmentList equipments = new UniqueEquipmentList();
+    private final UniqueEquipmentList equipments;
 
     {
         persons = new UniquePersonList();
@@ -39,6 +39,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         reservations = new UniqueReservationList();
         issueRecords = new UniqueIssueRecordList();
         aliasMappings = new UniqueAliasMappingList();
+        equipments = new UniqueEquipmentList();
     }
 
     public AddressBook() {}
@@ -82,6 +83,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setRooms(newData.getRoomList());
         setReservations(newData.getReservationList());
         setIssueRecords(newData.getIssueRecordList());
+        setEquipments(newData.getEquipmentList());
     }
 
     /**
@@ -220,6 +222,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the equipment list with {@code equipments}.
+     */
+    public void setEquipments(List<Equipment> equipments) {
+        this.equipments.setEquipments(equipments);
+    }
+
+    @Override
+    public ObservableList<Equipment> getEquipmentList() {
+        return equipments.asUnmodifiableObservableList();
+    }
+
+    /**
      * Returns an unmodifiable view of the person list.
      */
     @Override
@@ -249,11 +263,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<IssueRecord> getIssueRecordList() {
         return issueRecords.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public ObservableList<Equipment> getEquipmentList() {
-        return equipments.asUnmodifiableObservableList();
     }
 
     @Override

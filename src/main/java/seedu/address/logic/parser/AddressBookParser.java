@@ -26,6 +26,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IssueCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEquipmentCommand;
 import seedu.address.logic.commands.ListRoomCommand;
 import seedu.address.logic.commands.ListStudentCommand;
 import seedu.address.logic.commands.ReserveCommand;
@@ -91,6 +92,9 @@ public class AddressBookParser {
 
         case AddEquipmentCommand.COMMAND_WORD:
             return new AddEquipmentCommandParser().parse(arguments);
+
+        case ListEquipmentCommand.COMMAND_WORD:
+            return new ListEquipmentCommandParser().parse(arguments);
 
         case ReserveCommand.COMMAND_WORD:
             return new ReserveCommandParser().parse(arguments);

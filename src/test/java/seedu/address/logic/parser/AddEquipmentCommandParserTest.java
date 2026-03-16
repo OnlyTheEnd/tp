@@ -38,11 +38,11 @@ public class AddEquipmentCommandParserTest {
     }
 
     @Test
-    public void parse_optionalStatusMissing_success() {
-        // Status should default to AVAILABLE if s/ is missing
-        Equipment expectedEquipment = new Equipment(new EquipmentName("Wilson-Evolution"),
-                "Basketball", EquipmentStatus.AVAILABLE);
-        assertParseSuccess(parser, " n/Wilson-Evolution c/Basketball", new AddEquipmentCommand(expectedEquipment));
+    public void parse_optionalStatusMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddEquipmentCommand.MESSAGE_USAGE);
+
+        assertParseFailure(parser, " n/Wilson-Basketball c/Basketball", expectedMessage);
     }
 }
 

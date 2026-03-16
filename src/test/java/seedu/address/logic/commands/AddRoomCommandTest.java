@@ -24,7 +24,12 @@ public class AddRoomCommandTest {
 
         CommandResult commandResult = new AddRoomCommand(validRoom).execute(modelStub);
 
-        assertEquals(String.format(AddRoomCommand.MESSAGE_SUCCESS, validRoom), commandResult.getFeedbackToUser());
+        String expectedMessage = String.format(AddRoomCommand.MESSAGE_SUCCESS,
+                validRoom.getName().fullName,
+                validRoom.getLocation().value,
+                validRoom.getStatus().value);
+
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validRoom), modelStub.roomsAdded);
     }
 

@@ -44,8 +44,12 @@ public class AddEquipmentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EQUIPMENT);
         }
         model.addEquipment(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                toAdd.getName(), toAdd.getCategory(), toAdd.getStatus()));
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, toAdd.getName(), toAdd.getCategory(), toAdd.getStatus()),
+                false, // showHelp
+                false, // exit
+                false, // showRoomList
+                true);
     }
 
     @Override

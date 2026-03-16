@@ -26,7 +26,7 @@ public class AddRoomCommand extends Command {
             + PREFIX_LOCATION + "Sports Centre "
             + PREFIX_STATUS + "Available";
 
-    public static final String MESSAGE_SUCCESS = "New room added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New room added: Name: %1$s | Location: %2$s | Status: %3$s";
     public static final String MESSAGE_DUPLICATE_ROOM = "This room already exists in the system!";
 
     private final Room toAdd;
@@ -48,7 +48,12 @@ public class AddRoomCommand extends Command {
         }
 
         model.addRoom(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, toAdd.getName(), toAdd.getLocation(), toAdd.getStatus()),
+                false, // showHelp
+                false, // exit
+                true, // showRoomList
+                false);
     }
 
     @Override
