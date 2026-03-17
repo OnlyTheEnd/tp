@@ -303,6 +303,42 @@ Possible errors:
 * Attempt to delete a room that is out of the room index list.
 * Attempt to delete a room that is having a ‘Booked’ status.
 
+### Add a new student profile : `add-s`
+
+Adds a new borrower in the database so they can begin borrowing items
+
+Format: `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL​`
+
+Examples:
+*  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
+
+Acceptable values:
+* Name: Alphabets only, no special characters or numbers
+* Matric number: Start with an alphabet followed by 7 digits and end with an alphabet.
+* Phone number: 8 digits continuous number
+* Email: Valid email format such as `name@domain.com`
+
+Duplicate handling:
+* If matric number, phone number or email already exist in the system, the command will be rejected to prevent duplicate identity.
+
+### Check a student's loans : `check-s`
+
+To check the list of equipment or venues loaned to a student.
+
+Format: `check-s MATRIC_NUMBER​`
+
+Examples:
+* `check-s A0123456B`
+
+Acceptable values:
+* Matric numbers must start with an alphabet followed by 7 digits and end with an alphabet
+
+Duplicate handling:
+* The system searches by the unique matric number, so there is no risk of returning the wrong student's data.
+
+Possible errors: 
+* No matric number in the system.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
