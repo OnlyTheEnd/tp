@@ -167,6 +167,98 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+### Reserving a facility/equipment: `reserve`
+
+Reserves a room or equipment for a student at a specified date and time.
+
+Format: `reserve ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+You can reserve facilities such as halls, courts, and multi-purpose rooms in advance to avoid double bookings.
+</div>
+
+* Creates a reservation for the specified item or room under the specified student.
+* The start and end date/time must be valid and the end date/time must be later than the start date/time.
+* The reservation will be rejected if it conflicts with an existing booking for the same item or room.
+
+Duplicate handling:
+* Duplicate or overlapping reservations are not allowed.
+* If the specified item or room is already reserved for the requested time period, the command will be rejected.
+
+Examples:
+* `reserve Hall-2 a1234567a f/2026-03-01 1400 t/2026-03-01 1600`
+* `reserve MPSH-1 a1234567a f/2026-03-10 0900 t/2026-03-10 1200`
+
+![reserve command screenshot](images/reserveCommand.png)
+
+Possible errors:
+* Invalid `ITEM_OR_ROOM_ID`
+* Invalid `STUDENT_ID`
+* Invalid date/time format
+* End time is earlier than start time
+* Reservation conflicts with an existing booking
+
+### Issuing an equipment item: `issue`
+
+Issues an equipment item to a student with a due date and time for return.
+
+Format: `issue ITEM_ID STUDENT_ID d/DUE_DATE_TIME`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use this command to keep track of borrowed equipment and who is responsible for returning it.
+</div>
+
+* Issues the specified equipment item to the specified student.
+* The due date/time must be in the future and follow the format `yyyy-MM-dd HHmm`.
+* The command will be rejected if the item is already issued to another student.
+
+Duplicate handling:
+* If the item is already issued, the system will reject the command.
+* The system will show the current holder of the item and its due date/time.
+
+Examples:
+* `issue Wilson-Evolution-Basketball-1 A1203763K d/2026-03-05 1700`
+* `issue Molten-Volleyball A1206789J d/2026-03-02 1200`
+
+![issue command screenshot](images/issueCommand.png)
+
+
+Possible errors:
+* Invalid `ITEM_ID`
+* Invalid `STUDENT_ID`
+* Item is already issued
+* Invalid due date/time format
+* Due date/time is in the past
+
+### Creating an alias: `alias`
+
+Creates a short alias for an equipment item or room.
+
+Format: `alias ITEM_OR_ROOM_ID ALIAS_NAME`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Aliases are useful for long item or room IDs, especially during busy periods when faster command entry is helpful.
+</div>
+
+* Assigns a short alias to the specified item or room.
+* `ALIAS_NAME` should be a short string containing letters, numbers, or underscores.
+* Each alias must be unique across the system.
+
+Duplicate handling:
+* Duplicate aliases are not allowed.
+* If the alias is already in use, the command will be rejected.
+
+Examples:
+* `alias Wilson-Evolution-Basketball-1 b1`
+* `alias MPSH-1 hall1`
+
+![alias command screenshot](images/aliasCommand.png)
+
+
+Possible errors:
+* Invalid `ITEM_OR_ROOM_ID`
+* Alias already exists
+
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
