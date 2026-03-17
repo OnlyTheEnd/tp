@@ -19,13 +19,34 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private final boolean showRoomList;
+
+    private final boolean showEquipmentList;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showRoomList,
+                         boolean showEquipmentList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.showRoomList = showRoomList;
+        this.showEquipmentList = showEquipmentList;
+    }
+
+    /**
+     * Update the existing constructor to set showRoomList to false by default.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showRoomList) {
+        this(feedbackToUser, showHelp, exit, showRoomList, false);
+    }
+
+    /**
+     * Update the existing constructor to set defaults for all list toggles.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, false, false);
     }
 
     /**
@@ -33,7 +54,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -48,13 +69,20 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isShowRoomList() {
+        return showRoomList;
+    }
+
+    public boolean isShowEquipmentList() {
+        return showEquipmentList;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof CommandResult)) {
             return false;
         }
@@ -62,12 +90,14 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showRoomList == otherCommandResult.showRoomList
+                && showEquipmentList == otherCommandResult.showEquipmentList;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, showRoomList, showEquipmentList);
     }
 
     @Override
@@ -76,6 +106,8 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("showRoomList", showRoomList)
+                .add("showEquipmentList", showEquipmentList)
                 .toString();
     }
 

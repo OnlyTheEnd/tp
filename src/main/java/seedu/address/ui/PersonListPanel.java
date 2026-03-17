@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,6 +10,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,16 +26,24 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<Person> personList, ObservableList<IssueRecord> issueRecordList) {
         super(FXML);
         personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new PersonListViewCell(issueRecordList));
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using
+     * a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {
+
+        private final ObservableList<IssueRecord> allLoans;
+
+        public PersonListViewCell(ObservableList<IssueRecord> allLoans) {
+            this.allLoans = allLoans;
+        }
+
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
@@ -41,9 +52,13 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                // Filter loans for this specific person's student ID
+                List<IssueRecord> studentLoans = allLoans.stream()
+                        .filter(loan -> loan.getStudentId().equals(person.getStudentId()))
+                        .collect(Collectors.toList());
+
+                setGraphic(new PersonCard(person, getIndex() + 1, studentLoans).getRoot());
             }
         }
     }
-
 }

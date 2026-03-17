@@ -1,0 +1,60 @@
+package seedu.address.logic.commands;
+
+
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.tag.Tag;
+
+/**
+ * Filter and displays list based on tag to user
+ */
+public class FilterTagCommand extends Command {
+    public static final String COMMAND_WORD = "filter";
+
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters out all room/equipment by tag"
+            + "Parameters: "
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_LOCATION
+            + PREFIX_TAG + "Renovation\n"
+            + COMMAND_WORD + " "
+            + PREFIX_CATEGORY
+            + PREFIX_TAG + "Spoilt";
+
+    public static final String MESSAGE_SUCCESS = "Success! List of %1$s tagged with %2$s shown";
+    public static final String MESSAGE_ERROR = "Failure! Target type or tag not specified";
+
+    private final String targetType;
+    private final Tag targetTag;
+    /**
+     * Creates an FilterTagCommand to the specified tag
+     */
+    public FilterTagCommand(String targetType, Tag targetTag) {
+        requireNonNull(targetType);
+        requireNonNull(targetTag);
+        this.targetType = targetType;
+        this.targetTag = targetTag;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        if (targetType.equals("Room")) {
+            model.updateFilteredRoomList(room -> room.getTags().contains(targetTag));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, targetType, targetTag),
+                    false, false, true, false);
+        } else if (targetType.equals("Equipment")) {
+            model.updateFilteredEquipmentList(equipment -> equipment.getTags().contains(targetTag));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, targetType, targetTag),
+                    false, false, false, true);
+        } else {
+            throw new CommandException(MESSAGE_ERROR);
+        }
+    }
+}

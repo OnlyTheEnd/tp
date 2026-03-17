@@ -31,10 +31,9 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Lim Zi En
 
-<img src="images/0nlytheend.png" width="200px">
+<img src="images/onlytheend.png" width="200px">
 
-[[homepage](https://github.com/AY2526S2-CS2103T-T14-4)]
-[[github](https://github.com/0Nly)]
+[[github](https://github.com/OnlyTheEnd)]
 
 * Role: Developer
 * Responsibilities: Docs

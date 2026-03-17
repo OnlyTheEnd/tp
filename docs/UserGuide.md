@@ -6,7 +6,11 @@ title: User Guide
 AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
 
 * Table of Contents
-{:toc}
+  * [Quick start](#quick-start)
+  * [Features](#features)
+  * [FAQ](#faq)
+  * [Known issues](#known-issues)
+  * [Command summary](#command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -47,10 +51,10 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John-Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `n/NAME [t/TAG]` can be used as `n/John-Doe t/friend` or as `n/John-Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -177,6 +181,162 @@ Duplicate handling:
 
 Possible errors: 
 * No matric number in the system. 
+### Adding an equipment : `add-e`
+
+Adds a new piece of physical equipment into the inventory so it can be tracked and loaned.
+
+Format: `add-e n/NAME c/CATEGORY s/STATUS`
+
+Acceptable values:
+* Name: Alphanumeric characters and spaces. Cannot be empty. Multiple spaces between words are collapsed into a single space (e.g., John   Doe becomes John Doe). Case-sensitive for display.
+* Category: Single word alphabetic. Cannot be empty.
+* Status: Available, Booked, Maintenance, Damaged. Cannot be empty. Case-insensitive (e.g. available is accepted).
+* Parameters can be in any order.
+  e.g. if the command specifies n/NAME c/CATEGORY s/STATUS, c/CATEGORY n/NAME s/STATUS is also acceptable.
+
+Duplicate handling:
+* Case-insensitive for duplicate checking. If you have multiple equipment of the same name and category, it should be named with a number as “Basketball-1”, “Basketball-2”, etc.
+
+Examples:
+* `add-e n/Wilson-Evolution-Basketball c/Basketball s/Available`.
+* `add-e n/Yonex-Astrox c/Badminton s/Booked`.
+
+Outputs:
+* Success
+![addEquipmentSuccess.png](images/addEquipmentSuccess.png)
+* Failure
+![addEquipmentFail.png](images/addEquipmentFail.png)
+
+Possible errors:
+* Invalid command such as missing n/, c/, and s/ prefix
+
+### View equipment inventory list : `list-e`
+
+Displays a complete list of all equipment currently stored in the inventory, including their status and category.
+
+Format: `list-e`
+
+Acceptable values:
+* Only accepts `list-e`.
+
+Duplicate handling:
+* Not applicable for a view command.
+
+Examples:
+* `list-e`.
+
+Outputs:
+* Success
+  ![viewEquipmentListSuccess.png](images/viewEquipmentListSuccess.png)
+* Failure <br>
+  Inventory list has not been created. Please proceed to add equipment first.
+
+Possible errors:
+* Inventory list has not been created.
+* Any extra input after `list-e`, (e.g. `list-e Basketball`, `list-e 123` etc.) will be invalid command.
+
+### Delete equipment from inventory list : `delete-e`
+
+Deletes equipment from the inventory.
+
+Format: `delete-e INDEX`
+
+Acceptable values:
+* Index: Positive integer corresponding to the current displayed list from `list-e`.
+
+Duplicate handling:
+* Not applicable for a delete command.
+
+Examples:
+* `delete-e 7`.
+
+Outputs:
+* Success
+  ![deleteEquipmentSuccess.png](images/deleteEquipmentSuccess.png)
+* Failure
+  ![deleteEquipmentFail.png](images/deleteEquipmentFail.png)
+
+Possible errors:
+* Attempt to delete an equipment that is out of the inventory index list.
+* Attempt to delete an equipment that is having a ‘Booked’ status.
+
+### Adding a room : `add-r`
+
+Adds a new facility or venue into the system.
+
+Format: `add-r n/NAME l/LOCATION s/STATUS`
+
+Acceptable values:
+* Name and Category: Alphanumeric characters and spaces. Cannot be empty. Multiple spaces between words are collapsed into a single space (e.g., John   Doe becomes John Doe). Case-sensitive for display.
+* Status: Available, Booked, Maintenance. Cannot be empty. Case-insensitive (e.g. available is accepted).
+* Parameters can be in any order.
+  e.g. if the command specifies n/NAME l/LOCATION s/STATUS, l/LOCATION n/NAME s/STATUS is also acceptable.
+
+Duplicate handling:
+* Case-insensitive for duplicate checking. Only one physical "MPSH-1" exists, therefore duplicate names would cause booking conflicts and error.
+
+Examples:
+* `add-r n/MPSH-2 l/Sports-Centre s/Available`.
+* `add-r n/Sports-Hall-2 l/University-Town s/Booked`.
+
+Outputs:
+* Success
+  ![addRoomSuccess.png](images/addRoomSuccess.png)
+* Failure
+  ![addRoomFail.png](images/addRoomFail.png)
+
+Possible errors:
+* Invalid command such as missing n/, l/, and s/ prefix
+
+### View room list : `list-r`
+
+Displays a complete list of all facilities and rooms managed by the system, showing their location and status.
+
+Format: `list-r`
+
+Acceptable values:
+* Only accepts `list-r`.
+
+Duplicate handling:
+* Not applicable for a view command.
+
+Examples:
+* `list-r`.
+
+Outputs:
+* Success
+  ![viewRoomListSuccess.png](images/viewRoomListSuccess.png)
+* Failure <br>
+  Room list has not been created. Please proceed to add room first.
+
+Possible errors:
+* Room list has not been created.
+* Any extra input after `list-r`, (e.g, `list-r Sports-Hall`, `list-r YIH` etc.) will be invalid command.
+
+### Delete a room : `delete-r`
+
+Deletes a room equipment from the room list.
+
+Format: `delete-r INDEX`
+
+Acceptable values:
+* Index: Positive integer corresponding to the current displayed list.
+
+Duplicate handling:
+* Not applicable for a delete command.
+
+Examples:
+* `delete-r 3`.
+
+Outputs:
+* Success
+  ![deleteRoomSucces.png](images/deleteRoomSucces.png)
+* Failure
+  ![deleteRoomFail.png](images/deleteRoomFail.png)
+
+Possible errors:
+* Attempt to delete a room that is out of the room index list.
+* Attempt to delete a room that is having a ‘Booked’ status.
 
 ### Clearing all entries : `clear`
 
@@ -202,6 +362,98 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
+
+### Reserving a facility/equipment: `reserve`
+
+Reserves a room or equipment for a student at a specified date and time.
+
+Format: `reserve ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+You can reserve facilities such as halls, courts, and multi-purpose rooms in advance to avoid double bookings.
+</div>
+
+* Creates a reservation for the specified item or room under the specified student.
+* The start and end date/time must be valid and the end date/time must be later than the start date/time.
+* The reservation will be rejected if it conflicts with an existing booking for the same item or room.
+
+Duplicate handling:
+* Duplicate or overlapping reservations are not allowed.
+* If the specified item or room is already reserved for the requested time period, the command will be rejected.
+
+Examples:
+* `reserve Hall-2 a1234567a f/2026-03-01 1400 t/2026-03-01 1600`
+* `reserve MPSH-1 a1234567a f/2026-03-10 0900 t/2026-03-10 1200`
+
+![reserve command screenshot](images/reserveCommand.png)
+
+Possible errors:
+* Invalid `ITEM_OR_ROOM_ID`
+* Invalid `STUDENT_ID`
+* Invalid date/time format
+* End time is earlier than start time
+* Reservation conflicts with an existing booking
+
+### Issuing an equipment item: `issue`
+
+Issues an equipment item to a student with a due date and time for return.
+
+Format: `issue ITEM_ID STUDENT_ID d/DUE_DATE_TIME`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use this command to keep track of borrowed equipment and who is responsible for returning it.
+</div>
+
+* Issues the specified equipment item to the specified student.
+* The due date/time must be in the future and follow the format `yyyy-MM-dd HHmm`.
+* The command will be rejected if the item is already issued to another student.
+
+Duplicate handling:
+* If the item is already issued, the system will reject the command.
+* The system will show the current holder of the item and its due date/time.
+
+Examples:
+* `issue Wilson-Evolution-Basketball-1 A1203763K d/2026-03-05 1700`
+* `issue Molten-Volleyball A1206789J d/2026-03-02 1200`
+
+![issue command screenshot](images/issueCommand.png)
+
+
+Possible errors:
+* Invalid `ITEM_ID`
+* Invalid `STUDENT_ID`
+* Item is already issued
+* Invalid due date/time format
+* Due date/time is in the past
+
+### Creating an alias: `alias`
+
+Creates a short alias for an equipment item or room.
+
+Format: `alias ITEM_OR_ROOM_ID ALIAS_NAME`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Aliases are useful for long item or room IDs, especially during busy periods when faster command entry is helpful.
+</div>
+
+* Assigns a short alias to the specified item or room.
+* `ALIAS_NAME` should be a short string containing letters, numbers, or underscores.
+* Each alias must be unique across the system.
+
+Duplicate handling:
+* Duplicate aliases are not allowed.
+* If the alias is already in use, the command will be rejected.
+
+Examples:
+* `alias Wilson-Evolution-Basketball-1 b1`
+* `alias MPSH-1 hall1`
+
+![alias command screenshot](images/aliasCommand.png)
+
+
+Possible errors:
+* Invalid `ITEM_OR_ROOM_ID`
+* Alias already exists
 
 ### Archiving data files `[coming in v2.0]`
 

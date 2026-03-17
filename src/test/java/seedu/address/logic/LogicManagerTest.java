@@ -3,10 +3,10 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.STUDENT_ID_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
@@ -20,9 +20,12 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteRoomCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListRoomCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -32,6 +35,8 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.RoomBuilder;
+import seedu.address.testutil.TypicalRooms;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
@@ -165,11 +170,39 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Triggers the saveAddressBook method by executing an add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + STUDENT_ID_DESC_AMY
+                + PHONE_DESC_AMY + EMAIL_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_listRoom_success() throws Exception {
+        AddressBook typicalAddressBook = TypicalRooms.getTypicalAddressBook();
+        model.setAddressBook(typicalAddressBook);
+
+        String listRoomCommand = ListRoomCommand.COMMAND_WORD;
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        assertCommandSuccess(listRoomCommand, ListRoomCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_emptyRoomList_throwsCommandException() {
+        model.setAddressBook(new AddressBook());
+
+        String listRoomCommand = ListRoomCommand.COMMAND_WORD;
+        assertCommandFailure(listRoomCommand, CommandException.class, ListRoomCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void execute_deleteRoom_success() throws Exception {
+        model.addRoom(new RoomBuilder().withName("RoomToEmpty").build());
+        String deleteCommand = DeleteRoomCommand.COMMAND_WORD + " 1";
+
+        assertCommandSuccess(deleteCommand, String.format(DeleteRoomCommand.MESSAGE_DELETE_ROOM_SUCCESS,
+                model.getFilteredRoomList().get(0)), model);
     }
 }

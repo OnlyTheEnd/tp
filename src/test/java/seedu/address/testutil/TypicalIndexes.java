@@ -9,4 +9,12 @@ public class TypicalIndexes {
     public static final Index INDEX_FIRST_PERSON = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_PERSON = Index.fromOneBased(2);
     public static final Index INDEX_THIRD_PERSON = Index.fromOneBased(3);
+
+    public static final Index INDEX_FIRST_ROOM = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_ROOM = Index.fromOneBased(2);
+    public static final Index INDEX_THIRD_ROOM = Index.fromOneBased(3);
+
+    public static final Index INDEX_FIRST_EQUIPMENT = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_EQUIPMENT = Index.fromOneBased(2);
+    public static final Index INDEX_THIRD_EQUIPMENT = Index.fromOneBased(3);
 }

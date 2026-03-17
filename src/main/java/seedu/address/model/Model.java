@@ -1,11 +1,20 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.alias.AliasMapping;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.StudentId;
+import seedu.address.model.reservation.Reservation;
+import seedu.address.model.room.Room;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Taggable;
 
 /**
  * The API of the Model component.
@@ -14,74 +23,102 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
-     */
+    /** {@code Predicate} that always evaluate to true for rooms */
+    Predicate<Room> PREDICATE_SHOW_ALL_ROOMS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Equipment> PREDICATE_SHOW_ALL_EQUIPMENT = unused -> true;
+
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
-    /**
-     * Returns the user prefs.
-     */
     ReadOnlyUserPrefs getUserPrefs();
 
-    /**
-     * Returns the user prefs' GUI settings.
-     */
     GuiSettings getGuiSettings();
 
-    /**
-     * Sets the user prefs' GUI settings.
-     */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
     Path getAddressBookFilePath();
 
-    /**
-     * Sets the user prefs' address book file path.
-     */
     void setAddressBookFilePath(Path addressBookFilePath);
 
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
     boolean hasPerson(Person person);
 
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
     void deletePerson(Person target);
 
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
     void addPerson(Person person);
 
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    default void addRoom(Room room) {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
+
+    default boolean hasRoom(Room room) {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
+
+    default void deleteRoom(Room target) {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
+
+    default ObservableList<Room> getFilteredRoomList() {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
+
+    default void updateFilteredRoomList(Predicate<Room> predicate) {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
+
+    boolean hasStudentId(StudentId studentId);
+
+    boolean hasReservableItem(String resourceId);
+
+    boolean hasConflictingReservation(Reservation reservation);
+
+    Optional<Reservation> getConflictingReservation(Reservation reservation);
+
+    void addReservation(Reservation reservation);
+
+    ObservableList<Reservation> getReservationList();
+    boolean hasIssuableItem(String itemId);
+    boolean hasIssuedItem(String itemId);
+    Optional<IssueRecord> getIssueRecordByItemId(String itemId);
+    void addIssueRecord(IssueRecord issueRecord);
+    ObservableList<IssueRecord> getIssueRecordList();
+
+    boolean hasAliasableTarget(String targetId);
+
+    boolean hasAliasName(String aliasName);
+
+    Optional<AliasMapping> getAliasMappingByName(String aliasName);
+
+    void addAliasMapping(AliasMapping aliasMapping);
+
+    ObservableList<AliasMapping> getAliasMappingList();
+
+    String resolveAlias(String input);
+
+    boolean hasEquipment(Equipment equipment);
+
+    void addEquipment(Equipment equipment);
+
+    void deleteEquipment(Equipment target);
+
+    ObservableList<Equipment> getFilteredEquipmentList();
+
+    void updateFilteredEquipmentList(Predicate<Equipment> predicate);
+
+    boolean hasTaggable(Taggable target);
+
+    void addTag(Taggable target, Tag tag);
+
+    void deleteTag(Taggable target, Tag tag);
 }

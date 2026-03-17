@@ -1,7 +1,12 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.alias.AliasMapping;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.reservation.Reservation;
+import seedu.address.model.room.Room;
 
 /**
  * Unmodifiable view of an address book
@@ -10,8 +15,31 @@ public interface ReadOnlyAddressBook {
 
     /**
      * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
 
+    /**
+     * Returns an unmodifiable view of the rooms list.
+     */
+    default ObservableList<Room> getRoomList() {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
+
+    /**
+     * Returns an unmodifiable view of the reservations list.
+     */
+    ObservableList<Reservation> getReservationList();
+    /**
+     * Returns an unmodifiable view of the issue record list.
+     */
+    ObservableList<IssueRecord> getIssueRecordList();
+    /**
+     * Returns an unmodifiable view of the AliasMappingList.
+     */
+    ObservableList<AliasMapping> getAliasMappingList();
+
+    /**
+     * Returns an unmodifiable view of the equipment list.
+     */
+    ObservableList<Equipment> getEquipmentList();
 }

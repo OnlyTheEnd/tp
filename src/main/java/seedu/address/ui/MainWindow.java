@@ -32,6 +32,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private RoomListPanel roomListPanel;
+    private EquipmentListPanel equipmentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +45,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane roomListPanelPlaceholder;
+
+    @FXML
+    private StackPane equipmentListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -110,8 +118,20 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.getIssueRecordList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        roomListPanel = new RoomListPanel(logic.getFilteredRoomList());
+        roomListPanelPlaceholder.getChildren().add(roomListPanel.getRoot());
+
+        roomListPanelPlaceholder.setVisible(false);
+        roomListPanelPlaceholder.setManaged(false);
+
+        equipmentListPanel = new EquipmentListPanel(logic.getFilteredEquipmentList());
+        equipmentListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
+
+        equipmentListPanelPlaceholder.setVisible(false);
+        equipmentListPanelPlaceholder.setManaged(false);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -121,6 +141,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.getIssueRecordList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
     /**
@@ -168,6 +191,50 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Shows the Room List and hides the Person List.
+     */
+    private void handleShowEquipmentList() {
+        personListPanelPlaceholder.setVisible(false);
+        personListPanelPlaceholder.setManaged(false);
+        roomListPanelPlaceholder.setVisible(false);
+        roomListPanelPlaceholder.setManaged(false);
+        equipmentListPanelPlaceholder.setVisible(true);
+        equipmentListPanelPlaceholder.setManaged(true);
+    }
+
+    /**
+     * Shows the Room List and hides the Person List.
+     */
+    private void handleShowRoomList() {
+        personListPanelPlaceholder.setVisible(false);
+        personListPanelPlaceholder.setManaged(false);
+        roomListPanelPlaceholder.setVisible(true);
+        roomListPanelPlaceholder.setManaged(true);
+        equipmentListPanelPlaceholder.setVisible(false);
+        equipmentListPanelPlaceholder.setManaged(false);
+    }
+
+    /**
+     * Shows the Person List and hides the Room List.
+     */
+    private void handleShowPersonList() {
+        roomListPanelPlaceholder.setVisible(false);
+        roomListPanelPlaceholder.setManaged(false);
+        personListPanelPlaceholder.setVisible(true);
+        personListPanelPlaceholder.setManaged(true);
+        equipmentListPanelPlaceholder.setVisible(false);
+        equipmentListPanelPlaceholder.setManaged(false);
+    }
+
+    /**
+     * Returns the room list panel placeholder.
+     * This is package-private for testing purposes to hit Codecov targets.
+     */
+    StackPane getRoomListPanelPlaceholder() {
+        return roomListPanelPlaceholder;
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -184,6 +251,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowEquipmentList()) {
+                handleShowEquipmentList();
+            } else if (commandResult.isShowRoomList()) {
+                handleShowRoomList();
+            } else {
+                handleShowPersonList();
             }
 
             return commandResult;

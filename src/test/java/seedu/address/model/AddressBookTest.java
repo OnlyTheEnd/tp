@@ -3,7 +3,6 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -13,13 +12,19 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.alias.AliasMapping;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.StudentId;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.reservation.Reservation;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -29,6 +34,9 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getReservationList());
+        assertEquals(Collections.emptyList(), addressBook.getIssueRecordList());
+        assertEquals(Collections.emptyList(), addressBook.getAliasMappingList());
     }
 
     @Test
@@ -45,8 +53,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
@@ -73,7 +80,7 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
@@ -84,9 +91,51 @@ public class AddressBookTest {
     }
 
     @Test
+    public void getReservationList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getReservationList().remove(0));
+    }
+
+    @Test
+    public void getIssueRecordList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getIssueRecordList().remove(0));
+    }
+
+    @Test
+    public void getAliasMappingList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getAliasMappingList().remove(0));
+    }
+
+    @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
+        String expected = AddressBook.class.getCanonicalName()
+                + "{persons=" + addressBook.getPersonList()
+                + ", reservations=" + addressBook.getReservationList()
+                + ", issueRecords=" + addressBook.getIssueRecordList()
+                + ", aliasMappings=" + addressBook.getAliasMappingList() + "}";
         assertEquals(expected, addressBook.toString());
+    }
+
+    @Test
+    public void hasIssuedItem_nullItemId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasIssuedItem(null));
+    }
+
+    @Test
+    public void hasIssuedItem_itemNotIssued_returnsFalse() {
+        assertFalse(addressBook.hasIssuedItem("Wilson-Evolution-Basketball-1"));
+    }
+
+    @Test
+    public void addIssueRecord_andGetIssueRecordByItemId_success() {
+        IssueRecord issueRecord = new IssueRecord("Wilson-Evolution-Basketball-1",
+                new StudentId("a1234567a"),
+                java.time.LocalDateTime.of(2099, 3, 15, 17, 0));
+
+        addressBook.addIssueRecord(issueRecord);
+
+        assertTrue(addressBook.hasIssuedItem("Wilson-Evolution-Basketball-1"));
+        assertEquals(Optional.of(issueRecord),
+                addressBook.getIssueRecordByItemId("Wilson-Evolution-Basketball-1"));
     }
 
     /**
@@ -103,6 +152,57 @@ public class AddressBookTest {
         public ObservableList<Person> getPersonList() {
             return persons;
         }
+
+        @Override
+        public ObservableList<Reservation> getReservationList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public ObservableList<IssueRecord> getIssueRecordList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public ObservableList<AliasMapping> getAliasMappingList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public ObservableList<Equipment> getEquipmentList() {
+            return FXCollections.observableArrayList();
+        }
+
+    }
+    @Test
+    public void hasAliasName_nullAliasName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasAliasName(null));
     }
 
+    @Test
+    public void hasAliasName_aliasNotPresent_returnsFalse() {
+        assertFalse(addressBook.hasAliasName("b1"));
+    }
+
+    @Test
+    public void hasAliasName_aliasPresent_returnsTrue() {
+        AliasMapping aliasMapping = new AliasMapping("Wilson-Evolution-Basketball-1", "b1");
+        addressBook.addAliasMapping(aliasMapping);
+        assertTrue(addressBook.hasAliasName("b1"));
+    }
+
+    @Test
+    public void getAliasMappingByName_nullAliasName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.getAliasMappingByName(null));
+    }
+
+    @Test
+    public void addAliasMapping_andGetAliasMappingByName_success() {
+        AliasMapping aliasMapping = new AliasMapping("Wilson-Evolution-Basketball-1", "b1");
+
+        addressBook.addAliasMapping(aliasMapping);
+
+        assertTrue(addressBook.hasAliasName("b1"));
+        assertEquals(Optional.of(aliasMapping), addressBook.getAliasMappingByName("b1"));
+    }
 }

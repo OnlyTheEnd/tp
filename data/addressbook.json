@@ -1,0 +1,106 @@
+{
+  "persons" : [ {
+    "name" : "Bernice Yu",
+    "studentId" : "a2345678b",
+    "phone" : "99272758",
+    "email" : "berniceyu@u.nus.edu",
+    "tags" : [ ]
+  }, {
+    "name" : "Charlotte Oliveiro",
+    "studentId" : "a3456789c",
+    "phone" : "93210283",
+    "email" : "charlotte@u.nus.edu",
+    "tags" : [ ]
+  }, {
+    "name" : "David Li",
+    "studentId" : "a4567890d",
+    "phone" : "91031282",
+    "email" : "lidavid@u.nus.edu",
+    "tags" : [ ]
+  }, {
+    "name" : "Roy Balakrishnan",
+    "studentId" : "a6789012f",
+    "phone" : "92624417",
+    "email" : "royb@u.nus.edu",
+    "tags" : [ ]
+  }, {
+    "name" : "Alice Pauline",
+    "studentId" : "a1234567a",
+    "phone" : "94351253",
+    "email" : "alice@u.nus.edu",
+    "tags" : [ ]
+  } ],
+  "rooms" : [ {
+    "name" : "MPSH-1",
+    "location" : "Sports-Centre",
+    "status" : "Available"
+  }, {
+    "name" : "Sports-Hall-1",
+    "location" : "University-Town",
+    "status" : "Booked"
+  }, {
+    "name" : "Outdoor-Tennis-Court",
+    "location" : "Kent-Ridge",
+    "status" : "Available"
+  }, {
+    "name" : "MPSH-3",
+    "location" : "Sports-Centre",
+    "status" : "Booked"
+  }, {
+    "name" : "Outdoor-Basketball-Court",
+    "location" : "Kent-Ridge",
+    "status" : "Booked"
+  }, {
+    "name" : "Music-Room-1",
+    "location" : "YIH",
+    "status" : "Booked"
+  }, {
+    "name" : "Outdoor-Volleyball-Court",
+    "location" : "Kent-Ridge",
+    "status" : "Booked"
+  }, {
+    "name" : "Sports-Hall-2",
+    "location" : "University-Town",
+    "status" : "Booked"
+  }, {
+    "name" : "Sport-Hall-2",
+    "location" : "University-Town",
+    "status" : "Booked"
+  } ],
+  "reservations" : [ ],
+  "issueRecords" : [ {
+    "itemId" : "WILSON-EVOLUTION-BASKETBALL-1",
+    "studentId" : "a3456789c",
+    "dueDateTime" : "2026-03-25 1700"
+  }, {
+    "itemId" : "MOLTEN-VOLLEYBALL",
+    "studentId" : "a3456789c",
+    "dueDateTime" : "2026-03-18 1200"
+  } ],
+  "aliasMappings" : [ ],
+  "equipments" : [ {
+    "name" : "Wilson-Evolution",
+    "category" : "Basketball",
+    "status" : "Available"
+  }, {
+    "name" : "Molten-Volleyball",
+    "category" : "Volleyball",
+    "status" : "Damaged"
+  }, {
+    "name" : "Tchoukball-Frame",
+    "category" : "Tchoukball",
+    "status" : "Maintenance"
+  }, {
+    "name" : "Track-Stand",
+    "category" : "Track-and-Field",
+    "status" : "Available"
+  }, {
+    "name" : "Yonex-Astrox",
+    "category" : "Badminton",
+    "status" : "Booked"
+  }, {
+    "name" : "Li Ning",
+    "category" : "Badminton",
+    "status" : "Available"
+  } ]
+}
