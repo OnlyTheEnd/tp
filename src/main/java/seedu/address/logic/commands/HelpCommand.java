@@ -200,28 +200,29 @@ public class HelpCommand extends Command {
 
         entries.put("tag",
                 "Gives an equipment or room a tag for categorisation.\n"
-                        + "Format: tag EQUIPMENT_OR_ROOM_ID TAG_DESCRIPTION\n"
-                        + "Example: tag MPSH-1 renovation");
+                        + "Format: tag l/ROOM_NAME t/TAG_DESCRIPTION\n"
+                        + "tag l/MPSH-1 t/renovation\n"
+                        + "Example: tag c/EQUIPMENT_NAME t/TAG_DESCRIPTION\n"
+                        + "Example: tag c/Wilson-Evolution-Basketball-1 t/spoilt");
+
+
 
         entries.put("untag",
                 "Removes a tag from an equipment or room.\n"
-                        + "Format: untag EQUIPMENT_OR_ROOM_ID TAG_DESCRIPTION\n"
-                        + "Example: untag Wilson-Evolution-Basketball-1 spoilt");
+                        + "Format: untag l/ROOM_NAME t/TAG_DESCRIPTION\n"
+                        + "Format: untag l/MPSH-1 t/renovation\n"
+                        + "Example: untag c/EQUIPMENT_NAME t/TAG_DESCRIPTION\n"
+                        + "Example: untag c/Wilson-Evolution-Basketball-1 t/spoilt");
 
-        entries.put("filter-e",
-                "Filters equipment by tag.\n"
-                        + "Format: filter-e TAG\n"
-                        + "Example: filter-e spoilt");
+        entries.put("filter",
+                "Filters equipment/room by tag.\n"
+                        + "Format: filter c/ t/TAG\n"
+                        + "Format: filter l/ t/tag"
+                        + "Example: filter c/ t/spoilt\n"
+                        + "filter l/ t/renovation\n");
 
-        entries.put("filter-r",
-                "Filters rooms by tag.\n"
-                        + "Format: filter-r TAG\n"
-                        + "Example: filter-r renovation");
 
-        entries.put("filter-s",
-                "Filters students by tag.\n"
-                        + "Format: filter-s TAG\n"
-                        + "Example: filter-s overdue");
+
 
         return entries;
     }
