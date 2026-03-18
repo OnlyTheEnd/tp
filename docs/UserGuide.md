@@ -10,28 +10,29 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
 * Table of Contents
 {:toc}
-  * [Quick start](#quick-start)
-  * [Features](#features)
-  * [FAQ](#faq)
-  * [Known issues](#known-issues)
-  * [Command summary](#command-summary)
+  * [Quick start](#1-quick-start)
+  * [Features](#2-features)
+  * [Data management](#3-data-management)
+  * [FAQ](#4-faq)
+  * [Known issues](#5-known-issues)
+  * [Command summary](#6-command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## 1. Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `TrackMasterPro.jar` file [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for TrackMasterPro.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar TrackMasterPro.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` : Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
@@ -40,11 +41,11 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## 2. Features
 
 <div markdown="block" class="alert alert-info">
 
@@ -65,16 +66,9 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
+### 2.1 Equipment Management
 
-Shows a message explaining how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
-
-### Adding an equipment : `add-e`
+#### Adding an equipment : `add-e`
 
 Adds a new piece of physical equipment into the inventory so it can be tracked and loaned.
 
@@ -103,7 +97,7 @@ Outputs:
 Possible errors:
 * Invalid command such as missing n/, c/, and s/ prefix
 
-### View equipment inventory list : `list-e`
+#### View equipment inventory list : `list-e`
 
 Displays a complete list of all equipment currently stored in the inventory, including their status and category.
 
@@ -128,7 +122,7 @@ Possible errors:
 * Inventory list has not been created.
 * Any extra input after `list-e`, (e.g. `list-e Basketball`, `list-e 123` etc.) will be invalid command.
 
-### Delete equipment from inventory list : `delete-e`
+#### Delete equipment from inventory list : `delete-e`
 
 Deletes equipment from the inventory.
 
@@ -153,7 +147,9 @@ Possible errors:
 * Attempt to delete an equipment that is out of the inventory index list.
 * Attempt to delete an equipment that is having a ‘Booked’ status.
 
-### Adding a room : `add-r`
+### 2.2 Facility & Venue Management
+
+#### Adding a room : `add-r`
 
 Adds a new facility or venue into the system.
 
@@ -181,7 +177,7 @@ Outputs:
 Possible errors:
 * Invalid command such as missing n/, l/, and s/ prefix
 
-### View room list : `list-r`
+#### View room list : `list-r`
 
 Displays a complete list of all facilities and rooms managed by the system, showing their location and status.
 
@@ -206,7 +202,7 @@ Possible errors:
 * Room list has not been created.
 * Any extra input after `list-r`, (e.g, `list-r Sports-Hall`, `list-r YIH` etc.) will be invalid command.
 
-### Delete a room : `delete-r`
+#### Delete a room : `delete-r`
 
 Deletes a room equipment from the room list.
 
@@ -231,20 +227,22 @@ Possible errors:
 * Attempt to delete a room that is out of the room index list.
 * Attempt to delete a room that is having a ‘Booked’ status.
 
-### Add a new student profile : `add-s`
+### 2.3 Borrower Management
 
-Adds a new borrower in the database so they can begin borrowing items
+#### Add a new student profile : `add-s`
+
+Adds a new borrower in the database so they can begin borrowing items or booking facilities.
 
 Format: `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL​`
 
 Examples:
 *  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
 
-Acceptable values:
-* Name: Alphabets only, no special characters or numbers
-* Matric number: Start with an alphabet followed by 7 digits and end with an alphabet.
-* Phone number: 8 digits continuous number
-* Email: Valid email format such as `name@domain.com`
+**Acceptable values:**
+* **Name:** Alphabets and spaces only. No special characters or numbers.
+* **Matric number:** Must follow the NUS format (e.g., A0123456B).
+* **Phone number:** 8-digit continuous Singaporean mobile number.
+* **Email:** Valid email format (e.g., `e0123456@u.nus.edu`).
 
 Outputs:
 * Success
@@ -256,7 +254,7 @@ Duplicate handling:
 * If matric number, phone number or email already exist in the system, the command will be rejected to prevent duplicate identity.
 ![AddStudentDuplicate.png](images/AddStudentDuplicate.png)
 
-### Check a student's loans : `check-s`
+#### Check a student's loans : `check-s`
 
 To check the list of equipment or venues loaned to a student.
 
@@ -280,7 +278,7 @@ Duplicate handling:
 Possible errors:
 * No matric number in the system.
 
-### Display all students : `list-s`
+#### Display all students : `list-s`
 
 To display a list of all registered borrowers in the system.
 
@@ -288,7 +286,7 @@ Format: `list-s​`
 
 ![ListStudentsSuccess.png](images/ListStudentsSuccess.png)
 
-### Delete a student's profile : `delete-s`
+#### Delete a student's profile : `delete-s`
 
 To permanently delete a borrower’s record from the system database.
 
@@ -305,32 +303,9 @@ Acceptable values:
 Possible errors:
 * No matric number in the system.
 
-### Clearing all entries : `clear`
+### 2.4 Loans & Reservations
 
-Clears all entries from the address book.
-
-Format: `clear`
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
-
-### Saving the data
-
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-TrackMasterPro data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, TrackMasterPro will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the TrackMasterPro to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</div>
-
-### Reserving a facility/equipment: `reserve`
+#### Reserving a facility/equipment: `reserve`
 
 Reserves a room or equipment for a student at a specified date and time.
 
@@ -361,7 +336,7 @@ Possible errors:
 * End time is earlier than start time
 * Reservation conflicts with an existing booking
 
-### Issuing an equipment item: `issue`
+#### Issuing an equipment item: `issue`
 
 Issues an equipment item to a student with a due date and time for return.
 
@@ -423,9 +398,9 @@ Examples:
 * Alias already exists
 
 
-### 2.4 Tag and filter:
+### 2.4 Tag & Filter:
 
-### Tagging an equipment or room: `tag`
+#### Tagging an item or room: `tag`
 
 Tags an equipment item or room with a label for categorisation.
 
@@ -433,6 +408,10 @@ Format: `tag c/EQUIPMENT_NAME t/TAG` or `tag l/ROOM_NAME t/TAG`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Tags are useful for categorising equipment or rooms, such as marking items as spoilt or rooms under renovation.
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip for IHG:**
+Tag equipment as `t/IHG_RESERVED` during competition weeks to quickly filter items that should not be loaned out for casual use.
 </div>
 
 * Assigns a tag to the specified equipment item or room.
@@ -456,7 +435,7 @@ Possible errors:
 
 ---
 
-### Removing a tag from an equipment or room: `untag`
+#### Removing a tag from an equipment or room: `untag`
 
 Removes an existing tag from an equipment item or room.
 
@@ -486,7 +465,7 @@ Possible errors:
 
 ---
 
-### Filtering by tag: `filter`
+#### Filtering by tag: `filter`
 
 Filters equipment items or rooms by a specified tag.
 
@@ -512,34 +491,75 @@ Possible errors:
 * No equipment or rooms found with the specified tag
 * Missing command indicators, e.g. missing `t/`
 
-### Archiving data files `[coming in v2.0]`
+### 2.5 System Utilities
+
+#### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
 
+#### Viewing help : `help`
+
+Shows a message explaining how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
+#### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+## 3. Data Management
+
+### Automatic Saving
+
+TrackMasterPro data is saved in the local storage automatically after any command that changes the data. There is no need to save manually.
+
+### Manual Data Editing
+
+TrackMasterPro data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If your changes to the data file makes its format invalid, TrackMasterPro will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the TrackMasterPro to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+</div>
+
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## 4. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TrackMasterPro home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+## 5. Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## 6. Command summary
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add Equipment** | `add-e n/NAME c/CATEGORY s/STATUS` <br> e.g., `add-e n/Wilson-Evolution-Basketball c/Basketball s/Available`
+**List Equipment** | `list-e`
+**Delete Equipment**| `delete-e INDEX` <br> e.g., `delete-e 3`
+**Add Room** | `add-r n/NAME l/LOCATION s/STATUS` <br> e.g., `add-r n/MPSH-2 l/Sports-Centre s/Available`
+**List Rooms** | `list-r`
+**Delete Room** | `delete-r INDEX` <br> e.g., `delete-r 1`
+**Add Student** | `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL` <br> e.g., `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu`
+**Check Loans** | `check-s MATRIC_NUMBER` <br> e.g., `check-s A0123456B`
+**List Students** | `list-s`
+**Delete Student** | `delete-s MATRIC_NUMBER` <br> e.g., `delete-s A0123456B`
+**Reserve** | `reserve ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME` <br> e.g., `reserve Hall-2 a1234567a f/2026-03-01 1400 t/2026-03-01 1600`
+**Issue** | `issue ITEM_ID STUDENT_ID d/DUE_DATE_TIME` <br> e.g., `issue Wilson-Basketball-1 A1203763K d/2026-03-05 1700`
+**Tag** | `tag [c/EQUIPMENT_NAME | l/ROOM_NAME] t/TAG` <br> e.g., `tag c/Basketball-1 t/spoilt`
+**Filter** | `filter [c/ | l/] t/TAG` <br> e.g., `filter l/ t/renovation`
+**Alias** | `alias ITEM_OR_ROOM_ID ALIAS_NAME` <br> e.g., `alias MPSH-1 hall1`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
+**Exit** | `exit`
