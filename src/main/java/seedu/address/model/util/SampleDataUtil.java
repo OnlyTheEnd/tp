@@ -6,11 +6,18 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.EquipmentName;
+import seedu.address.model.equipment.EquipmentStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.StudentId;
+import seedu.address.model.room.Location;
+import seedu.address.model.room.Room;
+import seedu.address.model.room.RoomName;
+import seedu.address.model.room.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,11 +47,37 @@ public class SampleDataUtil {
         };
     }
 
+    public static Room[] getSampleRooms() {
+        return new Room[] {
+                new Room(new RoomName("MPSH-1"),new Location("Sports-Centre"), new Status("Available")),
+                new Room(new RoomName("Sports-Hall-1"),new Location("University-Town"), new Status("Booked")),
+                new Room(new RoomName("Outdoor-Tennis-Court"),new Location("Kent-Ridge"), new Status("Available")),
+                new Room(new RoomName("Music-Room-1"),new Location("YIH"), new Status("Booked"))
+        };
+    }
+
+    public static Equipment[] getSampleEquipments() {
+        return new Equipment[] {
+                new Equipment(new EquipmentName("Wilson-Evolution"), "Basketball", EquipmentStatus.AVAILABLE),
+                new Equipment(new EquipmentName("Molten-Volleyball"), "Volleyball", EquipmentStatus.MAINTENANCE),
+                new Equipment(new EquipmentName("Track-Stand"), "Track-and-Field", EquipmentStatus.BOOKED)
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
+
+        for (Room sampleRoom : getSampleRooms()) {
+            sampleAb.addRoom(sampleRoom);
+        }
+
+        for (Equipment sampleEquipment : getSampleEquipments()) {
+            sampleAb.addEquipment(sampleEquipment);
+        }
+
         return sampleAb;
     }
 
