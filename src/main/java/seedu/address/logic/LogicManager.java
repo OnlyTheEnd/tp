@@ -18,6 +18,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.reservation.Reservation;
 import seedu.address.model.room.Room;
 import seedu.address.storage.Storage;
 
@@ -28,7 +29,7 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
 
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT = "Could not save data to file %s due to insufficient"
-        + "permissions to write to the file or the folder.";
+            + "permissions to write to the file or the folder.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -103,5 +104,10 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<IssueRecord> getIssueRecordList() {
         return model.getIssueRecordList();
+    }
+
+    @Override
+    public ObservableList<Reservation> getReservationList() {
+        return model.getReservationList();
     }
 }

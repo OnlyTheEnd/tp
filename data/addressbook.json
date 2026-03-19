@@ -76,7 +76,6 @@
     "status" : "Booked",
     "tags" : [ ]
   } ],
-  "reservations" : [ ],
   "issueRecords" : [ {
     "itemId" : "WILSON-EVOLUTION-BASKETBALL-1",
     "studentId" : "a3456789c",
