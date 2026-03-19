@@ -24,7 +24,7 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
      */
     public boolean contains(Equipment toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameEquipment);
+        return internalList.stream().anyMatch(toCheck::isSameEquipmentName);
     }
 
     /**

@@ -58,36 +58,40 @@
   }, {
     "name" : "Music-Room-1",
     "location" : "YIH",
-    "status" : "Booked"
+    "status" : "Booked",
+    "tags" : [ ]
   }, {
     "name" : "Outdoor-Volleyball-Court",
     "location" : "Kent-Ridge",
-    "status" : "Booked"
+    "status" : "Booked",
+    "tags" : [ ]
   }, {
     "name" : "Sports-Hall-2",
     "location" : "University-Town",
-    "status" : "Booked"
+    "status" : "Booked",
+    "tags" : [ ]
   }, {
     "name" : "Sport-Hall-2",
     "location" : "University-Town",
-    "status" : "Booked"
+    "status" : "Booked",
+    "tags" : [ ]
   } ],
   "reservations" : [ ],
   "issueRecords" : [ {
     "itemId" : "WILSON-EVOLUTION-BASKETBALL-1",
     "studentId" : "a3456789c",
-    "dueDateTime" : "2026-03-25 1700"
+    "dueDateTime" : "2027-03-25 1700"
   }, {
     "itemId" : "MOLTEN-VOLLEYBALL",
     "studentId" : "a3456789c",
-    "dueDateTime" : "2026-03-18 1200"
+    "dueDateTime" : "2027-03-18 1200"
   } ],
   "aliasMappings" : [ ],
   "equipments" : [ {
     "name" : "Wilson-Evolution",
     "category" : "Basketball",
     "status" : "Available",
-    "tags" : [ ]
+    "tags" : [ "orange" ]
   }, {
     "name" : "Molten-Volleyball",
     "category" : "Volleyball",
@@ -101,14 +105,17 @@
   }, {
     "name" : "Track-Stand",
     "category" : "Track-and-Field",
-    "status" : "Available"
+    "status" : "Available",
+    "tags" : [ ]
   }, {
     "name" : "Yonex-Astrox",
     "category" : "Badminton",
-    "status" : "Booked"
+    "status" : "Booked",
+    "tags" : [ ]
   }, {
     "name" : "Li Ning",
     "category" : "Badminton",
-    "status" : "Available"
+    "status" : "Available",
+    "tags" : [ ]
   } ]
 }

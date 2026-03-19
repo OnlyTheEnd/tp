@@ -50,8 +50,8 @@ public class AddTagCommand extends Command {
         requireNonNull(model);
 
         //Ensure that target is inside storage
-        if (model.hasTaggable(target)) {
-            throw new CommandException(MESSAGE_ERROR);
+        if (!model.hasTaggable(target)) {
+            throw new CommandException(MESSAGE_ERROR + "cannot find");
         }
 
         model.addTag(target, tag);

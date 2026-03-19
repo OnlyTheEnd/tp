@@ -68,6 +68,18 @@ public class Equipment extends Taggable {
                 && otherEquipment.getCategory().equalsIgnoreCase(getCategory());
     }
 
+    /**
+     * Returns true if both Equipment have the same name.
+     * This defines a weaker notion of equality between two equipments (used for duplicate checking).
+     */
+    public boolean isSameEquipmentName(Equipment otherEquipment) {
+        if (otherEquipment == this) {
+            return true;
+        }
+        return otherEquipment != null && otherEquipment.getName().equals(getName());
+    }
+
+
     public EquipmentName getName() {
         return name;
     }

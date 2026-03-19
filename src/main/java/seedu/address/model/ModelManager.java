@@ -359,11 +359,11 @@ public class ModelManager implements Model {
     @Override
     public boolean hasTaggable(Taggable target) {
         if (target instanceof Room targetRoom) {
-            return !hasRoom(targetRoom);
+            return hasRoom(targetRoom);
         } else if (target instanceof Equipment targetEquipment) {
-            return !hasEquipment(targetEquipment);
+            return hasEquipment(targetEquipment);
         } else {
-            return true;
+            return false;
         }
     }
 
