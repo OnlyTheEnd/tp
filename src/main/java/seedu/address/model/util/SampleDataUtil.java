@@ -21,22 +21,22 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new StudentId("A1234567A"),
                 new Phone("87438807"), new Email("alexyeoh@u.nus.edu"),
-                getTagSet("")),
+                getTagSet()),
             new Person(new Name("Bernice Yu"), new StudentId("A2345678B"),
                 new Phone("99272758"), new Email("berniceyu@u.nus.edu"),
-                getTagSet("")),
+                getTagSet()),
             new Person(new Name("Charlotte Oliveiro"), new StudentId("A3456789C"),
                 new Phone("93210283"), new Email("charlotte@u.nus.edu"),
-                getTagSet("")),
+                getTagSet()),
             new Person(new Name("David Li"), new StudentId("A4567890D"),
                 new Phone("91031282"), new Email("lidavid@u.nus.edu"),
-                getTagSet("")),
+                getTagSet()),
             new Person(new Name("Irfan Ibrahim"), new StudentId("A5678901E"),
                 new Phone("92492021"), new Email("irfan@u.nus.edu"),
-                getTagSet("")),
+                getTagSet()),
             new Person(new Name("Roy Balakrishnan"), new StudentId("A6789012F"),
                 new Phone("92624417"), new Email("royb@u.nus.edu"),
-                getTagSet(""))
+                getTagSet())
         };
     }
 
