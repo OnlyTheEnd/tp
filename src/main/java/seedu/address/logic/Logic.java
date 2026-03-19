@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.reservation.Reservation;
 import seedu.address.model.room.Room;
 
 /**
@@ -61,4 +62,9 @@ public interface Logic {
      * Returns an unmodifiable view of the list of issue records.
      */
     ObservableList<IssueRecord> getIssueRecordList();
+
+    /**
+     * Returns an unmodifiable view of the list of reservations.
+     */
+    ObservableList<Reservation> getReservationList();
 }

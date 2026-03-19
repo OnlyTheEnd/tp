@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.reservation.Reservation;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -43,7 +44,7 @@ public class PersonCard extends UiPart<Region> {
      * Creates a {@code PersonCard} with the given {@code Person} and index to
      * display.
      */
-    public PersonCard(Person person, int displayedIndex, List<IssueRecord> loans) {
+    public PersonCard(Person person, int displayedIndex, List<IssueRecord> loans, List<Reservation> reservations) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
@@ -73,6 +74,20 @@ public class PersonCard extends UiPart<Region> {
                     loanLabel.setStyle("-fx-text-fill: #FF4B4B;");
                 }
                 loansContainer.getChildren().add(loanLabel);
+            });
+        }
+
+        if (reservations.isEmpty()) {
+            Label noRes = new Label("No reservations");
+            noRes.getStyleClass().add("cell_small_label");
+            loansContainer.getChildren().add(noRes);
+        } else {
+            reservations.forEach(res -> {
+                Label resLabel = new Label(
+                        "[RESERVED] " + res.getResourceId() + " (" + res.getFormattedStartDateTime() + ")");
+                resLabel.getStyleClass().add("cell_small_label");
+                resLabel.setStyle("-fx-text-fill: #FFD700;"); // Gold
+                loansContainer.getChildren().add(resLabel);
             });
         }
     }

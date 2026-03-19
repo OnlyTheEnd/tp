@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
+import seedu.address.model.reservation.Reservation;
 
 /**
  * Panel containing the list of persons.
@@ -26,10 +27,11 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Person> personList, ObservableList<IssueRecord> issueRecordList) {
+    public PersonListPanel(ObservableList<Person> personList, ObservableList<IssueRecord> issueRecordList,
+                                ObservableList<Reservation> reservationList) {
         super(FXML);
         personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell(issueRecordList));
+        personListView.setCellFactory(listView -> new PersonListViewCell(issueRecordList, reservationList));
     }
 
     /**
@@ -39,9 +41,11 @@ public class PersonListPanel extends UiPart<Region> {
     class PersonListViewCell extends ListCell<Person> {
 
         private final ObservableList<IssueRecord> allLoans;
+        private final ObservableList<Reservation> allReservations;
 
-        public PersonListViewCell(ObservableList<IssueRecord> allLoans) {
+        public PersonListViewCell(ObservableList<IssueRecord> allLoans, ObservableList<Reservation> allReservations) {
             this.allLoans = allLoans;
+            this.allReservations = allReservations;
         }
 
         @Override
@@ -57,7 +61,11 @@ public class PersonListPanel extends UiPart<Region> {
                         .filter(loan -> loan.getStudentId().equals(person.getStudentId()))
                         .collect(Collectors.toList());
 
-                setGraphic(new PersonCard(person, getIndex() + 1, studentLoans).getRoot());
+                List<Reservation> studentReservations = allReservations.stream()
+                        .filter(res -> res.getStudentId().equals(person.getStudentId()))
+                        .collect(Collectors.toList());
+
+                setGraphic(new PersonCard(person, getIndex() + 1, studentLoans, studentReservations).getRoot());
             }
         }
     }
