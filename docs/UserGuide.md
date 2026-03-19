@@ -368,7 +368,7 @@ Possible errors:
 * Invalid due date/time format
 * Due date/time is in the past
 
-### Creating an alias: `alias`
+#### Creating an alias: `alias`
 
 Creates a short alias for an equipment item or room.
 
