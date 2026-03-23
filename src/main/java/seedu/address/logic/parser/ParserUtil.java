@@ -166,9 +166,6 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String name} into an {@code EquipmentName}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
      */
     public static EquipmentName parseEquipmentName(String name) throws ParseException {
         requireNonNull(name);
@@ -179,6 +176,9 @@ public class ParserUtil {
         return new EquipmentName(trimmedName);
     }
 
+    /**
+     * Parses a {@code String category} into an {@code String}.
+     */
     public static String parseCategory(String category) throws ParseException {
         requireNonNull(category);
         String trimmedCategory = category.trim();
@@ -190,9 +190,6 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String status} into an {@code EquipmentStatus}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code status} is invalid.
      */
     public static EquipmentStatus parseEquipmentStatus(String status) throws ParseException {
         requireNonNull(status);

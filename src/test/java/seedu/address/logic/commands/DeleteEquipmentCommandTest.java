@@ -32,8 +32,7 @@ public class DeleteEquipmentCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteEquipment(equipmentToDelete);
 
-        // Match the UI flag: showEquipmentList = true
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, false, true);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, false, false, true);
 
         assertCommandSuccess(deleteCommand, model, expectedCommandResult, expectedModel);
     }

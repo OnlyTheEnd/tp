@@ -14,6 +14,9 @@ import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
 
+/**
+ * Edits the details of an existing equipment.
+ */
 public class EditEquipmentCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-e";
@@ -32,6 +35,10 @@ public class EditEquipmentCommand extends Command {
     private final Index index;
     private final EditEquipmentDescriptor editEquipmentDescriptor;
 
+    /**
+     * @param index of the equipment in the filtered equipment list to edit
+     * @param editEquipmentDescriptor details to edit the equipment with
+     */
     public EditEquipmentCommand(Index index, EditEquipmentDescriptor editEquipmentDescriptor) {
         this.index = index;
         this.editEquipmentDescriptor = new EditEquipmentDescriptor(editEquipmentDescriptor);
@@ -59,7 +66,8 @@ public class EditEquipmentCommand extends Command {
                 false, false, false, false, true);
     }
 
-    private static Equipment createEditedEquipment(Equipment equipmentToEdit, EditEquipmentDescriptor editEquipmentDescriptor) {
+    private static Equipment createEditedEquipment(Equipment equipmentToEdit,
+                                                   EditEquipmentDescriptor editEquipmentDescriptor) {
         EquipmentName updatedName = editEquipmentDescriptor.getName().orElse(equipmentToEdit.getName());
         String updatedCategory = editEquipmentDescriptor.getCategory().orElse(equipmentToEdit.getCategory());
         EquipmentStatus updatedStatus = editEquipmentDescriptor.getStatus().orElse(equipmentToEdit.getStatus());
