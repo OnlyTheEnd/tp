@@ -77,6 +77,19 @@ public class EditRoomCommand extends Command {
         return new Room(updatedName, updatedLocation, updatedStatus);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof EditRoomCommand)) {
+            return false;
+        }
+        EditRoomCommand e = (EditRoomCommand) other;
+        return index.equals(e.index)
+                && editRoomDescriptor.equals(e.editRoomDescriptor);
+    }
+
     /**
      * Stores the details to edit the room with.
      */
