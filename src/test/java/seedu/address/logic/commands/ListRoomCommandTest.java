@@ -29,7 +29,7 @@ public class ListRoomCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         CommandResult expectedCommandResult = new CommandResult(
-                ListRoomCommand.MESSAGE_SUCCESS, false, false, true); // true for showRoomList
+                ListRoomCommand.MESSAGE_SUCCESS, false, true, false);
         assertCommandSuccess(new ListRoomCommand(), model, expectedCommandResult, expectedModel);
     }
 

@@ -73,6 +73,26 @@ public class UniqueEquipmentList implements Iterable<Equipment> {
     }
 
     /**
+     * Replaces the equipment {@code target} in the list with {@code editedEquipment}.
+     * {@code target} must exist in the list.
+     */
+    public void setEquipment(Equipment target, Equipment editedEquipment) {
+        requireNonNull(target);
+        requireNonNull(editedEquipment);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new EquipmentNotFoundException();
+        }
+
+        if (!target.isSameEquipment(editedEquipment) && contains(editedEquipment)) {
+            throw new DuplicateEquipmentException();
+        }
+
+        internalList.set(index, editedEquipment);
+    }
+
+    /**
      * Returns true if {@code equipments} contains only unique equipment.
      */
     private boolean equipmentsAreUnique(List<Equipment> equipments) {

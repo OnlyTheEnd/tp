@@ -231,7 +231,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
      */
     public void removeEquipment(Equipment key) {
         equipments.remove(key);
@@ -242,6 +241,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setEquipments(List<Equipment> equipments) {
         this.equipments.setEquipments(equipments);
+    }
+
+    /**
+     * Replaces the given equipment {@code target} in the list with {@code editedEquipment}.
+     */
+    public void setEquipment(Equipment target, Equipment editedEquipment) {
+        requireNonNull(editedEquipment);
+        equipments.setEquipment(target, editedEquipment);
     }
 
     @Override

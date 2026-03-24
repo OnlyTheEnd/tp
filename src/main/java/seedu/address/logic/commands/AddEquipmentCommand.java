@@ -46,10 +46,7 @@ public class AddEquipmentCommand extends Command {
         model.addEquipment(toAdd);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, toAdd.getName(), toAdd.getCategory(), toAdd.getStatus()),
-                false, // showHelp
-                false, // exit
-                false, // showRoomList
-                true);
+                false, false, false, false, true);
     }
 
     @Override

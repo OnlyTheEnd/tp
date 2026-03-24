@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EQUIPMENT;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EQUIPMENTS;
 
 import seedu.address.model.Model;
 
@@ -17,8 +17,9 @@ public class ListEquipmentCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredEquipmentList(PREDICATE_SHOW_ALL_EQUIPMENT);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+        model.updateFilteredEquipmentList(PREDICATE_SHOW_ALL_EQUIPMENTS);
+        return new CommandResult(MESSAGE_SUCCESS,
+                false, false, false, false, true);
     }
 
     @Override

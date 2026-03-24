@@ -19,6 +19,8 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private final boolean showPersonList;
+
     private final boolean showRoomList;
 
     private final boolean showEquipmentList;
@@ -26,27 +28,30 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showRoomList,
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPersonList,
+                         boolean showRoomList,
                          boolean showEquipmentList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.showPersonList = showPersonList;
         this.showRoomList = showRoomList;
         this.showEquipmentList = showEquipmentList;
-    }
-
-    /**
-     * Update the existing constructor to set showRoomList to false by default.
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showRoomList) {
-        this(feedbackToUser, showHelp, exit, showRoomList, false);
     }
 
     /**
      * Update the existing constructor to set defaults for all list toggles.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, false);
+        this(feedbackToUser, showHelp, exit, false, false, false);
+    }
+
+    /**
+     * Constructor for toggling specific views without exit/help flags.
+     */
+    public CommandResult(String feedbackToUser, boolean showPersonList,
+                         boolean showRoomList, boolean showEquipmentList) {
+        this(feedbackToUser, false, false, showPersonList, showRoomList, showEquipmentList);
     }
 
     /**
@@ -54,7 +59,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false,
+                false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -67,6 +73,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowPersonList() {
+        return showPersonList;
     }
 
     public boolean isShowRoomList() {

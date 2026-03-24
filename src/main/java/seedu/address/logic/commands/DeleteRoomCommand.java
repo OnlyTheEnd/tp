@@ -49,7 +49,7 @@ public class DeleteRoomCommand extends Command {
 
         model.deleteRoom(roomToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_ROOM_SUCCESS, roomToDelete),
-                false, false, true); // Keep showRoomList as true to refresh view
+                false, false, false, true, false);
     }
 
     @Override

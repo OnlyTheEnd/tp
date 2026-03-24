@@ -40,10 +40,8 @@ public class DeleteEquipmentCommand extends Command {
 
         Equipment equipmentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEquipment(equipmentToDelete);
-
-        return new CommandResult(
-                String.format(MESSAGE_DELETE_EQUIPMENT_SUCCESS, equipmentToDelete),
-                false, false, false, true);
+        return new CommandResult(String.format(MESSAGE_DELETE_EQUIPMENT_SUCCESS, equipmentToDelete),
+                false, false, false, false, true);
     }
 
     @Override

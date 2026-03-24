@@ -33,9 +33,8 @@ public class ListRoomCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        StringBuilder sb = new StringBuilder(MESSAGE_SUCCESS);
-
-        return new CommandResult(sb.toString(), false, false, true);
+        return new CommandResult(MESSAGE_SUCCESS,
+                false, false, false, true, false);
     }
 
     @Override

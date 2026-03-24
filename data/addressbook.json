@@ -76,6 +76,7 @@
     "status" : "Booked",
     "tags" : [ ]
   } ],
+  "reservations" : [ ],
   "issueRecords" : [ {
     "itemId" : "WILSON-EVOLUTION-BASKETBALL-1",
     "studentId" : "a3456789c",
@@ -94,12 +95,12 @@
   }, {
     "name" : "Molten-Volleyball",
     "category" : "Volleyball",
-    "status" : "Damaged",
+    "status" : "Maintenance",
     "tags" : [ ]
   }, {
     "name" : "Tchoukball-Frame",
     "category" : "Tchoukball",
-    "status" : "Maintenance",
+    "status" : "Booked",
     "tags" : [ ]
   }, {
     "name" : "Track-Stand",
