@@ -1,0 +1,43 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+abstract class Command {
+    {abstract} +execute(model: Model): CommandResult
+}
+
+class AddStudentCommand {
+    + {static} COMMAND_WORD: String = "add-s"
+    + {static} MESSAGE_USAGE: String
+    + {static} MESSAGE_SUCCESS: String
+    + {static} MESSAGE_DUPLICATE_STUDENT: String
+    - toAdd: Person
+
+    + AddStudentCommand(student: Person)
+    + execute(model: Model): CommandResult
+    + equals(other: Object): boolean
+    + toString(): String
+}
+
+interface Model <<interface>> {
+    + hasPerson(person: Person): boolean
+    + addPerson(person: Person): void
+}
+
+interface ReadOnlyAddressBook <<interface>> {
+}
+
+class Person {
+    - name: Name
+    - studentId: StudentId
+    - phone: Phone
+    - email: Email
+}
+
+' Relationships
+Command <|-- AddStudentCommand
+AddStudentCommand --> "1" Person : Adds
+AddStudentCommand ..> Model
+Model -up-|> ReadOnlyAddressBook
+
+@enduml
