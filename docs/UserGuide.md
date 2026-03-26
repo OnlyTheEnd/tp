@@ -366,7 +366,7 @@ Possible errors:
 
 Edits an existing student's details in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+Format: `edit-s INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
 
 Acceptable values:
 * Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer `1, 2, 3, …​`
@@ -378,7 +378,7 @@ Acceptable values:
     * Email: Valid email format (e.g., `e0123456@u.nus.edu`).
 
 Examples:
-* `edit-e 2 n/Tom p/91234561 e/e1234567@u.nus.edu`.
+* `edit-s 2 n/Tom p/91234561 e/e1234567@u.nus.edu`.
 
 
 ### 2.4 Loans & Reservations
@@ -414,6 +414,24 @@ Possible errors:
 * End time is earlier than start time
 * Reservation conflicts with an existing booking
 
+#### Cancel a reservation: `cancel`
+
+Cancels an existing reservation.
+
+**Format**
+`cancel ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME`
+
+**Date/time format**
+`yyyy-MM-dd HHmm`
+
+**Example**
+`cancel Hall-2 a1234567a f/2099-03-15 0900 t/2099-03-15 1100`
+
+**Success**
+
+Reservation cancelled:
+Reserved HALL-2 by Student a1234567a from 2099-03-15 0900 to 2099-03-15 1100
+
 #### Issuing an equipment item: `issue`
 
 Issues an equipment item to a student with a due date and time for return.
@@ -446,6 +464,27 @@ Possible errors:
 * Invalid due date/time format
 * Due date/time is in the past
 
+#### Return an equipment: `return`
+
+Returns an issued equipment item back to the inventory.
+
+**Format**
+`return ITEM_ID`
+
+**Example**
+`return Wilson-Evolution-Basketball-1`
+
+**Success**
+`WILSON-EVOLUTION-BASKETBALL-1 returned successfully from a1234567a`
+
+**Failure**
+- item is not currently issued
+- invalid command format
+
+**Notes**
+- aliases are supported, so if `b1` is an alias for `Wilson-Evolution-Basketball-1`, then `return b1` also works
+
+
 #### Creating an alias: `alias`
 
 Creates a short alias for an equipment item or room.
@@ -475,43 +514,6 @@ Examples:
 * Invalid `ITEM_OR_ROOM_ID`
 * Alias already exists
 
-### Return an equipment: `return`
-
-Returns an issued equipment item back to the inventory.
-
-**Format**
-`return ITEM_ID`
-
-**Example**
-`return Wilson-Evolution-Basketball-1`
-
-**Success**
-`WILSON-EVOLUTION-BASKETBALL-1 returned successfully from a1234567a`
-
-**Failure**
-- item is not currently issued
-- invalid command format
-
-**Notes**
-- aliases are supported, so if `b1` is an alias for `Wilson-Evolution-Basketball-1`, then `return b1` also works
-
-### Cancel a reservation: `cancel`
-
-Cancels an existing reservation.
-
-**Format**
-`cancel ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME`
-
-**Date/time format**
-`yyyy-MM-dd HHmm`
-
-**Example**
-`cancel Hall-2 a1234567a f/2099-03-15 0900 t/2099-03-15 1100`
-
-**Success**
-
-Reservation cancelled:
-Reserved HALL-2 by Student a1234567a from 2099-03-15 0900 to 2099-03-15 1100
 
 ### 2.5 Tag & Filter:
 
@@ -671,9 +673,11 @@ Action | Format, Examples
 **Check Loans** | `check-s MATRIC_NUMBER` <br> e.g., `check-s A0123456B`
 **List Students** | `list-s`
 **Delete Student** | `delete-s MATRIC_NUMBER` <br> e.g., `delete-s A0123456B`
-**Edit Student** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL]` <br> e.g. `edit-e 2 n/Tom p/91234561 e/e1234567@u.nus.edu`
-**Reserve** | `reserve ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME` <br> e.g., `reserve Hall-2 a1234567a f/2026-03-01 1400 t/2026-03-01 1600`
+**Edit Student** | `edit-s INDEX [n/NAME] [p/PHONE] [e/EMAIL]` <br> e.g. `edit-s 2 n/Tom p/91234561 e/e1234567@u.nus.edu`
+**Reserve** | `reserve ITEM_OR_ROOM_ID STUDENT_ID [f/START_DATE_TIME] [t/END_DATE_TIME]` <br> e.g., `reserve Hall-2 a1234567a f/2026-03-01 1400 t/2026-03-01 1600`
+**Cancel** | `cancel ITEM_OR_ROOM_ID STUDENT_ID [f/START_DATE_TIME] [t/END_DATE_TIME]` <br> e.g., `cancel Hall-2 a1234567a f/2099-03-15 0900 t/2099-03-15 1100`
 **Issue** | `issue ITEM_ID STUDENT_ID d/DUE_DATE_TIME` <br> e.g., `issue Wilson-Basketball-1 A1203763K d/2026-03-05 1700`
+**Return** | `return ITEM_ID` <br> e.g. `return Wilson-Evolution-Basketball-1`
 **Tag** | `tag [c/EQUIPMENT_NAME | l/ROOM_NAME] t/TAG` <br> e.g., `tag c/Basketball-1 t/spoilt`
 **Filter** | `filter [c/ | l/] t/TAG` <br> e.g., `filter l/ t/renovation`
 **Alias** | `alias ITEM_OR_ROOM_ID ALIAS_NAME` <br> e.g., `alias MPSH-1 hall1`
