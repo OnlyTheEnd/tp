@@ -362,6 +362,24 @@ Acceptable values:
 Possible errors:
 * No matric number in the system.
 
+#### Edit student's details : `edit-s`
+
+Edits an existing student's details in the address book.
+
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+
+Acceptable values:
+* Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer `1, 2, 3, …​`
+* Matric number is not modifiable.
+* (With at least one of the fields)
+    * Name: Alphabets and spaces only. No special characters or numbers.
+    * Phone: 8-digit continuous Singaporean mobile number.
+    * Email: Valid email format (e.g., `e0123456@u.nus.edu`).
+
+Examples:
+* `edit-e 2 n/Tom p/91234561 e/e1234567@u.nus.edu`.
+
+
 ### 2.4 Loans & Reservations
 
 #### Reserving a facility/equipment: `reserve`
@@ -457,7 +475,7 @@ Examples:
 * Alias already exists
 
 
-### 2.4 Tag & Filter:
+### 2.5 Tag & Filter:
 
 #### Tagging an item or room: `tag`
 
@@ -550,7 +568,7 @@ Possible errors:
 * No equipment or rooms found with the specified tag
 * Missing command indicators, e.g. missing `t/`
 
-### 2.5 System Utilities
+### 2.6 System Utilities
 
 #### Archiving data files `[coming in v2.0]`
 
@@ -615,6 +633,7 @@ Action | Format, Examples
 **Check Loans** | `check-s MATRIC_NUMBER` <br> e.g., `check-s A0123456B`
 **List Students** | `list-s`
 **Delete Student** | `delete-s MATRIC_NUMBER` <br> e.g., `delete-s A0123456B`
+**Edit Student** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL]` <br> e.g. `edit-e 2 n/Tom p/91234561 e/e1234567@u.nus.edu`
 **Reserve** | `reserve ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME` <br> e.g., `reserve Hall-2 a1234567a f/2026-03-01 1400 t/2026-03-01 1600`
 **Issue** | `issue ITEM_ID STUDENT_ID d/DUE_DATE_TIME` <br> e.g., `issue Wilson-Basketball-1 A1203763K d/2026-03-05 1700`
 **Tag** | `tag [c/EQUIPMENT_NAME | l/ROOM_NAME] t/TAG` <br> e.g., `tag c/Basketball-1 t/spoilt`
