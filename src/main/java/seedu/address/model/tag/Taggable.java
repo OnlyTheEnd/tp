@@ -45,4 +45,5 @@ public abstract class Taggable {
     public abstract void addTag(Tag tag);
 
     public abstract void deleteTag(Tag otherTag);
+
 }

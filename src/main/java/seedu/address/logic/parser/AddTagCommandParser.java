@@ -45,7 +45,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(
                 PREFIX_LOCATION, PREFIX_TAG, PREFIX_CATEGORY);
 
-        //verify either location or equipment with tag
+        //verify either location or equipment
         if ((!hasLocation && !hasEquipment) || (hasLocation && hasEquipment)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
         }

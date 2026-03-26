@@ -55,4 +55,21 @@ public class DeleteTagCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, tag, target.getNameString()));
     }
+
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeleteTagCommand)) {
+            return false;
+        }
+
+        DeleteTagCommand otherDeleteTagCommand = (DeleteTagCommand) other;
+        return target.equals(otherDeleteTagCommand.target)
+                && tag.equals(otherDeleteTagCommand.tag);
+    }
 }

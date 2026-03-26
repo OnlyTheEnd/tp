@@ -57,4 +57,20 @@ public class FilterTagCommand extends Command {
             throw new CommandException(MESSAGE_ERROR);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof FilterTagCommand)) {
+            return false;
+        }
+
+        FilterTagCommand otherFilterTagCommand = (FilterTagCommand) other;
+        return targetType.equals(otherFilterTagCommand.targetType)
+                && targetTag.equals(otherFilterTagCommand.targetTag);
+    }
 }
