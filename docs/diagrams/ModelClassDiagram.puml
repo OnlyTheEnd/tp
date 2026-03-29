@@ -4,21 +4,36 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model as ModelPackage <<Rectangle>>{
+Package Model as ModelPackage <<Rectangle>> {
 Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
+
 Class AddressBook
 Class ModelManager
 Class UserPrefs
 
 Class UniquePersonList
+Class UniqueEquipmentList
+Class UniqueReservationList
+Class UniqueIssueRecordList
+Class UniqueAliasMappingList
+
 Class Person
 Class Address
 Class Email
 Class Name
 Class Phone
+Class StudentId
 Class Tag
+
+Class Equipment
+Class EquipmentName
+Class EquipmentStatus
+
+Class Reservation
+Class IssueRecord
+Class AliasMapping
 
 Class I #FFFFFF
 }
@@ -36,19 +51,44 @@ ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
+AddressBook *--> "1" UniqueEquipmentList
+AddressBook *--> "1" UniqueReservationList
+AddressBook *--> "1" UniqueIssueRecordList
+AddressBook *--> "1" UniqueAliasMappingList
+
 UniquePersonList --> "~* all" Person
+UniqueEquipmentList --> "~* all" Equipment
+UniqueReservationList --> "~* all" Reservation
+UniqueIssueRecordList --> "~* all" IssueRecord
+UniqueAliasMappingList --> "~* all" AliasMapping
+
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> StudentId
 Person *--> "*" Tag
+
+Equipment *--> EquipmentName
+Equipment *--> EquipmentStatus
+
+Reservation --> StudentId
+IssueRecord --> StudentId
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
+UniqueEquipmentList -[hidden]right-> I
+UniqueReservationList -[hidden]right-> I
+UniqueIssueRecordList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
+Email -[hidden]right-> StudentId
 
 ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" Equipment
+ModelManager --> "~* all" Reservation
+ModelManager --> "~* all" IssueRecord
+ModelManager --> "~* all" AliasMapping
 @enduml
