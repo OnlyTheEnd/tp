@@ -3,19 +3,25 @@ package seedu.address.model.equipment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * Represents a Equipment's name in the system.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class EquipmentName {
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            """
+                    Names should only contain alphanumeric characters and hyphens (-), no spaces allowed, and it should
+                    not be blank.
+                    Example: n/Wilson-Evolution
+                    """;
 
     /*
-     * The first character of the name must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Alphanumeric characters and hyphens only. No spaces.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}]+(-[\\p{Alnum}]+)*";
 
     public final String fullName;
 
@@ -27,7 +33,14 @@ public class EquipmentName {
     public EquipmentName(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        this.fullName = name.trim().replaceAll("\\s{2,}", " ");
+        this.fullName = convertToTitleCase(name.trim());
+    }
+
+    private String convertToTitleCase(String name) {
+        return Arrays.stream(name.split("-"))
+                .map(word -> word.isEmpty() ? ""
+                        : Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase())
+                .collect(Collectors.joining("-"));
     }
 
     public static boolean isValidName(String test) {

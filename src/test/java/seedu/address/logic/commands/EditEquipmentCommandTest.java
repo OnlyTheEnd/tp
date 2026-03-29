@@ -54,7 +54,7 @@ public class EditEquipmentCommandTest {
     public void execute_invalidEquipmentIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredEquipmentList().size() + 1);
         EditEquipmentCommand.EditEquipmentDescriptor descriptor =
-                new EditEquipmentDescriptorBuilder().withName("Valid Name").build();
+                new EditEquipmentDescriptorBuilder().withName("Valid-Name").build();
         EditEquipmentCommand editCommand = new EditEquipmentCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);

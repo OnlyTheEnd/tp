@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.logic.commands.AddEquipmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -32,7 +33,7 @@ public class AddEquipmentCommandParser implements Parser<AddEquipmentCommand> {
         }
 
         EquipmentName name = ParserUtil.parseEquipmentName(argMultimap.getValue(PREFIX_NAME).get());
-        String category = argMultimap.getValue(PREFIX_CATEGORY).get();
+        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         EquipmentStatus status = ParserUtil.parseEquipmentStatus(argMultimap.getValue(PREFIX_STATUS).get());
 
         Equipment equipment = new Equipment(name, category, status);

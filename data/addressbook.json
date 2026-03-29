@@ -78,13 +78,13 @@
   } ],
   "reservations" : [ ],
   "issueRecords" : [ {
-    "itemId" : "WILSON-EVOLUTION-BASKETBALL-1",
-    "studentId" : "a3456789c",
-    "dueDateTime" : "2027-03-25 1700"
-  }, {
     "itemId" : "MOLTEN-VOLLEYBALL",
     "studentId" : "a3456789c",
     "dueDateTime" : "2027-03-18 1200"
+  }, {
+    "itemId" : "WILSON-EVOLUTION",
+    "studentId" : "a3456789c",
+    "dueDateTime" : "2026-03-31 1300"
   } ],
   "aliasMappings" : [ ],
   "equipments" : [ {
@@ -104,7 +104,7 @@
     "tags" : [ ]
   }, {
     "name" : "Track-Stand",
-    "category" : "Track-and-Field",
+    "category" : "Track-And-Field",
     "status" : "Available",
     "tags" : [ ]
   }, {
@@ -113,7 +113,7 @@
     "status" : "Booked",
     "tags" : [ ]
   }, {
-    "name" : "Li Ning",
+    "name" : "Li-Ning",
     "category" : "Badminton",
     "status" : "Booked",
     "tags" : [ ]

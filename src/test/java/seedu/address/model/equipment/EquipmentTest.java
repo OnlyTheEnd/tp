@@ -10,29 +10,30 @@ public class EquipmentTest {
     @Test
     public void isSameEquipment() {
         Equipment basketball = new Equipment(new EquipmentName("Wilson-Evolution"),
-                "Basketball", EquipmentStatus.AVAILABLE);
+                new Category("Basketball"), EquipmentStatus.AVAILABLE);
 
         assertTrue(basketball.isSameEquipment(basketball));
 
         assertFalse(basketball.isSameEquipment(null));
 
         Equipment bookedBasketball = new Equipment(new EquipmentName("Wilson-Evolution"),
-                "Basketball", EquipmentStatus.BOOKED);
+                new Category("Basketball"), EquipmentStatus.BOOKED);
         assertTrue(basketball.isSameEquipment(bookedBasketball));
 
-        Equipment differentName = new Equipment(new EquipmentName("Molten"), "Basketball", EquipmentStatus.AVAILABLE);
+        Equipment differentName = new Equipment(new EquipmentName("Molten"), new Category("Basketball"),
+                EquipmentStatus.AVAILABLE);
         assertFalse(basketball.isSameEquipment(differentName));
     }
 
     @Test
     public void equals() {
         Equipment basketball = new Equipment(new EquipmentName("Wilson-Evolution"),
-                "Basketball", EquipmentStatus.AVAILABLE);
+                new Category("Basketball"), EquipmentStatus.AVAILABLE);
 
         assertTrue(basketball.equals(new Equipment(new EquipmentName("Wilson-Evolution"),
-                "Basketball", EquipmentStatus.AVAILABLE)));
+                new Category("Basketball"), EquipmentStatus.AVAILABLE)));
 
         assertFalse(basketball.equals(new Equipment(new EquipmentName("Wilson-Evolution"),
-                "Basketball", EquipmentStatus.BOOKED)));
+                new Category("Basketball"), EquipmentStatus.BOOKED)));
     }
 }

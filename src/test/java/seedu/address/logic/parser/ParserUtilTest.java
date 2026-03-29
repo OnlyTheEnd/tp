@@ -206,9 +206,14 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEquipmentName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = "  Wilson Basketball  ";
-        EquipmentName expectedName = new EquipmentName("Wilson Basketball");
+    public void parseEquipmentName_validValueWithLeadingAndTrailingWhitespace_returnsTrimmedName() throws Exception {
+        String nameWithWhitespace = "  Wilson-Evolution  ";
+        EquipmentName expectedName = new EquipmentName("Wilson-Evolution");
         assertEquals(expectedName, ParserUtil.parseEquipmentName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseEquipmentName_invalidValueWithInternalSpace_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseEquipmentName("Wilson Evolution"));
     }
 }

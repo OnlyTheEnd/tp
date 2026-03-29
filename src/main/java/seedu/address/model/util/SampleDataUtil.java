@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -57,9 +58,9 @@ public class SampleDataUtil {
 
     public static Equipment[] getSampleEquipments() {
         return new Equipment[] {
-            new Equipment(new EquipmentName("Wilson-Evolution"), "Basketball", EquipmentStatus.AVAILABLE),
-            new Equipment(new EquipmentName("Molten-Volleyball"), "Volleyball", EquipmentStatus.MAINTENANCE),
-            new Equipment(new EquipmentName("Track-Stand"), "Track-and-Field", EquipmentStatus.BOOKED)
+            new Equipment(new EquipmentName("Wilson-Evolution"), new Category("Basketball"), EquipmentStatus.AVAILABLE),
+            new Equipment(new EquipmentName("MX-Volleyball"), new Category("Volleyball"), EquipmentStatus.MAINTENANCE),
+            new Equipment(new EquipmentName("Track-Stand"), new Category("Track-and-Field"), EquipmentStatus.BOOKED)
         };
     }
 

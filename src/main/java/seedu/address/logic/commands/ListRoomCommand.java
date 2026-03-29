@@ -2,11 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.room.Room;
 
 /**
  * Lists all rooms in the address book to the user.
@@ -19,7 +16,7 @@ public class ListRoomCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed all rooms";
-    public static final String MESSAGE_FAILURE = "List has not been created. Please proceed to add room first.";
+    public static final String MESSAGE_FAILURE = "Room List has not been created. Please proceed to add room first.";
 
 
     @Override
@@ -27,9 +24,8 @@ public class ListRoomCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredRoomList(Model.PREDICATE_SHOW_ALL_ROOMS);
-        List<Room> lastShownList = model.getFilteredRoomList();
 
-        if (lastShownList.isEmpty()) {
+        if (model.getFilteredRoomList().isEmpty()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 

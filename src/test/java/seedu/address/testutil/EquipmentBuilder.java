@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -14,7 +15,7 @@ public class EquipmentBuilder {
     public static final EquipmentStatus DEFAULT_STATUS = EquipmentStatus.AVAILABLE;
 
     private EquipmentName name;
-    private String category;
+    private Category category;
     private EquipmentStatus status;
 
     /**
@@ -22,7 +23,7 @@ public class EquipmentBuilder {
      */
     public EquipmentBuilder() {
         name = new EquipmentName(DEFAULT_NAME);
-        category = DEFAULT_CATEGORY;
+        category = new Category(DEFAULT_CATEGORY);
         status = DEFAULT_STATUS;
     }
 
@@ -47,7 +48,7 @@ public class EquipmentBuilder {
      * Sets the {@code Category} of the {@code Equipment} that we are building.
      */
     public EquipmentBuilder withCategory(String category) {
-        this.category = category;
+        this.category = new Category(category);
         return this;
     }
 

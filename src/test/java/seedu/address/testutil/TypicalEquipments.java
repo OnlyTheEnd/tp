@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -15,11 +16,11 @@ import seedu.address.model.equipment.EquipmentStatus;
 public class TypicalEquipments {
 
     public static final Equipment BASKETBALL = new Equipment(
-            new EquipmentName("Wilson-Evolution"), "Basketball", EquipmentStatus.AVAILABLE);
+            new EquipmentName("Wilson-Evolution"), new Category("Basketball"), EquipmentStatus.AVAILABLE);
     public static final Equipment RACKET = new Equipment(
-            new EquipmentName("Yonex-Astrox"), "Badminton", EquipmentStatus.BOOKED);
+            new EquipmentName("Yonex-Astrox"), new Category("Badminton"), EquipmentStatus.BOOKED);
     public static final Equipment NET = new Equipment(
-            new EquipmentName("Tchoukball-Frame"), "Tchoukball", EquipmentStatus.AVAILABLE);
+            new EquipmentName("Tchoukball-Frame"), new Category("Tchoukball"), EquipmentStatus.AVAILABLE);
 
     private TypicalEquipments() {} // prevents instantiation
 

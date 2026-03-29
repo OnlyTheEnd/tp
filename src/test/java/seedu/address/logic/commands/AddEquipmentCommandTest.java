@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelStub;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -27,7 +28,7 @@ public class AddEquipmentCommandTest {
     public void execute_equipmentAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingEquipmentAdded modelStub = new ModelStubAcceptingEquipmentAdded();
         Equipment validEquipment = new Equipment(new EquipmentName("Wilson-Basketball"),
-                "Basketball", EquipmentStatus.AVAILABLE);
+                 new Category("Basketball"), EquipmentStatus.AVAILABLE);
 
         CommandResult commandResult = new AddEquipmentCommand(validEquipment).execute(modelStub);
 
@@ -40,7 +41,7 @@ public class AddEquipmentCommandTest {
     @Test
     public void execute_duplicateEquipment_throwsCommandException() {
         Equipment validEquipment = new Equipment(new EquipmentName("Wilson-Basketball"),
-                "Basketball", EquipmentStatus.AVAILABLE);
+                new Category("Basketball"), EquipmentStatus.AVAILABLE);
         AddEquipmentCommand addEquipmentCommand = new AddEquipmentCommand(validEquipment);
         ModelStubWithEquipment modelStub = new ModelStubWithEquipment(validEquipment);
 
