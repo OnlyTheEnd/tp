@@ -422,13 +422,13 @@ Returns an issued equipment item back to the inventory.
 Cancels an existing reservation.
 
 **Format**
-`cancel ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME`
+`cancel ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME`
 
 **Date/time format**
 `yyyy-MM-dd HHmm`
 
 **Example**
-`cancel Hall-2 a1234567a f/2099-03-15 0900 t/2099-03-15 1100`
+`cancel Hall-2 a1234567a f/2099-03-15 0900`
 
 **Success**
 
