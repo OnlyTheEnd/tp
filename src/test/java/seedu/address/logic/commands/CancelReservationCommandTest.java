@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
@@ -19,6 +21,7 @@ import seedu.address.model.reservation.Reservation;
  */
 public class CancelReservationCommandTest {
 
+    private static final String VALID_RESOURCE_ID = "Hall-2";
     private static final StudentId VALID_STUDENT_ID = new StudentId("a1234567a");
     private static final LocalDateTime VALID_START = LocalDateTime.of(2099, 3, 15, 9, 0);
 
@@ -29,9 +32,28 @@ public class CancelReservationCommandTest {
             LocalDateTime.of(2099, 3, 15, 11, 0));
 
     @Test
+    public void constructor_nullResourceId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new CancelReservationCommand(null,
+                VALID_STUDENT_ID, VALID_START));
+    }
+
+    @Test
+    public void constructor_nullStudentId_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new CancelReservationCommand(VALID_RESOURCE_ID,
+                null, VALID_START));
+    }
+
+    @Test
+    public void constructor_nullStartDateTime_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new CancelReservationCommand(VALID_RESOURCE_ID,
+                VALID_STUDENT_ID, null));
+    }
+
+    @Test
     public void execute_cancelReservation_success() throws Exception {
         ModelStubAcceptingCancel modelStub = new ModelStubAcceptingCancel();
-        CancelReservationCommand command = new CancelReservationCommand("Hall-2", VALID_STUDENT_ID, VALID_START);
+        CancelReservationCommand command =
+                new CancelReservationCommand(VALID_RESOURCE_ID, VALID_STUDENT_ID, VALID_START);
 
         CommandResult result = command.execute(modelStub);
 
@@ -55,12 +77,47 @@ public class CancelReservationCommandTest {
             }
         };
 
-        CancelReservationCommand command = new CancelReservationCommand("Hall-2", VALID_STUDENT_ID, VALID_START);
+        CancelReservationCommand command =
+                new CancelReservationCommand(VALID_RESOURCE_ID, VALID_STUDENT_ID, VALID_START);
 
         assertThrows(CommandException.class,
-                "Error:\nNo matching reservation "
-                        + "found for HALL-2 by a1234567a "
-                        + "starting at 2099-03-15 0900", () -> command.execute(modelStub));
+                "Error:\nNo matching reservation found "
+                        + "for HALL-2 by a1234567a starting at 2099-03-15 0900", () -> command.execute(modelStub));
+    }
+
+    @Test
+    public void equals() {
+        CancelReservationCommand command =
+                new CancelReservationCommand(VALID_RESOURCE_ID, VALID_STUDENT_ID, VALID_START);
+        CancelReservationCommand sameCommand =
+                new CancelReservationCommand(VALID_RESOURCE_ID, VALID_STUDENT_ID, VALID_START);
+        CancelReservationCommand differentResource =
+                new CancelReservationCommand("Hall-3", VALID_STUDENT_ID, VALID_START);
+        CancelReservationCommand differentStudent =
+                new CancelReservationCommand(VALID_RESOURCE_ID, new StudentId("a7654321a"), VALID_START);
+        CancelReservationCommand differentStart =
+                new CancelReservationCommand(VALID_RESOURCE_ID, VALID_STUDENT_ID,
+                        LocalDateTime.of(2099, 3, 15, 10, 0));
+
+        assertTrue(command.equals(command));
+        assertTrue(command.equals(sameCommand));
+
+        assertFalse(command.equals(1));
+        assertFalse(command.equals(null));
+        assertFalse(command.equals(differentResource));
+        assertFalse(command.equals(differentStudent));
+        assertFalse(command.equals(differentStart));
+    }
+
+    @Test
+    public void toStringMethod() {
+        CancelReservationCommand command =
+                new CancelReservationCommand(VALID_RESOURCE_ID, VALID_STUDENT_ID, VALID_START);
+
+        String expected = CancelReservationCommand.class.getCanonicalName()
+                + "{resourceId=HALL-2, studentId=a1234567a, startDateTime=2099-03-15 0900}";
+
+        assertEquals(expected, command.toString());
     }
 
     /**
