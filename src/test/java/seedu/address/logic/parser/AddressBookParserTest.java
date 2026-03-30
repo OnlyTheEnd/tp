@@ -40,7 +40,6 @@ import seedu.address.model.equipment.EquipmentStatus;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
-import seedu.address.model.reservation.Reservation;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -166,12 +165,12 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_cancel() throws Exception {
-        Reservation reservation = new Reservation("Hall-2", new StudentId("a1234567a"),
-                LocalDateTime.of(2099, 3, 15, 9, 0),
-                LocalDateTime.of(2099, 3, 15, 11, 0));
-
-        assertEquals(new CancelReservationCommand(reservation),
+        assertEquals(
+                new CancelReservationCommand(
+                        "Hall-2",
+                        new StudentId("a1234567a"),
+                        LocalDateTime.of(2099, 3, 15, 9, 0)),
                 parser.parseCommand(CancelReservationCommand.COMMAND_WORD
-                        + " Hall-2 a1234567a f/2099-03-15 0900 t/2099-03-15 1100"));
+                        + " Hall-2 a1234567a f/2099-03-15 0900"));
     }
 }
