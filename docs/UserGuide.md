@@ -569,11 +569,11 @@ Tags an equipment item or room with a label for categorisation.
 Format: `tag c/EQUIPMENT_NAME t/TAG` or `tag l/ROOM_NAME t/TAG`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Tags are useful for categorising equipment or rooms, such as marking items as spoilt or rooms under renovation.
+Tags are useful for categorising equipment or rooms
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip for IHG:**
-Tag equipment as `t/IHG_RESERVED` during competition weeks to quickly filter items that should not be loaned out for casual use.
+Tag equipment as `t/IHG` during competition weeks to quickly filter items that should not be loaned out for casual use.
 </div>
 
 * Assigns a tag to the specified equipment item or room.
@@ -585,8 +585,8 @@ Duplicate handling:
 * If the tag already exists on the item or room, the command will be rejected.
 
 Examples:
-* `tag c/Wilson-Evolution-Basketball-1 t/spoilt`
-* `tag l/MPSH-1 t/renovation`
+* `tag c/Wilson-Evolution-Basketball-1 t/IHG`
+* `tag l/MPSH-1 t/IHG`
 
 ![tag command screenshot](images/TagSuccess.png)
 
@@ -615,8 +615,8 @@ Duplicate handling:
 * Not applicable.
 
 Examples:
-* `untag c/Wilson-Evolution-Basketball-1 t/spoilt`
-* `untag l/MPSH-1 t/renovation`
+* `untag c/Wilson-Evolution-Basketball-1 t/IHG`
+* `untag l/MPSH-1 t/IHG`
 
 ![untag command screenshot](images/UntagSuccess.png)
 
@@ -644,8 +644,8 @@ Duplicate handling:
 * Not applicable.
 
 Examples:
-* `filter c/ t/spoilt`
-* `filter l/ t/renovation`
+* `filter c/ t/IHG`
+* `filter l/ t/IHG`
 
 ![filter command screenshot](images/FilterSuccess.png)
 
@@ -725,8 +725,9 @@ Action | Format, Examples
 **Cancel** | `cancel ITEM_OR_ROOM_ID STUDENT_ID [f/START_DATE_TIME] [t/END_DATE_TIME]` <br> e.g., `cancel Hall-2 a1234567a f/2099-03-15 0900 t/2099-03-15 1100`
 **Issue** | `issue ITEM_ID STUDENT_ID [d/DUE_DATE_TIME]` <br> e.g., `issue Wilson-Basketball-1 A1203763K d/2026-03-05 1700`
 **Return** | `return ITEM_ID` <br> e.g. `return Wilson-Evolution-Basketball-1`
-**Tag** | `tag [c/EQUIPMENT_NAME or l/ROOM_NAME] t/TAG` <br> e.g., `tag c/Basketball-1 t/spoilt`
-**Filter** | `filter [c/ or l/] t/TAG` <br> e.g., `filter l/ t/renovation`
+**Tag** | `tag [c/EQUIPMENT_NAME or l/ROOM_NAME] t/TAG` <br> e.g., `tag c/Basketball-1 t/IHG`
+**Untag** | `untag [c/EQUIPMENT_NAME or l/ROOM_NAME] t/TAG` <br> e.g., `tag c/Basketball-1 t/IHG`
+**Filter** | `filter [c/ or l/] t/TAG` <br> e.g., `filter l/ t/IHG`
 **Alias** | `alias ITEM_OR_ROOM_ID ALIAS_NAME` <br> e.g., `alias MPSH-1 hall1`
 **Clear** | `clear`
 **Exit** | `exit`

@@ -332,7 +332,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Add a new equipment**
+**Use case: UC01 - Add a new equipment**
 
 **MSS**
 
@@ -356,7 +356,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: View equipment inventory list**
+**Use case: UC02 - View equipment inventory list**
 
 **MSS**
 
@@ -373,11 +373,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: Remove an equipment**
+**Use case: UC03 - Remove an equipment**
 
 **MSS**
 
-1.  Facility Manager requests to View equipment inventory list
+1.  Facility Manager requests to view equipment inventory list
 2.  TrackMasterPro shows the list of equipment.
 3.  Facility Manager requests to delete a specific equipment in the list by its index.
 4.  TrackMasterPro deletes the equipment from the inventory.
@@ -398,7 +398,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Edit an equipment**
+**Use case: UC04 - Edit an equipment**
 
 **MSS**
 
@@ -423,7 +423,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Delete a person**
+**Use case: UC05 - Delete a person**
 
 **MSS**
 
@@ -434,82 +434,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-<<<<<<< branch-usecases-zien
-**Use case: Tag Equipment/Room**
-
-**MSS**:
-1. User chooses to tag an equipment or room.
-2. User enters the equipment/room ID and tag.
-3. System requests for the equipment/room ID and tag.
-4. System applies the tag and displays a success message.
-   Use case ends.
-
-Extensions:
-* 3a. System detects that the equipment/room ID is invalid.
-  * 3a1. System displays a failure message.
-  * 3a2. User re-enters a valid equipment/room ID and tag.
-  * Steps 3a1-3a2 are repeated until a valid ID is entered.
-  * Use case resumes from step 4.
-
-* 3b. System detects that the equipment/room has already been tagged with the same tag.
-  * 3b1. System displays a duplicate tag failure message.
-  * Use case ends.
-
-Use case: Untag Equipment/Room
-MSS:
-1. User chooses to untag an equipment or room.
-2. User enters the equipment/room ID and tag.
-3. System requests for the equipment/room ID and tag to remove.
-4. System removes the tag and displays a success message.
-   Use case ends.
-
-Extensions:
-
-* 3a. System detects that the equipment/room ID is invalid.
-  * 3a1. System displays a failure message.
-  * Use case ends.
-
-* 3b. System detects that the tag does not exist on the equipment/room.
-  * 3b1. System displays an already-untagged failure message.
-  * Use case ends.
 
 
-Use case: View Help Command
-MSS:
-1. User chooses to view help.
-2. System displays a list of all available commands with short descriptions.
-   Use case ends.
 
-Extensions:
-* 1a. User requests help for a specific command.
-  * 1a1. System checks if the command exists.
-  * 1a2. System displays the command details and an example usage.
-  * Use case ends.
-
-  * 1a1a. System detects that the specified command does not exist.
-    * 1a1a1. System displays a failure message indicating the command was not found.
-  * Use case ends.
-
-Use case: Filter by Tag
-MSS:
-1. User chooses to filter by tag.
-2. System requests for the type and tag to filter by.
-3. User enters the type (equipment, room, or student) and tag.
-4. System retrieves and displays all matching results under the specified tag.
-   Use case ends.
-
-Extensions:
-* 3a. System detects that the specified type is invalid.
-  * 3a1. System displays a failure message.
-  * 3a2. User re-enters a valid type and tag.
-  * Steps 3a1-3a2 are repeated until a valid type is entered.
-  * Use case resumes from step 4.
-
-* 3b. System detects that the specified tag does not exist.
-  * 3b1. System displays a failure message indicating nothing was found under the tag.
-  * Use case ends.
-=======
-**Use case: Add a Student Profile**
+**Use case: UC06 - Add a Student Profile**
 
 **MSS**
 1.  Facility Manager enters the command to add a student (add-s) with the student's name, matriculation number, phone number, and email.
@@ -529,7 +457,7 @@ Extensions:
    -   3a1. TrackMasterPro shows an error message indicating a duplicate identity was found.
    -   Use case ends.
 
-**Use case: View Student Loans**
+**Use case: UC07 - View Student Loans**
 **MSS**
 1.   Facility Manager enters the command to check loans (check-s) followed by the student's matriculation number.
 2.   TrackMasterPro validates the format of the matriculation number.
@@ -550,7 +478,7 @@ Extensions:
    - 4a1. TrackMasterPro displays a message stating "No existing loans" for that student.
    - Use case ends.
 
-**Use case: Reserve equipment on a specified date/time**
+**Use case: UC08 - Reserve equipment on a specified date/time**
 
 **MSS**
 
@@ -576,7 +504,7 @@ Extensions:
   * 3a1. System shows an error message
   * Use case ends
 
-**Use case: Reserve room on a specified date/time**
+**Use case: UC09 - Reserve room on a specified date/time**
 
 **MSS**
 
@@ -603,7 +531,7 @@ Extensions:
   * 4a2. User re-enters correct information
   * Resume from step 4
 
-**Use case: Issue an item to a student**
+**Use case: UC10 - Issue an item to a student**
 
 **MSS**
 
@@ -627,7 +555,7 @@ Extensions:
   * 3a1. System shows an error message
   * Use case ends
 
-**Use case: Remove an item from a student**
+**Use case: UC11 - Remove an item from a student**
 
 **MSS**
 
@@ -650,7 +578,7 @@ Extensions:
   * 4a1. System shows an error message
   * Use case ends
 
-**Use case: Create alias for equipment**
+**Use case: UC12 - Create alias for equipment**
 
 **MSS**
 
@@ -673,7 +601,81 @@ Extensions:
   * 3a1. System shows an error message
   * Use case ends
 
-**Use case: View all commands**
+**Use case: UC11 - Tag Equipment/Room**
+
+**MSS**:
+1. User chooses to tag an equipment or room.
+2. User enters the equipment/room ID and tag.
+3. System requests for the equipment/room ID and tag.
+4. System applies the tag and displays a success message.
+   Use case ends.
+
+Extensions:
+* 3a. System detects that the equipment/room ID is invalid.
+    * 3a1. System displays a failure message.
+    * 3a2. User re-enters a valid equipment/room ID and tag.
+    * Steps 3a1-3a2 are repeated until a valid ID is entered.
+    * Use case resumes from step 4.
+
+* 3b. System detects that the equipment/room has already been tagged with the same tag.
+    * 3b1. System displays a duplicate tag failure message.
+    * Use case ends.
+
+**Use case: UC12 - Untag Equipment/Room**
+**MSS**:
+1. User chooses to untag an equipment or room.
+2. User enters the equipment/room ID and tag.
+3. System requests for the equipment/room ID and tag to remove.
+4. System removes the tag and displays a success message.
+   Use case ends.
+
+Extensions:
+
+* 3a. System detects that the equipment/room ID is invalid.
+    * 3a1. System displays a failure message.
+    * Use case ends.
+
+* 3b. System detects that the tag does not exist on the equipment/room.
+    * 3b1. System displays an already-untagged failure message.
+    * Use case ends.
+
+
+**Use case: UC13 - View Help Command**
+MSS:
+1. User chooses to view help.
+2. System displays a list of all available commands with short descriptions.
+   Use case ends.
+
+Extensions:
+* 1a. User requests help for a specific command.
+    * 1a1. System checks if the command exists.
+    * 1a2. System displays the command details and an example usage.
+    * Use case ends.
+
+    * 1a1a. System detects that the specified command does not exist.
+        * 1a1a1. System displays a failure message indicating the command was not found.
+    * Use case ends.
+
+**Use case: UC14 - Filter by Tag**
+MSS:
+1. User chooses to filter by tag.
+2. System requests for the type and tag to filter by.
+3. User enters the type (equipment, room, or student) and tag.
+4. System retrieves and displays all matching results under the specified tag.
+   Use case ends.
+
+Extensions:
+* 3a. System detects that the specified type is invalid.
+    * 3a1. System displays a failure message.
+    * 3a2. User re-enters a valid type and tag.
+    * Steps 3a1-3a2 are repeated until a valid type is entered.
+    * Use case resumes from step 4.
+
+* 3b. System detects that the specified tag does not exist.
+    * 3b1. System displays a failure message indicating nothing was found under the tag.
+    * Use case ends.
+
+**Use case: UC15 - View all commands**
 
 **MSS**
 
