@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -22,18 +23,20 @@ public class HelpCommandTest {
 
         CommandResult commandResult = helpCommand.execute(model);
 
-        assertEquals(true, commandResult.getFeedbackToUser().contains("Available commands:"));
-        assertEquals(true, commandResult.getFeedbackToUser().contains("help COMMAND"));
+        assertTrue(commandResult.getFeedbackToUser().contains("Available commands:"));
+        assertTrue(commandResult.getFeedbackToUser().contains("help COMMAND"));
+        assertTrue(commandResult.getFeedbackToUser().contains("cancel"));
+        assertTrue(commandResult.getFeedbackToUser().contains("return"));
     }
 
     @Test
     public void execute_specificHelp_success() throws Exception {
-        HelpCommand helpCommand = new HelpCommand("tag");
+        HelpCommand helpCommand = new HelpCommand("cancel");
 
         CommandResult commandResult = helpCommand.execute(model);
 
-        assertEquals(true, commandResult.getFeedbackToUser().contains("SUCCESS! TAG COMMAND FOUND"));
-        assertEquals(true, commandResult.getFeedbackToUser().contains("Format: tag"));
+        assertTrue(commandResult.getFeedbackToUser().contains("SUCCESS! CANCEL COMMAND FOUND"));
+        assertTrue(commandResult.getFeedbackToUser().contains(CancelReservationCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -47,6 +50,6 @@ public class HelpCommandTest {
     @Test
     public void equals() {
         assertEquals(new HelpCommand(), new HelpCommand());
-        assertEquals(new HelpCommand("tag"), new HelpCommand("tag"));
+        assertEquals(new HelpCommand("cancel"), new HelpCommand("cancel"));
     }
 }
