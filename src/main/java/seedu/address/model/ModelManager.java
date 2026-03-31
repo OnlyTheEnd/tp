@@ -18,11 +18,13 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.alias.AliasMapping;
 import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.EquipmentStatus;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.reservation.Reservation;
 import seedu.address.model.room.Room;
+import seedu.address.model.room.Status;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.Taggable;
 
@@ -154,6 +156,14 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void updatePersonDisplay(StudentId studentId) {
+        getFilteredPersonList().stream()
+                .filter(p -> p.getStudentId().equals(studentId))
+                .findFirst()
+                .ifPresent(p -> setPerson(p, p));
+    }
+
     //=========== Room ================================================================================
 
     @Override
@@ -220,6 +230,7 @@ public class ModelManager implements Model {
     public void addReservation(Reservation reservation) {
         requireNonNull(reservation);
         addressBook.addReservation(reservation);
+        refreshResourceBookingStatus(reservation.getResourceId());
     }
 
     @Override
@@ -253,6 +264,7 @@ public class ModelManager implements Model {
     public void addIssueRecord(IssueRecord issueRecord) {
         requireNonNull(issueRecord);
         addressBook.addIssueRecord(issueRecord);
+        refreshResourceBookingStatus(issueRecord.getItemId());
     }
 
     @Override
@@ -367,12 +379,123 @@ public class ModelManager implements Model {
     public void removeReservation(Reservation reservation) {
         requireNonNull(reservation);
         addressBook.removeReservation(reservation);
+        refreshResourceBookingStatus(reservation.getResourceId());
     }
 
     @Override
     public void removeIssueRecord(IssueRecord issueRecord) {
         requireNonNull(issueRecord);
         addressBook.removeIssueRecord(issueRecord);
+        refreshResourceBookingStatus(issueRecord.getItemId());
+    }
+
+    /**
+     * Refreshes the booking status of a resource after reservation/issue changes.
+     * If the resource has any reservation or issue record, it becomes Booked.
+     * Otherwise, if it was previously Booked, it becomes Available.
+     */
+    private void refreshResourceBookingStatus(String resourceId) {
+        requireNonNull(resourceId);
+
+        String normalizedResourceId = Reservation.normalizeResourceId(resolveAlias(resourceId));
+
+        updateEquipmentBookingStatus(normalizedResourceId);
+        updateRoomBookingStatus(normalizedResourceId);
+    }
+
+    /**
+     * Returns true if the resource currently has any reservation or issue record.
+     */
+    private boolean hasActiveBooking(String normalizedResourceId) {
+        boolean hasReservation = addressBook.getReservationList().stream()
+                .anyMatch(reservation -> reservation.getResourceId().equals(normalizedResourceId));
+
+        boolean hasIssueRecord = addressBook.getIssueRecordList().stream()
+                .anyMatch(issueRecord -> issueRecord.getItemId().equals(normalizedResourceId));
+
+        return hasReservation || hasIssueRecord;
+    }
+
+    /**
+     * Updates the booking status of an equipment if it matches the given resource id.
+     */
+    private void updateEquipmentBookingStatus(String normalizedResourceId) {
+        addressBook.getEquipmentList().stream()
+                .filter(equipment -> IssueRecord.normalizeItemId(equipment.getName().fullName)
+                        .equals(normalizedResourceId))
+                .findFirst()
+                .ifPresent(equipment -> {
+                    EquipmentStatus newStatus = determineEquipmentStatus(equipment, normalizedResourceId);
+
+                    if (equipment.getStatus() != newStatus) {
+                        Equipment updatedEquipment = new Equipment(
+                                equipment.getName(),
+                                equipment.getCategory(),
+                                newStatus,
+                                new HashSet<>(equipment.getTags()));
+
+                        addressBook.setEquipment(equipment, updatedEquipment);
+                        updateFilteredEquipmentList(PREDICATE_SHOW_ALL_EQUIPMENTS);
+                    }
+                });
+    }
+
+    /**
+     * Computes the correct equipment status after reservation/issue changes.
+     */
+    private EquipmentStatus determineEquipmentStatus(Equipment equipment, String normalizedResourceId) {
+        boolean isBooked = hasActiveBooking(normalizedResourceId);
+
+        if (isBooked) {
+            return EquipmentStatus.BOOKED;
+        }
+
+        if (equipment.getStatus() == EquipmentStatus.BOOKED) {
+            return EquipmentStatus.AVAILABLE;
+        }
+
+        return equipment.getStatus();
+    }
+
+    /**
+     * Updates the booking status of a room if it matches the given resource id.
+     */
+    private void updateRoomBookingStatus(String normalizedResourceId) {
+        addressBook.getRoomList().stream()
+                .filter(room -> Reservation.normalizeResourceId(room.getName().fullName)
+                        .equals(normalizedResourceId))
+                .findFirst()
+                .ifPresent(room -> {
+                    Status newStatus = determineRoomStatus(room, normalizedResourceId);
+
+                    if (!room.getStatus().equals(newStatus)) {
+                        Room updatedRoom = new Room(
+                                room.getName(),
+                                room.getLocation(),
+                                newStatus,
+                                new HashSet<>(room.getTags()));
+
+                        addressBook.setRoom(room, updatedRoom);
+                        updateFilteredRoomList(PREDICATE_SHOW_ALL_ROOMS);
+                    }
+                });
+    }
+
+    /**
+     * Computes the correct room status after reservation changes.
+     */
+    private Status determineRoomStatus(Room room, String normalizedResourceId) {
+        boolean isBooked = hasActiveBooking(normalizedResourceId);
+
+        if (isBooked) {
+            return new Status("Booked");
+        }
+
+        if (room.getStatus().isBooked()) {
+            return new Status("Available");
+        }
+
+        return room.getStatus();
     }
 
     @Override

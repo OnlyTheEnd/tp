@@ -35,7 +35,7 @@ public class EditEquipmentCommandTest {
         expectedModel.setEquipment(model.getFilteredEquipmentList().get(0), editedEquipment);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage,
-                false, false, false, false, true);
+                false, false, true, true, true);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }

@@ -84,6 +84,10 @@ public abstract class ModelStub implements Model {
     }
 
     @Override
+    public void updatePersonDisplay(StudentId studentId) {
+    }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         throw new AssertionError("This method should not be called.");
     }

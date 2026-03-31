@@ -77,6 +77,9 @@ public class ReserveCommand extends Command {
         }
 
         model.addReservation(resolvedReservation);
+
+        model.updatePersonDisplay(resolvedReservation.getStudentId());
+
         return new CommandResult(String.format(
                 MESSAGE_SUCCESS,
                 resolvedReservation.getResourceId(),

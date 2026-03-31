@@ -31,7 +31,7 @@ public class DeleteRoomCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteRoom(roomToDelete);
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, false, true, false);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, true, true);
 
         assertCommandSuccess(deleteRoomCommand, model, expectedCommandResult, expectedModel);
     }

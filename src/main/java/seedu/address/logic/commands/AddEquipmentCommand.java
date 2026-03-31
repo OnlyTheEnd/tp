@@ -46,7 +46,7 @@ public class AddEquipmentCommand extends Command {
         model.addEquipment(toAdd);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, toAdd.getName(), toAdd.getCategory(), toAdd.getStatus()),
-                false, false, false, false, true);
+                false, false, true, true, true);
     }
 
     @Override

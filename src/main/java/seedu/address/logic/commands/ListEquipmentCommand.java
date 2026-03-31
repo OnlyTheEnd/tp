@@ -27,7 +27,7 @@ public class ListEquipmentCommand extends Command {
         }
 
         return new CommandResult(MESSAGE_SUCCESS,
-                false, false, false, false, true);
+                false, false, true, true, true);
     }
 
     @Override

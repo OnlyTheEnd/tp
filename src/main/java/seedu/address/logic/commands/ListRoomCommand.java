@@ -30,7 +30,7 @@ public class ListRoomCommand extends Command {
         }
 
         return new CommandResult(MESSAGE_SUCCESS,
-                false, false, false, true, false);
+                false, false, true, true, true);
     }
 
     @Override

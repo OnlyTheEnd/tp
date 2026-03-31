@@ -29,7 +29,7 @@ public class ListStudentCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         CommandResult expectedCommandResult = new CommandResult(
-                ListStudentCommand.MESSAGE_SUCCESS, false, false, true, false, false);
+                ListStudentCommand.MESSAGE_SUCCESS, false, false, true, true, true);
 
         assertCommandSuccess(new ListStudentCommand(), model, expectedCommandResult, expectedModel);
     }

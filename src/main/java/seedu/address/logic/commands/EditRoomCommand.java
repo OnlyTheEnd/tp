@@ -66,7 +66,7 @@ public class EditRoomCommand extends Command {
         model.updateFilteredRoomList(Model.PREDICATE_SHOW_ALL_ROOMS);
 
         return new CommandResult(String.format(MESSAGE_EDIT_ROOM_SUCCESS, editedRoom),
-                false, false, false, true, false);
+                false, false, true, true, true);
     }
 
     private static Room createEditedRoom(Room roomToEdit, EditRoomDescriptor editRoomDescriptor) {

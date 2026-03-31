@@ -19,11 +19,17 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.alias.AliasMapping;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.EquipmentStatus;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.reservation.Reservation;
+import seedu.address.model.room.Room;
+import seedu.address.model.room.Status;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.EquipmentBuilder;
+import seedu.address.testutil.RoomBuilder;
 
 public class ModelManagerTest {
 
@@ -48,6 +54,18 @@ public class ModelManagerTest {
             LocalDateTime.of(2099, 3, 15, 17, 0));
     private static final AliasMapping BASKETBALL_ALIAS =
             new AliasMapping("Wilson-Evolution-Basketball-1", "b1");
+    private static final Reservation HALL_TWO_SLOT_TWO = new Reservation("Hall-2", new StudentId("a2345678b"),
+            LocalDateTime.of(2099, 3, 15, 16, 0),
+            LocalDateTime.of(2099, 3, 15, 18, 0));
+
+    private static final Reservation BASKETBALL_RESERVATION = new Reservation("Wilson-Evolution-Basketball-1",
+            new StudentId("a2345678b"),
+            LocalDateTime.of(2099, 3, 16, 9, 0),
+            LocalDateTime.of(2099, 3, 16, 11, 0));
+
+    private static final IssueRecord BASKETBALL_ISSUE = new IssueRecord("Wilson-Evolution-Basketball-1",
+            new StudentId("a1234567a"),
+            LocalDateTime.of(2099, 3, 17, 17, 0));
     private ModelManager modelManager = new ModelManager();
 
     @Test
@@ -334,6 +352,148 @@ public class ModelManagerTest {
     @Test
     public void resolveAlias_aliasDoesNotExist_returnsOriginalInput() {
         assertEquals("Hall-2", modelManager.resolveAlias("Hall-2"));
+    }
+
+    @Test
+    public void addReservation_roomResource_updatesRoomStatusToBooked() {
+        Room hallTwo = new RoomBuilder()
+                .withName("Hall-2")
+                .withLocation("Sports-Centre")
+                .withStatus("Available")
+                .build();
+        modelManager.addRoom(hallTwo);
+
+        modelManager.addReservation(HALL_TWO_SLOT_ONE);
+
+        Room updatedRoom = findRoomByName("Hall-2");
+        assertEquals(new Status("Booked"), updatedRoom.getStatus());
+    }
+
+    @Test
+    public void removeReservation_onlyReservation_updatesRoomStatusToAvailable() {
+        Room hallTwo = new RoomBuilder()
+                .withName("Hall-2")
+                .withLocation("Sports-Centre")
+                .withStatus("Available")
+                .build();
+        modelManager.addRoom(hallTwo);
+        modelManager.addReservation(HALL_TWO_SLOT_ONE);
+
+        modelManager.removeReservation(HALL_TWO_SLOT_ONE);
+
+        Room updatedRoom = findRoomByName("Hall-2");
+        assertEquals(new Status("Available"), updatedRoom.getStatus());
+    }
+
+    @Test
+    public void removeReservation_otherReservationStillExists_roomRemainsBooked() {
+        Room hallTwo = new RoomBuilder()
+                .withName("Hall-2")
+                .withLocation("Sports-Centre")
+                .withStatus("Available")
+                .build();
+        modelManager.addRoom(hallTwo);
+        modelManager.addReservation(HALL_TWO_SLOT_ONE);
+        modelManager.addReservation(HALL_TWO_SLOT_TWO);
+
+        modelManager.removeReservation(HALL_TWO_SLOT_ONE);
+
+        Room updatedRoom = findRoomByName("Hall-2");
+        assertEquals(new Status("Booked"), updatedRoom.getStatus());
+    }
+
+    @Test
+    public void addReservation_equipmentResource_updatesEquipmentStatusToBooked() {
+        Equipment basketball = new EquipmentBuilder()
+                .withName("Wilson-Evolution-Basketball-1")
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.AVAILABLE)
+                .build();
+        modelManager.addEquipment(basketball);
+
+        modelManager.addReservation(BASKETBALL_RESERVATION);
+
+        Equipment updatedEquipment = findEquipmentByName("Wilson-Evolution-Basketball-1");
+        assertEquals(EquipmentStatus.BOOKED, updatedEquipment.getStatus());
+    }
+
+    @Test
+    public void addIssueRecord_equipmentResource_updatesEquipmentStatusToBooked() {
+        Equipment basketball = new EquipmentBuilder()
+                .withName("Wilson-Evolution-Basketball-1")
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.AVAILABLE)
+                .build();
+        modelManager.addEquipment(basketball);
+
+        modelManager.addIssueRecord(BASKETBALL_ISSUE);
+
+        Equipment updatedEquipment = findEquipmentByName("Wilson-Evolution-Basketball-1");
+        assertEquals(EquipmentStatus.BOOKED, updatedEquipment.getStatus());
+    }
+
+    @Test
+    public void removeIssueRecord_noOtherBooking_updatesEquipmentStatusToAvailable() {
+        Equipment basketball = new EquipmentBuilder()
+                .withName("Wilson-Evolution-Basketball-1")
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.AVAILABLE)
+                .build();
+        modelManager.addEquipment(basketball);
+        modelManager.addIssueRecord(BASKETBALL_ISSUE);
+
+        modelManager.removeIssueRecord(BASKETBALL_ISSUE);
+
+        Equipment updatedEquipment = findEquipmentByName("Wilson-Evolution-Basketball-1");
+        assertEquals(EquipmentStatus.AVAILABLE, updatedEquipment.getStatus());
+    }
+
+    @Test
+    public void removeIssueRecord_reservationStillExists_equipmentRemainsBooked() {
+        Equipment basketball = new EquipmentBuilder()
+                .withName("Wilson-Evolution-Basketball-1")
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.AVAILABLE)
+                .build();
+        modelManager.addEquipment(basketball);
+        modelManager.addReservation(BASKETBALL_RESERVATION);
+        modelManager.addIssueRecord(BASKETBALL_ISSUE);
+
+        modelManager.removeIssueRecord(BASKETBALL_ISSUE);
+
+        Equipment updatedEquipment = findEquipmentByName("Wilson-Evolution-Basketball-1");
+        assertEquals(EquipmentStatus.BOOKED, updatedEquipment.getStatus());
+    }
+
+    @Test
+    public void removeReservation_issueStillExists_equipmentRemainsBooked() {
+        Equipment basketball = new EquipmentBuilder()
+                .withName("Wilson-Evolution-Basketball-1")
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.AVAILABLE)
+                .build();
+        modelManager.addEquipment(basketball);
+        modelManager.addReservation(BASKETBALL_RESERVATION);
+        modelManager.addIssueRecord(BASKETBALL_ISSUE);
+
+        modelManager.removeReservation(BASKETBALL_RESERVATION);
+
+        Equipment updatedEquipment = findEquipmentByName("Wilson-Evolution-Basketball-1");
+        assertEquals(EquipmentStatus.BOOKED, updatedEquipment.getStatus());
+    }
+
+    private Room findRoomByName(String roomName) {
+        return modelManager.getFilteredRoomList().stream()
+                .filter(room -> room.getName().fullName.equals(roomName))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Room not found: " + roomName));
+    }
+
+    private Equipment findEquipmentByName(String equipmentName) {
+        return modelManager.getFilteredEquipmentList().stream()
+                .filter(equipment -> equipment.getName().fullName.equals(equipmentName))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Equipment not found: " + equipmentName));
     }
 
     @Test

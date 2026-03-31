@@ -79,6 +79,9 @@ public class IssueCommand extends Command {
         }
 
         model.addIssueRecord(resolvedIssueRecord);
+
+        model.updatePersonDisplay(resolvedIssueRecord.getStudentId());
+
         return new CommandResult(String.format(
                 MESSAGE_SUCCESS,
                 resolvedIssueRecord.getItemId(),

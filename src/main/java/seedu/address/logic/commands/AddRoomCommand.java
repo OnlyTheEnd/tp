@@ -50,7 +50,7 @@ public class AddRoomCommand extends Command {
         model.addRoom(toAdd);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, toAdd.getName(), toAdd.getLocation(), toAdd.getStatus()),
-                false, false, false, true, false);
+                false, false, true, true, true);
     }
 
     @Override

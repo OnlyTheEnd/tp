@@ -53,6 +53,8 @@ public interface Model {
 
     void setPerson(Person target, Person editedPerson);
 
+    void updatePersonDisplay(StudentId studentId);
+
     ObservableList<Person> getFilteredPersonList();
 
     void updateFilteredPersonList(Predicate<Person> predicate);

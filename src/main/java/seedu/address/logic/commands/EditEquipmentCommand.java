@@ -64,7 +64,7 @@ public class EditEquipmentCommand extends Command {
         model.updateFilteredEquipmentList(PREDICATE_SHOW_ALL_EQUIPMENTS);
         return new CommandResult(
                 String.format(MESSAGE_EDIT_EQUIPMENT_SUCCESS, editedEquipment),
-                false, false, false, false, true);
+                false, false, true, true, true);
     }
 
     private static Equipment createEditedEquipment(Equipment equipmentToEdit,

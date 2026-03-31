@@ -32,7 +32,7 @@ public class DeleteEquipmentCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteEquipment(equipmentToDelete);
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, false, false, true);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, true, true);
 
         assertCommandSuccess(deleteCommand, model, expectedCommandResult, expectedModel);
     }

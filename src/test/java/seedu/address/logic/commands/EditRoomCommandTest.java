@@ -35,7 +35,7 @@ public class EditRoomCommandTest {
         expectedModel.setRoom(model.getFilteredRoomList().get(0), editedRoom);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage,
-                false, false, false, true, false);
+                false, false, true, true, true);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }

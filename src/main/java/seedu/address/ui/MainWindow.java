@@ -125,14 +125,14 @@ public class MainWindow extends UiPart<Stage> {
         roomListPanel = new RoomListPanel(logic.getFilteredRoomList());
         roomListPanelPlaceholder.getChildren().add(roomListPanel.getRoot());
 
-        roomListPanelPlaceholder.setVisible(false);
-        roomListPanelPlaceholder.setManaged(false);
+        //roomListPanelPlaceholder.setVisible(false);
+        //roomListPanelPlaceholder.setManaged(false);
 
         equipmentListPanel = new EquipmentListPanel(logic.getFilteredEquipmentList());
         equipmentListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
 
-        equipmentListPanelPlaceholder.setVisible(false);
-        equipmentListPanelPlaceholder.setManaged(false);
+        //equipmentListPanelPlaceholder.setVisible(false);
+        //equipmentListPanelPlaceholder.setManaged(false);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -142,10 +142,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.getIssueRecordList(),
-                                                logic.getReservationList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
     /**
@@ -254,14 +250,14 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
+            /*
             if (commandResult.isShowEquipmentList()) {
                 handleShowEquipmentList();
             } else if (commandResult.isShowRoomList()) {
                 handleShowRoomList();
             } else if (commandResult.isShowPersonList()) {
                 handleShowPersonList();
-            }
+            }*/
 
             return commandResult;
         } catch (CommandException | ParseException e) {

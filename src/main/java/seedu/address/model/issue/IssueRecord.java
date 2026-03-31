@@ -11,7 +11,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.StudentId;
 
 /**
- * Represents a record of an issued item in the address book.
+ * Represents a record of issued items in the address book.
  * Guarantees: details are present and not null, and field values are validated.
  */
 public class IssueRecord {

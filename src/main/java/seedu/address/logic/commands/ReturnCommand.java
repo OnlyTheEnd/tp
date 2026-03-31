@@ -57,6 +57,8 @@ public class ReturnCommand extends Command {
         IssueRecord issueRecord = existingIssue.get();
         model.removeIssueRecord(issueRecord);
 
+        model.updatePersonDisplay(issueRecord.getStudentId());
+
         return new CommandResult(String.format(
                 MESSAGE_SUCCESS,
                 issueRecord.getItemId(),

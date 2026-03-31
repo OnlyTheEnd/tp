@@ -27,7 +27,7 @@ public class ListEquipmentCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         CommandResult expectedCommandResult = new CommandResult(
-                ListEquipmentCommand.MESSAGE_SUCCESS, false, false, false, false, true);
+                ListEquipmentCommand.MESSAGE_SUCCESS, false, false, true, true, true);
 
         assertCommandSuccess(new ListEquipmentCommand(), model, expectedCommandResult, expectedModel);
     }
@@ -37,7 +37,7 @@ public class ListEquipmentCommandTest {
         expectedModel.updateFilteredEquipmentList(Model.PREDICATE_SHOW_ALL_EQUIPMENTS);
 
         CommandResult expectedCommandResult = new CommandResult(
-                ListEquipmentCommand.MESSAGE_SUCCESS, false, false, false, false, true);
+                ListEquipmentCommand.MESSAGE_SUCCESS, false, false, true, true, true);
 
         assertCommandSuccess(new ListEquipmentCommand(), model, expectedCommandResult, expectedModel);
     }
