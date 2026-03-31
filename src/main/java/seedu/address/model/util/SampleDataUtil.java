@@ -49,17 +49,17 @@ public class SampleDataUtil {
 
     public static Room[] getSampleRooms() {
         return new Room[] {new Room(new RoomName("MPSH-1"), new Location("Sports-Centre"), new Status("Available")),
-            new Room(new RoomName("Sports-Hall-1"), new Location("University-Town"), new Status("Booked")),
+            new Room(new RoomName("Sports-Hall-1"), new Location("University-Town"), new Status("Available")),
             new Room(new RoomName("Outdoor-Tennis-Court"), new Location("Kent-Ridge"), new Status("Available")),
-            new Room(new RoomName("Music-Room-1"), new Location("YIH"), new Status("Booked"))
+            new Room(new RoomName("Music-Room-1"), new Location("YIH"), new Status("Available"))
         };
     }
 
     public static Equipment[] getSampleEquipments() {
         return new Equipment[] {
             new Equipment(new EquipmentName("Wilson-Evolution"), "Basketball", EquipmentStatus.AVAILABLE),
-            new Equipment(new EquipmentName("Molten-Volleyball"), "Volleyball", EquipmentStatus.MAINTENANCE),
-            new Equipment(new EquipmentName("Track-Stand"), "Track-and-Field", EquipmentStatus.BOOKED)
+            new Equipment(new EquipmentName("Molten-Volleyball"), "Volleyball", EquipmentStatus.AVAILABLE),
+            new Equipment(new EquipmentName("Track-Stand"), "Track-and-Field", EquipmentStatus.AVAILABLE),
         };
     }
 
