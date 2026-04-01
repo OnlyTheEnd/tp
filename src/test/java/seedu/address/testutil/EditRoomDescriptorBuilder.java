@@ -51,7 +51,7 @@ public class EditRoomDescriptorBuilder {
      * Sets the {@code Status} of the {@code EditRoomDescriptor} that we are building.
      */
     public EditRoomDescriptorBuilder withStatus(String status) {
-        descriptor.setStatus(new Status(status));
+        descriptor.setStatus(Status.java_parse(status));
         return this;
     }
 

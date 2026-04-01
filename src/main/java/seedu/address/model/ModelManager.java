@@ -491,11 +491,11 @@ public class ModelManager implements Model {
         boolean isBooked = hasActiveBooking(normalizedResourceId);
 
         if (isBooked) {
-            return new Status("Booked");
+            return Status.BOOKED;
         }
 
         if (room.getStatus().isBooked()) {
-            return new Status("Available");
+            return Status.AVAILABLE;
         }
 
         return room.getStatus();

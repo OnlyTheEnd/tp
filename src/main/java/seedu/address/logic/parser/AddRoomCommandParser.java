@@ -36,9 +36,7 @@ public class AddRoomCommandParser implements Parser<AddRoomCommand> {
 
         RoomName name = ParserUtil.parseRoomName(argMultimap.getValue(PREFIX_NAME).get());
         Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
-
-        // Status is optional, defaults to "Available" if not provided
-        Status status = new Status(argMultimap.getValue(PREFIX_STATUS).orElse("Available"));
+        Status status = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
 
         Room room = new Room(name, location, status);
 

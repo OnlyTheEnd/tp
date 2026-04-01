@@ -49,10 +49,10 @@ public class SampleDataUtil {
     }
 
     public static Room[] getSampleRooms() {
-        return new Room[] {new Room(new RoomName("MPSH-1"), new Location("Sports-Centre"), new Status("Available")),
-            new Room(new RoomName("Sports-Hall-1"), new Location("University-Town"), new Status("Available")),
-            new Room(new RoomName("Outdoor-Tennis-Court"), new Location("Kent-Ridge"), new Status("Available")),
-            new Room(new RoomName("Music-Room-1"), new Location("YIH"), new Status("Available"))
+        return new Room[] {new Room(new RoomName("MPSH-1"), new Location("Sports-Centre"), Status.AVAILABLE),
+            new Room(new RoomName("Sports-Hall-1"), new Location("University-Town"), Status.AVAILABLE),
+            new Room(new RoomName("Outdoor-Tennis-Court"), new Location("Kent-Ridge"), Status.AVAILABLE),
+            new Room(new RoomName("Music-Room-1"), new Location("YIH"), Status.AVAILABLE)
         };
     }
 
