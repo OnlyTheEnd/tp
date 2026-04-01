@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class RoomName {
     public static final String MESSAGE_CONSTRAINTS = "Room names should be alphanumeric and not empty.";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum} -]+";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}]+(-[\\p{Alnum}]+)*";
 
     public final String fullName;
 
@@ -19,7 +19,8 @@ public class RoomName {
      */
     public RoomName(String name) {
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        this.fullName = name.trim().replaceAll("\\s{2,}", " "); // Collapse multiple spaces
+        name = name.trim().replaceAll("\\s{2,}", " ");
+        this.fullName = formatToInitialCaps(name);
     }
 
     /**
@@ -30,6 +31,25 @@ public class RoomName {
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    private String formatToInitialCaps(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        StringBuilder result = new StringBuilder();
+        String[] parts = input.split("(?<=[\\s-])");
+
+        for (String part : parts) {
+            if (part.length() > 0) {
+                result.append(Character.toUpperCase(part.charAt(0)));
+                if (part.length() > 1) {
+                    result.append(part.substring(1).toLowerCase());
+                }
+            }
+        }
+        return result.toString();
     }
 
     @Override

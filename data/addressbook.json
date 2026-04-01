@@ -37,7 +37,7 @@
     "tags" : [ ]
   } ],
   "rooms" : [ {
-    "name" : "MPSH-1",
+    "name" : "Mpsh-1",
     "location" : "Sports-Centre",
     "status" : "Available",
     "tags" : [ ]
@@ -52,13 +52,23 @@
     "status" : "Available",
     "tags" : [ ]
   }, {
-    "name" : "Music-Room-1",
-    "location" : "YIH",
+    "name" : "Outdoor-Tennis-Court",
+    "location" : "Kent-Ridge",
     "status" : "Available",
     "tags" : [ ]
   }, {
-    "name" : "Sports-Hall-4",
-    "location" : "University-Town",
+    "name" : "Mpsh-5",
+    "location" : "Kent-Ridge",
+    "status" : "Available",
+    "tags" : [ ]
+  }, {
+    "name" : "Mpsh-2",
+    "location" : "Sports-Centre",
+    "status" : "Available",
+    "tags" : [ ]
+  }, {
+    "name" : "Mpsh-3",
+    "location" : "Sports-Centre",
     "status" : "Available",
     "tags" : [ ]
   }, {

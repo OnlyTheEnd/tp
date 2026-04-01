@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Location {
     public static final String MESSAGE_CONSTRAINTS = "Locations should be alphanumeric and not empty.";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} -]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}]+(-[\\p{Alnum}]+)*";
 
     public final String value;
 
@@ -21,7 +21,7 @@ public class Location {
     public Location(String location) {
         requireNonNull(location);
         checkArgument(isValidLocation(location), MESSAGE_CONSTRAINTS);
-        this.value = location.trim();
+        this.value = formatToInitialCaps(location.trim());
     }
 
     /**
@@ -29,6 +29,24 @@ public class Location {
      */
     public static boolean isValidLocation(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    private String formatToInitialCaps(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        StringBuilder result = new StringBuilder();
+        String[] parts = input.split("(?<=[\\s-])");
+        for (String part : parts) {
+            if (part.length() > 0) {
+                result.append(Character.toUpperCase(part.charAt(0)));
+                if (part.length() > 1) {
+                    result.append(part.substring(1).toLowerCase());
+                }
+            }
+        }
+        return result.toString();
     }
 
     @Override

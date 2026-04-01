@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -19,12 +18,10 @@ public class AddRoomCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a room to the system. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_LOCATION + "LOCATION "
-            + PREFIX_STATUS + "STATUS\n"
+            + PREFIX_LOCATION + "LOCATION\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "MPSH-1 "
-            + PREFIX_LOCATION + "Sports Centre "
-            + PREFIX_STATUS + "Available";
+            + PREFIX_LOCATION + "Sports Centre";
 
     public static final String MESSAGE_SUCCESS = "New Room Added:\nName: %1$s | Location: %2$s | Status: %3$s";
     public static final String MESSAGE_DUPLICATE_ROOM = "This room already exists in the system!";
@@ -49,7 +46,8 @@ public class AddRoomCommand extends Command {
 
         model.addRoom(toAdd);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, toAdd.getName(), toAdd.getLocation(), toAdd.getStatus()),
+                String.format(MESSAGE_SUCCESS, toAdd.getName().toString(), toAdd.getLocation().toString(),
+                        toAdd.getStatus().toString()),
                 false, false, true, true, true);
     }
 
@@ -59,12 +57,16 @@ public class AddRoomCommand extends Command {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof AddRoomCommand)) {
             return false;
         }
 
-        AddRoomCommand otherAddRoomCommand = (AddRoomCommand) other;
-        return toAdd.equals(otherAddRoomCommand.toAdd);
+        AddRoomCommand otherCommand = (AddRoomCommand) other;
+        return toAdd.equals(otherCommand.toAdd);
+    }
+
+    @Override
+    public int hashCode() {
+        return toAdd.hashCode();
     }
 }

@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.stream.Stream;
 
@@ -27,9 +26,9 @@ public class AddRoomCommandParser implements Parser<AddRoomCommand> {
      */
     public AddRoomCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LOCATION, PREFIX_STATUS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LOCATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_LOCATION, PREFIX_STATUS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddRoomCommand.MESSAGE_USAGE));
@@ -37,7 +36,7 @@ public class AddRoomCommandParser implements Parser<AddRoomCommand> {
 
         RoomName name = ParserUtil.parseRoomName(argMultimap.getValue(PREFIX_NAME).get());
         Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
-        Status status = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
+        Status status = new Status("Available");
 
         Room room = new Room(name, location, status);
 

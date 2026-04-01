@@ -21,7 +21,7 @@ import seedu.address.testutil.RoomBuilder;
 public class DeleteTagCommandTest {
     private static final Tag VALID_TAG = new Tag("Valid");
     private static final String VALID_EQUIPMENT_ID = "Wilson-Evolution-Basketball-1";
-    private static final String VALID_ROOM_ID = "MPSH-1";
+    private static final String VALID_ROOM_ID = "Mpsh-1";
     private static final Equipment expectedEquipment = new Equipment(new EquipmentName(VALID_EQUIPMENT_ID));
     private static final Room expectedRoom = new RoomBuilder().build();
 
