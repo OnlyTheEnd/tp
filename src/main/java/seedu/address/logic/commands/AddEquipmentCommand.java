@@ -21,7 +21,7 @@ public class AddEquipmentCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_CATEGORY + "CATEGORY "
-            + "[" + PREFIX_STATUS + "STATUS]\n"
+            + PREFIX_STATUS + "STATUS\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Wilson-Evolution-Basketball "
             + PREFIX_CATEGORY + "Basketball "

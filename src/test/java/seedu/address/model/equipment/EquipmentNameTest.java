@@ -26,10 +26,10 @@ public class EquipmentNameTest {
         assertFalse(EquipmentName.isValidName("")); // empty string
         assertFalse(EquipmentName.isValidName(" ")); // spaces only
         assertFalse(EquipmentName.isValidName("^")); // only non-alphanumeric
+        assertFalse(EquipmentName.isValidName("wilson basketball")); // with whitespace
 
-        assertTrue(EquipmentName.isValidName("wilson basketball")); // alphabets only
         assertTrue(EquipmentName.isValidName("12345")); // numbers only
         assertTrue(EquipmentName.isValidName("wilson-evolution-basketball")); // with hyphens
-        assertTrue(EquipmentName.isValidName("Basketball 2")); // alphanumeric characters
+        assertTrue(EquipmentName.isValidName("Basketball-2")); // alphanumeric characters
     }
 }

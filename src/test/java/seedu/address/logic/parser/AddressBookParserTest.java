@@ -31,6 +31,7 @@ import seedu.address.logic.commands.ListEquipmentCommand;
 import seedu.address.logic.commands.ListStudentCommand;
 import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -109,7 +110,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addEquipment() throws Exception {
         Equipment equipment = new Equipment(new EquipmentName("Wilson-Evolution"),
-                "Basketball", EquipmentStatus.AVAILABLE);
+                new Category("Basketball"), EquipmentStatus.AVAILABLE);
         AddEquipmentCommand command = (AddEquipmentCommand) parser.parseCommand(
                 AddEquipmentCommand.COMMAND_WORD + " n/Wilson-Evolution c/Basketball s/Available");
         assertEquals(new AddEquipmentCommand(equipment), command);

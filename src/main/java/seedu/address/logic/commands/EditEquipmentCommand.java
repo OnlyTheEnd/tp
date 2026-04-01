@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -69,7 +70,7 @@ public class EditEquipmentCommand extends Command {
     private static Equipment createEditedEquipment(Equipment equipmentToEdit,
                                                    EditEquipmentDescriptor editEquipmentDescriptor) {
         EquipmentName updatedName = editEquipmentDescriptor.getName().orElse(equipmentToEdit.getName());
-        String updatedCategory = editEquipmentDescriptor.getCategory().orElse(equipmentToEdit.getCategory());
+        Category updatedCategory = editEquipmentDescriptor.getCategory().orElse(equipmentToEdit.getCategory());
         EquipmentStatus updatedStatus = editEquipmentDescriptor.getStatus().orElse(equipmentToEdit.getStatus());
 
         return new Equipment(updatedName, updatedCategory, updatedStatus);
@@ -97,7 +98,7 @@ public class EditEquipmentCommand extends Command {
      */
     public static class EditEquipmentDescriptor {
         private EquipmentName name;
-        private String category;
+        private Category category;
         private EquipmentStatus status;
 
         public EditEquipmentDescriptor() {}
@@ -126,11 +127,11 @@ public class EditEquipmentCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setCategory(String category) {
+        public void setCategory(Category category) {
             this.category = category;
         }
 
-        public Optional<String> getCategory() {
+        public Optional<Category> getCategory() {
             return Optional.ofNullable(category);
         }
 

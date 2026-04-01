@@ -11,6 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
 import seedu.address.model.person.Address;
@@ -190,15 +191,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String category} into an {@code String}.
+     * Parses a {@code String category} into an {@code Category}.
      */
-    public static String parseCategory(String category) throws ParseException {
+    public static Category parseCategory(String category) throws ParseException {
         requireNonNull(category);
         String trimmedCategory = category.trim();
-        if (!trimmedCategory.matches("^[a-zA-Z0-9]+$")) {
-            throw new ParseException("Category should be a single alphanumeric word.");
+        if (!Category.isValidCategory(trimmedCategory)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
-        return trimmedCategory;
+        return new Category(trimmedCategory);
     }
 
     /**

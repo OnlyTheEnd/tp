@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddEquipmentCommand;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -17,7 +18,7 @@ public class AddEquipmentCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         Equipment expectedEquipment = new Equipment(new EquipmentName("Wilson-Evolution"),
-                "Basketball", EquipmentStatus.AVAILABLE);
+                new Category("Basketball"), EquipmentStatus.AVAILABLE);
 
         assertParseSuccess(parser, " n/Wilson-Evolution c/Basketball s/Available",
                 new AddEquipmentCommand(expectedEquipment));

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -48,7 +49,7 @@ class JsonAdaptedEquipment {
      */
     public JsonAdaptedEquipment(Equipment source) {
         name = source.getName().fullName;
-        category = source.getCategory();
+        category = source.getCategory().value;
         status = source.getStatus().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -75,8 +76,13 @@ class JsonAdaptedEquipment {
         final EquipmentName modelName = new EquipmentName(name);
 
         if (category == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "category"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
         }
+        if (!Category.isValidCategory(category)) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
+        }
+        final Category modelCategory = Category.java_parse(category);
 
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -88,6 +94,6 @@ class JsonAdaptedEquipment {
         final EquipmentStatus modelStatus = EquipmentStatus.valueOf(status.toUpperCase());
 
         final Set<Tag> modelTags = new HashSet<>(equipmentTags);
-        return new Equipment(modelName, category, modelStatus, modelTags);
+        return new Equipment(modelName, modelCategory, modelStatus, modelTags);
     }
 }

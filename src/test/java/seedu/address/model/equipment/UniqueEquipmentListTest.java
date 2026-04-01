@@ -21,7 +21,7 @@ import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
 public class UniqueEquipmentListTest {
     private final UniqueEquipmentList uniqueEquipmentList = new UniqueEquipmentList();
     private final Equipment basketball = new Equipment(new EquipmentName("Wilson-Evolution"),
-            "Basketball", EquipmentStatus.AVAILABLE);
+            new Category("Basketball"), EquipmentStatus.AVAILABLE);
 
     @Test
     public void add_duplicateEquipment_throwsDuplicateEquipmentException() {

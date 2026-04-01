@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.EditEquipmentCommand.EditEquipmentDescriptor;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.EquipmentName;
 import seedu.address.model.equipment.EquipmentStatus;
@@ -42,7 +43,7 @@ public class EditEquipmentDescriptorBuilder {
      * Sets the {@code Category} of the {@code EditEquipmentDescriptor} that we are building.
      */
     public EditEquipmentDescriptorBuilder withCategory(String category) {
-        descriptor.setCategory(category);
+        descriptor.setCategory(new Category(category));
         return this;
     }
 
