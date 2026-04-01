@@ -23,7 +23,8 @@ public class CheckStudentLoansCommand extends Command {
             + "Parameters: MATRIC_NUMBER";
 
     public static final String MESSAGE_SUCCESS_HEADER = "Displaying loans and reservations for: %1$s (%2$s)";
-    public static final String MESSAGE_NO_LOANS = "No existing loans/reservations.";
+    public static final String MESSAGE_NO_LOANS = "No existing loans.";
+    public static final String MESSAGE_NO_RESERVATIONS = "No existing reservations.";
     public static final String MESSAGE_STUDENT_NOT_FOUND = "Unsuccessful: Cannot find user.";
 
     private final StudentId targetId;
@@ -56,7 +57,8 @@ public class CheckStudentLoansCommand extends Command {
         sb.append(String.format(MESSAGE_SUCCESS_HEADER, student.getName(), targetId)).append("\n");
 
         // Active Loans
-        sb.append("--- Active Loans ---\n");
+        sb.append("============\n");
+        sb.append("LOANS\n");
         if (loans.isEmpty()) {
             sb.append(MESSAGE_NO_LOANS).append("\n");
         } else {
@@ -64,9 +66,9 @@ public class CheckStudentLoansCommand extends Command {
         }
 
         // Upcoming Reservations
-        sb.append("\n--- Upcoming Reservations ---\n");
+        sb.append("\nRESERVATIONS\n");
         if (reservations.isEmpty()) {
-            sb.append("No upcoming reservations.").append("\n");
+            sb.append(MESSAGE_NO_RESERVATIONS).append("\n");
         } else {
             reservations.stream().map(this::formatReservation).forEach(s -> sb.append(s).append("\n"));
         }
