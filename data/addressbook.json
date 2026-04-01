@@ -56,6 +56,21 @@
     "location" : "YIH",
     "status" : "Available",
     "tags" : [ ]
+  }, {
+    "name" : "Sports-Hall-4",
+    "location" : "University-Town",
+    "status" : "Available",
+    "tags" : [ ]
+  }, {
+    "name" : "Volleyball-Court",
+    "location" : "University-Town",
+    "status" : "Available",
+    "tags" : [ ]
+  }, {
+    "name" : "Badminton-Court",
+    "location" : "Sports-Centre",
+    "status" : "Available",
+    "tags" : [ ]
   } ],
   "reservations" : [ ],
   "issueRecords" : [ {

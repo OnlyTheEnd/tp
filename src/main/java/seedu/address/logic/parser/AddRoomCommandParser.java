@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.AddRoomCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.room.Location;
@@ -27,11 +29,10 @@ public class AddRoomCommandParser implements Parser<AddRoomCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LOCATION, PREFIX_STATUS);
 
-        // Check if mandatory prefixes (n/ and l/) are present and preamble is empty
-        if (!argMultimap.getValue(PREFIX_NAME).isPresent()
-                || !argMultimap.getValue(PREFIX_LOCATION).isPresent()
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_LOCATION, PREFIX_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRoomCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddRoomCommand.MESSAGE_USAGE));
         }
 
         RoomName name = ParserUtil.parseRoomName(argMultimap.getValue(PREFIX_NAME).get());
@@ -41,5 +42,13 @@ public class AddRoomCommandParser implements Parser<AddRoomCommand> {
         Room room = new Room(name, location, status);
 
         return new AddRoomCommand(room);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

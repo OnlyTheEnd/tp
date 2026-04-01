@@ -39,6 +39,13 @@ public class DeleteEquipmentCommand extends Command {
         }
 
         Equipment equipmentToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        if (!equipmentToDelete.getStatus().toString().equalsIgnoreCase("Available")) {
+            throw new CommandException(String.format(
+                    "Equipment is currently %1$s. Only allowed to be deleted when it is 'Available'.",
+                    equipmentToDelete.getStatus().toString()));
+        }
+
         model.deleteEquipment(equipmentToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_EQUIPMENT_SUCCESS, equipmentToDelete),
                 false, false, true, true, true);

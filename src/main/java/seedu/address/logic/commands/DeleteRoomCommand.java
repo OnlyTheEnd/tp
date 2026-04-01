@@ -43,8 +43,10 @@ public class DeleteRoomCommand extends Command {
 
         Room roomToDelete = lastShownList.get(targetIndex.getZeroBased());
 
-        if (roomToDelete.getStatus().isBooked()) {
-            throw new CommandException(MESSAGE_ROOM_BOOKED);
+        if (!roomToDelete.getStatus().toString().equalsIgnoreCase("Available")) {
+            throw new CommandException(String.format(
+                    "Room is currently %1$s. Only allowed to be deleted when it is 'Available'.",
+                    roomToDelete.getStatus().toString()));
         }
 
         model.deleteRoom(roomToDelete);
