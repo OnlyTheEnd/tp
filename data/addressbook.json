@@ -75,6 +75,21 @@
     "location" : "University-Town",
     "status" : "Booked",
     "tags" : [ ]
+  }, {
+    "name" : "Sports-Hall-4",
+    "location" : "University-Town",
+    "status" : "Available",
+    "tags" : [ ]
+  }, {
+    "name" : "Volleyball-Court",
+    "location" : "University-Town",
+    "status" : "Available",
+    "tags" : [ ]
+  }, {
+    "name" : "Badminton-Court",
+    "location" : "Sports-Centre",
+    "status" : "Available",
+    "tags" : [ ]
   } ],
   "reservations" : [ ],
   "issueRecords" : [ {
@@ -116,6 +131,11 @@
     "name" : "Li-Ning",
     "category" : "Badminton",
     "status" : "Booked",
+    "tags" : [ ]
+  }, {
+    "name" : "Adidas-Football",
+    "category" : "Soccer",
+    "status" : "Available",
     "tags" : [ ]
   } ]
 }

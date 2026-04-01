@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.room.Room;
-import seedu.address.testutil.RoomBuilder;
+import seedu.address.model.room.Status;
 
 public class DeleteRoomCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -45,19 +45,22 @@ public class DeleteRoomCommandTest {
     }
 
     @Test
-    public void execute_bookedRoom_throwsCommandException() {
-        Room bookedRoom = new RoomBuilder()
-                .withName("Unique-Room-999")
-                .withStatus("Booked")
-                .build();
+    public void execute_roomNotAvailable_throwsCommandException() {
+        Room firstRoom = model.getFilteredRoomList().get(INDEX_FIRST_ROOM.getZeroBased());
 
-        model.addRoom(bookedRoom);
+        Room bookedRoom = new Room(
+                firstRoom.getName(),
+                firstRoom.getLocation(),
+                new Status("Booked"));
+        model.setRoom(firstRoom, bookedRoom);
 
-        Index indexLast = Index.fromOneBased(model.getFilteredRoomList().size());
+        DeleteRoomCommand deleteCommand = new DeleteRoomCommand(INDEX_FIRST_ROOM);
 
-        DeleteRoomCommand deleteRoomCommand = new DeleteRoomCommand(indexLast);
+        String expectedMessage = String.format(
+                "Room is currently %1$s. Only allowed to be deleted when it is 'Available'.",
+                bookedRoom.getStatus());
 
-        assertCommandFailure(deleteRoomCommand, model, DeleteRoomCommand.MESSAGE_ROOM_BOOKED);
+        assertCommandFailure(deleteCommand, model, expectedMessage);
     }
 
     @Test
