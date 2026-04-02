@@ -26,7 +26,7 @@ public class DeleteStudentCommand extends Command {
     public static final String MESSAGE_STUDENT_NOT_FOUND = "Deletion unsuccessful. "
             + "No student found with matric number: %1$s";
     public static final String MESSAGE_HAS_ACTIVE_LOANS = "Deletion blocked. "
-            + "Student has active loans that must be returned first.";
+            + "Student has active loans or reservation.";
 
     private final StudentId targetId;
 
@@ -44,7 +44,7 @@ public class DeleteStudentCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getAddressBook().getPersonList();
 
-        // 1. Find the student by Matric Number
+        // Find the student by Matric Number
         Optional<Person> studentToDelete = lastShownList.stream()
                 .filter(person -> person.getStudentId().equals(targetId))
                 .findFirst();
@@ -55,7 +55,21 @@ public class DeleteStudentCommand extends Command {
 
         Person personToDelete = studentToDelete.get();
 
-        // Check for active loans to be implemented later
+        // Block deletion for active loans
+        boolean hasActiveLoans = model.getAddressBook().getIssueRecordList().stream()
+                .anyMatch(loan -> loan.getStudentId().equals(personToDelete.getStudentId()));
+
+
+        if (hasActiveLoans) {
+            throw new CommandException(MESSAGE_HAS_ACTIVE_LOANS);
+        }
+
+        boolean hasReservations = model.getAddressBook().getReservationList().stream()
+                .anyMatch(res -> res.getStudentId().equals(personToDelete.getStudentId()));
+
+        if (hasReservations) {
+            throw new CommandException(MESSAGE_HAS_ACTIVE_LOANS);
+        }
 
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS,

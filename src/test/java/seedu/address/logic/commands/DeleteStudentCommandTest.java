@@ -9,15 +9,20 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.StudentId;
+import seedu.address.model.reservation.Reservation;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteStudentCommand}.
+ * Contains integration tests (interaction with the Model) and unit tests for
+ * {@code DeleteStudentCommand}.
  */
 public class DeleteStudentCommandTest {
 
@@ -88,6 +93,31 @@ public class DeleteStudentCommandTest {
 
         // different student ID -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+    }
+
+    @Test
+    public void execute_studentWithActiveLoan_throwsCommandException() {
+        StudentId targetId = ALICE.getStudentId();
+        // Add a loan for Alice to the model
+        IssueRecord loan = new IssueRecord("Item-1", targetId, LocalDateTime.now().plusDays(1));
+        model.addIssueRecord(loan);
+
+        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(targetId);
+
+        assertCommandFailure(deleteCommand, model, DeleteStudentCommand.MESSAGE_HAS_ACTIVE_LOANS);
+    }
+
+    @Test
+    public void execute_studentWithReservation_throwsCommandException() {
+        StudentId targetId = ALICE.getStudentId();
+        // Add a reservation for Alice to the model
+        Reservation res = new Reservation("Room-1", targetId,
+                LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1).plusHours(1));
+        model.addReservation(res);
+
+        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(targetId);
+
+        assertCommandFailure(deleteCommand, model, DeleteStudentCommand.MESSAGE_HAS_ACTIVE_LOANS);
     }
 
     @Test

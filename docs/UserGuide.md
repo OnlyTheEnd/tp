@@ -389,20 +389,36 @@ Possible errors:
 
 #### Delete a student's profile : `delete-s`
 
-To permanently delete a borrower’s record from the system database.
+To permanently delete a student’s record from the system database.
 
 Format: `delete-s MATRIC_NUMBER`
 
 Examples:
 * `delete-s A0123456B`
 
+Success:
 ![DeleteStudentSuccess.png](images/DeleteStudentSuccess.png)
 
+Failure:
+![DeleteCommandFailure.png](images/DeleteCommandFailure.png)
+
+
 Acceptable values:
-* Matric number: Start with an alphabet followed by 7 digits and end with an alphabet.
+* Matric number: A 9-character identifier. Must start with an alphabet (usually 'A'), followed by 7 digits, and end with an alphabet (e.g., A1234567X).
+
+* Note: The command is case-insensitive (a1234567x is treated the same as A1234567X).
 
 Possible errors:
-* No matric number in the system.
+* Student Not Found: The matric number entered does not exist in the current database.
+
+* Active Loans: Deletion is blocked if the student currently has equipment that has not been returned.
+
+* Active Reservations: Deletion is blocked if the student has upcoming room or facility bookings.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Important:**
+A student profile **cannot be deleted** if there are outstanding records. 
+Please ensure all borrowed items are returned and all upcoming reservations are cancelled before attempting to remove the student.
+</div>
 
 #### Edit student's details : `edit-s`
 
