@@ -21,14 +21,38 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
 ## 1. Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. TrackMasterPro runs on Java `17`. Check if you already have it installed in your Computer:<br>
 
-2. Download the latest `TrackMasterPro.jar` file [here](https://github.com/se-edu/addressbook-level3/releases).
+   **Windows user:** Open the Start menu, search for `cmd` and open the **Command Prompt** app. Type `java -version` and press Enter. If yous see Java `17`, you're good to go!
+   
+   **Mac users:** Open the **Terminal** app. Type `java -version` and press Enter. If yous see Java `17`, you're good to go!
 
-3. Copy the file to the folder you want to use as the _home folder_ for TrackMasterPro.
+   If Java `17` is not installed:
+   * Windows: Guide to download and install Java `17` [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar TrackMasterPro.jar` command to run the application.<br>
+   * Mac: Guide to download and install Java `17` [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+
+2. Download the latest `trackmasterpro.jar` file [here](https://github.com/AY2526S2-CS2103T-T14-4/tp/releases/).
+
+3. Copy the file to the folder you want to use as the _home folder_ for TrackMasterPro
+   (e.g create a new folder called `TrackMasterPro`  on your Desktop).
+
+4. TrackMasterPro is launched from the **terminal**. Here's how to run it: </br>
+
+   **Windows:** 
+   1. Locate your file: Open File Explorer and go to the folder where `trackmasterpro.jar` is saved.
+
+   2. Open the Terminal: Click on the address bar at the top of the window (where the folder path is shown), type `cmd`, and hit Enter. This opens the Command Prompt directly in that folder.
+
+   3. Launch the App: Type the following command and press **Enter**: `java -jar TrackMasterPro.jar`.
+
+   **Mac:**
+   1. Open Terminal: Press `Command + Space`, type **Terminal**, and hit Enter.
+
+   2. Navigate to the folder: Type `cd` followed by a space, then drag the folder containing the `.jar` file from Finder directly into the Terminal window. Hit **Enter**.
+
+   3. Launch the App: Type the following command and press Enter: `java -jar trackmasterpro.jar`
+   
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -290,18 +314,19 @@ Possible errors:
 
 #### Add a new student profile : `add-s`
 
-Adds a new borrower in the database so they can begin borrowing items or booking facilities.
+Adds a new student in the database so they can begin borrowing equipment or booking room/facility.
 
 Format: `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL`
 
 Examples:
-*  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
+*  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` 
+*  Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
 
 **Acceptable values:**
-* **Name:** Alphabets and spaces only. No special characters or numbers.
-* **Matric number:** Must follow the NUS format (e.g., A0123456B).
-* **Phone number:** 8-digit continuous Singaporean mobile number.
-* **Email:** Valid email format (e.g., `e0123456@u.nus.edu`).
+* **Name:** Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`). The system trims any spaces at the very beginning or end of a name. 
+* **Matric Number:** Must be exactly 9 characters long. It starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.
+* **Phone Number:** 8-digit mobile number (e.g `81234567`).
+* **Email:** Valid email format (e.g., `e0123456@u.nus.edu`). Case insensitive.
 
 Outputs:
 * Success
@@ -310,8 +335,11 @@ Outputs:
   ![AddStudentFailure.png](images/AddStudentFailure.png)
 
 Duplicate handling:
-* If matric number, phone number or email already exist in the system, the command will be rejected to prevent duplicate identity.
+* To ensure data integrity, each Student must have a unique Matric Number, Phone Number, and Email. If any of these are already registered to another student, the command will fail.
 ![AddStudentDuplicate.png](images/AddStudentDuplicate.png)
+
+Possible errors:
+* Hyphens `(-)`, periods `(.)`, and apostrophes `(')`, numbers `(1)` in name will cause an error
 
 #### Check a student's loans : `check-s`
 
@@ -361,20 +389,36 @@ Possible errors:
 
 #### Delete a student's profile : `delete-s`
 
-To permanently delete a borrower’s record from the system database.
+To permanently delete a student’s record from the system database.
 
 Format: `delete-s MATRIC_NUMBER`
 
 Examples:
 * `delete-s A0123456B`
 
+Success:
 ![DeleteStudentSuccess.png](images/DeleteStudentSuccess.png)
 
+Failure:
+![DeleteCommandFailure.png](images/DeleteCommandFailure.png)
+
+
 Acceptable values:
-* Matric number: Start with an alphabet followed by 7 digits and end with an alphabet.
+* Matric number: A 9-character identifier. Must start with an alphabet (usually 'A'), followed by 7 digits, and end with an alphabet (e.g., A1234567X).
+
+* Note: The command is case-insensitive (a1234567x is treated the same as A1234567X).
 
 Possible errors:
-* No matric number in the system.
+* Student Not Found: The matric number entered does not exist in the current database.
+
+* Active Loans: Deletion is blocked if the student currently has equipment that has not been returned.
+
+* Active Reservations: Deletion is blocked if the student has upcoming room or facility bookings.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Important:**
+A student profile **cannot be deleted** if there are outstanding records. 
+Please ensure all borrowed items are returned and all upcoming reservations are cancelled before attempting to remove the student.
+</div>
 
 #### Edit student's details : `edit-s`
 

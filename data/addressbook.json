@@ -83,17 +83,25 @@
     "tags" : [ ]
   } ],
   "reservations" : [ ],
-  "issueRecords" : [ ],
+  "issueRecords" : [ {
+    "itemId" : "MOLTEN-VOLLEYBALL",
+    "studentId" : "a3456789c",
+    "dueDateTime" : "2027-03-18 1200"
+  }, {
+    "itemId" : "WILSON-EVOLUTION",
+    "studentId" : "a3456789c",
+    "dueDateTime" : "2027-03-31 1300"
+  } ],
   "aliasMappings" : [ ],
   "equipments" : [ {
     "name" : "Wilson-Evolution",
     "category" : "Basketball",
-    "status" : "Available",
+    "status" : "Booked",
     "tags" : [ ]
   }, {
-    "name" : "Mx-Volleyball",
+    "name" : "Molten-Volleyball",
     "category" : "Volleyball",
-    "status" : "Available",
+    "status" : "Booked",
     "tags" : [ ]
   }, {
     "name" : "Track-Stand",
