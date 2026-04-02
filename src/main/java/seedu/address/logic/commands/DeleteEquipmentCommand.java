@@ -17,7 +17,7 @@ public class DeleteEquipmentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the equipment identified by the index number used in the displayed equipment list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX(must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_EQUIPMENT_SUCCESS = "Deleted Equipment: %1$s";

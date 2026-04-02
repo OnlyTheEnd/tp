@@ -173,7 +173,7 @@ public class ParserUtil {
         requireNonNull(status);
         String trimmedStatus = status.trim();
         if (!Status.isValidStatus(trimmedStatus)) {
-            throw new ParseException("Status should be one of: Available, Booked, Maintenance.");
+            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
         return new Status(trimmedStatus);
     }

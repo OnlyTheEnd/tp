@@ -25,8 +25,8 @@ public class EditEquipmentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the equipment identified "
             + "by the index number used in the displayed equipment list. "
             + "At least one field to edit must be provided.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[n/NAME] [c/CATEGORY] [s/STATUS (Maintenance or Damaged only)]\n"
+            + "Parameters: INDEX(must be a positive integer) "
+            + "[n/NAME] [c/CATEGORY] [s/STATUS (Available, Maintenance or Damaged only)]\n"
             + "Example: " + COMMAND_WORD + " 1 s/Maintenance";
 
     public static final String MESSAGE_EDIT_EQUIPMENT_SUCCESS = "Updated Equipment:\n%1$s";
@@ -92,6 +92,9 @@ public class EditEquipmentCommand extends Command {
         return new Equipment(updatedName, updatedCategory, updatedStatus);
     }
 
+    /**
+     * Validates the equipment status transition.
+     */
     private void validateStatusTransition(EquipmentStatus current, EquipmentStatus requested)
             throws CommandException {
         String currentVal = current.toString().toUpperCase();

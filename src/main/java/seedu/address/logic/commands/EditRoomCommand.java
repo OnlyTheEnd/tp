@@ -25,8 +25,8 @@ public class EditRoomCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the room identified "
             + "by the index number used in the displayed room list. "
             + "At least one field to edit must be provided.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[n/NAME] [l/LOCATION] [s/STATUS]\n"
+            + "Parameters: INDEX(must be a positive integer) "
+            + "[n/NAME] [l/LOCATION] [s/STATUS (Available, Maintenance only)]\n"
             + "Example: " + COMMAND_WORD + " 1 s/Maintenance";
 
     public static final String MESSAGE_EDIT_ROOM_SUCCESS = "Updated Room:\n%1$s";
@@ -56,7 +56,23 @@ public class EditRoomCommand extends Command {
         }
 
         Room roomToEdit = lastShownList.get(index.getZeroBased());
+
+        if (editRoomDescriptor.getStatus().isPresent()) {
+            Status currentStatus = roomToEdit.getStatus();
+            Status requestedStatus = editRoomDescriptor.getStatus().get();
+
+            if (currentStatus.equals(requestedStatus)) {
+                editRoomDescriptor.setStatus(null);
+            } else {
+                validateStatusTransition(currentStatus, requestedStatus);
+            }
+        }
+
         Room editedRoom = createEditedRoom(roomToEdit, editRoomDescriptor);
+
+        if (roomToEdit.equals(editedRoom)) {
+            throw new CommandException("No changes detected (the information provided matches current records).");
+        }
 
         if (!roomToEdit.isSameRoom(editedRoom) && model.hasRoom(editedRoom)) {
             throw new CommandException(MESSAGE_DUPLICATE_ROOM);
@@ -75,6 +91,35 @@ public class EditRoomCommand extends Command {
         Status updatedStatus = editRoomDescriptor.getStatus().orElse(roomToEdit.getStatus());
 
         return new Room(updatedName, updatedLocation, updatedStatus);
+    }
+
+    /**
+     * Validates the room status transition.
+     */
+    private void validateStatusTransition(Status current, Status requested)
+            throws CommandException {
+        String currentVal = current.toString().toUpperCase();
+        String requestedVal = requested.toString().toUpperCase();
+
+        if (currentVal.equals(requestedVal)) {
+            throw new CommandException("Equipment is already in " + current.toString() + ", no status change.");
+        }
+
+        if (currentVal.equals("BOOKED")) {
+            throw new CommandException("Room is currently 'Booked' and its status cannot be edited as it is "
+                    + "currently issued or reserved");
+        }
+
+        if (currentVal.equals("AVAILABLE")) {
+            if (!requestedVal.equals("MAINTENANCE")) {
+                throw new CommandException("Room in 'Available' status can only be edited to 'Maintenance'");
+            }
+        } else if (currentVal.equals("MAINTENANCE")) {
+            if (!requestedVal.equals("AVAILABLE")) {
+                throw new CommandException("Room in 'Maintenance' status can only be edited to "
+                        + "'Available'.");
+            }
+        }
     }
 
     @Override
