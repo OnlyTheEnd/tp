@@ -51,7 +51,7 @@ public class DeleteRoomCommandTest {
         Room bookedRoom = new Room(
                 firstRoom.getName(),
                 firstRoom.getLocation(),
-                new Status("Booked"));
+                Status.BOOKED);
         model.setRoom(firstRoom, bookedRoom);
 
         DeleteRoomCommand deleteCommand = new DeleteRoomCommand(INDEX_FIRST_ROOM);

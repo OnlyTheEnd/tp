@@ -7,74 +7,60 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Room's status in the system.
  * Guarantees: immutable; is valid as declared in {@link #isValidStatus(String)}
  */
-public class Status {
+public enum Status {
+    AVAILABLE,
+    BOOKED,
+    MAINTENANCE;
+
     public static final String MESSAGE_CONSTRAINTS =
             "Status should only be: Available, Booked, or Maintenance.";
 
-    public final String value;
-
-    /**
-     * Constructs a {@code Status}.
-     *
-     * @param status A valid status string.
-     */
-    public Status(String status) {
-        requireNonNull(status);
-        String formattedStatus = formatStatus(status);
-        checkArgument(isValidStatus(formattedStatus), MESSAGE_CONSTRAINTS);
-        this.value = formattedStatus;
-    }
-
-    /**
-     * Formats the status string by trimming, lowering, and capitalizing the first letter.
-     * Defaults to "Available" if the input is empty.
-     */
-    private String formatStatus(String status) {
-        String lower = status.trim().toLowerCase();
-        if (lower.isEmpty()) {
-            return "Available"; // Default as per your spec
-        }
-        // Capitalize first letter for display consistency
-        return lower.substring(0, 1).toUpperCase() + lower.substring(1);
-    }
-
     /**
      * Returns true if a given string is a valid status.
-     * Valid statuses are (case-insensitive): available, booked, maintenance.
      */
     public static boolean isValidStatus(String test) {
-        String t = test.toLowerCase();
-        return t.equals("available") || t.equals("booked") || t.equals("maintenance");
+        try {
+            valueOf(test.trim().toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Parses a {@code String status} into a {@code Status}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalArgumentException if the status string is invalid.
+     */
+    public static Status java_parse(String status) {
+        requireNonNull(status);
+        String trimmedStatus = status.trim().toUpperCase();
+        if (trimmedStatus.isEmpty()) {
+            return AVAILABLE;
+        }
+        checkArgument(isValidStatus(trimmedStatus), MESSAGE_CONSTRAINTS);
+        return valueOf(trimmedStatus);
     }
 
     /**
      * Returns true if the status is Booked.
      */
     public boolean isBooked() {
-        return value.equalsIgnoreCase("Booked");
+        return this == BOOKED;
+    }
+
+    /**
+     * Returns true if the status is Available.
+     * Useful for the DeleteRoomCommand safety check.
+     */
+    public boolean isAvailable() {
+        return this == AVAILABLE;
     }
 
     @Override
     public String toString() {
-        return value;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Status)) {
-            return false;
-        }
-
-        Status otherStatus = (Status) other;
-        return value.equals(otherStatus.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
+        String name = name().toLowerCase();
+        return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 }

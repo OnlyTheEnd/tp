@@ -43,7 +43,7 @@ public class Room extends Taggable {
     public Room(RoomName name) {
         this.name = name;
         this.location = new Location("placeholder");
-        this.status = new Status("Available");
+        this.status = Status.AVAILABLE;
     }
 
     /**

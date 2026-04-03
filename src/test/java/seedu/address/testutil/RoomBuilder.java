@@ -33,7 +33,7 @@ public class RoomBuilder {
     public RoomBuilder() {
         name = new RoomName(DEFAULT_NAME);
         location = new Location(DEFAULT_LOCATION);
-        status = new Status(DEFAULT_STATUS);
+        status = Status.java_parse(DEFAULT_STATUS);
         tags = new HashSet<>();
     }
 
@@ -66,7 +66,7 @@ public class RoomBuilder {
      * Sets the {@code Status} of the {@code Room} that we are building.
      */
     public RoomBuilder withStatus(String status) {
-        this.status = new Status(status);
+        this.status = Status.java_parse(status);
         return this;
     }
 

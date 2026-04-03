@@ -50,7 +50,7 @@ class JsonAdaptedRoom {
     public JsonAdaptedRoom(Room source) {
         name = source.getName().fullName;
         location = source.getLocation().value;
-        status = source.getStatus().value;
+        status = source.getStatus().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -87,7 +87,8 @@ class JsonAdaptedRoom {
         if (!Status.isValidStatus(status)) {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
-        final Status modelStatus = new Status(status);
+        final Status modelStatus = Status.java_parse(status);
+
 
         final Set<Tag> modelTags = new HashSet<>(roomTags);
         return new Room(modelName, modelLocation, modelStatus, modelTags);
