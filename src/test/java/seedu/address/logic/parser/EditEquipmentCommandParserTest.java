@@ -19,12 +19,12 @@ public class EditEquipmentCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_EQUIPMENT;
-        String userInput = targetIndex.getOneBased() + " n/Wilson-Evolution c/Basketball s/Available";
+        String userInput = targetIndex.getOneBased() + " n/Wilson-Evolution c/Basketball s/Maintenance";
 
         EditEquipmentCommand.EditEquipmentDescriptor descriptor = new EditEquipmentDescriptorBuilder()
                 .withName("Wilson-Evolution").withCategory("Basketball")
 
-                .withStatus(EquipmentStatus.AVAILABLE).build();
+                .withStatus(EquipmentStatus.MAINTENANCE).build();
         EditEquipmentCommand expectedCommand = new EditEquipmentCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -33,10 +33,22 @@ public class EditEquipmentCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_EQUIPMENT;
-        String userInput = targetIndex.getOneBased() + " s/Booked";
+        String userInput = targetIndex.getOneBased() + " s/Damaged";
 
         EditEquipmentCommand.EditEquipmentDescriptor descriptor = new EditEquipmentDescriptorBuilder()
-                .withStatus(EquipmentStatus.BOOKED).build();
+                .withStatus(EquipmentStatus.DAMAGED).build();
+        EditEquipmentCommand expectedCommand = new EditEquipmentCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_validStatus_success() {
+        Index targetIndex = INDEX_FIRST_EQUIPMENT;
+        String userInput = targetIndex.getOneBased() + " s/Available";
+
+        EditEquipmentCommand.EditEquipmentDescriptor descriptor = new EditEquipmentDescriptorBuilder()
+                .withStatus(EquipmentStatus.AVAILABLE).build();
         EditEquipmentCommand expectedCommand = new EditEquipmentCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

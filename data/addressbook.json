@@ -52,27 +52,12 @@
     "status" : "Available",
     "tags" : [ ]
   }, {
-    "name" : "Mpsh-6",
-    "location" : "Kent-Ridge",
-    "status" : "Available",
-    "tags" : [ ]
-  }, {
-    "name" : "Mpsh-5",
-    "location" : "Kent-Ridge",
-    "status" : "Available",
-    "tags" : [ ]
-  }, {
     "name" : "Mpsh-2",
     "location" : "Sports-Centre",
     "status" : "Available",
     "tags" : [ ]
   }, {
     "name" : "Mpsh-3",
-    "location" : "Sports-Centre",
-    "status" : "Available",
-    "tags" : [ ]
-  }, {
-    "name" : "Mpsh-4",
     "location" : "Sports-Centre",
     "status" : "Available",
     "tags" : [ ]

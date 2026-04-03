@@ -37,14 +37,16 @@ public class EditEquipmentCommandParser implements Parser<EditEquipmentCommand> 
                 new EditEquipmentCommand.EditEquipmentDescriptor();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editEquipmentDescriptor.setName(ParserUtil.parseEquipmentName(argMultimap.getValue(PREFIX_NAME).get()));
+            editEquipmentDescriptor.setName(ParserUtil.parseEquipmentName(
+                    argMultimap.getValue(PREFIX_NAME).get().trim()));
         }
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            editEquipmentDescriptor.setCategory(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
+            editEquipmentDescriptor.setCategory(ParserUtil.parseCategory(
+                    argMultimap.getValue(PREFIX_CATEGORY).get().trim()));
         }
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            editEquipmentDescriptor.setStatus(
-                    ParserUtil.parseEquipmentStatus(argMultimap.getValue(PREFIX_STATUS).get()));
+            editEquipmentDescriptor.setStatus(ParserUtil.parseEquipmentStatus(
+                    argMultimap.getValue(PREFIX_STATUS).get().trim()));
         }
 
         if (!editEquipmentDescriptor.isAnyFieldEdited()) {

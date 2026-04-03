@@ -64,8 +64,7 @@ public class Equipment extends Taggable {
         }
 
         return otherEquipment != null
-                && otherEquipment.getName().equals(getName()) // EquipmentName.equals handles case
-                && otherEquipment.getCategory().equals(getCategory());
+                && otherEquipment.getName().equals(getName()); // EquipmentName.equals handles case
     }
 
     /**
