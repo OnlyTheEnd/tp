@@ -18,7 +18,7 @@ public class DeleteRoomCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the room identified by the index number used in the displayed room list.\n"
-            + "Parameters: INDEX(must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_ROOM_SUCCESS = "Deleted Room: \n%1$s";
