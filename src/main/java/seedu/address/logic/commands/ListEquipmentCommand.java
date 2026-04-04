@@ -12,6 +12,11 @@ public class ListEquipmentCommand extends Command {
 
     public static final String COMMAND_WORD = "list-e";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Lists all equipment.\n"
+            + "Format: " + COMMAND_WORD + "\n"
+            + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Listed all equipment";
 
     @Override

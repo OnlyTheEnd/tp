@@ -127,6 +127,7 @@ public class HelpCommand extends Command {
 
         entries.put(ListStudentCommand.COMMAND_WORD, ListStudentCommand.MESSAGE_USAGE);
         entries.put(ListRoomCommand.COMMAND_WORD, ListRoomCommand.MESSAGE_USAGE);
+        entries.put(ListEquipmentCommand.COMMAND_WORD, ListEquipmentCommand.MESSAGE_USAGE);
 
         entries.put(CheckStudentLoansCommand.COMMAND_WORD, CheckStudentLoansCommand.MESSAGE_USAGE);
 
