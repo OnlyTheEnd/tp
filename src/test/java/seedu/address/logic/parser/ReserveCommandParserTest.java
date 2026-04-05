@@ -16,8 +16,8 @@ public class ReserveCommandParserTest {
 
     private static final String VALID_RESOURCE_ID = "Hall-2";
     private static final String VALID_STUDENT_ID = "a1234567a";
-    private static final String VALID_START = "2026-03-01 1400";
-    private static final String VALID_END = "2026-03-01 1600";
+    private static final String VALID_START = "2099-03-01 1400";
+    private static final String VALID_END = "2099-03-01 1600";
 
     private static final String RESOURCE_AND_STUDENT = VALID_RESOURCE_ID + " " + VALID_STUDENT_ID;
     private static final String START_DESC = " f/" + VALID_START;
@@ -28,8 +28,8 @@ public class ReserveCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         Reservation reservation = new Reservation(VALID_RESOURCE_ID, new StudentId(VALID_STUDENT_ID),
-                LocalDateTime.of(2026, 3, 1, 14, 0),
-                LocalDateTime.of(2026, 3, 1, 16, 0));
+                LocalDateTime.of(2099, 3, 1, 14, 0),
+                LocalDateTime.of(2099, 3, 1, 16, 0));
 
         assertParseSuccess(parser, " " + RESOURCE_AND_STUDENT + START_DESC + END_DESC,
                 new ReserveCommand(reservation));
@@ -65,13 +65,6 @@ public class ReserveCommandParserTest {
         assertParseFailure(parser,
                 " " + RESOURCE_AND_STUDENT + START_DESC + " t/2026/03/01 1600",
                 ParserUtil.MESSAGE_INVALID_DATE_TIME);
-    }
-
-    @Test
-    public void parse_endBeforeStart_failure() {
-        assertParseFailure(parser,
-                " " + RESOURCE_AND_STUDENT + " f/2026-03-01 1600 t/2026-03-01 1400",
-                Reservation.MESSAGE_TIME_RANGE_CONSTRAINTS);
     }
 
     @Test

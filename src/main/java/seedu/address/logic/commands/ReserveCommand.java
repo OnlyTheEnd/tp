@@ -33,7 +33,10 @@ public class ReserveCommand extends Command {
 
     public static final String MESSAGE_INVALID_RESOURCE = "Error:\n%1$s is not a valid registered room/item.";
     public static final String MESSAGE_INVALID_STUDENT = "Error:\n%1$s is not a valid student ID in the system.";
-    public static final String MESSAGE_CONFLICT = "Error:\n%1$s is already reserved from %2$s to %3$s";
+    public static final String MESSAGE_RESOURCE_CONFLICT =
+            "Error:\n%1$s is already reserved from %2$s to %3$s.";
+    public static final String MESSAGE_STUDENT_CONFLICT =
+            "Error:\nStudent %1$s already has another reservation from %2$s to %3$s.";
 
     private final Reservation reservationToAdd;
 
@@ -69,15 +72,31 @@ public class ReserveCommand extends Command {
         Optional<Reservation> conflictingReservation = model.getConflictingReservation(resolvedReservation);
         if (conflictingReservation.isPresent()) {
             Reservation existing = conflictingReservation.get();
+
+            if (existing.getResourceId().equals(resolvedReservation.getResourceId())) {
+                throw new CommandException(String.format(
+                        MESSAGE_RESOURCE_CONFLICT,
+                        existing.getResourceId(),
+                        existing.getFormattedStartDateTime(),
+                        existing.getFormattedEndDateTime()));
+            }
+
+            if (existing.getStudentId().equals(resolvedReservation.getStudentId())) {
+                throw new CommandException(String.format(
+                        MESSAGE_STUDENT_CONFLICT,
+                        existing.getStudentId(),
+                        existing.getFormattedStartDateTime(),
+                        existing.getFormattedEndDateTime()));
+            }
+
             throw new CommandException(String.format(
-                    MESSAGE_CONFLICT,
+                    MESSAGE_RESOURCE_CONFLICT,
                     existing.getResourceId(),
                     existing.getFormattedStartDateTime(),
                     existing.getFormattedEndDateTime()));
         }
 
         model.addReservation(resolvedReservation);
-
         model.updatePersonDisplay(resolvedReservation.getStudentId());
 
         return new CommandResult(String.format(

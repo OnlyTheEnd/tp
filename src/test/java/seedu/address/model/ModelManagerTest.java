@@ -38,20 +38,20 @@ import seedu.address.testutil.RoomBuilder;
 public class ModelManagerTest {
 
     private static final Reservation HALL_TWO_SLOT_ONE = new Reservation("Hall-2", new StudentId("a1234567a"),
-            LocalDateTime.of(2026, 3, 1, 14, 0),
-            LocalDateTime.of(2026, 3, 1, 16, 0));
+            LocalDateTime.of(2099, 3, 1, 14, 0),
+            LocalDateTime.of(2099, 3, 1, 16, 0));
 
     private static final Reservation HALL_TWO_CONFLICTING = new Reservation("Hall-2", new StudentId("a2345678b"),
-            LocalDateTime.of(2026, 3, 1, 15, 0),
-            LocalDateTime.of(2026, 3, 1, 17, 0));
+            LocalDateTime.of(2099, 3, 1, 15, 0),
+            LocalDateTime.of(2099, 3, 1, 17, 0));
 
     private static final Reservation HALL_TWO_ADJACENT = new Reservation("Hall-2", new StudentId("a2345678b"),
-            LocalDateTime.of(2026, 3, 1, 16, 0),
-            LocalDateTime.of(2026, 3, 1, 18, 0));
+            LocalDateTime.of(2099, 3, 1, 16, 0),
+            LocalDateTime.of(2099, 3, 1, 18, 0));
 
     private static final Reservation MPSH_ONE_SAME_TIME = new Reservation("MPSH-1", new StudentId("a2345678b"),
-            LocalDateTime.of(2026, 3, 1, 14, 0),
-            LocalDateTime.of(2026, 3, 1, 16, 0));
+            LocalDateTime.of(2099, 3, 1, 14, 0),
+            LocalDateTime.of(2099, 3, 1, 16, 0));
 
     private static final IssueRecord HALL_TWO_ISSUE = new IssueRecord("Wilson-Evolution-Basketball-1",
             new StudentId("a1234567a"),

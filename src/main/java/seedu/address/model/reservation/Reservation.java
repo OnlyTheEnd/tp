@@ -19,6 +19,9 @@ public class Reservation {
             "Resource ID should start with a letter and contain only letters, digits, and hyphens, "
                     + "e.g. Hall-2 or MPSH-1";
 
+    public static final String MESSAGE_START_DATE_TIME_CONSTRAINTS =
+            "Start date/time must not be in the past.";
+
     public static final String MESSAGE_TIME_RANGE_CONSTRAINTS =
             "End date/time must be after start date/time.";
 
@@ -42,6 +45,7 @@ public class Reservation {
         requireNonNull(endDateTime);
 
         checkArgument(isValidResourceId(resourceId), MESSAGE_RESOURCE_ID_CONSTRAINTS);
+        checkArgument(!startDateTime.isBefore(LocalDateTime.now()), MESSAGE_START_DATE_TIME_CONSTRAINTS);
         checkArgument(endDateTime.isAfter(startDateTime), MESSAGE_TIME_RANGE_CONSTRAINTS);
 
         this.resourceId = normalizeResourceId(resourceId);
@@ -75,15 +79,30 @@ public class Reservation {
     }
 
     /**
+     * Returns true if the reservation time interval overlaps with another reservation.
+     */
+    public boolean overlapsWith(Reservation other) {
+        requireNonNull(other);
+        return startDateTime.isBefore(other.endDateTime)
+                && endDateTime.isAfter(other.startDateTime);
+    }
+
+    /**
      * Returns true if the reservation conflicts with another reservation.
-     * Conflict means same resource and overlapping time interval.
+     * Conflict means:
+     * - same resource with overlapping time interval, or
+     * - same student with overlapping time interval.
      */
     public boolean conflictsWith(Reservation other) {
         requireNonNull(other);
 
-        return resourceId.equals(other.resourceId)
-                && startDateTime.isBefore(other.endDateTime)
-                && endDateTime.isAfter(other.startDateTime);
+        boolean sameResourceOverlap = resourceId.equals(other.resourceId)
+                && overlapsWith(other);
+
+        boolean sameStudentOverlap = studentId.equals(other.studentId)
+                && overlapsWith(other);
+
+        return sameResourceOverlap || sameStudentOverlap;
     }
 
     /**

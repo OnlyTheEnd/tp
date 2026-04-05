@@ -62,4 +62,21 @@ public class EditRoomCommandTest {
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ROOM_DISPLAYED_INDEX);
     }
+
+    @Test
+    public void execute_editBookedRoom_throwsCommandException() {
+        Room roomInModel = model.getFilteredRoomList().get(0);
+
+        Room bookedRoom = new RoomBuilder(roomInModel).withStatus("Booked").build();
+
+        model.setRoom(roomInModel, bookedRoom);
+
+        EditRoomCommand.EditRoomDescriptor descriptor = new EditRoomDescriptorBuilder()
+                .withLocation("New-Location").build();
+        EditRoomCommand editCommand = new EditRoomCommand(INDEX_FIRST_ROOM, descriptor);
+
+        assertCommandFailure(editCommand, model,
+                "This room is currently 'Booked' and cannot be edited. "
+                        + "Please wait until it is cancelled.");
+    }
 }

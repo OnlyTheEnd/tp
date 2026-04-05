@@ -362,11 +362,11 @@ Adds a new student in the database so they can begin borrowing equipment or book
 Format: `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL`
 
 Examples:
-*  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` 
+*  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu`
 *  Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
 
 **Acceptable values:**
-* **Name:** Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`). The system trims any spaces at the very beginning or end of a name. 
+* **Name:** Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`). The system trims any spaces at the very beginning or end of a name.
 * **Matric Number:** Must be exactly 9 characters long. It starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.
 * **Phone Number:** 8-digit mobile number (e.g `81234567`).
 * **Email:** Valid email format (e.g., `e0123456@u.nus.edu`). Case insensitive.
@@ -459,7 +459,7 @@ Possible errors:
 * Active Reservations: Deletion is blocked if the student has upcoming room or facility bookings.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Important:**
-A student profile **cannot be deleted** if there are outstanding records. 
+A student profile **cannot be deleted** if there are outstanding records.
 Please ensure all borrowed items are returned and all upcoming reservations are cancelled before attempting to remove the student.
 </div>
 

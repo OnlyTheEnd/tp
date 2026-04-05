@@ -57,6 +57,11 @@ public class EditRoomCommand extends Command {
 
         Room roomToEdit = lastShownList.get(index.getZeroBased());
 
+        if (roomToEdit.getStatus().toString().equalsIgnoreCase("BOOKED")) {
+            throw new CommandException("This room is currently 'Booked' and cannot be edited. "
+                    + "Please wait until it is cancelled.");
+        }
+
         if (editRoomDescriptor.getStatus().isPresent()) {
             Status currentStatus = roomToEdit.getStatus();
             Status requestedStatus = editRoomDescriptor.getStatus().get();

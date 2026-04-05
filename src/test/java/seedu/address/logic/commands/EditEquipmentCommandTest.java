@@ -62,6 +62,24 @@ public class EditEquipmentCommandTest {
     }
 
     @Test
+    public void execute_editBookedEquipmentFromModel_throwsCommandException() {
+        Equipment equipmentInModel = model.getFilteredEquipmentList().get(0);
+
+        Equipment bookedEquipment = new EquipmentBuilder(equipmentInModel)
+                .withStatus(EquipmentStatus.BOOKED).build();
+
+        model.setEquipment(equipmentInModel, bookedEquipment);
+
+        EditEquipmentCommand.EditEquipmentDescriptor descriptor = new EditEquipmentDescriptorBuilder()
+                .withName("New-Name").build();
+        EditEquipmentCommand editCommand = new EditEquipmentCommand(INDEX_FIRST_EQUIPMENT, descriptor);
+
+        assertCommandFailure(editCommand, model,
+                "This equipment is currently 'Booked' and cannot be edited. "
+                        + "Please wait until it is returned or cancelled.");
+    }
+
+    @Test
     public void execute_invalidStatusTransition_throwsCommandException() {
         Equipment equipmentInModel = model.getFilteredEquipmentList().get(0); // Assume Available
         EditEquipmentCommand.EditEquipmentDescriptor descriptor = new EditEquipmentDescriptorBuilder()

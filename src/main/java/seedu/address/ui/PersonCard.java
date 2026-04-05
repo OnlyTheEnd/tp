@@ -78,6 +78,13 @@ public class PersonCard extends UiPart<Region> {
             reservationsContainer.getChildren().add(noReservation);
         } else {
             reservations.forEach(res -> {
+
+                Label resLabel = new Label(
+                        "[RESERVED] " + res.getResourceId() + " (" + res.getFormattedStartDateTime()
+                                + " to " + res.getFormattedEndDateTime() + ")");
+                resLabel.getStyleClass().add("cell_small_label");
+                resLabel.setStyle("-fx-text-fill: #FFD700;"); // Gold
+                loansContainer.getChildren().add(resLabel);
                 Label status = new Label("RESERVED");
                 // Orange for reserved.
                 configureStatusStyle(status, "#ffa000");
@@ -93,6 +100,7 @@ public class PersonCard extends UiPart<Region> {
                 // Put them in a row and add to container
                 HBox resRow = new HBox(status, resInfo);
                 reservationsContainer.getChildren().add(resRow);
+
             });
         }
     }

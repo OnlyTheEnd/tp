@@ -29,7 +29,8 @@ public class EquipmentListCard extends UiPart<Region> {
     public EquipmentListCard(Equipment equipment, int displayedIndex) {
         super(FXML);
         id.setText(displayedIndex + ". ");
-        name.setText(equipment.getName().fullName);
+        String nameText = equipment.getName().fullName;
+        name.setText(nameText);
 
         String categoryText = equipment.getCategory().toString();
         category.setText("Category: " + categoryText);

@@ -32,8 +32,27 @@ public class RoomListCard extends UiPart<Region> {
         super(FXML);
         this.room = room;
         id.setText(displayedIndex + ". ");
-        name.setText(room.getName().toString());
-        roomLocation.setText(room.getLocation().toString());
-        status.setText("Status: " + room.getStatus().toString());
+        String nameText = room.getName().toString();
+        name.setText(nameText);
+
+        String locationText = room.getLocation().toString();
+        roomLocation.setText("Location: " + locationText);
+
+        String statusText = room.getStatus().toString();
+        status.setText(statusText);
+        configureStatusStyle(statusText);
+    }
+
+    private void configureStatusStyle(String statusText) {
+        if (statusText.equalsIgnoreCase("Available")) {
+            status.setStyle("-fx-background-color: #2e7d32; -fx-text-fill: white;"
+                    + " -fx-padding: 2 5 2 5; -fx-background-radius: 5;");
+        } else if (statusText.equalsIgnoreCase("Booked")) {
+            status.setStyle("-fx-background-color: #c62828; -fx-text-fill: white;"
+                    + " -fx-padding: 2 5 2 5; -fx-background-radius: 5;");
+        } else if (statusText.equalsIgnoreCase("Maintenance")) {
+            status.setStyle("-fx-background-color: #ffa000; -fx-text-fill: white;"
+                    + " -fx-padding: 2 5 2 5; -fx-background-radius: 5;");
+        }
     }
 }

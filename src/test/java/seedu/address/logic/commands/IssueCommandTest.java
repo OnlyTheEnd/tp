@@ -9,10 +9,14 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.ModelStub;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.EquipmentStatus;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.StudentId;
-
+import seedu.address.testutil.EquipmentBuilder;
 
 public class IssueCommandTest {
 
@@ -24,7 +28,13 @@ public class IssueCommandTest {
 
     @Test
     public void execute_issueAccepted_addSuccessful() throws Exception {
-        ModelStubAcceptingIssueRecordAdded modelStub = new ModelStubAcceptingIssueRecordAdded();
+        ModelStubAcceptingIssueRecordAdded modelStub = new ModelStubAcceptingIssueRecordAdded(
+                new EquipmentBuilder()
+                        .withName(VALID_ITEM_ID)
+                        .withCategory("Basketball")
+                        .withStatus(EquipmentStatus.AVAILABLE)
+                        .build());
+
         IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
 
         CommandResult commandResult = issueCommand.execute(modelStub);
@@ -41,8 +51,8 @@ public class IssueCommandTest {
     public void execute_invalidItem_throwsCommandException() {
         ModelStub modelStub = new ModelStub() {
             @Override
-            public boolean hasIssuableItem(String itemId) {
-                return false;
+            public ReadOnlyAddressBook getAddressBook() {
+                return new AddressBook();
             }
 
             @Override
@@ -60,10 +70,18 @@ public class IssueCommandTest {
 
     @Test
     public void execute_invalidStudent_throwsCommandException() {
+        Equipment validEquipment = new EquipmentBuilder()
+                .withName(VALID_ITEM_ID)
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.AVAILABLE)
+                .build();
+
         ModelStub modelStub = new ModelStub() {
             @Override
-            public boolean hasIssuableItem(String itemId) {
-                return true;
+            public ReadOnlyAddressBook getAddressBook() {
+                AddressBook addressBook = new AddressBook();
+                addressBook.addEquipment(validEquipment);
+                return addressBook;
             }
 
             @Override
@@ -85,10 +103,18 @@ public class IssueCommandTest {
                 new StudentId("a2345678b"),
                 LocalDateTime.of(2099, 3, 12, 12, 0));
 
+        Equipment validEquipment = new EquipmentBuilder()
+                .withName(VALID_ITEM_ID)
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.AVAILABLE)
+                .build();
+
         ModelStub modelStub = new ModelStub() {
             @Override
-            public boolean hasIssuableItem(String itemId) {
-                return true;
+            public ReadOnlyAddressBook getAddressBook() {
+                AddressBook addressBook = new AddressBook();
+                addressBook.addEquipment(validEquipment);
+                return addressBook;
             }
 
             @Override
@@ -108,20 +134,115 @@ public class IssueCommandTest {
                 String.format(IssueCommand.MESSAGE_ALREADY_ISSUED,
                         existingIssueRecord.getItemId(),
                         existingIssueRecord.getStudentId(),
-                        existingIssueRecord
-                                .getFormattedDueDateTime()), () -> issueCommand.execute(modelStub));
+                        existingIssueRecord.getFormattedDueDateTime()), () -> issueCommand.execute(modelStub));
     }
 
+    @Test
+    public void execute_itemStatusBooked_throwsCommandException() {
+        Equipment bookedEquipment = new EquipmentBuilder()
+                .withName(VALID_ITEM_ID)
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.BOOKED)
+                .build();
+
+        ModelStub modelStub = new ModelStub() {
+            @Override
+            public ReadOnlyAddressBook getAddressBook() {
+                AddressBook addressBook = new AddressBook();
+                addressBook.addEquipment(bookedEquipment);
+                return addressBook;
+            }
+
+            @Override
+            public boolean hasStudentId(StudentId studentId) {
+                return true;
+            }
+        };
+
+        IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
+
+        assertThrows(CommandException.class,
+                String.format(IssueCommand.MESSAGE_ITEM_NOT_AVAILABLE,
+                        VALID_ISSUE_RECORD.getItemId(),
+                        EquipmentStatus.BOOKED), () -> issueCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_itemStatusMaintenance_throwsCommandException() {
+        Equipment maintenanceEquipment = new EquipmentBuilder()
+                .withName(VALID_ITEM_ID)
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.MAINTENANCE)
+                .build();
+
+        ModelStub modelStub = new ModelStub() {
+            @Override
+            public ReadOnlyAddressBook getAddressBook() {
+                AddressBook addressBook = new AddressBook();
+                addressBook.addEquipment(maintenanceEquipment);
+                return addressBook;
+            }
+
+            @Override
+            public boolean hasStudentId(StudentId studentId) {
+                return true;
+            }
+        };
+
+        IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
+
+        assertThrows(CommandException.class,
+                String.format(IssueCommand.MESSAGE_ITEM_NOT_AVAILABLE,
+                        VALID_ISSUE_RECORD.getItemId(),
+                        EquipmentStatus.MAINTENANCE), () -> issueCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_itemStatusDamaged_throwsCommandException() {
+        Equipment damagedEquipment = new EquipmentBuilder()
+                .withName(VALID_ITEM_ID)
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.DAMAGED)
+                .build();
+
+        ModelStub modelStub = new ModelStub() {
+            @Override
+            public ReadOnlyAddressBook getAddressBook() {
+                AddressBook addressBook = new AddressBook();
+                addressBook.addEquipment(damagedEquipment);
+                return addressBook;
+            }
+
+            @Override
+            public boolean hasStudentId(StudentId studentId) {
+                return true;
+            }
+        };
+
+        IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
+
+        assertThrows(CommandException.class,
+                String.format(IssueCommand.MESSAGE_ITEM_NOT_AVAILABLE,
+                        VALID_ISSUE_RECORD.getItemId(),
+                        EquipmentStatus.DAMAGED), () -> issueCommand.execute(modelStub));
+    }
 
     /**
      * A model stub that always accepts an issue record.
      */
     private static class ModelStubAcceptingIssueRecordAdded extends ModelStub {
+        private final ReadOnlyAddressBook addressBook;
         private IssueRecord issueRecordAdded;
 
+        private ModelStubAcceptingIssueRecordAdded(Equipment equipment) {
+            AddressBook ab = new AddressBook();
+            ab.addEquipment(equipment);
+            this.addressBook = ab;
+        }
+
         @Override
-        public boolean hasIssuableItem(String itemId) {
-            return true;
+        public ReadOnlyAddressBook getAddressBook() {
+            return addressBook;
         }
 
         @Override

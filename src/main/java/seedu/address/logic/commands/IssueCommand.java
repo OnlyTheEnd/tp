@@ -7,6 +7,8 @@ import java.util.Optional;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.EquipmentStatus;
 import seedu.address.model.issue.IssueRecord;
 
 /**
@@ -27,6 +29,8 @@ public class IssueCommand extends Command {
     public static final String MESSAGE_INVALID_STUDENT = "Error:\n%1$s is not a valid student ID in the system.";
     public static final String MESSAGE_ALREADY_ISSUED =
             "Error:\n%1$s is currently issued to %2$s due back on %3$s";
+    public static final String MESSAGE_ITEM_NOT_AVAILABLE =
+            "Error:\n%1$s cannot be issued because its current status is %2$s.";
 
     private final IssueRecord issueRecordToAdd;
 
@@ -58,9 +62,21 @@ public class IssueCommand extends Command {
                 issueRecordToAdd.getStudentId(),
                 issueRecordToAdd.getDueDateTime());
 
-        if (!model.hasIssuableItem(resolvedIssueRecord.getItemId())) {
+        Optional<Equipment> matchingEquipment = model.getAddressBook().getEquipmentList().stream()
+                .filter(equipment -> equipment.getName().fullName.equalsIgnoreCase(resolvedIssueRecord.getItemId()))
+                .findFirst();
+
+        if (matchingEquipment.isEmpty()) {
             throw new CommandException(String.format(
                     MESSAGE_INVALID_ITEM, resolvedIssueRecord.getItemId()));
+        }
+
+        Equipment equipment = matchingEquipment.get();
+        if (equipment.getStatus() != EquipmentStatus.AVAILABLE) {
+            throw new CommandException(String.format(
+                    MESSAGE_ITEM_NOT_AVAILABLE,
+                    resolvedIssueRecord.getItemId(),
+                    equipment.getStatus()));
         }
 
         if (!model.hasStudentId(resolvedIssueRecord.getStudentId())) {
@@ -88,6 +104,7 @@ public class IssueCommand extends Command {
                 resolvedIssueRecord.getStudentId(),
                 resolvedIssueRecord.getFormattedDueDateTime()));
     }
+
     /**
      * Returns true if both issue commands have the same issue record to add.
      */

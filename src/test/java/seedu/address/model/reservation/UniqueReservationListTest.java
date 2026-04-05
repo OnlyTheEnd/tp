@@ -23,24 +23,24 @@ public class UniqueReservationListTest {
     private static final StudentId STUDENT_TWO = new StudentId("a2345678b");
 
     private static final Reservation HALL_TWO_SLOT_ONE = new Reservation("Hall-2", STUDENT_ONE,
-            LocalDateTime.of(2026, 3, 1, 14, 0),
-            LocalDateTime.of(2026, 3, 1, 16, 0));
+            LocalDateTime.of(2099, 3, 1, 14, 0),
+            LocalDateTime.of(2099, 3, 1, 16, 0));
 
     private static final Reservation HALL_TWO_SLOT_ONE_COPY = new Reservation("Hall-2", STUDENT_ONE,
-            LocalDateTime.of(2026, 3, 1, 14, 0),
-            LocalDateTime.of(2026, 3, 1, 16, 0));
+            LocalDateTime.of(2099, 3, 1, 14, 0),
+            LocalDateTime.of(2099, 3, 1, 16, 0));
 
     private static final Reservation HALL_TWO_CONFLICTING = new Reservation("Hall-2", STUDENT_TWO,
-            LocalDateTime.of(2026, 3, 1, 15, 0),
-            LocalDateTime.of(2026, 3, 1, 17, 0));
+            LocalDateTime.of(2099, 3, 1, 15, 0),
+            LocalDateTime.of(2099, 3, 1, 17, 0));
 
     private static final Reservation HALL_TWO_ADJACENT = new Reservation("Hall-2", STUDENT_TWO,
-            LocalDateTime.of(2026, 3, 1, 16, 0),
-            LocalDateTime.of(2026, 3, 1, 18, 0));
+            LocalDateTime.of(2099, 3, 1, 16, 0),
+            LocalDateTime.of(2099, 3, 1, 18, 0));
 
     private static final Reservation MPSH_ONE_SAME_TIME = new Reservation("MPSH-1", STUDENT_TWO,
-            LocalDateTime.of(2026, 3, 1, 14, 0),
-            LocalDateTime.of(2026, 3, 1, 16, 0));
+            LocalDateTime.of(2099, 3, 1, 14, 0),
+            LocalDateTime.of(2099, 3, 1, 16, 0));
 
     private final UniqueReservationList uniqueReservationList = new UniqueReservationList();
 

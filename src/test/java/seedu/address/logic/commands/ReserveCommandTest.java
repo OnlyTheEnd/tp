@@ -17,10 +17,10 @@ public class ReserveCommandTest {
 
     private static final String VALID_RESOURCE_ID = "Hall-2";
     private static final StudentId VALID_STUDENT_ID = new StudentId("a1234567a");
-    private static final LocalDateTime VALID_START = LocalDateTime.of(2026, 3, 1, 14, 0);
-    private static final LocalDateTime VALID_END = LocalDateTime.of(2026, 3, 1, 16, 0);
-    private static final Reservation VALID_RESERVATION = new Reservation(VALID_RESOURCE_ID, VALID_STUDENT_ID,
-            VALID_START, VALID_END);
+    private static final LocalDateTime VALID_START = LocalDateTime.of(2099, 3, 1, 14, 0);
+    private static final LocalDateTime VALID_END = LocalDateTime.of(2099, 3, 1, 16, 0);
+    private static final Reservation VALID_RESERVATION = new Reservation(
+            VALID_RESOURCE_ID, VALID_STUDENT_ID, VALID_START, VALID_END);
 
     @Test
     public void execute_reservationAccepted_addSuccessful() throws Exception {
@@ -29,9 +29,10 @@ public class ReserveCommandTest {
 
         CommandResult commandResult = reserveCommand.execute(modelStub);
 
-        assertEquals(VALID_RESERVATION, modelStub.reservationAdded);
+        assertEquals(new Reservation("HALL-2", VALID_STUDENT_ID, VALID_START, VALID_END),
+                modelStub.reservationAdded);
         assertEquals(String.format(ReserveCommand.MESSAGE_SUCCESS,
-                        VALID_RESERVATION.getResourceId(),
+                        "HALL-2",
                         VALID_RESERVATION.getStudentId(),
                         VALID_RESERVATION.getFormattedStartDateTime(),
                         VALID_RESERVATION.getFormattedEndDateTime()),
@@ -56,7 +57,7 @@ public class ReserveCommandTest {
 
         assertThrows(CommandException.class,
                 String.format(ReserveCommand.MESSAGE_INVALID_RESOURCE,
-                        VALID_RESERVATION.getResourceId()), () -> reserveCommand.execute(modelStub));
+                        "HALL-2"), () -> reserveCommand.execute(modelStub));
     }
 
     @Test
@@ -81,10 +82,10 @@ public class ReserveCommandTest {
     }
 
     @Test
-    public void execute_conflictingReservation_throwsCommandException() {
+    public void execute_conflictingResourceReservation_throwsCommandException() {
         Reservation conflictingReservation = new Reservation("Hall-2", new StudentId("a2345678b"),
-                LocalDateTime.of(2026, 3, 1, 13, 0),
-                LocalDateTime.of(2026, 3, 1, 15, 0));
+                LocalDateTime.of(2099, 3, 1, 13, 0),
+                LocalDateTime.of(2099, 3, 1, 15, 0));
 
         ModelStub modelStub = new ModelStub() {
             @Override
@@ -106,8 +107,40 @@ public class ReserveCommandTest {
         ReserveCommand reserveCommand = new ReserveCommand(VALID_RESERVATION);
 
         assertThrows(CommandException.class,
-                String.format(ReserveCommand.MESSAGE_CONFLICT,
+                String.format(ReserveCommand.MESSAGE_RESOURCE_CONFLICT,
                         conflictingReservation.getResourceId(),
+                        conflictingReservation.getFormattedStartDateTime(),
+                        conflictingReservation.getFormattedEndDateTime()), () -> reserveCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_conflictingStudentReservation_throwsCommandException() {
+        Reservation conflictingReservation = new Reservation("MPSH-1", VALID_STUDENT_ID,
+                LocalDateTime.of(2099, 3, 1, 13, 30),
+                LocalDateTime.of(2099, 3, 1, 15, 30));
+
+        ModelStub modelStub = new ModelStub() {
+            @Override
+            public boolean hasReservableItem(String resourceId) {
+                return true;
+            }
+
+            @Override
+            public boolean hasStudentId(StudentId studentId) {
+                return true;
+            }
+
+            @Override
+            public Optional<Reservation> getConflictingReservation(Reservation reservation) {
+                return Optional.of(conflictingReservation);
+            }
+        };
+
+        ReserveCommand reserveCommand = new ReserveCommand(VALID_RESERVATION);
+
+        assertThrows(CommandException.class,
+                String.format(ReserveCommand.MESSAGE_STUDENT_CONFLICT,
+                        conflictingReservation.getStudentId(),
                         conflictingReservation.getFormattedStartDateTime(),
                         conflictingReservation.getFormattedEndDateTime()), () -> reserveCommand.execute(modelStub));
     }
