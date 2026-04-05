@@ -24,7 +24,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 1. TrackMasterPro runs on Java `17`. Check if you already have it installed in your Computer:<br>
 
    **Windows user:** Open the Start menu, search for `cmd` and open the **Command Prompt** app. Type `java -version` and press Enter. If yous see Java `17`, you're good to go!
-   
+
    **Mac users:** Open the **Terminal** app. Type `java -version` and press Enter. If yous see Java `17`, you're good to go!
 
    If Java `17` is not installed:
@@ -39,7 +39,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
 4. TrackMasterPro is launched from the **terminal**. Here's how to run it: </br>
 
-   **Windows:** 
+   **Windows:**
    1. Locate your file: Open File Explorer and go to the folder where `trackmasterpro.jar` is saved.
 
    2. Open the Terminal: Click on the address bar at the top of the window (where the folder path is shown), type `cmd`, and hit Enter. This opens the Command Prompt directly in that folder.
@@ -52,7 +52,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
    2. Navigate to the folder: Type `cd` followed by a space, then drag the folder containing the `.jar` file from Finder directly into the Terminal window. Hit **Enter**.
 
    3. Launch the App: Type the following command and press Enter: `java -jar trackmasterpro.jar`
-   
+
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -319,11 +319,11 @@ Adds a new student in the database so they can begin borrowing equipment or book
 Format: `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL`
 
 Examples:
-*  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` 
+*  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu`
 *  Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
 
 **Acceptable values:**
-* **Name:** Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`). The system trims any spaces at the very beginning or end of a name. 
+* **Name:** Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`). The system trims any spaces at the very beginning or end of a name.
 * **Matric Number:** Must be exactly 9 characters long. It starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.
 * **Phone Number:** 8-digit mobile number (e.g `81234567`).
 * **Email:** Valid email format (e.g., `e0123456@u.nus.edu`). Case insensitive.
@@ -416,7 +416,7 @@ Possible errors:
 * Active Reservations: Deletion is blocked if the student has upcoming room or facility bookings.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Important:**
-A student profile **cannot be deleted** if there are outstanding records. 
+A student profile **cannot be deleted** if there are outstanding records.
 Please ensure all borrowed items are returned and all upcoming reservations are cancelled before attempting to remove the student.
 </div>
 
