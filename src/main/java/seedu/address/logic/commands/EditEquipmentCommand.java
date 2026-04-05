@@ -55,6 +55,11 @@ public class EditEquipmentCommand extends Command {
 
         Equipment equipmentToEdit = lastShownList.get(index.getZeroBased());
 
+        if (equipmentToEdit.getStatus().toString().equalsIgnoreCase("BOOKED")) {
+            throw new CommandException("This equipment is currently 'Booked' and cannot be edited. "
+                    + "Please wait until it is returned or cancelled.");
+        }
+
         if (editEquipmentDescriptor.getStatus().isPresent()) {
             EquipmentStatus currentStatus = equipmentToEdit.getStatus();
             EquipmentStatus requestedStatus = editEquipmentDescriptor.getStatus().get();
