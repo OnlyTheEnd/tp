@@ -10,12 +10,6 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
 * Table of Contents
 {:toc}
-  * [Quick start](#1-quick-start)
-  * [Features](#2-features)
-  * [Data management](#3-data-management)
-  * [FAQ](#4-faq)
-  * [Known issues](#5-known-issues)
-  * [Command summary](#6-command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -23,8 +17,8 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
 1. TrackMasterPro runs on Java `17`. Check if you already have it installed in your Computer:<br>
 
-   **Windows user:** Open the Start menu, search for `cmd` and open the **Command Prompt** app. Type `java -version` and press Enter. If yous see Java `17`, you're good to go!
-
+   **Windows user:** Open the Start menu, search for `cmd` and open the **Command Prompt** app. Type `java -version` and press Enter. If you see Java `17`, you're good to go!
+   
    **Mac users:** Open the **Terminal** app. Type `java -version` and press Enter. If yous see Java `17`, you're good to go!
 
    If Java `17` is not installed:
@@ -32,15 +26,15 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
    * Mac: Guide to download and install Java `17` [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `trackmasterpro.jar` file [here](https://github.com/AY2526S2-CS2103T-T14-4/tp/releases/).
+2. Download the latest `TrackMasterPro.jar` file [here](https://github.com/AY2526S2-CS2103T-T14-4/tp/releases/).
 
 3. Copy the file to the folder you want to use as the _home folder_ for TrackMasterPro
    (e.g create a new folder called `TrackMasterPro`  on your Desktop).
 
 4. TrackMasterPro is launched from the **terminal**. Here's how to run it: </br>
 
-   **Windows:**
-   1. Locate your file: Open File Explorer and go to the folder where `trackmasterpro.jar` is saved.
+   **Windows:** 
+   1. Locate your file: Open File Explorer and go to the folder where `TrackMasterPro.jar` is saved.
 
    2. Open the Terminal: Click on the address bar at the top of the window (where the folder path is shown), type `cmd`, and hit Enter. This opens the Command Prompt directly in that folder.
 
@@ -51,8 +45,8 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
    2. Navigate to the folder: Type `cd` followed by a space, then drag the folder containing the `.jar` file from Finder directly into the Terminal window. Hit **Enter**.
 
-   3. Launch the App: Type the following command and press Enter: `java -jar trackmasterpro.jar`
-
+   3. Launch the App: Type the following command and press Enter: `java -jar TrackMasterPro.jar`
+   
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -95,31 +89,40 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 #### Adding an equipment : `add-e`
 
 Adds a new piece of physical equipment into the inventory so it can be tracked and loaned.
+New equipment is set to `Available` status by default.
 
-Format: `add-e n/NAME c/CATEGORY s/STATUS`
+**Format:** `add-e n/NAME c/CATEGORY`
 
-Acceptable values:
-* Name: Alphanumeric characters and spaces. Cannot be empty. Multiple spaces between words are collapsed into a single space (e.g., John   Doe becomes John Doe). Case-sensitive for display.
-* Category: Single word alphabetic. Cannot be empty.
-* Status: Available, Booked, Maintenance, Damaged. Cannot be empty. Case-insensitive (e.g. available is accepted).
-* Parameters can be in any order.
-  e.g. if the command specifies n/NAME c/CATEGORY s/STATUS, c/CATEGORY n/NAME s/STATUS is also acceptable.
+**Acceptable values:**
+* `Name`: Equipment Name should only contain alphanumeric characters and single hyphens (`-`) in between,
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Wilson-Evolution`)
+* `Category`: Equipment Category should only contain alphanumeric characters and single hyphens (`-`) in between,
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Basketball`) <br><br>
+* *Case Sensitivity:* Both fields are case-insensitive. `n/Wilson-Evolution` and `n/WILSON-EVOLUTION` are treated as the same name. `c/Basketball` and `c/BASKETBALL` are treated as the same category.
+* *Parameters can be in any order:*
+  e.g. if the command specifies `n/NAME c/CATEGORY`, `c/CATEGORY n/NAME` is also acceptable.
 
-Duplicate handling:
-* Case-insensitive for duplicate checking. If you have multiple equipment of the same name and category, it should be named with a number as “Basketball-1”, “Basketball-2”, etc.
+**Duplicate handling:**
+* The system enforces unique names across the Equipment inventory list.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+To add multiple Equipment of the same name, append a unique number (e.g. `Wilson-Evolution-1`, `Wilson-Evolution-2`).
+</div>
 
-Examples:
-* `add-e n/Wilson-Evolution-Basketball c/Basketball s/Available`.
-* `add-e n/Yonex-Astrox c/Badminton s/Booked`.
+**Examples:**
+* `add-e n/Wilson-Evolution c/Basketball` — Adds an equipment with Name: Wilson-Evolution and Category: Basketball in the current equipment list.
+* `add-e n/Yonex-Astrox c/Badminton` — Adds an equipment with Name: Yonex-Astrox and Category: Badminton in the current equipment list.
+* `add-e n/Track-Stand c/Track-And-Field` — Adds an equipment with Name: Track-Stand and Category: Track-And-Field in the current equipment list.
 
-Outputs:
+**Outputs:**
 * Success
 ![addEquipmentSuccess.png](images/addEquipmentSuccess.png)
 * Failure
 ![addEquipmentFail.png](images/addEquipmentFail.png)
 
-Possible errors:
-* Invalid command such as missing n/, c/, and s/ prefix
+**Possible errors:**
+* *Invalid command:* Missing `n/` and `c/` prefix.
+* *Invalid name/category:* Using spaces, special characters (e.g. `#`, `@` etc.), or leaving fields blank.
+* *This equipment already exists:* Attempting to add a name that is already in the inventory.
 
 #### View equipment inventory list : `list-e`
 
@@ -150,86 +153,110 @@ Possible errors:
 
 Deletes equipment from the inventory.
 
-Format: `delete-e INDEX`
+**Format:** `delete-e INDEX`
 
-Acceptable values:
-* Index: Positive integer corresponding to the current displayed list from `list-e`.
+**Acceptable values:**
+* `Index`: Positive integer corresponding to the current displayed list from `list-e`. (e.g `list-e` have a size of 4, valid index range would be 1,2,3, or 4)
+<div markdown="span" class="alert alert-warning">:warning: **Warning:**
+**Strict Lockdown:** You cannot delete equipment that currently has a **Booked** status. The equipment must be returned or canceled before it can be deleted from the system.
+</div>
 
-Duplicate handling:
+**Duplicate handling:**
 * Not applicable for a delete command.
 
-Examples:
-* `delete-e 7`.
+**Examples:**
+* `delete-e 1` — Deletes the first equipment in the current equipment list.
+* `delete-e 7` — Deletes the seventh equipment in the current equipment list.
 
-Outputs:
+**Outputs:**
 * Success
   ![deleteEquipmentSuccess.png](images/deleteEquipmentSuccess.png)
 * Failure
   ![deleteEquipmentFail.png](images/deleteEquipmentFail.png)
 
-Possible errors:
-* Attempt to delete an equipment that is out of the inventory index list.
-* Attempt to delete an equipment that is having a ‘Booked’ status.
+**Possible errors:**
+* *Invalid index:* The index provided is 0, negative or exceeds the current equipment list index.
+* *Invalid command format:* Typing delete-e without providing an index.
+* *Equipment is Booked:* Attempt to delete equipment that is having a ‘Booked’ status.
 
 #### Edit equipment from inventory list : `edit-e`
 
 Edit details for existing equipment from the inventory.
 
-Format: `edit-e INDEX [n/NAME] [c/CATEGORY] [s/STATUS]`
+**Format:** `edit-e INDEX [n/NAME] [c/CATEGORY] [s/STATUS]`
 
-Acceptable values:
-* Index: Positive integer corresponding to the current displayed list from `list-e`.
-* (With at least one of the fields)
-    * Name: Alphanumeric characters and spaces.
-    * Category: Single word alphanumeric.
-    * Status: Available, Booked, Maintenance, Damaged.
+**Acceptable values:**
+* `Index:` Positive integer corresponding to the current displayed list from `list-e`. (e.g `list-e` have a size of 4, valid index range would be 1,2,3, or 4).
+* *(With at least one of the fields)*
+    * `Name`: Equipment Name should only contain alphanumeric characters and single hyphens (`-`) in between,
+      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Wilson-Evolution`)
+    * `Category`: Equipment Category should only contain alphanumeric characters and single hyphens (`-`) in between,
+      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Basketball`)
+    * `Status`: If in `Available`, it can only be changed to `Maintenance` or `Damaged`. If in `Maintenance` or `Damaged`, it can only be changed back to `Available`.
+<div markdown="span" class="alert alert-warning">:warning: **Warning:**
+**Strict Lockdown:** You cannot edit equipment that currently has a **Booked** status. The equipment must be returned or canceled before it can be edited.
+</div>
 
-Duplicate handling:
-* Case-insensitive for duplicate checking. If you have multiple equipment of the same name and category,
-  it should be named with a number as “Basketball-1”, “Basketball-2”, etc.
+**Duplicate handling:**
+* The system enforces unique names across the Equipment inventory list.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+To add multiple Equipment of the same name, append a unique number (e.g. `Wilson-Evolution-1`, `Wilson-Evolution-2`).
+</div>
 
-Examples:
-* `edit-e 6 s/Booked`.
+**Examples:**
+* `edit-e 1 s/Maintenance` — Edit the first equipment to Status: Maintenance. Assuming initial status is Available.
+* `edit-e 3 n/Wilson-Evo c/Bball s/Available` — Edit the third equipment to Name: Wilson-Evo, Category: Bball, Status: Available. Assuming initial status is Maintenance.
 
-Outputs:
+**Outputs:**
 * Success
   ![editEquipmentSuccess.png](images/editEquipmentSuccess.png)
 * Failure
   ![editEquipmentFail.png](images/editEquipmentFail.png)
 
-Possible errors:
-* Attempt to edit an equipment that is not in the inventory.
-* Wrong command given that is not of the n/, c/, and s/ prefix.
+**Possible errors:**
+* *This equipment is currently 'Booked':* Attempting to edit a loaned equipment.
+* *This equipment already exists:* Renaming equipment to a name already in use.
+* *Invalid status transition:* Trying to move an equipment status from Maintenance to Booked.
+* *Invalid command:* Missing `n/`, `c/`, or `s/` prefix.
 
 ### 2.2 Facility & Venue Management
 
-#### Adding a room : `add-r`
+#### Adding a room (facility or venue) : `add-r`
 
-Adds a new facility or venue into the system.
+Adds a new room (facility or venue) into the system.
+New room is set to `Available` status by default.
 
-Format: `add-r n/NAME l/LOCATION s/STATUS`
+**Format:** `add-r n/NAME l/LOCATION`
 
-Acceptable values:
-* Name and Location: Alphanumeric characters and spaces. Cannot be empty. Multiple spaces between words are collapsed into a single space (e.g., John   Doe becomes John Doe). Case-sensitive for display.
-* Status: Available, Booked, Maintenance. Cannot be empty. Case-insensitive (e.g. available is accepted).
-* Parameters can be in any order.
-  e.g. if the command specifies n/NAME l/LOCATION s/STATUS, l/LOCATION n/NAME s/STATUS is also acceptable.
+**Acceptable values:**
+* `Name:` Room Name should only contain alphanumeric characters and single hyphens (`-`) in between,
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`)
+* `Location:` Room Location should only contain alphanumeric characters and single hyphens (`-`) in between,
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `University-Town`) <br><br>
+* *Case Sensitivity:* Both fields are case-insensitive. `n/Sports-Hall-1` and `n/SPORTS-HALL-1` are treated as the same name. `l/University-Town` and `l/UNIVERSITY-TOWN` are treated as the same location.
+* *Parameters can be in any order:*
+  e.g. if the command specifies `n/NAME l/LOCATION`, `l/LOCATION n/NAME` is also acceptable.
 
-Duplicate handling:
-* Case-insensitive for duplicate checking. Only one physical "MPSH-1" exists, therefore duplicate names would cause booking conflicts and error.
+**Duplicate handling:**
+* The system enforces unique names across the Room inventory list.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+To add multiple Room of the same name, append a unique number (e.g. `Sports-Hall-1`, `Sports-Hall-2`).
+</div>
 
-Examples:
-* `add-r n/MPSH-2 l/Sports-Centre s/Available`.
-* `add-r n/Sports-Hall-2 l/University-Town s/Booked`.
+**Examples:**
+* `add-r n/MPSH-2 l/Sports-Centre` — Adds a room with Name: MPSH-2 and Location: Sports-Centre in the current room list.
+* `add-r n/Sports-Hall-2 l/University-Town` — Adds an equipment with Name: Sports-Hall-2 and Location: University-Town in the current room list.
 
-Outputs:
+**Outputs:**
 * Success
   ![addRoomSuccess.png](images/addRoomSuccess.png)
 * Failure
   ![addRoomFail.png](images/addRoomFail.png)
 
-Possible errors:
-* Invalid command such as missing n/, l/, and s/ prefix
+**Possible errors:**
+* *Invalid command:* Missing `n/` and `l/` prefix.
+* *Invalid name/location:* Using spaces, special characters (e.g. `#`, `@` etc.), or leaving fields blank.
+* *This room already exists:* Attempting to add a name that is already in the inventory.
 
 #### View room list : `list-r`
 
@@ -260,55 +287,71 @@ Possible errors:
 
 Deletes a room equipment from the room list.
 
-Format: `delete-r INDEX`
+**Format:** `delete-r INDEX`
 
-Acceptable values:
-* Index: Positive integer corresponding to the current displayed list.
+**Acceptable values:**
+* `Index`: Positive integer corresponding to the current displayed list from `list-r`. (e.g `list-r` have a size of 4, valid index range would be 1,2,3, or 4)
+<div markdown="span" class="alert alert-warning">:warning: **Warning:**
+**Strict Lockdown:** You cannot delete room that currently has a **Booked** status. The room must be canceled before it can be deleted from the system.
+</div>
 
-Duplicate handling:
+**Duplicate handling:**
 * Not applicable for a delete command.
 
-Examples:
-* `delete-r 8`.
+**Examples:**
+* `delete-r 1` — Deletes the first room in the current room list.
+* `delete-r 8` — Deletes the eighth room in the current room list.
 
-Outputs:
+**Outputs:**
 * Success
   ![deleteRoomSucces.png](images/deleteRoomSucces.png)
 * Failure
   ![deleteRoomFail.png](images/deleteRoomFail.png)
 
-Possible errors:
-* Attempt to delete a room that is out of the room index list.
-* Attempt to delete a room that is having a ‘Booked’ status.
+**Possible errors:**
+* *Invalid index:* The index provided is 0, negative or exceeds the current room list index.
+* *Invalid command format:* Typing delete-r without providing an index.
+* *Room is Booked:* Attempt to delete room that is having a ‘Booked’ status.
 
 #### Edit room from room list : `edit-r`
 
 Edit details for existing room from the room list.
 
-Format: `edit-r INDEX [n/NAME] [c/LOCATION] [s/STATUS]`
+**Format:** `edit-r INDEX [n/NAME] [c/LOCATION] [s/STATUS]`
 
-Acceptable values:
-* Index: Positive integer corresponding to the current displayed list from `list-r`.
-* (With at least one of the fields)
-  * Name: Alphanumeric characters and spaces.
-  * Location: Alphanumeric characters and spaces.
-  * Status: Available, Booked, Maintenance.
+**Acceptable values:**
+* `Index:` Positive integer corresponding to the current displayed list from `list-r`. (e.g `list-r` have a size of 4, valid index range would be 1,2,3, or 4)
+* *(With at least one of the fields)*
+    * `Name`: Room Name should only contain alphanumeric characters and single hyphens (`-`) in between,
+      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`)
+    * `Location`: Room Location should only contain alphanumeric characters and single hyphens (`-`) in between,
+      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `University-Town`)
+    * `Status`: If in `Available`, it can only be changed to `Maintenance`. If in `Maintenance`, it can only be changed to `Available`.
+<div markdown="span" class="alert alert-warning">:warning: **Warning:**
+**Strict Lockdown:** You cannot edit room that currently has a **Booked** status. The room must be canceled before it can be edited.
+</div>
 
-Duplicate handling:
-* Name case-insensitive for duplicate checking.
+**Duplicate handling:**
+* The system enforces unique names across the Room inventory list.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+To add multiple Room of the same name, append a unique number (e.g. `Sports-Hall-1`, `Sports-Hall-2`).
+</div>
 
-Examples:
-* `edit-r 3 n/Tennis-Court s/Booked`.
+**Examples:**
+* `edit-r 1 l/UTown` — Edit the first room to Location: UTown.
+* `edit-r 3 n/Tennis-Court s/Maintenance` — Edit the third room to Name: Tennis-Court, and Status: Maintenance. Assuming initial status is Available.
 
-Outputs:
+**Outputs:**
 * Success
   ![editRoomSuccess.png](images/editRoomSuccess.png)
 * Failure
   ![editRoomFail.png](images/editRoomFail.png)
 
-Possible errors:
-* Attempt to edit a room that is not in the room list.
-* Wrong command given that is not of the n/, l/, and s/ prefix.
+**Possible errors:**
+* *This room is currently 'Booked':* Attempting to edit a reserved room.
+* *This room already exists:* Renaming room to a name already in use.
+* *Invalid status transition:* Trying to move a room status from Maintenance to Booked.
+* *Invalid command:* Missing `n/`, `c/`, or `s/` prefix.
 
 ### 2.3 Borrower Management
 
@@ -497,8 +540,8 @@ Reservation cancelled:
 Reserved HALL-2 by Student a1234567a from 2099-03-15 0900 to 2099-03-15 1100
 
 **Failure**
-`Error:
-Wilson-Evolution-Basketball-1 is not currently issued.`
+`Error: Wilson-Evolution-Basketball-1 is not currently issued.`
+
 
 #### Issuing an equipment item: `issue`
 
@@ -547,9 +590,8 @@ Returns an issued equipment item back to the inventory.
 
 **Failure**
 - item is not currently issued
-- invalid command format
-`Error:
-No matching reservation found for Hall-2 by a1234567a from 2099-03-15 0900 to 2099-03-15 1100`
+- invalid command format <br>
+`Error: No matching reservation found for Hall-2 by a1234567a from 2099-03-15 0900 to 2099-03-15 1100`
 
 **Notes**
 - aliases are supported, so if `b1` is an alias for `Wilson-Evolution-Basketball-1`, then `return b1` also works
@@ -583,45 +625,6 @@ Examples:
 * Possible errors:
 * Invalid `ITEM_OR_ROOM_ID`
 * Alias already exists
-
-
-### Return an equipment: `return`
-
-Returns an issued equipment item back to the inventory.
-
-**Format**
-`return ITEM_ID`
-
-**Example**
-`return Wilson-Evolution-Basketball-1`
-
-**Success**
-`WILSON-EVOLUTION-BASKETBALL-1 returned successfully from a1234567a`
-
-**Failure**
-- item is not currently issued
-- invalid command format
-
-**Notes**
-- aliases are supported, so if `b1` is an alias for `Wilson-Evolution-Basketball-1`, then `return b1` also works
-
-### Cancel a reservation: `cancel`
-
-Cancels an existing reservation.
-
-**Format**
-`cancel ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME`
-
-**Date/time format**
-`yyyy-MM-dd HHmm`
-
-**Example**
-`cancel Hall-2 a1234567a f/2099-03-15 0900`
-
-**Success**
-
-Reservation cancelled:
-Reserved HALL-2 by Student a1234567a from 2099-03-15 0900 to 2099-03-15 1100
 
 
 ### 2.5 Tag & Filter:
@@ -772,14 +775,14 @@ Furthermore, certain edits can cause the TrackMasterPro to behave in unexpected 
 
 Action | Format, Examples
 --------|------------------
-**Add Equipment** | `add-e n/NAME c/CATEGORY s/STATUS` <br> e.g., `add-e n/Wilson-Evolution-Basketball c/Basketball s/Available`
+**Add Equipment** | `add-e n/NAME c/CATEGORY` <br> e.g., `add-e n/Wilson-Evolution c/Basketball`
 **List Equipment** | `list-e`
 **Delete Equipment**| `delete-e INDEX` <br> e.g., `delete-e 3`
-**Edit Equipment** | `edit-e INDEX [n/NAME] [c/CATEGORY] [s/STATUS]` <br> e.g. `edit-e 6 s/Booked`
-**Add Room** | `add-r n/NAME l/LOCATION s/STATUS` <br> e.g., `add-r n/MPSH-2 l/Sports-Centre s/Available`
+**Edit Equipment** | `edit-e INDEX [n/NAME] [c/CATEGORY] [s/STATUS]` <br> e.g. `edit-e 6 n/Wilson-Evo`
+**Add Room** | `add-r n/NAME l/LOCATION` <br> e.g., `add-r n/MPSH-2 l/Sports-Centre`
 **List Rooms** | `list-r`
 **Delete Room** | `delete-r INDEX` <br> e.g., `delete-r 1`
-**Edit Room** | `edit-r INDEX [n/NAME] [c/LOCATION] [s/STATUS]` <br> e.g. `edit-r 3 n/Tennis-Court s/Booked`
+**Edit Room** | `edit-r INDEX [n/NAME] [c/LOCATION] [s/STATUS]` <br> e.g. `edit-r 3 n/Tennis-Court s/Maintenance`
 **Add Student** | `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL` <br> e.g., `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu`
 **Check Loans** | `check-s MATRIC_NUMBER` <br> e.g., `check-s A0123456B`
 **List Students** | `list-s`
