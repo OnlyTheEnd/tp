@@ -111,7 +111,11 @@ public class Equipment extends Taggable {
      * @param tagName A String
      */
     public void addTag(String tagName) {
-        tags.add(new Tag(tagName));
+        Tag tag = new Tag(tagName);
+        if (tags.contains(tag)) {
+            throw new DuplicateTagException();
+        }
+        tags.add(tag);
     }
 
     /**

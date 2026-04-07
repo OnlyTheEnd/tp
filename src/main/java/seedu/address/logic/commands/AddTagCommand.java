@@ -53,7 +53,6 @@ public class AddTagCommand extends Command {
         if (!model.hasTaggable(target)) {
             throw new CommandException(MESSAGE_ERROR + "Target equipment/room not found");
         }
-
         model.addTag(target, tag);
         return new CommandResult(String.format(MESSAGE_SUCCESS, tag, target.getNameString()));
     }

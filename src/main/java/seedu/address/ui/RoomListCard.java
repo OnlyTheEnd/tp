@@ -51,12 +51,12 @@ public class RoomListCard extends UiPart<Region> {
         status.setText(statusText);
         configureStatusStyle(statusText);
         room.getTags().stream()
-          .sorted(Comparator.comparing(tag -> tag.tagName))
-          .forEach(tag -> {
-              Label tagLabel = new Label(tag.tagName);
-              tagLabel.getStyleClass().add("tag");
-              tags.getChildren().add(tagLabel);
-          });
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.tagName);
+                    tagLabel.getStyleClass().add("tag");
+                    tags.getChildren().add(tagLabel);
+                });
     }
 
     private void configureStatusStyle(String statusText) {
