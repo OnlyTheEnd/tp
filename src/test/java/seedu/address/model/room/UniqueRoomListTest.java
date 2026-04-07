@@ -1,5 +1,6 @@
 package seedu.address.model.room;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.room.exceptions.DuplicateRoomException;
 import seedu.address.model.room.exceptions.RoomNotFoundException;
+import seedu.address.model.tag.exceptions.DuplicateTagException;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 public class UniqueRoomListTest {
 
@@ -85,5 +88,187 @@ public class UniqueRoomListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
                 -> uniqueRoomList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void addRoomTag_validRoomAndTag_success() {
+        Room mpsh = new Room(new RoomName("MPSH"));
+        uniqueRoomList.add(mpsh);
+
+        uniqueRoomList.addRoomTag(mpsh, "IFG");
+
+        // Verify tag was added
+        assertTrue(mpsh.getTags().stream()
+                .anyMatch(tag -> tag.tagName.equals("IFG")));
+        assertEquals(1, mpsh.getTags().size());
+    }
+
+    @Test
+    public void addRoomTag_multipleTagsToSameRoom_success() {
+        Room mpsh = new Room(new RoomName("MPSH"));
+        uniqueRoomList.add(mpsh);
+
+        uniqueRoomList.addRoomTag(mpsh, "IFG");
+        uniqueRoomList.addRoomTag(mpsh, "Talk");
+
+        assertEquals(2, mpsh.getTags().size());
+        assertTrue(mpsh.getTags().stream()
+                .anyMatch(tag -> tag.tagName.equals("IFG")));
+        assertTrue(mpsh.getTags().stream()
+                .anyMatch(tag -> tag.tagName.equals("Talk")));
+    }
+
+    @Test
+    public void addRoomTag_duplicateTag_throwsDuplicateTagException() {
+        Room mpsh = new Room(new RoomName("MPSH"));
+        uniqueRoomList.add(mpsh);
+
+        uniqueRoomList.addRoomTag(mpsh, "IFG");
+
+        // Adding same tag again should throw exception
+        assertThrows(DuplicateTagException.class, () ->
+                uniqueRoomList.addRoomTag(mpsh, "IFG"));
+    }
+
+    @Test
+    public void addRoomTag_duplicateTagCaseInsensitive_throwsDuplicateTagException() {
+        Room mpsh = new Room(new RoomName("MPSH"));
+        uniqueRoomList.add(mpsh);
+
+        uniqueRoomList.addRoomTag(mpsh, "IFG");
+
+        // Adding same tag with different case should throw exception
+        assertThrows(DuplicateTagException.class, () ->
+                uniqueRoomList.addRoomTag(mpsh, "ifg"));
+
+        assertThrows(DuplicateTagException.class, () ->
+                uniqueRoomList.addRoomTag(mpsh, "Ifg"));
+    }
+
+    @Test
+    public void addRoomTag_roomNotInList_throwsRoomNotFoundException() {
+        Room mpsh = new Room(new RoomName("MPSH"));
+        Room lt1 = new Room(new RoomName("LT1"));
+
+        uniqueRoomList.add(mpsh);
+
+        // Adding tag to room not in list should throw exception
+        assertThrows(RoomNotFoundException.class, () ->
+                uniqueRoomList.addRoomTag(lt1, "IFG"));
+    }
+
+    @Test
+    public void addRoomTag_nullRoom_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                uniqueRoomList.addRoomTag(null, "IFG"));
+    }
+
+    @Test
+    public void addRoomTag_nullTag_throwsNullPointerException() {
+        Room mpsh = new Room(new RoomName("MPSH"));;
+        uniqueRoomList.add(mpsh);
+
+        assertThrows(NullPointerException.class, () ->
+                uniqueRoomList.addRoomTag(mpsh, null));
+    }
+
+    @Test
+    public void addRoomTag_bothTagsToMpsh_success() {
+        Room mpsh = new Room(new RoomName("MPSH"));;
+        uniqueRoomList.add(mpsh);
+
+        uniqueRoomList.addRoomTag(mpsh, "IFG");
+        uniqueRoomList.addRoomTag(mpsh, "Talk");
+
+        assertEquals(2, mpsh.getTags().size());
+    }
+
+
+    @Test
+    public void deleteRoomTag_validRoomAndTag_success() {
+        Room mpsh = new Room(new RoomName("MPSH"));;
+        uniqueRoomList.add(mpsh);
+        uniqueRoomList.addRoomTag(mpsh, "IFG");
+
+        uniqueRoomList.deleteRoomTag(mpsh, "IFG");
+
+        // Verify tag was removed
+        assertEquals(0, mpsh.getTags().size());
+    }
+
+    @Test
+    public void deleteRoomTag_oneOfMultipleTags_success() {
+        Room mpsh = new Room(new RoomName("MPSH"));;
+        uniqueRoomList.add(mpsh);
+        uniqueRoomList.addRoomTag(mpsh, "IFG");
+        uniqueRoomList.addRoomTag(mpsh, "Talk");
+
+        uniqueRoomList.deleteRoomTag(mpsh, "IFG");
+
+        assertEquals(1, mpsh.getTags().size());
+        assertTrue(mpsh.getTags().stream()
+                .anyMatch(tag -> tag.tagName.equals("Talk")));
+        assertTrue(mpsh.getTags().stream()
+                .noneMatch(tag -> tag.tagName.equals("IFG")));
+    }
+
+
+    @Test
+    public void deleteRoomTag_talkTag_success() {
+        Room mpsh = new Room(new RoomName("MPSH"));;
+        uniqueRoomList.add(mpsh);
+        uniqueRoomList.addRoomTag(mpsh, "Talk");
+
+        uniqueRoomList.deleteRoomTag(mpsh, "Talk");
+
+        assertEquals(0, mpsh.getTags().size());
+    }
+
+    @Test
+    public void deleteRoomTag_tagNotFound_throwsTagNotFoundException() {
+        Room mpsh = new Room(new RoomName("MPSH"));;
+        uniqueRoomList.add(mpsh);
+        uniqueRoomList.addRoomTag(mpsh, "IFG");
+
+        // Deleting non-existent tag should throw exception
+        assertThrows(TagNotFoundException.class, () ->
+                uniqueRoomList.deleteRoomTag(mpsh, "Talk"));
+    }
+
+    @Test
+    public void deleteRoomTag_roomHasNoTags_throwsTagNotFoundException() {
+        Room mpsh = new Room(new RoomName("MPSH"));;
+        uniqueRoomList.add(mpsh);
+
+        // Deleting tag from room with no tags should throw exception
+        assertThrows(TagNotFoundException.class, () ->
+                uniqueRoomList.deleteRoomTag(mpsh, "IFG"));
+    }
+
+    @Test
+    public void deleteRoomTag_roomNotInList_throwsRoomNotFoundException() {
+        Room mpsh = new Room(new RoomName("MPSH"));;
+        Room lt1 = new Room(new RoomName("LT1"));
+
+        uniqueRoomList.add(mpsh);
+
+        // Deleting tag from room not in list should throw exception
+        assertThrows(RoomNotFoundException.class, () ->
+                uniqueRoomList.deleteRoomTag(lt1, "IFG"));
+    }
+
+    @Test
+    public void deleteRoomTag_nullRoom_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                uniqueRoomList.deleteRoomTag(null, "IFG"));
+    }
+
+    @Test
+    public void deleteRoomTag_nullTag_throwsNullPointerException() {
+        Room mpsh = new Room(new RoomName("MPSH"));;
+        uniqueRoomList.add(mpsh);
+
+        assertThrows(NullPointerException.class, () ->
+                uniqueRoomList.deleteRoomTag(mpsh, null));
     }
 }

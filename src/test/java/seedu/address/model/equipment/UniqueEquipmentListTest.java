@@ -17,11 +17,15 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
+import seedu.address.model.tag.exceptions.DuplicateTagException;
 
 public class UniqueEquipmentListTest {
     private final UniqueEquipmentList uniqueEquipmentList = new UniqueEquipmentList();
     private final Equipment basketball = new Equipment(new EquipmentName("Wilson-Evolution"),
             new Category("Basketball"), EquipmentStatus.AVAILABLE);
+    private final String validTag = "VALID";
+    private final String validTag2 = "VALID2";
+    private final String invalidTag = "";
 
     @Test
     public void add_duplicateEquipment_throwsDuplicateEquipmentException() {
@@ -118,4 +122,102 @@ public class UniqueEquipmentListTest {
         different.add(RACKET);
         assertNotEquals(uniqueEquipmentList.hashCode(), different.hashCode());
     }
+
+    @Test
+    public void addEquipmentTagTest_success() {
+        Equipment laptop = new Equipment(new EquipmentName("Laptop"));
+        uniqueEquipmentList.add(laptop);
+
+        uniqueEquipmentList.addEquipmentTag(laptop, "working");
+
+        // Verify tag was added
+        assertTrue(laptop.getTags().stream()
+                .anyMatch(tag -> tag.tagName.equals("working")));
+        assertEquals(1, laptop.getTags().size());
+
+
+    }
+
+    @Test
+    public void addEquipmentTag_failure() {
+        Equipment laptop = new Equipment(new EquipmentName("Laptop"));
+        uniqueEquipmentList.add(laptop);
+
+        uniqueEquipmentList.addEquipmentTag(laptop, "working");
+        uniqueEquipmentList.addEquipmentTag(laptop, "new");
+        uniqueEquipmentList.addEquipmentTag(laptop, "available");
+
+        assertEquals(3, laptop.getTags().size());
+    }
+
+    @Test
+    public void addEquipmentTag_duplicateTag_throwsDuplicateTagException() {
+        Equipment laptop = new Equipment(new EquipmentName("Laptop"));
+        uniqueEquipmentList.add(laptop);
+
+        uniqueEquipmentList.addEquipmentTag(laptop, "working");
+
+        // Adding same tag again should throw exception
+        assertThrows(DuplicateTagException.class, () ->
+                uniqueEquipmentList.addEquipmentTag(laptop, "working"));
+    }
+
+    @Test
+    public void addEquipmentTag_duplicateTagCaseInsensitive_throwsDuplicateTagException() {
+        Equipment laptop = new Equipment(new EquipmentName("Laptop"));
+        uniqueEquipmentList.add(laptop);
+
+        uniqueEquipmentList.addEquipmentTag(laptop, "working");
+
+        // Adding same tag with different case should throw exception
+        assertThrows(DuplicateTagException.class, () ->
+                uniqueEquipmentList.addEquipmentTag(laptop, "WORKING"));
+
+        assertThrows(DuplicateTagException.class, () ->
+                uniqueEquipmentList.addEquipmentTag(laptop, "Working"));
+    }
+
+    @Test
+    public void addEquipmentTag_equipmentNotInList_throwsEquipmentNotFoundException() {
+        Equipment laptop = new Equipment(new EquipmentName("Laptop"));
+        Equipment projector = new Equipment(new EquipmentName("Projector"));
+
+        uniqueEquipmentList.add(laptop);
+
+        // Adding tag to equipment not in list should throw exception
+        assertThrows(EquipmentNotFoundException.class, () ->
+                uniqueEquipmentList.addEquipmentTag(projector, "working"));
+    }
+
+    @Test
+    public void deleteEquipmentTag_validEquipmentAndTag_success() {
+        Equipment laptop = new Equipment(new EquipmentName("Laptop"));
+        uniqueEquipmentList.add(laptop);
+        uniqueEquipmentList.addEquipmentTag(laptop, "working");
+
+        uniqueEquipmentList.deleteEquipmentTag(laptop, "working");
+
+        // Verify tag was removed
+        assertEquals(0, laptop.getTags().size());
+    }
+
+    @Test
+    public void deleteEquipmentTag_oneOfMultipleTags_success() {
+        Equipment laptop = new Equipment(new EquipmentName("Laptop"));
+        uniqueEquipmentList.add(laptop);
+        uniqueEquipmentList.addEquipmentTag(laptop, "working");
+        uniqueEquipmentList.addEquipmentTag(laptop, "new");
+        uniqueEquipmentList.addEquipmentTag(laptop, "available");
+
+        uniqueEquipmentList.deleteEquipmentTag(laptop, "new");
+
+        assertEquals(2, laptop.getTags().size());
+        assertTrue(laptop.getTags().stream()
+                .anyMatch(tag -> tag.tagName.equals("working")));
+        assertTrue(laptop.getTags().stream()
+                .anyMatch(tag -> tag.tagName.equals("available")));
+        assertTrue(laptop.getTags().stream()
+                .noneMatch(tag -> tag.tagName.equals("new")));
+    }
+
 }

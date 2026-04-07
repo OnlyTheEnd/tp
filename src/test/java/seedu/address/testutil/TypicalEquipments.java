@@ -17,6 +17,7 @@ public class TypicalEquipments {
 
     public static final Equipment BASKETBALL = new Equipment(
             new EquipmentName("Wilson-Evolution"), new Category("Basketball"), EquipmentStatus.AVAILABLE);
+
     public static final Equipment RACKET = new Equipment(
             new EquipmentName("Yonex-Astrox"), new Category("Badminton"), EquipmentStatus.BOOKED);
     public static final Equipment NET = new Equipment(

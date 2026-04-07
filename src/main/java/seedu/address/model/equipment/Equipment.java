@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.Taggable;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 
 /**
@@ -120,10 +121,14 @@ public class Equipment extends Taggable {
 
     /**
      * Removes tag from tagList on Equipment and on TaggedEntries record
-     * @param otherTag StringName of otherTag
+     * @param otherTagName StringName of otherTag
      */
-    public void deleteTag(String otherTag) {
-        tags.removeIf(tag -> tag.equals(new Tag(otherTag)));
+    public void deleteTag(String otherTagName) {
+        Tag otherTag = new Tag(otherTagName);
+        if (!tags.contains(otherTag)) {
+            throw new TagNotFoundException();
+        }
+        tags.removeIf(tag -> tag.equals(otherTag));
     }
 
 
