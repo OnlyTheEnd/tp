@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.equipment.Equipment;
@@ -22,6 +23,9 @@ public class EquipmentListCard extends UiPart<Region> {
     private Label category;
     @FXML
     private Label status;
+    @FXML
+    private FlowPane tags;
+
 
     /**
      * Creates a {@code EquipmentListCard} with the given {@code Equipment} and index to display.
@@ -36,6 +40,14 @@ public class EquipmentListCard extends UiPart<Region> {
         String statusText = equipment.getStatus().toString();
         status.setText(statusText);
         configureStatusStyle(statusText);
+
+        equipment.getTags().stream()
+                .sorted()
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.tagName);
+                    tagLabel.getStyleClass().add("tag");
+                    tags.getChildren().add(tagLabel);
+                });
     }
 
     private void configureStatusStyle(String statusText) {
