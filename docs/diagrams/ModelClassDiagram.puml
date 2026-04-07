@@ -100,12 +100,10 @@ Address -[hidden]right-> Email
 Email -[hidden]right-> StudentId
 
 ModelManager --> "~* filtered" Person
-<<<<<<< HEAD
 ModelManager --> "~* filtered" Equipment
 ModelManager --> "~* all" Reservation
 ModelManager --> "~* all" IssueRecord
 ModelManager --> "~* all" AliasMapping
-=======
 
 '---Equipment Section---'
 AddressBook *--> "1" UniqueEquipmentList
@@ -136,5 +134,4 @@ RoomName -[hidden]right-> Location
 Location -[hidden]right-> Status
 
 ModelManager --> "~* filtered" Room
->>>>>>> 71827d19da1cc60d223d6d98167c5e6dccc75c05
 @enduml

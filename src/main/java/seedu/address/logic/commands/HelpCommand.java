@@ -21,7 +21,7 @@ public class HelpCommand extends Command {
             + ": Shows possible commands and their formats.\n"
             + "Format: help OR help COMMAND\n"
             + "Example: " + COMMAND_WORD + "\n"
-            + "Example: " + COMMAND_WORD + " tag";
+            + "Example: " + COMMAND_WORD + " reserve";
 
     public static final String MESSAGE_COMMAND_NOT_FOUND = "FAILURE! %1$s COMMAND NOT FOUND";
     public static final String MESSAGE_COMMAND_FOUND = "SUCCESS! %1$s COMMAND FOUND";
@@ -99,13 +99,30 @@ public class HelpCommand extends Command {
 
         for (Map.Entry<String, String> entry : HELP_ENTRIES.entrySet()) {
             String firstLine = entry.getValue().split("\\R", 2)[0];
-            builder.append("- ").append(entry.getKey()).append(": ").append(firstLine)
+            String summary = stripCommandPrefix(entry.getKey(), firstLine);
+
+            builder.append("- ").append(entry.getKey()).append(": ").append(summary)
                     .append(System.lineSeparator());
         }
 
         builder.append(System.lineSeparator())
+                .append("Command scope notes:").append(System.lineSeparator())
+                .append("- issue / return: equipment only").append(System.lineSeparator())
+                .append("- reserve / cancel-reservation: rooms and equipment").append(System.lineSeparator())
+                .append(System.lineSeparator())
                 .append("Use \"help COMMAND\" to view the full format and description of a specific command.");
         return builder.toString();
+    }
+
+    /**
+     * Removes the duplicated "command:" prefix from the first line of MESSAGE_USAGE.
+     */
+    private static String stripCommandPrefix(String commandWord, String firstLine) {
+        String prefix = commandWord + ":";
+        if (firstLine.toLowerCase(Locale.ROOT).startsWith(prefix.toLowerCase(Locale.ROOT))) {
+            return firstLine.substring(prefix.length()).trim();
+        }
+        return firstLine.trim();
     }
 
     private static Map<String, String> createHelpEntries() {

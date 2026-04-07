@@ -330,186 +330,192 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TrackMasterPro` and the **Actor** is the `Facility Manager`, unless specified otherwise)
 
-**Use case: Add a new equipment**
+**Use case: UC01 - Add a new equipment**
 
 **MSS**
-
-1.  Facility Manager requests to add a new equipment by providing its name, category, and status.
+1.  Facility Manager requests to add a new equipment by providing its name and category.
 2.  TrackMasterPro validates the input and checks for duplicates.
-3.  TrackMasterPro adds the equipment to the inventory.
+3.  TrackMasterPro adds the equipment to the equipment list and displays the updated list.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The command format is invalid (missing n/, c/, or s/ prefixes).
-
+* 1a. The command format is invalid (missing n/ or c/ prefixes).
     * 1a1. TrackMasterPro shows an error message and the correct command format.
+    * Use case ends.
 
-  Use case ends.
+* 2a. An equipment with the same name already exists.
+    * 2a1. TrackMasterPro notifies the Facility Manager that a duplicate was found.
+    * 2a2. TrackMasterPro suggests a numbered name (e.g., Wilson-Evolution-1). 
+    * Use case ends.
 
-* 2a. An equipment with the same name and category already exists.
 
-    * 2a1. TrackMasterPro notifies the Facility Manager that a duplicate was found and suggests a numbered name (e.g., Basketball-1).
-
-      Use case ends.
-
-**Use case: View equipment inventory list**
+**Use case: UC02 - View equipment inventory list**
 
 **MSS**
 
 1.  Facility Manager requests to view the list of equipment.
-2.  TrackMasterPro retrieves and shows a list of all equipment with their categories and statuses.
+2.  TrackMasterPro clears any active filters and shows a list of all equipment with their categories and statuses.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The inventory is empty.
+* 1a. The command format is invalid (list-e 123).
+    * 1a1. TrackMasterPro shows an error message and the correct command format.
+    * Use case ends.
 
-    * 2a1. TrackMasterPro shows a message that the inventory has not been created yet and prompts to add equipment.
+* 2a. The equipment list is currently empty.
+    * 2a1. TrackMasterPro shows a message that the equipment list is empty and provides the command to add one.
+    * Use case ends.
 
-  Use case ends.
 
-**Use case: Remove an equipment**
+**Use case: UC03 - Remove an equipment**
 
 **MSS**
 
-1.  Facility Manager requests to View equipment inventory list
-2.  TrackMasterPro shows the list of equipment.
-3.  Facility Manager requests to delete a specific equipment in the list by its index.
-4.  TrackMasterPro deletes the equipment from the inventory.
+1.  Facility Manager requests to delete a specific equipment by its index in the displayed list.
+2.  TrackMasterPro checks that the equipment status is "Available."
+3.  TrackMasterPro deletes the equipment from the equipment list and displays the updated list.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. The given index is invalid (out of bounds or not a positive integer).
+* 1a. The given index is invalid (out of bounds or not a positive integer).
+    * 1a1. TrackMasterPro shows an error message.
+    * Use case ends.
 
-    * 3a1. TrackMasterPro shows an error message.
+* 2a. The equipment at the specified index is not in "Available" status (e.g., "Booked", "Maintenance", or "Damaged")
+    * 2a1. TrackMasterPro notifies the Facility Manager that the equipment cannot be removed because it is currently booked, under maintenance, or damaged.
+    * Use case ends.
 
-  Use case ends.
 
-* 3b. The equipment at the specified index has a "Booked" status.
-
-    * 3b1. TrackMasterPro shows an error message stating that booked equipment cannot be removed.
-
-      Use case ends.
-
-**Use case: Edit an equipment**
+**Use case: UC04 - Edit an equipment**
 
 **MSS**
 
-1.  Facility Manager requests to View equipment inventory list
-2.  TrackMasterPro shows the list of equipment.
-3.  Facility Manager requests to edit details (name, category, or status) of a specific equipment in the list by its index.
-4.  TrackMasterPro validates the new details and updates the equipment.
+1.  Facility Manager requests to edit details (name, category, or status) of a specific equipment in the list by its index.
+2.  TrackMasterPro validates the new details and updates the equipment.
+3.  TrackMasterPro refreshes the equipment list display to reflect the changes.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. The given index is invalid (out of bounds or not a positive integer).
+* 1a. The given index is invalid (out of bounds or not a positive integer).
+    * 1a1. TrackMasterPro shows an error message. 
+    * Use case resumes at step 1.
 
-    * 3a1. TrackMasterPro shows an error message.
+* 1b. The Facility Manager provides an invalid command format or missing fields.
+    * 1b1. TrackMasterPro shows an error message and the correct command format. 
+    * Use case ends.
 
-  Use case resumes at step 2.
+* 1c. The equipment at the specified index has a "Booked" status.
+    * 1c1. TrackMasterPro shows an error message stating that booked equipment cannot be edited.
+    * Use case ends.
 
-* 3b. The Facility Manager provides an invalid command format or missing fields.
+* 2a. The updated name would create a duplicate with an existing equipment.
+    * 2a1. TrackMasterPro shows an error message stating the name already exists.
+    * Use case ends.
 
-    * 3b1. TrackMasterPro shows an error message and the correct command format.
 
-      Use case ends.
-
-**Use case: Delete a person**
+**Use case: UC05 - Add a new room**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Facility Manager requests to add a new room by providing its name and location.
+2.  TrackMasterPro validates the input and checks for duplicates.
+3.  TrackMasterPro adds the room to the room list and refreshes the room list display.
 
     Use case ends.
 
-<<<<<<< branch-usecases-zien
-**Use case: Tag Equipment/Room**
+**Extensions**
 
-**MSS**:
-1. User chooses to tag an equipment or room.
-2. User enters the equipment/room ID and tag.
-3. System requests for the equipment/room ID and tag.
-4. System applies the tag and displays a success message.
-   Use case ends.
+* 1a. The command format is invalid (missing n/ or l/ prefixes).
+    * 1a1. TrackMasterPro shows an error message and the correct command format.
+    * Use case ends.
 
-Extensions:
-* 3a. System detects that the equipment/room ID is invalid.
-  * 3a1. System displays a failure message.
-  * 3a2. User re-enters a valid equipment/room ID and tag.
-  * Steps 3a1-3a2 are repeated until a valid ID is entered.
-  * Use case resumes from step 4.
-
-* 3b. System detects that the equipment/room has already been tagged with the same tag.
-  * 3b1. System displays a duplicate tag failure message.
-  * Use case ends.
-
-Use case: Untag Equipment/Room
-MSS:
-1. User chooses to untag an equipment or room.
-2. User enters the equipment/room ID and tag.
-3. System requests for the equipment/room ID and tag to remove.
-4. System removes the tag and displays a success message.
-   Use case ends.
-
-Extensions:
-
-* 3a. System detects that the equipment/room ID is invalid.
-  * 3a1. System displays a failure message.
-  * Use case ends.
-
-* 3b. System detects that the tag does not exist on the equipment/room.
-  * 3b1. System displays an already-untagged failure message.
-  * Use case ends.
+* 2a. A room with the same name already exists.
+    * 2a1. TrackMasterPro notifies the Facility Manager that a duplicate was found.
+    * 2a2. TrackMasterPro suggests a numbered name (e.g., Sports-Hall-1).
+    * Use case ends.
 
 
-Use case: View Help Command
-MSS:
-1. User chooses to view help.
-2. System displays a list of all available commands with short descriptions.
-   Use case ends.
+**Use case: UC06 - View room list**
 
-Extensions:
-* 1a. User requests help for a specific command.
-  * 1a1. System checks if the command exists.
-  * 1a2. System displays the command details and an example usage.
-  * Use case ends.
+**MSS**
 
-  * 1a1a. System detects that the specified command does not exist.
-    * 1a1a1. System displays a failure message indicating the command was not found.
-  * Use case ends.
+1.  Facility Manager requests to view the list of rooms.
+2.  TrackMasterPro clears any active filters and shows a list of all room with their locations and statuses.
 
-Use case: Filter by Tag
-MSS:
-1. User chooses to filter by tag.
-2. System requests for the type and tag to filter by.
-3. User enters the type (equipment, room, or student) and tag.
-4. System retrieves and displays all matching results under the specified tag.
-   Use case ends.
+    Use case ends.
 
-Extensions:
-* 3a. System detects that the specified type is invalid.
-  * 3a1. System displays a failure message.
-  * 3a2. User re-enters a valid type and tag.
-  * Steps 3a1-3a2 are repeated until a valid type is entered.
-  * Use case resumes from step 4.
+**Extensions**
 
-* 3b. System detects that the specified tag does not exist.
-  * 3b1. System displays a failure message indicating nothing was found under the tag.
-  * Use case ends.
-=======
-**Use case: Add a Student Profile**
+* 1a. The command format is invalid (list-r 123).
+    * 1a1. TrackMasterPro shows an error message and the correct command format.
+    * Use case ends.
+
+* 2a. The room list is currently empty.
+    * 2a1. TrackMasterPro shows a message that the room list is empty and provides the command to add one.
+    * Use case ends.
+
+
+**Use case: UC07 - Remove a room**
+
+**MSS**
+
+1.  Facility Manager requests to delete a specific room by its index in the displayed list.
+2.  TrackMasterPro checks that the room status is "Available."
+3.  TrackMasterPro deletes the room from the room list and displays the updated list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given index is invalid (out of bounds or not a positive integer).
+    * 1a1. TrackMasterPro shows an error message.
+    * Use case ends.
+
+* 2a. The room at the specified index is not in "Available" status (e.g., "Booked" or "Maintenance")
+    * 2a1. TrackMasterPro notifies the Facility Manager that the room cannot be removed because it is currently booked or under maintenance.
+    * Use case ends.
+
+
+**Use case: UC08 - Edit a room**
+
+**MSS**
+
+1.  Facility Manager requests to edit details (name, location, or status) of a specific room in the list by its index.
+2.  TrackMasterPro validates the new details and updates the room.
+3.  TrackMasterPro refreshes the room list display to reflect the changes.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The given index is invalid (out of bounds or not a positive integer).
+    * 1a1. TrackMasterPro shows an error message.
+    * Use case resumes at step 1.
+
+* 1b. The Facility Manager provides an invalid command format or missing fields.
+    * 1b1. TrackMasterPro shows an error message and the correct command format.
+    * Use case ends.
+
+* 1c. The room at the specified index has a "Booked" status.
+    * 1c1. TrackMasterPro shows an error message stating that booked room cannot be edited.
+    * Use case ends.
+
+* 2a. The updated name would create a duplicate with an existing room.
+    * 2a1. TrackMasterPro shows an error message stating the room name already exists.
+    * Use case ends.
+
+
+**Use case: UC09 - Add a Student Profile**
 
 **MSS**
 1.  Facility Manager enters the command to add a student (add-s) with the student's name, matriculation number, phone number, and email.
@@ -521,15 +527,18 @@ Extensions:
     Use case ends.
 
 **Extensions**
+
 - 2a. The input format is invalid (e.g., missing a prefix or wrong data format).
-   -   2a1. TrackMasterPro shows an error message and provides the correct command format.
-   -   Use case ends.
+   -   2a1. TrackMasterPro shows an error message and provides the correct command format. 
+   - Use case ends.
 
 - 3a. A student with the same matriculation number, phone number or email adddress already exists.
-   -   3a1. TrackMasterPro shows an error message indicating a duplicate identity was found.
-   -   Use case ends.
+   -   3a1. TrackMasterPro shows an error message indicating a duplicate identity was found. 
+   - Use case ends.
 
-**Use case: View Student Loans**
+
+**Use case: UC010 - View Student Loans**
+
 **MSS**
 1.   Facility Manager enters the command to check loans (check-s) followed by the student's matriculation number.
 2.   TrackMasterPro validates the format of the matriculation number.
@@ -540,17 +549,21 @@ Extensions:
      Use case ends.
 
 **Extensions**
+
 - 2a. The matriculation number format is invalid.
-   - 2a1. TrackMasterPro shows an error message indicating the correct format.
+   - 2a1. TrackMasterPro shows an error message indicating the correct format. 
    - Use case ends.
+
 - 3a. No student is found with the provided matriculation number.
    - 3a1. TrackMasterPro informs the Manager that the user cannot be found.
    - Use case ends.
+
 - 4a. The student has no active loans.
    - 4a1. TrackMasterPro displays a message stating "No existing loans" for that student.
    - Use case ends.
 
-**Use case: Reserve equipment on a specified date/time**
+
+**Use case: UC011 - Reserve equipment on a specified date/time**
 
 **MSS**
 
@@ -576,7 +589,8 @@ Extensions:
   * 3a1. System shows an error message
   * Use case ends
 
-**Use case: Reserve room on a specified date/time**
+
+**Use case: UC012 - Reserve room on a specified date/time**
 
 **MSS**
 
@@ -603,7 +617,8 @@ Extensions:
   * 4a2. User re-enters correct information
   * Resume from step 4
 
-**Use case: Issue an item to a student**
+
+**Use case: UC013 - Issue an item to a student**
 
 **MSS**
 
@@ -622,12 +637,13 @@ Extensions:
 * 5a. Item is not available
   * 5a1. System shows an error message
   * Use case ends
-
+  
 * 3a. Student not found
   * 3a1. System shows an error message
   * Use case ends
 
-**Use case: Remove an item from a student**
+
+**Use case: UC014 - Remove an item from a student**
 
 **MSS**
 
@@ -650,7 +666,8 @@ Extensions:
   * 4a1. System shows an error message
   * Use case ends
 
-**Use case: Create alias for equipment**
+
+**Use case: UC015 - Create alias for equipment**
 
 **MSS**
 
@@ -673,7 +690,99 @@ Extensions:
   * 3a1. System shows an error message
   * Use case ends
 
-**Use case: View all commands**
+
+**Use case: UC016 - Tag Equipment/Room**
+
+**MSS**
+
+1. User chooses to tag an equipment or room.
+2. User enters the equipment/room ID and tag.
+3. System requests for the equipment/room ID and tag.
+4. System applies the tag and displays a success message.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. System detects that the equipment/room ID is invalid.
+    * 3a1. System displays a failure message.
+    * 3a2. User re-enters a valid equipment/room ID and tag.
+    * Steps 3a1-3a2 are repeated until a valid ID is entered.
+    * Use case resumes from step 4.
+
+* 3b. System detects that the equipment/room has already been tagged with the same tag.
+    * 3b1. System displays a duplicate tag failure message.
+    * Use case ends.
+
+
+**Use case: UC017 - Untag Equipment/Room**
+
+**MSS**
+
+1. User chooses to untag an equipment or room.
+2. User enters the equipment/room ID and tag.
+3. System requests for the equipment/room ID and tag to remove.
+4. System removes the tag and displays a success message.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. System detects that the equipment/room ID is invalid.
+    * 3a1. System displays a failure message.
+    * Use case ends.
+
+* 3b. System detects that the tag does not exist on the equipment/room.
+    * 3b1. System displays an already-untagged failure message.
+    * Use case ends.
+
+
+**Use case: UC018 - Filter by Tag**
+
+**MSS**
+
+1. User chooses to filter by tag.
+2. System requests for the type and tag to filter by.
+3. User enters the type (equipment, room, or student) and tag.
+4. System retrieves and displays all matching results under the specified tag.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. System detects that the specified type is invalid.
+    * 3a1. System displays a failure message.
+    * 3a2. User re-enters a valid type and tag.
+    * Steps 3a1-3a2 are repeated until a valid type is entered.
+    * Use case resumes from step 4.
+
+* 3b. System detects that the specified tag does not exist.
+    * 3b1. System displays a failure message indicating nothing was found under the tag.
+    * Use case ends.
+
+
+**Use case: UC019 - View Help Command**
+
+**MSS**
+
+1. User chooses to view help.
+2. System displays a list of all available commands with short descriptions.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User requests help for a specific command.
+    * 1a1. System checks if the command exists.
+    * 1a2. System displays the command details and an example usage.
+    * Use case ends.
+
+    * 1a1a. System detects that the specified command does not exist.
+        * 1a1a1. System displays a failure message indicating the command was not found.
+    * Use case ends.
+
+
+**Use case: UC020 - View all commands**
 
 **MSS**
 
@@ -715,7 +824,7 @@ Extensions:
 * **Equipment** : Any item that is being loaned out for the school, saved as a string, with spaces replaced as hyphens.<br>
    example: Wilson-Evolution-Basketball
 
-* **Room** : Any location that is being reserved, saved as a string, with spaces replaced as hyphens.<br>
+* **Room** : Any facility or venue that is being reserved, saved as a string, with spaces replaced as hyphens.<br>
    example: MPSH-1
 
 *{More to be added}*
@@ -746,6 +855,238 @@ testers are expected to do more *exploratory* testing.
        Expected: The most recent window size and location is retained.
 
 1. _{ more test cases …​ }_
+
+### Adding an equipment
+
+1. Adding an equipment with valid fields
+
+   1. Test case: `add-e n/Wilson-Evolution c/Basketball`<br>
+      Expected: Equipment "Wilson-Evolution" added with category "Basketball". 
+      Status set to Available by default. Success message shows details.
+
+   2. Test case: `add-e c/Badminton n/Yonex-Astrox`<br>
+      Expected: Equipment "Track-Stand" added successfully. Order of n/ and c/ does not matter.
+
+2. Adding equipment with invalid name or category
+
+   1. Test case: `add-e n/Yonex Astrox c/Badminton` (Contains space)<br> 
+      Expected: No equipment added. Error message indicates names/categories should only contain alphanumeric 
+      characters and single hyphens.
+
+   2. Test case: `add-e n/ c/Basketball` (Blank name)<br>
+      Expected: Error details show name cannot be blank.
+
+3. Handling duplicate equipment names
+
+   1. Prerequisites: Wilson-Evolution already exists in the list.
+
+   2. Test case: `add-e n/Wilson-Evolution c/Sports` (Exact duplicate)<br>
+      Expected: Error message: "This equipment already exists".
+
+   3. Test case: `add-e n/WILSON-EVOLUTION c/Sports` (Case-insensitive check)<br>
+      Expected: Error message: "This equipment already exists". System treats different cases as the same name.
+
+   4. Test case: `add-e n/Wilson-Evolution-1 c/Basketball` (Numbered naming tip)<br>
+      Expected: Equipment added successfully as the name is now unique.
+
+4. Incorrect command formats
+
+   1. Test case: `add-e Wilson-Evolution Basketball` (Missing prefixes)<br>
+      Expected: Error message shows invalid command format and provides the correct usage example.
+
+   2. Other incorrect commands: `add-e n/Name`, `add-e c/Category`, `add-e` (Missing one or both parameters)<br>
+      Expected: Similar to previous; informs user of missing required fields.
+
+
+### Viewing the equipment list
+
+1. Listing equipment while the list is populated
+
+   1. Prerequisites: At least one equipment exists in the system and have run the filter tag command prior. 
+   
+   2. Test case: `list-e`<br>
+      Expected: All filters are cleared. The full list of equipment is displayed in the equipment panel. 
+      Status message indicates "Listed all equipment".
+
+2. Listing equipment when the equipment list is empty 
+
+   1. Prerequisites: Delete all equipment using the delete-e command.
+
+   2. Test case: `list-e`<br>
+      Expected: Helpful message shows "Equipment list is currently empty. Use the 'add-e' command to add your first equipment".
+
+3. Handling invalid extra input 
+
+   1. Test case: `list-e Basketball`<br>
+      Expected: No list update occurs. Error message indicates an invalid command format. The system strictly only accepts list-e without trailing parameters. 
+
+   2. Test case: `list-e 123`<br> 
+      Expected: Similar to previous. Error details show that the command does not take any arguments.
+
+
+### Removing an equipment (Status-Dependent)
+
+1. Deleting an equipment by index
+   
+   1. Prerequisites: Multiple equipment in the list. Ensure the equipment at index 1 is "Available".
+   
+   2. Test case: `delete-e 1`<br>
+      Expected: First equipment is removed. UI updates immediately.
+
+   3. Test case: `delete-e 0` or `delete-e 500` (out of bounds)<br>
+      Expected: No equipment deleted. Error message regarding invalid index shown.
+
+2. Deleting equipment not with "Available" status
+
+   1. Prerequisites: At least one equipment in the list has a "Booked" (e.g., at index 2).
+
+   2. Test case: `delete-e 2`<br>
+      Expected: No equipment is deleted. TrackMasterPro shows an error message stating that 
+      booked equipment cannot be removed and must be returned or canceled first.
+
+
+### Editing an equipment (Status-Dependent)
+
+1. Editing equipment with valid fields
+
+   1. Prerequisites: Multiple equipment in the list. Equipment at index 1 is "Available".
+
+   2. Test case: `edit-e 1 n/Spalding-TF1000`<br>
+      Expected: Only the name of the first equipment changes. Category and Status remain the same. Success message shown.
+
+   3. Test case: `edit-e 1 n/Wilson-Evo c/Bball s/Maintenance`<br>
+      Expected: Name, Category, and Status are all updated simultaneously. UI reflects all three changes.
+
+2. Status Transition Logic
+
+   1. Prerequisites: Equipment at index 1 has a "Available" status.
+
+   2. Test case: `edit-e 1 s/Maintenance` or `edit-e 1 s/Damaged`<br>
+      Expected: Status updates successfully.
+
+   3. Test case: `edit-e 1 s/Available` (while already Available)<br>
+      Expected: status is already set to this value.
+
+3. Editing equipment with "Booked" status
+
+   1. Prerequisites: Equipment at index 3 has a "Booked" status.
+
+   2. Test case: `edit-e 3 n/New-Name`<br>
+      Expected: No changes made. Error message showing the equipment is currently ‘Booked’ and cannot be edited.
+
+
+### Adding a room
+
+1. Adding a room with valid name
+
+   1. Test case: `add-r n/Mpsh-1 l/Sports-Centre`<br>
+      Expected: Room "Mpsh-1" with location "Sports-Centre" added. Status set to Available by default. 
+      Success message shown.
+
+   2. Test case: `add-r l/University-Town n/Sports-Hall-2` (Swapped parameter order)<br>
+      Expected: Room "Sports-Hall-2" added successfully. Order of n/ and l/ prefixes does not affect the outcome.
+
+2. Adding a room with invalid name or location
+
+   1. Test case: `add-r n/MPSH 2 l/Sports-Centre` (Contains space)<br>
+      Expected: No room added. Error message indicates names/locations should only contain alphanumeric characters and single hyphens.
+
+   2. Test case: `add-r n/MPSH--2 l/Sports-Centre` (Consecutive hyphens)<br>
+      Expected: No room added. Error message regarding invalid naming format. 
+
+   3. Test case: `add-r n/ l/Sports-Centre` (Blank name)<br>
+      Expected: Error message indicates name cannot be blank.
+
+3. Adding a duplicate room
+
+   1. Prerequisites: "Mpsh-1" already exists.
+
+   2. Test case: `add-r n/Mpsh-1 l/Sports-Centre`<br>
+      Expected: Error message stating the room already exists.
+
+4. Incorrect command formats 
+
+   1. Test case: `add-r MPSH-2 Sports-Centre` (Missing prefixes)<br>
+      Expected: Error message shows invalid command format and provides the correct usage example with n/ and l/. 
+
+   2. Other incorrect commands: `add-r n/Name`, `add-r l/Location`, `add-r` (Missing one or both parameters)<br>
+      Expected: Similar to previous, informs user of missing required fields.
+
+
+### Viewing the room list
+
+1. Listing rooms while the list is populated 
+
+   1. Prerequisites: At least one room exists in the system.
+
+   2. Test case: `list-r`<br>
+      Expected: All active filters are cleared. The full list of rooms is displayed in the room panel. Status message indicates "Listed all rooms".
+
+2. Listing rooms when the room list is empty 
+
+   1. Prerequisites: Delete all rooms using the delete-r command until the list is empty. 
+
+   2. Test case: `list-r`<br>
+      Expected: Helpful message shown: "Room list is currently empty. Use the 'add-r' command to add your first room!".
+
+3. Handling invalid extra input 
+
+   1. Test case: `list-r Sports-Hall`<br>
+      Expected: No list update occurs. Error message indicates an invalid command format. The system strictly only accepts list-r without any trailing text. 
+
+   2. Test case: `list-r YIH`<br>
+      Expected: Similar to previous. Error details show that the command does not take any arguments.
+
+
+### Removing a room (Status-Dependent)
+
+1. Deleting a room by index
+
+   1. Prerequisites: Room at index 1 has status "Available".
+
+   2. Test case: `delete-r 1`<br>
+      Expected: Room deleted successfully.
+
+   3. Test case: `delete-r`<br>
+      Expected: No room is deleted. Error message indicates an invalid command format and 
+      shows the correct usage: delete-r INDEX.
+
+2. Deleting equipment not with "Available" status
+
+   1. Prerequisites: Room at index 2 is set to "Booked".
+
+   2. Test case: `delete-r 2`<br>
+      Expected: No room is deleted. TrackMasterPro shows an error message stating that a booked room cannot be 
+      removed and the booking must be canceled first.
+
+
+### Editing a room (Status-Dependent)
+
+1. Editing a valid room name
+
+   1. Prerequisites: Multiple rooms in the list. The room at index 1 is currently "Available".
+
+   2. Test case: `edit-r 1 n/New-Room-Name`<br>
+      Expected: Only the name of the first room is updated. Location and Status remain unchanged.
+
+   3. Test case: `edit-r 1 n/MPSH-1 l/Sports-Centre s/Maintenance`<br> 
+      Expected: Name, Location, and Status are all updated at once. Success message shows the new details 
+      and the UI reflects the "Maintenance" status.
+
+2. Editing a room to an existing name
+
+   1. Prerequisites: "Room-A" and "Room-B" exist.
+
+   2. Test case: `edit-r 1 n/Room-B` (where index 1 is Room-A)<br>
+      Expected: Error message regarding duplicate name shown.
+
+3. Editing room with "Booked" status 
+
+   1. Prerequisites: At least one room has a Booked status (e.g., at index 3). 
+
+   2. Test case: `edit-r 3 l/New-Location`<br>
+      Expected: No changes made. Error message showing the room is currently ‘Booked’ and cannot be edited.
+
 
 ### Deleting a person
 

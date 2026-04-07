@@ -51,7 +51,7 @@ public class AddTagCommand extends Command {
 
         //Ensure that target is inside storage
         if (!model.hasTaggable(target)) {
-            throw new CommandException(MESSAGE_ERROR + "Target equipment/room not found");
+            throw new CommandException(MESSAGE_ERROR + " Target equipment/room not found");
         }
         model.addTag(target, tag);
         return new CommandResult(String.format(MESSAGE_SUCCESS, tag, target.getNameString()));

@@ -19,7 +19,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
    **Windows user:** Open the Start menu, search for `cmd` and open the **Command Prompt** app. Type `java -version` and press Enter. If you see Java `17`, you're good to go!
    
-   **Mac users:** Open the **Terminal** app. Type `java -version` and press Enter. If yous see Java `17`, you're good to go!
+   **Mac users:** Open the **Terminal** app. Type `java -version` and press Enter. If you see Java `17`, you're good to go!
 
    If Java `17` is not installed:
    * Windows: Guide to download and install Java `17` [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).
@@ -49,8 +49,9 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
    
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   
+   5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
+   
    Some example commands you can try:
 
    * `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` : Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
@@ -359,86 +360,96 @@ To add multiple Room of the same name, append a unique number (e.g. `Sports-Hall
 
 Adds a new student in the database so they can begin borrowing equipment or booking room/facility.
 
-Format: `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL`
-
-Examples:
-*  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu`
-*  Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
+**Format:** `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL`
 
 **Acceptable values:**
-* **Name:** Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`). The system trims any spaces at the very beginning or end of a name.
-* **Matric Number:** Must be exactly 9 characters long. It starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.
-* **Phone Number:** 8-digit mobile number (e.g `81234567`).
-* **Email:** Valid email format (e.g., `e0123456@u.nus.edu`). Case insensitive.
+* `NAME`: Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`). The system trims any spaces at the very beginning or end of a name.
+* `MATRIC_NUMBER`: Must be exactly 9 characters long. Starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.
+* `PHONE`: 8-digit mobile number (e.g `81234567`).
+* `EMAIL`:** Valid email format (e.g., `e0123456@u.nus.edu`). Case insensitive.
+* *Parameters can be in any order:*
+  e.g. if the command specifies `n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL`, `m/MATRIC_NUMBER n/NAME p/PHONE_NUMBER e/EMAIL` is also acceptable.
 
-Outputs:
+**Duplicate handling:**
+* To ensure data integrity, each Student must have a unique `Matric Number`, `Phone Number`, and `Email`. If any of these are already registered to another student, the command will fail.
+![AddStudentDuplicate.png](images/AddStudentDuplicate.png)
+
+**Examples:**
+*  `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` — Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
+
+**Outputs:**
 * Success
   ![AddStudentSuccess.png](images/AddStudentSuccess.png)
 * Failure
   ![AddStudentFailure.png](images/AddStudentFailure.png)
 
-Duplicate handling:
-* To ensure data integrity, each Student must have a unique Matric Number, Phone Number, and Email. If any of these are already registered to another student, the command will fail.
-![AddStudentDuplicate.png](images/AddStudentDuplicate.png)
-
-Possible errors:
-* Hyphens `(-)`, periods `(.)`, and apostrophes `(')`, numbers `(1)` in name will cause an error
+**Possible errors:**
+* *Invalid command*: Missing any of `n/`, `m/`, `p`, `e` prefix.
+* *Invalid name*: Hyphens `-`, periods `.`, and apostrophes `'`, numbers `1` in name will cause an error.
+* *Student already exists*: Attempting to add a student whose `Matric Number`, `Phone Number`, and `Email`are already in the system.
 
 #### Check a student's loans : `check-s`
 
 To check the list of equipment or venues loaned to a student.
 
-Format: `check-s MATRIC_NUMBER`
+**Format:** `check-s MATRIC_NUMBER`
 
-Examples:
+**Acceptable values:**
+* `MATRIC NUMBER`: Matric number must start with an alphabet followed by 7 digits and end with an alphabet.
+* *Case Sensitivity*: Case-insensitive. `A0123456B` and `a0123456b` are treated as the matric number. 
+
+
+**Duplicate handling:**
+* The system searches by the unique matric number, so there is no risk of returning the wrong student's data.
+
+**Examples:**
 * `check-s A0123456B`
 
-Acceptable values:
-* Matric numbers must start with an alphabet followed by 7 digits and end with an alphabet
-
-Outputs:
+**Outputs:**
 * Success
   ![CheckStudentLoanSuccess.png](images/CheckStudentLoanSuccess.png)
 * Failure
   ![CheckStudentLoanFailure.png](images/CheckStudentLoanFailure.png)
 
-Duplicate handling:
-* The system searches by the unique matric number, so there is no risk of returning the wrong student's data.
-
-Possible errors:
+**Possible errors:**
 * No matric number in the system.
 
 #### Display all students : `list-s`
 
-To display a list of all registered students in the system.
+Displays a list of all registered students in the system.
 
-Format: `list-s`
+**Format:** `list-s`
 
-Acceptable values:
+**Acceptable values:**
 * Only accepts `list-s`.
 
-Duplicate handling:
+**Duplicate handling:**
 * Not applicable for a view command.
 
-Examples:
+**Examples:**
 * `list-e`.
 
-Outputs:
+**Outputs:**
 * Success
 ![ListStudentsSuccess.png](images/ListStudentsSuccess.png)
 
-Possible errors:
+**Possible errors:**
 * Any extra input after `list-s`, (e.g. `list-s 1`, `list-e a` etc.) will be invalid command.
 
 #### Delete a student's profile : `delete-s`
 
-To permanently delete a student’s record from the system database.
+Deletes a student’s record from the system database.
 
-Format: `delete-s MATRIC_NUMBER`
+**Format:** `delete-s MATRIC_NUMBER`
 
-Examples:
+**Acceptable values:**
+* `MATRIC_NUMBER`: A 9-character identifier. Must start with an alphabet (usually 'A'), followed by 7 digits, and end with an alphabet (e.g., `A0123456B`).
+* *Case Sensitivity*: Case-insensitive. `A0123456B` and `a0123456b` are treated as the matric number. 
+
+**Examples:**
 * `delete-s A0123456B`
 
+**Outputs:**
 Success:
 ![DeleteStudentSuccess.png](images/DeleteStudentSuccess.png)
 
@@ -446,16 +457,9 @@ Failure:
 ![DeleteCommandFailure.png](images/DeleteCommandFailure.png)
 
 
-Acceptable values:
-* Matric number: A 9-character identifier. Must start with an alphabet (usually 'A'), followed by 7 digits, and end with an alphabet (e.g., A1234567X).
-
-* Note: The command is case-insensitive (a1234567x is treated the same as A1234567X).
-
-Possible errors:
+**Possible errors:**
 * Student Not Found: The matric number entered does not exist in the current database.
-
 * Active Loans: Deletion is blocked if the student currently has equipment that has not been returned.
-
 * Active Reservations: Deletion is blocked if the student has upcoming room or facility bookings.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Important:**
@@ -467,23 +471,37 @@ Please ensure all borrowed items are returned and all upcoming reservations are 
 
 Edits an existing student's details in the address book.
 
-Format: `edit-s INDEX [n/NAME] [p/PHONE] [e/EMAIL]`
+**Format:** `edit-s INDEX [n/NAME] [m/MATRIC_NUMBER] [p/PHONE_NUMBER] [e/EMAIL]`
 
-Acceptable values:
-* INDEX: Must be a positive integer `(1, 2, 3...)` as shown in the current displayed list.
+**Acceptable values:**
+* `INDEX`: Must be a positive integer `(1, 2, 3...)` as shown in the current displayed list.
 * Fields: At least one field must be provided.
 * (With at least one of the fields)
-    * Name: Alphabets and spaces only. No special characters or numbers.
-    * Matric Number: 9 characters, starting and ending with a letter (e.g., `A1234567X`). Case-insensitive.
-    * Phone: 8-digit continuous Singaporean mobile number.
-    * Email: Valid email format (e.g., `e0123456@u.nus.edu`).
-* The order does not matter (e.g., `p/` can come before `n/`).
-* You **cannot** edit any details of a student if they currently have an active equipment loan or a facility reservation.
+    * `NAME`: Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`).
+    * `MATRIC_NUMBER`: 9 characters, starting and ending with a letter (e.g., `A1234567X`). Case-insensitive.
+    * `PHONE_NUMBER`: 8-digit continuous Singaporean mobile number.
+    * `EMAIL`: Valid email format (e.g., `e0123456@u.nus.edu`).
+* *Parameters can be in any order*: e.g., `p/` can come before `n/`
 
-Examples:
+<div markdown="span" class="alert alert-primary">:bulb: **Important:**
+You **cannot** edit any details of a student if they currently have an active equipment loan or a facility reservation.
+</div>
+
+**Examples:**
 * `edit-s 2 n/Tom p/91234561 e/e1234567@u.nus.edu`.
 
-Possible errors:
+**Outputs**
+* Success
+![EditStudentCommandSuccess.png](images/EditStudentCommandSuccess.png)
+
+* Failure
+* Missing fields
+![EditStudentCommandMissingField.png](images/EditStudentCommandMissingField.png)
+
+* Student with existing loans/reservations
+![EditStudentCommandExistingLoan.png](images/EditStudentExistingLoan.png)
+
+**Possible errors:**
 * Current student still has active loans or reservations linked to their current ID.
 * Index provided is invalid.
 * A student with the edited information already exists.
