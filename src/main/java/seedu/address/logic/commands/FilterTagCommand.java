@@ -18,17 +18,20 @@ public class FilterTagCommand extends Command {
     public static final String COMMAND_WORD = "filter";
 
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters out all room/equipment by tag"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters out all room/equipment by tag\n"
             + "Parameters: "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_LOCATION
-            + PREFIX_TAG + "Renovation\n"
+            + PREFIX_LOCATION + " "
+            + PREFIX_TAG + "IHG\n"
             + COMMAND_WORD + " "
-            + PREFIX_CATEGORY
-            + PREFIX_TAG + "Spoilt";
+            + PREFIX_CATEGORY + " "
+            + PREFIX_TAG + "IHG";
 
     public static final String MESSAGE_SUCCESS = "Success! List of %1$s tagged with %2$s shown";
     public static final String MESSAGE_ERROR = "Failure! Target type or tag not specified";
+    public static final String MESSAGE_TAG_NOT_FOUND_ROOM = "Failure! No rooms found with tag: %s";
+    public static final String MESSAGE_TAG_NOT_FOUND_EQUIPMENT = "Failure! No equipments found with tag: %s";
+
 
     private final String targetType;
     private final Tag targetTag;
@@ -46,11 +49,23 @@ public class FilterTagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (targetType.equals("Room")) {
+            model.updateFilteredRoomList(unused -> true);
             model.updateFilteredRoomList(room -> room.getTags().contains(targetTag));
+            // Check if any rooms match
+            if (model.getFilteredRoomList().isEmpty()) {
+                throw new CommandException(
+                        String.format(MESSAGE_TAG_NOT_FOUND_ROOM, targetTag));
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetType, targetTag),
                     false, false, true, true, true);
         } else if (targetType.equals("Equipment")) {
             model.updateFilteredEquipmentList(equipment -> equipment.getTags().contains(targetTag));
+            // Check if any rooms match
+            if (model.getFilteredEquipmentList().isEmpty()) {
+                model.updateFilteredEquipmentList(unused -> true);
+                throw new CommandException(
+                        String.format(MESSAGE_TAG_NOT_FOUND_EQUIPMENT, targetTag));
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetType, targetTag),
                     false, false, true, true, true);
         } else {
