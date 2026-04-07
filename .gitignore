@@ -3,6 +3,9 @@
 /build/
 src/main/resources/docs/
 
+# Ignore user-specific data
+data/*.json
+
 # IDEA files
 /.idea/
 /out/
