@@ -72,19 +72,11 @@
     "itemId" : "MX-VOLLEYBALL",
     "studentId" : "a3456789c",
     "dueDateTime" : "2027-03-31 1300"
-  }, {
-    "itemId" : "WILSON-EVOLUTION",
-    "studentId" : "a1234567a",
-    "dueDateTime" : "2099-11-11 1111"
-  } ],
-  "aliasMappings" : [ {
-    "targetId" : "WILSON-EVOLUTION",
-    "aliasName" : "b1"
   } ],
   "equipments" : [ {
     "name" : "Wilson-Evolution",
     "category" : "Basketball",
-    "status" : "Booked",
+    "status" : "Available",
     "tags" : [ ]
   }, {
     "name" : "Mx-Volleyball",
