@@ -277,12 +277,10 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-                                                 |
-
 | Priority | As a …​        | I want to …​                                                                    | So that I can…​                                                                       |
 |---------|----------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | `* * *` | new user       | type help to see all the commands                                               | I don't have to ask my supervisor for help.                                           |
-| `* * *` | new user       | reserve the equipment/room on a specified time/date                             | only I have access to it at that time/date                                            |
+| `* * *` | new user       | reserve the equipment/room on a specified time/date                             | lend it on a specific time/date                                                       |
 | `* * *` | user           | issue an item to a student                                                      | the system records that the item is no longer in the store.                           |
 | `* * *` | user           | remove an equipment from inventory                                              | I can remove it                                                                       |
 | `* * *` | user           | remove an equipment name from a student                                         | I can mark the item as "Returned" when they bring it back.                            |
@@ -295,7 +293,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | user           | delete a student                                                                | I can remove records of students who have graduated or left the university.           |
 | `* *`   | user           | have a checklist of ALL equipment in inventory                                  | I can verify if the equipment is available                                            |
 | `* *`   | user           | find which student has borrowed a specific item                                 | I can update the status of an equipment manually                                      |
-| `* *`   | user           | update an equipment details                                                     | minimize chance of someone else seeing them by accident                               |
+| `* *`   | user           | update an equipment details                                                     | correct any misinput                                                                  |
 | `* *`   | user           | block a facility for "Maintenance"                                              | no one can book the room.                                                             |
 | `* *`   | user           | be warned when adding duplicate name                                            | no redundant information is stored                                                    |
 | `* *`   | user           | keep track of history of the loans                                              | have the transaction on record                                                        |
@@ -303,9 +301,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`   | user           | keep track of the time of the loan                                              | have the time on record                                                               |
 | `* *`   | user           | blacklist a student                                                             | the system will warn me if I try to loan to a student with a history of overdue loans |
 | `* *`   | user           | undo my last command                                                            | I can recover from accidental deletions or typos                                      |
-| `* *`   | busy user      | simple view of equipment on loan or due                                         | I can spend time chasing it                                                           |
+| `* *`   | busy user      | simple view of equipment on loan or due                                         | reduce time spent chasing it                                                          |
 | `* *`   | busy user      | sort the item/room to a specified date                                          | I can know what is being used/occupied on that date                                   |
-| `* *`   | advanced user  | create tags to equipment/room as a category                                     | I can see at a glance what is borrowed/book for that category                         |
+| `* *`   | advanced user  | create tags to equipment/room as a category                                     | glance what is borrowed/booked for that category                                      |
 | `* *`   | advanced user  | group equipment by function                                                     | I can find alternatives for equipment loans                                           |
 | `* *`   | advanced user  | group equipment by date                                                         | be ready to collect them for return                                                   |
 | `* *`   | advanced user  | create a list of authorized users                                               | have equipment only lent to authorized users                                          |
@@ -314,10 +312,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* `    | user           | issue multiple items at once                                                    | I can loan out and keep track of multiple items easily in the system                  |
 | `* `    | user           | clear all records                                                               | I can reset if needed                                                                 |
 | `* `    | user           | check a student loan history                                                    | I can record it                                                                       |
-| `* `    | busy user      | automate sending reminder to borrower                                           | send reminders so equipment return puntually                                          |
-| `*  `   | busy user      | automate sending late reminders                                                 | to remind the borrower to return eqipment                                             |
+| `* `    | busy user      | automate sending reminder to borrower                                           | send reminders so equipment return punctually                                         |
+| `*  `   | busy user      | automate sending late reminders                                                 | to remind the borrower to return equipment                                            |
 | `* `    | forgetful user | view a list of items due today upon launching the app                           | I am immediately informed of what needs to be returned                                |
-| `* `    | advanced user  | create alias to the equipment/rooms                                             | I can fast lookup and manage students                                                 |
+| `* `    | advanced user  | create alias to the equipment/rooms                                             | issue the commands faster                                                             |
 | `* `    | advanced user  | import new equipment from a file                                                | Add items more quickly                                                                |
 | `* `    | advanced user  | import new people from a file                                                   | Add people more quickly                                                               |
 | `* `    | advanced user  | export data as csv file                                                         | I can create reports for my supervisor to see                                         |
@@ -326,45 +324,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* `    | advanced user  | automate the process of aquiring a loan by extracting from a specified request  | simpler requests can be granted more easily                                           |
 
 
-*{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `TrackMasterPro` and the **Actor** is the `Facility Manager`, unless specified otherwise)
+(For all use cases below, the **System** is the `TrackMasterPro` and the **Actor** is the `User`, unless specified otherwise)
 
 **Use case: UC01 - Add a new equipment**
 
 **MSS**
-1.  Facility Manager requests to add a new equipment by providing its name and category.
+1.  User requests to add a new equipment.
 2.  TrackMasterPro validates the input and checks for duplicates.
-3.  TrackMasterPro adds the equipment to the equipment list and displays the updated list.
+3.  TrackMasterPro adds the equipment and displays the updated equipment list.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The command format is invalid (missing n/ or c/ prefixes).
+* 1a. The command format is invalid.
     * 1a1. TrackMasterPro shows an error message and the correct command format.
     * Use case ends.
 
 * 2a. An equipment with the same name already exists.
-    * 2a1. TrackMasterPro notifies the Facility Manager that a duplicate was found.
-    * 2a2. TrackMasterPro suggests a numbered name (e.g., Wilson-Evolution-1). 
+    * 2a1. TrackMasterPro notifies the user that a duplicate was found.
     * Use case ends.
 
 
-**Use case: UC02 - View equipment inventory list**
+**Use case: UC02 - View equipment list**
 
 **MSS**
 
-1.  Facility Manager requests to view the list of equipment.
-2.  TrackMasterPro clears any active filters and shows a list of all equipment with their categories and statuses.
+1.  User requests to view the list of equipment.
+2.  TrackMasterPro clears any active filters and shows a list of all equipment.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The command format is invalid (list-e 123).
+* 1a. The command format is invalid.
     * 1a1. TrackMasterPro shows an error message and the correct command format.
     * Use case ends.
 
@@ -377,7 +373,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Facility Manager requests to delete a specific equipment by its index in the displayed list.
+1.  User requests to delete specific equipment by its index in the displayed list.
 2.  TrackMasterPro checks that the equipment status is "Available."
 3.  TrackMasterPro deletes the equipment from the equipment list and displays the updated list.
 
@@ -385,12 +381,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. The given index is invalid (out of bounds or not a positive integer).
-    * 1a1. TrackMasterPro shows an error message.
+* 1a. The given index is invalid.
+    * 1a1. TrackMasterPro shows an error message that the index is invalid.
     * Use case ends.
 
-* 2a. The equipment at the specified index is not in "Available" status (e.g., "Booked", "Maintenance", or "Damaged")
-    * 2a1. TrackMasterPro notifies the Facility Manager that the equipment cannot be removed because it is currently booked, under maintenance, or damaged.
+* 2a. The equipment at the specified index is not in "Available" status.
+    * 2a1. TrackMasterPro notifies the user that the equipment cannot be removed.
     * Use case ends.
 
 
@@ -398,7 +394,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Facility Manager requests to edit details (name, category, or status) of a specific equipment in the list by its index.
+1.  User requests to edit details of specific equipment in the list by its index.
 2.  TrackMasterPro validates the new details and updates the equipment.
 3.  TrackMasterPro refreshes the equipment list display to reflect the changes.
 
@@ -406,11 +402,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. The given index is invalid (out of bounds or not a positive integer).
-    * 1a1. TrackMasterPro shows an error message. 
+* 1a. The given index is invalid.
+    * 1a1. TrackMasterPro shows an error message that the index is invalid. 
     * Use case resumes at step 1.
 
-* 1b. The Facility Manager provides an invalid command format or missing fields.
+* 1b. The user provides an invalid command format or missing fields.
     * 1b1. TrackMasterPro shows an error message and the correct command format. 
     * Use case ends.
 
@@ -427,7 +423,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Facility Manager requests to add a new room by providing its name and location.
+1.  User requests to add a new room.
 2.  TrackMasterPro validates the input and checks for duplicates.
 3.  TrackMasterPro adds the room to the room list and refreshes the room list display.
 
@@ -435,13 +431,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. The command format is invalid (missing n/ or l/ prefixes).
+* 1a. The command format is invalid.
     * 1a1. TrackMasterPro shows an error message and the correct command format.
     * Use case ends.
 
 * 2a. A room with the same name already exists.
-    * 2a1. TrackMasterPro notifies the Facility Manager that a duplicate was found.
-    * 2a2. TrackMasterPro suggests a numbered name (e.g., Sports-Hall-1).
+    * 2a1. TrackMasterPro notifies the user that a duplicate was found.
     * Use case ends.
 
 
@@ -449,14 +444,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Facility Manager requests to view the list of rooms.
-2.  TrackMasterPro clears any active filters and shows a list of all room with their locations and statuses.
+1.  User requests to view the list of rooms.
+2.  TrackMasterPro clears any active filters and shows a list of all room.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The command format is invalid (list-r 123).
+* 1a. The command format is invalid.
     * 1a1. TrackMasterPro shows an error message and the correct command format.
     * Use case ends.
 
@@ -469,7 +464,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Facility Manager requests to delete a specific room by its index in the displayed list.
+1.  User requests to delete a specific room by its index in the displayed list.
 2.  TrackMasterPro checks that the room status is "Available."
 3.  TrackMasterPro deletes the room from the room list and displays the updated list.
 
@@ -477,12 +472,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. The given index is invalid (out of bounds or not a positive integer).
-    * 1a1. TrackMasterPro shows an error message.
+* 1a. The given index is invalid.
+    * 1a1. TrackMasterPro shows an error message that the index is invalid.
     * Use case ends.
 
-* 2a. The room at the specified index is not in "Available" status (e.g., "Booked" or "Maintenance")
-    * 2a1. TrackMasterPro notifies the Facility Manager that the room cannot be removed because it is currently booked or under maintenance.
+* 2a. The room at the specified index is not in "Available" status.
+    * 2a1. TrackMasterPro notifies the user that the room cannot be removed.
     * Use case ends.
 
 
@@ -490,7 +485,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Facility Manager requests to edit details (name, location, or status) of a specific room in the list by its index.
+1.  User requests to edit details of a specific room in the list by its index.
 2.  TrackMasterPro validates the new details and updates the room.
 3.  TrackMasterPro refreshes the room list display to reflect the changes.
 
@@ -498,11 +493,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. The given index is invalid (out of bounds or not a positive integer).
-    * 1a1. TrackMasterPro shows an error message.
+* 1a. The given index is invalid.
+    * 1a1. TrackMasterPro shows an error message that the index is invalid.
     * Use case resumes at step 1.
 
-* 1b. The Facility Manager provides an invalid command format or missing fields.
+* 1b. The user provides an invalid command format or missing fields.
     * 1b1. TrackMasterPro shows an error message and the correct command format.
     * Use case ends.
 
@@ -518,7 +513,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case: UC09 - Add a Student Profile**
 
 **MSS**
-1.  Facility Manager enters the command to add a student (add-s) with the student's name, matriculation number, phone number, and email.
+1.  User enters the command to add a student (add-s) with the student's name, matriculation number, phone number, and email.
 2.  TrackMasterPro validates the format of the input.
 3.  TrackMasterPro checks that the student’s identity (matriculation number, phone number, and email) is unique.
 4.  TrackMasterPro registers the new student profile.
@@ -540,7 +535,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case: UC010 - View Student Loans**
 
 **MSS**
-1.   Facility Manager enters the command to check loans (check-s) followed by the student's matriculation number.
+1.   User enters the command to check loans (check-s) followed by the student's matriculation number.
 2.   TrackMasterPro validates the format of the matriculation number.
 3.   TrackMasterPro searches the database for a student matching that matriculation number.
 4.   TrackMasterPro retrieves all active loan records associated with that student.
