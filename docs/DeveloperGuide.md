@@ -690,8 +690,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a1. System shows an error message
   * Use case ends
 
+**Use case: UC016 - Cancel Reservation**
 
-**Use case: UC016 - Tag Equipment/Room**
+**MSS**
+
+1. User chooses to cancel a reservation.
+2. User enters the reservation details required to identify the reservation.
+3. System requests the reservation to cancel.
+4. System cancels the reservation and displays a success message.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. System detects that the reservation does not exist.
+  * 3a1. System displays a failure message.
+  * Use case ends.
+
+* 3b. System detects that the reservation details entered are invalid.
+  * 3b1. System displays a failure message.
+  * Use case ends.
+
+
+**Use case: UC017 - Tag Equipment/Room**
 
 **MSS**
 
@@ -715,7 +736,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case ends.
 
 
-**Use case: UC017 - Untag Equipment/Room**
+**Use case: UC018 - Untag Equipment/Room**
 
 **MSS**
 
@@ -737,7 +758,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case ends.
 
 
-**Use case: UC018 - Filter by Tag**
+**Use case: UC019 - Filter by Tag**
 
 **MSS**
 
@@ -761,7 +782,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case ends.
 
 
-**Use case: UC019 - View Help Command**
+**Use case: UC020 - View Help Command**
 
 **MSS**
 
@@ -782,7 +803,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case ends.
 
 
-**Use case: UC020 - View all commands**
+**Use case: UC021 - View all commands**
 
 **MSS**
 
