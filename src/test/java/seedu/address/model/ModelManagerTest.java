@@ -322,6 +322,101 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getReservableItemError_availableRoom_returnsEmpty() {
+        ModelManager model = new ModelManager();
+        Room room = new RoomBuilder()
+                .withName("Hall-2")
+                .withLocation("Sports-Centre")
+                .withStatus("Available")
+                .build();
+        model.addRoom(room);
+
+        assertEquals(Optional.empty(), model.getReservableItemError("Hall-2"));
+    }
+
+    @Test
+    public void getReservableItemError_bookedRoom_returnsBookedMessage() {
+        ModelManager model = new ModelManager();
+        Room room = new RoomBuilder()
+                .withName("Hall-2")
+                .withLocation("Sports-Centre")
+                .withStatus("Booked")
+                .build();
+        model.addRoom(room);
+
+        assertEquals(Optional.of(String.format(
+                        "Error:%n%s is already booked and cannot be reserved.", "Hall-2")),
+                model.getReservableItemError("Hall-2"));
+    }
+
+    @Test
+    public void getReservableItemError_maintenanceRoom_returnsMaintenanceMessage() {
+        ModelManager model = new ModelManager();
+        Room room = new RoomBuilder()
+                .withName("Hall-2")
+                .withLocation("Sports-Centre")
+                .withStatus("Maintenance")
+                .build();
+        model.addRoom(room);
+
+        assertEquals(Optional.of(String.format(
+                        "Error:%n%s is under maintenance and cannot be reserved.", "Hall-2")),
+                model.getReservableItemError("Hall-2"));
+    }
+
+    @Test
+    public void getReservableItemError_availableEquipment_returnsEmpty() {
+        ModelManager model = new ModelManager();
+        Equipment equipment = new EquipmentBuilder()
+                .withName("Wilson-Evolution")
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.AVAILABLE)
+                .build();
+        model.addEquipment(equipment);
+
+        assertEquals(Optional.empty(), model.getReservableItemError("Wilson-Evolution"));
+    }
+
+    @Test
+    public void getReservableItemError_bookedEquipment_returnsBookedMessage() {
+        ModelManager model = new ModelManager();
+        Equipment equipment = new EquipmentBuilder()
+                .withName("Wilson-Evolution")
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.BOOKED)
+                .build();
+        model.addEquipment(equipment);
+
+        assertEquals(Optional.of(String.format(
+                        "Error:%n%s is already booked and cannot be reserved.", "Wilson-Evolution")),
+                model.getReservableItemError("Wilson-Evolution"));
+    }
+
+    @Test
+    public void getReservableItemError_maintenanceEquipment_returnsMaintenanceMessage() {
+        ModelManager model = new ModelManager();
+        Equipment equipment = new EquipmentBuilder()
+                .withName("Wilson-Evolution")
+                .withCategory("Basketball")
+                .withStatus(EquipmentStatus.MAINTENANCE)
+                .build();
+        model.addEquipment(equipment);
+
+        assertEquals(Optional.of(String.format(
+                        "Error:%n%s is under maintenance and cannot be reserved.", "Wilson-Evolution")),
+                model.getReservableItemError("Wilson-Evolution"));
+    }
+
+    @Test
+    public void getReservableItemError_invalidTarget_returnsInvalidResourceMessage() {
+        ModelManager model = new ModelManager();
+
+        assertEquals(Optional.of(String.format(
+                        "Error:%n%s is not a valid registered room/item.", "Invalid-Target")),
+                model.getReservableItemError("Invalid-Target"));
+    }
+
+    @Test
     public void hasAliasName_aliasNotPresent_returnsFalse() {
         assertFalse(modelManager.hasAliasName("b1"));
     }
