@@ -356,7 +356,7 @@ To add multiple Room of the same name, append a unique number (e.g. `Sports-Hall
 
 ### 2.3 Borrower Management
 
-#### Add a new student profile : `add-s`
+#### Adding a new student profile : `add-s`
 
 Adds a new student in the database so they can begin borrowing equipment or booking room/facility.
 
@@ -366,9 +366,7 @@ Adds a new student in the database so they can begin borrowing equipment or book
 * `NAME`: Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`). The system trims any spaces at the very beginning or end of a name.
 * `MATRIC_NUMBER`: Must be exactly 9 characters long. Starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.
 * `PHONE`: 8-digit mobile number (e.g `81234567`).
-* `EMAIL`:** Valid email format (e.g., `e0123456@u.nus.edu`). Case insensitive.
-* *Parameters can be in any order:*
-  e.g. if the command specifies `n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL`, `m/MATRIC_NUMBER n/NAME p/PHONE_NUMBER e/EMAIL` is also acceptable.
+* `EMAIL`: Valid email format (e.g., `e0123456@u.nus.edu`). Case insensitive.
 
 **Duplicate handling:**
 * To ensure data integrity, each Student must have a unique `Matric Number`, `Phone Number`, and `Email`. If any of these are already registered to another student, the command will fail.
@@ -384,18 +382,18 @@ Adds a new student in the database so they can begin borrowing equipment or book
   ![AddStudentFailure.png](images/AddStudentFailure.png)
 
 **Possible errors:**
-* *Invalid command*: Missing any of `n/`, `m/`, `p`, `e` prefix.
+* *Invalid command*: Missing any of `n/`, `m/`, `p/`, `e/` prefix.
 * *Invalid name*: Hyphens `-`, periods `.`, and apostrophes `'`, numbers `1` in name will cause an error.
 * *Student already exists*: Attempting to add a student whose `Matric Number`, `Phone Number`, and `Email`are already in the system.
 
 #### Check a student's loans : `check-s`
 
-To check the list of equipment or venues loaned to a student.
+To check the list of equipment or rooms loaned to a student.
 
 **Format:** `check-s MATRIC_NUMBER`
 
 **Acceptable values:**
-* `MATRIC NUMBER`: Matric number must start with an alphabet followed by 7 digits and end with an alphabet.
+* `MATRIC_NUMBER`: Must be exactly 9 characters long. Starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.
 * *Case Sensitivity*: Case-insensitive. `A0123456B` and `a0123456b` are treated as the matric number. 
 
 
@@ -414,7 +412,7 @@ To check the list of equipment or venues loaned to a student.
 **Possible errors:**
 * No matric number in the system.
 
-#### Display all students : `list-s`
+#### View student list : `list-s`
 
 Displays a list of all registered students in the system.
 
@@ -436,7 +434,7 @@ Displays a list of all registered students in the system.
 **Possible errors:**
 * Any extra input after `list-s`, (e.g. `list-s 1`, `list-e a` etc.) will be invalid command.
 
-#### Delete a student's profile : `delete-s`
+#### Delete student from student list : `delete-s`
 
 Deletes a student’s record from the system database.
 
@@ -467,7 +465,7 @@ A student profile **cannot be deleted** if there are outstanding records.
 Please ensure all borrowed items are returned and all upcoming reservations are cancelled before attempting to remove the student.
 </div>
 
-#### Edit student's details : `edit-s`
+#### Edit student from student list : `edit-s`
 
 Edits an existing student's details in the address book.
 
@@ -478,10 +476,9 @@ Edits an existing student's details in the address book.
 * Fields: At least one field must be provided.
 * (With at least one of the fields)
     * `NAME`: Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`).
-    * `MATRIC_NUMBER`: 9 characters, starting and ending with a letter (e.g., `A1234567X`). Case-insensitive.
-    * `PHONE_NUMBER`: 8-digit continuous Singaporean mobile number.
+    * `MATRIC_NUMBER`: Must be exactly 9 characters long. Starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.Case-insensitive.
+    * `PHONE_NUMBER`: 8-digit mobile number (e.g `81234567`).
     * `EMAIL`: Valid email format (e.g., `e0123456@u.nus.edu`).
-* *Parameters can be in any order*: e.g., `p/` can come before `n/`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Important:**
 You **cannot** edit any details of a student if they currently have an active equipment loan or a facility reservation.
@@ -499,7 +496,7 @@ You **cannot** edit any details of a student if they currently have an active eq
 ![EditStudentCommandMissingField.png](images/EditStudentCommandMissingField.png)
 
 * Student with existing loans/reservations
-![EditStudentCommandExistingLoan.png](images/EditStudentExistingLoan.png)
+![EditStudentCommandExistingLoan.png](images/EditStudentCommandExistingLoan.png)
 
 **Possible errors:**
 * Current student still has active loans or reservations linked to their current ID.
@@ -740,10 +737,6 @@ Possible errors:
 
 ### 2.6 System Utilities
 
-#### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 #### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -786,6 +779,8 @@ Furthermore, certain edits can cause the TrackMasterPro to behave in unexpected 
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. **Strict Name Validation:** The current system only accepts alphabetic characters and spaces for student names. Names containing special characters such as hyphens (e.g., `Al-Haddad`) or apostrophes (e.g., `D'Souza`) will currently trigger a validation error.
+**Workaround**: Enter the name without the special character (e.g., `Al Haddad` or `DSouza`) until a future update expands the character support. Removing special characters from the requirements allows for faster command entry and fewer parsing errors during high-pressure facility management scenarios
 
 --------------------------------------------------------------------------------------------------------------------
 

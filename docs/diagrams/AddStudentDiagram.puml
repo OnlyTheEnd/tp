@@ -1,43 +1,79 @@
 @startuml
-skinparam classAttributeIconSize 0
-hide circle
+skinparam BoxPadding 10
+skinparam ParticipantPadding 20
+hide footbox
 
-abstract class Command {
-    {abstract} +execute(model: Model): CommandResult
-}
+box "Logic" #LightBlue
+participant ":LogicManager" as LogicManager #White
+participant ":AddressBookParser" as AddressBookParser #White
+participant ":AddStudentCommandParser" as AddStudentCommandParser #White
+participant "a:AddStudentCommand" as AddStudentCommand #White
+participant "r:CommandResult" as CommandResult #White
+end box
 
-class AddStudentCommand {
-    + {static} COMMAND_WORD: String = "add-s"
-    + {static} MESSAGE_USAGE: String
-    + {static} MESSAGE_SUCCESS: String
-    + {static} MESSAGE_DUPLICATE_STUDENT: String
-    - toAdd: Person
+box "Model" #LightGreen
+participant ":Model" as Model #White
+participant "student:Person" as Person #White
+end box
 
-    + AddStudentCommand(student: Person)
-    + execute(model: Model): CommandResult
-    + equals(other: Object): boolean
-    + toString(): String
-}
+[-> LogicManager : execute("add-s n/John...")
+activate LogicManager
 
-interface Model <<interface>> {
-    + hasPerson(person: Person): boolean
-    + addPerson(person: Person): void
-}
+LogicManager -> AddressBookParser : parseCommand("add-s n/John...")
+activate AddressBookParser
 
-interface ReadOnlyAddressBook <<interface>> {
-}
+create AddStudentCommandParser
+AddressBookParser -> AddStudentCommandParser
+activate AddStudentCommandParser
 
-class Person {
-    - name: Name
-    - studentId: StudentId
-    - phone: Phone
-    - email: Email
-}
+AddStudentCommandParser --> AddressBookParser
+deactivate AddStudentCommandParser
 
-' Relationships
-Command <|-- AddStudentCommand
-AddStudentCommand --> "1" Person : Adds
-AddStudentCommand ..> Model
-Model -up-|> ReadOnlyAddressBook
+AddressBookParser -> AddStudentCommandParser : parse("n/John...")
+activate AddStudentCommandParser
+
+create Person
+AddStudentCommandParser -> Person
+activate Person
+Person --> AddStudentCommandParser : student
+deactivate Person
+
+create AddStudentCommand
+AddStudentCommandParser -> AddStudentCommand : AddStudentCommand(student)
+activate AddStudentCommand
+
+AddStudentCommand --> AddStudentCommandParser : a
+deactivate AddStudentCommand
+
+AddStudentCommandParser --> AddressBookParser : a
+deactivate AddStudentCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> AddStudentCommand : execute(model)
+activate AddStudentCommand
+
+AddStudentCommand -> Model : hasPerson(student)
+activate Model
+Model --> AddStudentCommand : false
+deactivate Model
+
+AddStudentCommand -> Model : addPerson(student)
+activate Model
+Model --> AddStudentCommand
+deactivate Model
+
+create CommandResult
+AddStudentCommand -> CommandResult : CommandResult(successMsg)
+activate CommandResult
+CommandResult --> AddStudentCommand : r
+deactivate CommandResult
+
+AddStudentCommand --> LogicManager : r
+deactivate AddStudentCommand
+
+[<-- LogicManager : r
+deactivate LogicManager
 
 @enduml

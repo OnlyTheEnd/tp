@@ -9,7 +9,9 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* This project is based on the AddressBook-Level3 project, **part of the se-education.org** [initiative](https://se-education.org/#contributing-to-se-edu)
+
+* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -36,7 +38,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2526S2-CS2103T-T14-4/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2526S2-CS2103T-T14-4/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -51,7 +53,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete-s A12345667A`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -68,41 +70,41 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2526S2-CS2103T-T14-4/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S2-CS2103T-T14-4/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S2-CS2103T-T14-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
 * executes user commands using the `Logic` component.
-* listens for changes to `Model` data so that the UI can be updated with the modified data.
+* listens for changes to `Model` data so that the U  be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2526S2-CS2103T-T14-4/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete-s A1234567A")` API call as an example.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `delete-s A1234567A` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteStudentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteStudentommandParser`) and uses it to parse the command.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteStudentCommand`) which is executed by the `LogicManager`.
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a student).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -111,32 +113,26 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddStudentCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddStudentCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* All `XYZCommandParser` classes (e.g., `AddStudentCommandParser`, `DeleteStudentCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2526S2-CS2103T-T14-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="550" />
 
 
 The `Model` component,
 
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the U  be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
 
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2526S2-CS2103T-T14-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -154,6 +150,41 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Add Student Feature
+
+#### Overview
+The Add Student command allows Facility Manager to record a new student profile in the database by specifying their name, matriculation number, phone number, and email. It is facilitated by `AddStudentCommand` and its corresponding parser `AddStudentCommandParser`.
+
+#### Implementation Details
+The implementation follows the **Command Pattern**, involving the following key components:
+
+`AddStudentCommandParser`: Responsible for parsing the user input and validating the presence of required prefixes.
+`AddStudentCommand`: Contains the execution logic, ensuring the student is unique before addition.
+`Person`: The entity that encapsulates student data (`Nam`, `StudentId`, `Phone`, and `Email`).
+
+#### Design Considerations
+One of the noteworthy details in the implementation is the Defensive Validation in the execution stage:
+
+**Parsing Stage**: The parser uses an `arePrefixesPresent` method to ensure that all mandatory prefixes (`n/`, `m/`, `p/`, and `e/`) are present and of the correct data format. If any are missing or if there is an invalid preamble, a `ParseException` is thrown.
+
+**Execution Stage**: Performs a check against the existing database to prevent duplicate entries based on Student ID, Phone, or Email.
+
+#### Execution Workflow
+1. The Facility Manager enters a command as such:
+`add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu`
+
+2. `LogicManager` calls `AddressBookParser#parseCommand()`.
+3. An `AddStudentCommandParser` is instantiated to tokenize the arguments. The parser uses `ArgumentTokenizer` to verify that all required prefixes (`n/`, `m/`, `p/`, `e/`) are present.
+4. A `Person` object is created and wrapped inside a new `AddStudentCommand`.
+5. The `LogicManager` calls `AddStudentCommand#execute()`.
+6. The `Model` is checked for existing students with the same identity (e.g., same Matric Number, phone number, email).
+7. If unique, the `Model` is updated, and a `CommandResult` is returned to the UI.
+
+![AddStudentDiagram](images/AddStudentDiagram.png)
+
+<div markdown="span" class="alert alert-info"> **Note**: The lifeline for AddStudentCommand should technically end with a destruction marker (X) immediately after it returns the CommandResult. Due to the layout engine limitations of PlantUML, the lifeline may appear to continue to the bottom of the diagram, but the object is functionally disposed of after execution.
+</div>
 
 ### \[Proposed\] Undo/redo feature
 
@@ -173,11 +204,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete-s 5` command to delete the 5th person in the address book. The `delete-s` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete-s 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add-s n/David …​` to add a new stident. The `add-s` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -239,11 +270,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -277,24 +303,23 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-                                                 |
-
-| Priority | As a …​        | I want to …​                                                                    | So that I can…​                                                                       |
+                                                 
+| Priority | As a …​        | I want to …​                                                                    | So that  …​                                                                       |
 |---------|----------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | `* * *` | new user       | type help to see all the commands                                               | I don't have to ask my supervisor for help.                                           |
 | `* * *` | new user       | reserve the equipment/room on a specified time/date                             | only I have access to it at that time/date                                            |
 | `* * *` | user           | issue an item to a student                                                      | the system records that the item is no longer in the store.                           |
-| `* * *` | user           | remove an equipment from inventory                                              | I can remove it                                                                       |
-| `* * *` | user           | remove an equipment name from a student                                         | I can mark the item as "Returned" when they bring it back.                            |
-| `* * *` | user           | check if a equipment is in use                                                  | I can quickly verify if a equipment is in use                                         |
-| `* * *` | user           | find a student by name                                                          | I can quickly check the loan status of a specific person standing at the counter.     |
-| `* * *` | user           | add a new student with their Name                                               | I can create a record for them in the system.                                         |
-| `* * *` | user           | add a new student with their Matric Number                                      | I can create a record for them in the system.                                         |
-| `* * *` | user           | add a new student with their Phone Number                                       | I can create a record for them in the system.                                         |
-| `* * *` | user           | add a new student with their school email                                       | I can create a record for them in the system.                                         |
-| `* * *` | user           | delete a student                                                                | I can remove records of students who have graduated or left the university.           |
-| `* *`   | user           | have a checklist of ALL equipment in inventory                                  | I can verify if the equipment is available                                            |
-| `* *`   | user           | find which student has borrowed a specific item                                 | I can update the status of an equipment manually                                      |
+| `* * *` | user           | remove an equipment from inventory                                              |   remove it                                                                       |
+| `* * *` | user           | remove an equipment name from a student                                         |   mark the item as "Returned" when they bring it back.                            |
+| `* * *` | user           | check if a equipment is in use                                                  |   quickly verify if a equipment is in use                                         |
+| `* * *` | user           | find a student by name                                                          |   quickly check the loan status of a specific person standing at the counter.     |
+| `* * *` | user           | add a new student with their Name                                               |   create a record for them in the system.                                         |
+| `* * *` | user           | add a new student with their Matric Number                                      |   create a record for them in the system.                                         |
+| `* * *` | user           | add a new student with their Phone Number                                       |   create a record for them in the system.                                         |
+| `* * *` | user           | add a new student with their school email                                       |   create a record for them in the system.                                         |
+| `* * *` | user           | delete a student                                                                |   remove records of students who have graduated or left the university.           |
+| `* *`   | user           | have a checklist of ALL equipment in inventory                                  |   verify if the equipment is available                                            |
+| `* *`   | user           | find which student has borrowed a specific item                                 |   update the status of an equipment manually                                      |
 | `* *`   | user           | update an equipment details                                                     | minimize chance of someone else seeing them by accident                               |
 | `* *`   | user           | block a facility for "Maintenance"                                              | no one can book the room.                                                             |
 | `* *`   | user           | be warned when adding duplicate name                                            | no redundant information is stored                                                    |
@@ -302,25 +327,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`   | user           | keep track of the date of the loan                                              | have the date on record                                                               |
 | `* *`   | user           | keep track of the time of the loan                                              | have the time on record                                                               |
 | `* *`   | user           | blacklist a student                                                             | the system will warn me if I try to loan to a student with a history of overdue loans |
-| `* *`   | user           | undo my last command                                                            | I can recover from accidental deletions or typos                                      |
-| `* *`   | busy user      | simple view of equipment on loan or due                                         | I can spend time chasing it                                                           |
-| `* *`   | busy user      | sort the item/room to a specified date                                          | I can know what is being used/occupied on that date                                   |
-| `* *`   | advanced user  | create tags to equipment/room as a category                                     | I can see at a glance what is borrowed/book for that category                         |
-| `* *`   | advanced user  | group equipment by function                                                     | I can find alternatives for equipment loans                                           |
+| `* *`   | user           | undo my last command                                                            |   recover from accidental deletions or typos                                      |
+| `* *`   | busy user      | simple view of equipment on loan or due                                         |   spend time chasing it                                                           |
+| `* *`   | busy user      | sort the item/room to a specified date                                          |   know what is being used/occupied on that date                                   |
+| `* *`   | advanced user  | create tags to equipment/room as a category                                     |   see at a glance what is borrowed/book for that category                         |
+| `* *`   | advanced user  | group equipment by function                                                     |   find alternatives for equipment loans                                           |
 | `* *`   | advanced user  | group equipment by date                                                         | be ready to collect them for return                                                   |
 | `* *`   | advanced user  | create a list of authorized users                                               | have equipment only lent to authorized users                                          |
 | `* *`   | advanced user  | create a list of authorized equipment                                           | have restrictions on who can borrow what equipment                                    |
-| `* `    | user           | edit a student's contact details                                                | I can update if they change it.                                                       |
-| `* `    | user           | issue multiple items at once                                                    | I can loan out and keep track of multiple items easily in the system                  |
-| `* `    | user           | clear all records                                                               | I can reset if needed                                                                 |
-| `* `    | user           | check a student loan history                                                    | I can record it                                                                       |
+| `* `    | user           | edit a student's contact details                                                |   update if they change it.                                                       |
+| `* `    | user           | issue multiple items at once                                                    |   loan out and keep track of multiple items easily in the system                  |
+| `* `    | user           | clear all records                                                               |   reset if needed                                                                 |
+| `* `    | user           | check a student loan history                                                    |   record it                                                                       |
 | `* `    | busy user      | automate sending reminder to borrower                                           | send reminders so equipment return puntually                                          |
 | `*  `   | busy user      | automate sending late reminders                                                 | to remind the borrower to return eqipment                                             |
 | `* `    | forgetful user | view a list of items due today upon launching the app                           | I am immediately informed of what needs to be returned                                |
-| `* `    | advanced user  | create alias to the equipment/rooms                                             | I can fast lookup and manage students                                                 |
+| `* `    | advanced user  | create alias to the equipment/rooms                                             |   fast lookup and manage students                                                 |
 | `* `    | advanced user  | import new equipment from a file                                                | Add items more quickly                                                                |
 | `* `    | advanced user  | import new people from a file                                                   | Add people more quickly                                                               |
-| `* `    | advanced user  | export data as csv file                                                         | I can create reports for my supervisor to see                                         |
+| `* `    | advanced user  | export data as csv file                                                         |   create reports for my supervisor to see                                         |
 | `* `    | advanced user  | attach events to loans                                                          | quicken the loan process during a large school event                                  |
 | `* `    | advanced user  | forecast future school events                                                   | anticipate future loans                                                               |
 | `* `    | advanced user  | automate the process of aquiring a loan by extracting from a specified request  | simpler requests can be granted more easily                                           |
@@ -518,52 +543,101 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case: UC09 - Add a Student Profile**
 
 **MSS**
-1.  Facility Manager enters the command to add a student (add-s) with the student's name, matriculation number, phone number, and email.
-2.  TrackMasterPro validates the format of the input.
-3.  TrackMasterPro checks that the student’s identity (matriculation number, phone number, and email) is unique.
-4.  TrackMasterPro registers the new student profile.
+1.  User requests to add a student.
+2.  User enters the student's details (name, student ID, phone, email).
+3.  TrackMasterPro validates the input and ensures no duplicate identifiers (matric number, phone, or email) exist.
+4.  TrackMasterPro adds the student to the database.
 5.  TrackMasterPro displays the success message and the details of the added student.
 
     Use case ends.
 
 **Extensions**
 
-- 2a. The input format is invalid (e.g., missing a prefix or wrong data format).
-   -   2a1. TrackMasterPro shows an error message and provides the correct command format. 
-   - Use case ends.
+* 2a. The student ID or other mandatory fields are missing.
+   *   2a1. TrackMasterPro shows an error message indicating the missing fields.
+   * Use case resumes at step 1.
 
-- 3a. A student with the same matriculation number, phone number or email adddress already exists.
-   -   3a1. TrackMasterPro shows an error message indicating a duplicate identity was found. 
-   - Use case ends.
+* 3a. A student with the same matric number, phone, or email already exists.
+   *   3a1. System shows an error message for a duplicate entry.
+   * Use case resumes at step 1.
 
+**Use case: UC010 - Delete a Student**
+**MSS**
+1. User requests to delete a student by their unique matric number.
+2. TrackMasterPro searches for the student.
+3. TrackMasterPro removes the student profile from the database.
+4. TrackMasterPro displays a success message.
 
-**Use case: UC010 - View Student Loans**
+      Use case ends.
+
+**Extensions**
+* 2a. No student with the specified matric number is found.
+   * 2a1. TrackMasterPro shows an error message indicating the student does not exist.
+   * Use case ends
+* 2b. TrackMasterPro detects student has active loans or reservations.
+   * 2b1. System informs the user that deletion is prohibited until items are returned.
+   * Use case ends.
+
+Use case ends.
+
+**Use case: UC011 - View Student List**
+**MSS**
+1. User requests to list all students.
+2. TrackMasterPro retrieves all student profiles currently in the database.
+3. TrackMasterPro displays the list of students in the UI.
+
+      Use case ends.
+
+**Extensions**
+* 2a. The database is empty.
+   *  2a1. TrackMasterPro displays a message stating that there are no students currently registered.
+   * Use case ends.
+
+**Use case: UC012 - Check Student Loans**
 
 **MSS**
-1.   Facility Manager enters the command to check loans (check-s) followed by the student's matriculation number.
-2.   TrackMasterPro validates the format of the matriculation number.
-3.   TrackMasterPro searches the database for a student matching that matriculation number.
-4.   TrackMasterPro retrieves all active loan records associated with that student.
-5.   TrackMasterPro displays the student's name, matriculation number, and a list of their currently borrowed items (including status and due dates).
+1.   Facility Manager requests to check the loan status for a specific matric number.
+2.   TrackMasterPro searches the database for a student matching that matriculation number.
+3.   TrackMasterPro retrieves all active loan records associated with that student.
+4.   TrackMasterPro displays the student's name, matriculation number, and a list of their currently borrowed items (including status and due dates).
 
      Use case ends.
 
 **Extensions**
 
-- 2a. The matriculation number format is invalid.
-   - 2a1. TrackMasterPro shows an error message indicating the correct format. 
+- 2a. The matric number is invalid or not found.
+   - 2a1. TrackMasterPro shows an error message.
    - Use case ends.
 
-- 3a. No student is found with the provided matriculation number.
-   - 3a1. TrackMasterPro informs the Manager that the user cannot be found.
+- 3a. The student has no active loans.
+   - 4a1. TrackMasterPro displays a message stating the student has no borrowed items.
    - Use case ends.
 
-- 4a. The student has no active loans.
-   - 4a1. TrackMasterPro displays a message stating "No existing loans" for that student.
+**Use case: UC013 - Edit a student's details**
+
+**MSS**
+1. User requests to edit an existing student's details
+2. TrackMasterPro retrieves the existing profile.
+3. User types in the updated information (e.g., new phone number).
+4. TrackMasterPro validates that the changes do not create a duplicate of another existing student.
+5. TrackMasterPro updates the profile and shows the updated details.
+
+      Use case ends.
+
+**Extensions**
+- 1a. The specified student is not found.
+   - 2a1. TrackMasterPro shows an error message.
+   - Use case ends.
+
+- 4a. The updated details (e.g., new email) already belong to another student.
+   - 4a1. TrackMasterPro displays shows a duplicate error message.
+   - Use case resumes at step 3.
+- 4b. TrackMasterPro detects student has active loans or reservations.
+   - 4b1. TrackMasterPro informs the user that editing is disabled for students with active transactions.
    - Use case ends.
 
 
-**Use case: UC011 - Reserve equipment on a specified date/time**
+**Use case: UC014 - Reserve equipment on a specified date/time**
 
 **MSS**
 
@@ -590,7 +664,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Use case ends
 
 
-**Use case: UC012 - Reserve room on a specified date/time**
+**Use case: UC015 - Reserve room on a specified date/time**
 
 **MSS**
 
@@ -618,7 +692,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Resume from step 4
 
 
-**Use case: UC013 - Issue an item to a student**
+**Use case: UC016 - Issue an item to a student**
 
 **MSS**
 
@@ -643,7 +717,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Use case ends
 
 
-**Use case: UC014 - Remove an item from a student**
+**Use case: UC017 - Remove an item from a student**
 
 **MSS**
 
@@ -667,7 +741,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Use case ends
 
 
-**Use case: UC015 - Create alias for equipment**
+**Use case: UC018 - Create alias for equipment**
 
 **MSS**
 
@@ -691,7 +765,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * Use case ends
 
 
-**Use case: UC016 - Tag Equipment/Room**
+**Use case: UC019 - Tag Equipment/Room**
 
 **MSS**
 
@@ -715,7 +789,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case ends.
 
 
-**Use case: UC017 - Untag Equipment/Room**
+**Use case: UC020 - Untag Equipment/Room**
 
 **MSS**
 
@@ -737,7 +811,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case ends.
 
 
-**Use case: UC018 - Filter by Tag**
+**Use case: UC021 - Filter by Tag**
 
 **MSS**
 
@@ -761,7 +835,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case ends.
 
 
-**Use case: UC019 - View Help Command**
+**Use case: UC022 - View Help Command**
 
 **MSS**
 
@@ -782,7 +856,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case ends.
 
 
-**Use case: UC020 - View all commands**
+**Use case: UC023 - View all commands**
 
 **MSS**
 
@@ -1087,23 +1161,63 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `edit-r 3 l/New-Location`<br>
       Expected: No changes made. Error message showing the room is currently ‘Booked’ and cannot be edited.
 
+### Adding a student
 
-### Deleting a person
+1. Add a student with valid details
 
-1. Deleting a person while all persons are being shown
+   1. Prerequisites: Ensure no student with the ID A0123456B exists.
+   2. Test case: `add-s n/John Doe m/A0123456B p/98765432 e/john@u.nus.edu`<br>
+      Expected: The student is added to the student list. The success message displays the name, matric number, phone, and email.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+2. Add a student with a duplicate matric number.
+   1. Prerequisites: Add a student with a matric number already in the system.
+   2. Test case: `add-s n/Jane Smith m/A0123456B p/88887777 e/jane@u.nus.edu`<br>
+      Expected: No student is added. An error message appears stating that the matric number, phone number, or email already exists.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+### Deleting a student
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+1. Delete a student by matric number
+   1. Prerequisites: A student with ID A0123456B exists in the list.
+   2. Test case: `delete-s m/A0123456B`
+      Expected: The student is removed from the list. Success message confirms the deletion.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+2. Delete a non-existent student
+   1. Test case: `delete-s m/NON_EXISTENT_ID`
+      Expected: No change to the data. Error message indicates the student was not found.
 
-1. _{ more test cases …​ }_
+3. Delete a student with existing loans/reservations
+   1. Prerequisites: Student `A0123456B` currently has an equipment (e.g. "Basketball-1") borrowed or reserved.
+   2. Test case: `delete-s m/A0123456B` 
+      Expected: The student is not removed from the database. An error message saying student has active loans or reservations.
+
+
+### Editing a student
+
+1. Edit the phone number of an existing student
+   1. Prerequisites: Student exists at INDEX 1
+   2. Test case: `edit-s 1 p/90001000`
+      Expected: The phone number for John Doe updates to 90001000. Other details remain unchanged.
+
+2. Edit a student with existing loans/reservations
+   1. Prerequisites: Student at INDEX 1 has an active reservation.
+   2. Test case: `edit-s 1 p/99998888`
+      Expected: The system rejects the edit. An error message saying student has active loans or reservations.
+
+3. Edit a student's details such that they collide with another student
+   1. Prerequisites: 
+   * Student A at INDEX 1: Matric number `A0111111X`, Email `a@u.nus.edu`. 
+   * Student B at INDEX 2: Matric number `A0222222Y`, Email `b@u.nus.edu`
+   2. Test case: `edit-s 1 e/b@u.nus.edu`
+      Expected: The system rejects the edit. An error message saying another student already has the same field.
+
+### Viewing a student list
+1. Test case: `list-s`
+   Expected: The UI switches to the Student List view (if not already there) and displays all registered students.
+
+### Checking a student's loans/reservations
+1. Prerequisites: Student A0123456B borrowed "Basketball-1".
+2. Test case: check-s A0123456B
+   Expected: Shows "Basketball-1" is currently borrowed by the student.
 
 ### Saving data
 

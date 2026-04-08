@@ -42,7 +42,6 @@ JsonAddressBookStorage ..> JsonSerializableAddressBook
 JsonSerializableAddressBook --> "*" JsonAdaptedPerson
 JsonSerializableAddressBook --> "*" JsonAdaptedEquipment
 JsonSerializableAddressBook --> "*" JsonAdaptedRoom
-JsonAdaptedPerson --> "*" JsonAdaptedTag
 JsonAdaptedEquipment --> "*" JsonAdaptedTag
 JsonAdaptedRoom --> "*" JsonAdaptedTag
 

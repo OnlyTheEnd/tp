@@ -20,14 +20,10 @@ Class UniqueIssueRecordList
 Class UniqueAliasMappingList
 
 Class Person
-Class Address
 Class Email
 Class Name
 Class Phone
 Class StudentId
-Class Tag
-
-
 
 Class Reservation
 Class IssueRecord
