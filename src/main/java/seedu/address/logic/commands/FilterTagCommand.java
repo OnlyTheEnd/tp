@@ -3,9 +3,6 @@ package seedu.address.logic.commands;
 
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -15,17 +12,14 @@ import seedu.address.model.tag.Tag;
  * Filter and displays list based on tag to user
  */
 public class FilterTagCommand extends Command {
-    public static final String COMMAND_WORD = "filter";
+    public static final String COMMAND_WORD = "filter-r";
+    public static final String COMMAND_WORD2 = "filter-e";
 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters out all room/equipment by tag\n"
             + "Parameters: "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_LOCATION + " "
-            + PREFIX_TAG + "IHG\n"
-            + COMMAND_WORD + " "
-            + PREFIX_CATEGORY + " "
-            + PREFIX_TAG + "IHG";
+            + "Example: " + COMMAND_WORD + " IHG\n"
+            + COMMAND_WORD2 + " IHG";
 
     public static final String MESSAGE_SUCCESS = "Success! List of %1$s tagged with %2$s shown";
     public static final String MESSAGE_ERROR = "Failure! Target type or tag not specified";
@@ -48,7 +42,7 @@ public class FilterTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (targetType.equals("Room")) {
+        if (targetType.equals("room")) {
             model.updateFilteredRoomList(unused -> true);
             model.updateFilteredRoomList(room -> room.getTags().contains(targetTag));
             // Check if any rooms match
@@ -58,7 +52,7 @@ public class FilterTagCommand extends Command {
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetType, targetTag),
                     false, false, true, true, true);
-        } else if (targetType.equals("Equipment")) {
+        } else if (targetType.equals("equipment")) {
             model.updateFilteredEquipmentList(equipment -> equipment.getTags().contains(targetTag));
             // Check if any rooms match
             if (model.getFilteredEquipmentList().isEmpty()) {

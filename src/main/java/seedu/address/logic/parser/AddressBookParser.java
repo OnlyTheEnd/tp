@@ -137,7 +137,10 @@ public class AddressBookParser {
             return new DeleteTagCommandParser().parse("equipment" + arguments);
 
         case FilterTagCommand.COMMAND_WORD:
-            return new FilterTagCommandParser().parse(arguments);
+            return new FilterTagCommandParser().parse("room" + arguments);
+
+        case FilterTagCommand.COMMAND_WORD2:
+            return new FilterTagCommandParser().parse("equipment" + arguments);
 
         case CheckStudentLoansCommand.COMMAND_WORD:
             return new CheckStudentLoansCommandParser().parse(arguments);

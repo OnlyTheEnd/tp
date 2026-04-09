@@ -807,7 +807,7 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 ---
 
-#### Filtering by tag: `filter`
+#### Filtering by tag: `filter-e` or `filter-r`
 
 Filters equipment items or rooms by a specified tag. Displays all equipment items or rooms that have the specified tag.
 

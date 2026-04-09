@@ -26,8 +26,8 @@ public class FilterTagCommandTest {
     private static final Tag VALID_TAG = new Tag("Valid");
     private static final Tag IFG_TAG = new Tag("IFG");
     private static final Tag TALK_TAG = new Tag("Talk");
-    private static final String ROOM_TYPE = "Room";
-    private static final String EQUIPMENT_TYPE = "Equipment";
+    private static final String ROOM_TYPE = "room";
+    private static final String EQUIPMENT_TYPE = "equipment";
     private static final String INVALID_TYPE = "InvalidType";
 
     // ==================== Room Filter Tests - Positive ====================
