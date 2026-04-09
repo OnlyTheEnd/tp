@@ -301,50 +301,50 @@ _{more aspects and alternatives to be added}_
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 
-| Priority | As a …​        | I want to …​                                                                    | So that  …​                                                                       |
-|---------|----------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| `* * *` | new user       | type help to see all the commands                                               | I can learn the system independently without a manual.                                           |
-| `* * *` | user           | reserve the equipment/room on a specified time/date                             | I can lend it on a specific time/date.                                                       |
-| `* * *` | user           | issue an item to a student                                                      | the system records that the item is no longer in the store.                           |
-| `* * *` | user           | remove an equipment from inventory                                              |   I can remove it to keep the inventory clean.                                                                       |
-| `* * *` | user           | remove an equipment name from a student                                         |   I can mark the item as "Returned" when they bring it back.                            |
-| `* * *` | user           | check if an equipment is in use                                                  |   I can quickly verify if an equipment is in use                                         |
-| `* * *` | user           | find a student by name                                                          |   I can quickly check the loan status of a specific person standing at the counter.     |
-| `* * *` | user           | add a new student with their name                                               |   I can create a record for them in the system.                                         |
-| `* * *` | user           | add a new student with their matric number                                      |   I can create a record for them in the system.                                         |
-| `* * *` | user           | add a new student with their phone number                                       |   I can create a record for them in the system.                                         |
-| `* * *` | user           | add a new student with their school email                                       |   I can create a record for them in the system.                                         |
-| `* * *` | user           | delete a student                                                                |   I can remove records of students who have graduated or left the university.           |
-| `* *`   | user           | have a checklist of ALL equipment in inventory                                  |   I can verify if the equipment is available                                            |
-| `* *`   | user           | find which student has borrowed a specific item                                 |   I can update the status of an equipment manually                                      |
-| `* *`   | user           | update an equipment details                                                     | I can correct any misinput                                                                  |
-| `* *`   | user           | block a facility for "Maintenance"                                              | no one can book the room.                                                             |
-| `* *`   | user           | be warned when adding duplicate name                                            | no redundant information is stored                                                    |
-| `* *`   | user           | keep track of history of the loans                                              | I can have the transaction on record                                                        |
-| `* *`   | user           | keep track of the date of the loan                                              | I can have the date on record                                                               |
-| `* *`   | user           | keep track of the time of the loan                                              | I can have the time on record                                                               |
-| `* *`   | user           | blacklist a student                                                             | the system will warn me if I try to loan to a student with a history of overdue loans |
-| `* *`   | user           | undo my last command                                                            | I can recover from accidental deletions or typos                                      |
-| `* *`   | busy user      | simple view of equipment on loan or due                                         | I can reduce time spent chasing it                                                          |
-| `* *`   | busy user      | sort the item/room to a specified date                                          | I can know what is being used/occupied on that date                                   |
-| `* *`   | advanced user  | create tags to equipment/room as a category                                     | I can glance what is borrowed/booked for that category                                      |
-| `* *`   | advanced user  | group equipment by function                                                     | I can find alternatives for equipment loans                                           |
-| `* *`   | advanced user  | group equipment by date                                                         | I can be ready to collect them for return                                                   |
-| `* *`   | advanced user  | create a list of authorized users                                               | I can have equipment only lent to authorized users                                          |
-| `* *`   | advanced user  | create a list of authorized equipment                                           | I can have restrictions on who can borrow what equipment                                    |
-| `* `    | user           | edit a student's contact details                                                | I can correct misinputs or update contact information.                                                       |
-| `* `    | user           | issue multiple items at once                                                    | I can loan out and keep track of multiple items easily in the system                  |
-| `* `    | user           | clear all records                                                               | I can reset if needed                                                                 |
-| `* `    | busy user      | automate sending reminder to borrower                                           | I can send reminders so equipment return punctually                                         |
-| `*  `   | busy user      | automate sending late reminders                                                 | I can remind the borrower to return equipment                                            |
-| `* `    | forgetful user | view a list of items due today upon launching the app                           | I am immediately informed of what needs to be returned                                |
-| `* `    | advanced user  | create alias to the equipment/rooms                                             | I can issue the commands faster                                                             |
-| `* `    | advanced user  | import new equipment from a file                                                | I can add items more quickly                                                                |
-| `* `    | advanced user  | import new students from a file                                                 | I can add students more quickly                                                               |
-| `* `    | advanced user  | export data as csv file                                                         |  I can generate logistical reports for supervisors or hall committees.     |
-| `* `    | advanced user  | attach events to loans                                                          | I can quicken the loan process during a large school event                                  |
-| `* `    | advanced user  | forecast future school events                                                   | I can anticipate future loans                                                               |
-| `* `    | advanced user  | automate the process of aquiring a loan by extracting from a specified request  | simpler requests can be granted more easily                                           |
+| Priority | As a …​        | I want to …​                                                                    | So that  …​                                                                                |
+|---------|----------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| `* * *` | new user       | type help to see all the commands                                               | I can learn the system independently without a manual.                                     |
+| `* * *` | user           | reserve the equipment/room on a specified time/date                             | I can lend it on a specific time/date.                                                     |
+| `* * *` | user           | issue an item to a student                                                      | I can the system records that the item is no longer in the store.                          |
+| `* * *` | user           | remove an equipment from inventory                                              | I can remove it to keep the inventory clean.                                               |
+| `* * *` | user           | remove an equipment name from a student                                         | I can mark the item as "Returned" when they bring it back.                                 |
+| `* * *` | user           | check if an equipment is in use                                                 | I can quickly verify if an equipment is in use                                             |
+| `* * *` | user           | find a student by name                                                          | I can quickly check the loan status of a specific person standing at the counter.          |
+| `* * *` | user           | add a new student with their name                                               | I can create a record for them in the system.                                              |
+| `* * *` | user           | add a new student with their matric number                                      | I can create a record for them in the system.                                              |
+| `* * *` | user           | add a new student with their phone number                                       | I can create a record for them in the system.                                              |
+| `* * *` | user           | add a new student with their school email                                       | I can create a record for them in the system.                                              |
+| `* * *` | user           | delete a student                                                                | I can remove records of students who have graduated or left the university.                |
+| `* *`   | user           | have a checklist of ALL equipment in inventory                                  | I can verify if the equipment is available                                                 |
+| `* *`   | user           | find which student has borrowed a specific item                                 | I can update the status of an equipment manually                                           |
+| `* *`   | user           | update an equipment details                                                     | I can correct any misinput                                                                 |
+| `* *`   | user           | block a facility for "Maintenance"                                              | I can no one can book the room.                                                            |
+| `* *`   | user           | be warned when adding duplicate name                                            | I can no redundant information is stored                                                   |
+| `* *`   | user           | keep track of history of the loans                                              | I can have the transaction on record                                                       |
+| `* *`   | user           | keep track of the date of the loan                                              | I can have the date on record                                                              |
+| `* *`   | user           | keep track of the time of the loan                                              | I can have the time on record                                                              |
+| `* *`   | user           | blacklist a student                                                             | I can the system will warn me if I try to loan to a student with a history of overdue loans |
+| `* *`   | user           | undo my last command                                                            | I can recover from accidental deletions or typos                                           |
+| `* *`   | busy user      | simple view of equipment on loan or due                                         | I can reduce time spent chasing it                                                         |
+| `* *`   | busy user      | sort the item/room to a specified date                                          | I can know what is being used/occupied on that date                                        |
+| `* *`   | advanced user  | create tags to equipment/room as a category                                     | I can glance what is borrowed/booked for that category                                     |
+| `* *`   | advanced user  | group equipment by function                                                     | I can find alternatives for equipment loans                                                |
+| `* *`   | advanced user  | group equipment by date                                                         | I can be ready to collect them for return                                                  |
+| `* *`   | advanced user  | create a list of authorized users                                               | I can have equipment only lent to authorized users                                         |
+| `* *`   | advanced user  | create a list of authorized equipment                                           | I can have restrictions on who can borrow what equipment                                   |
+| `* `    | user           | edit a student's contact details                                                | I can correct misinputs or update contact information.                                     |
+| `* `    | user           | issue multiple items at once                                                    | I can loan out and keep track of multiple items easily in the system                       |
+| `* `    | user           | clear all records                                                               | I can reset if needed                                                                      |
+| `* `    | busy user      | automate sending reminder to borrower                                           | I can send reminders so equipment return punctually                                        |
+| `*  `   | busy user      | automate sending late reminders                                                 | I can remind the borrower to return equipment                                              |
+| `* `    | forgetful user | view a list of items due today upon launching the app                           | I can be immediately informed of what needs to be returned                                 |
+| `* `    | advanced user  | create alias to the equipment/rooms                                             | I can issue the commands faster                                                            |
+| `* `    | advanced user  | import new equipment from a file                                                | I can add items more quickly                                                               |
+| `* `    | advanced user  | import new students from a file                                                 | I can add students more quickly                                                            |
+| `* `    | advanced user  | export data as csv file                                                         | I can generate logistical reports for supervisors or hall committees.                      |
+| `* `    | advanced user  | attach events to loans                                                          | I can quicken the loan process during a large school event                                 |
+| `* `    | advanced user  | forecast future school events                                                   | I can anticipate future loans                                                              |
+| `* `    | advanced user  | automate the process of aquiring a loan by extracting from a specified request  | I can get my requests to be granted more easily                                            |
 
 
 
@@ -912,14 +912,17 @@ testers are expected to do more *exploratory* testing.
 
    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+3. Exiting
+
+   1. Type exit into the command bar and hit enter. 
+      Expected: Program should exit
 
 ### Adding an equipment
 
@@ -1213,152 +1216,151 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a tag to a room
 
-  1. Prerequisites: At least one room exists in the system, with name `Sports-Hall-1`. Use `list-r` to view all rooms.
+   1. Prerequisites: At least one room exists in the system, with name `Sports-Hall-1`. Use `list-r` to view all rooms.
 
-  2. Test case: `tag-r Sports-Hall-1 maintenance`<br>
-     Expected: Tag "maintenance" is added to Sports-Hall-1. Success message shown with room name and tag. Room list updates to show the new tag.
+   2. Test case: `tag-r Sports-Hall-1 maintenance`<br>
+      Expected: Tag "maintenance" is added to Sports-Hall-1. Success message shown with room name and tag. Room list updates to show the new tag.
 
-  3. Test case: `tag-r Sports-Hall-1 maintenance` (adding the same tag again)<br>
-     Expected: No tag is added. Error message indicates the tag already exists for this room.
+   3. Test case: `tag-r Sports-Hall-1 maintenance` (adding the same tag again)<br>
+      Expected: No tag is added. Error message indicates the tag already exists for this room.
 
-  4. Test case: `tag-r NonExistentRoom IHG`<br>
-     Expected: No tag is added. Error message indicates the room does not exist in the system.
+   4. Test case: `tag-r NonExistentRoom IHG`<br>
+      Expected: No tag is added. Error message indicates the room does not exist in the system.
 
-  5. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, `Sports-Hall-1 IHG`, ` tag-r Sports-Hall-1 invalid@tag`<br>
-     Expected: Error message showing invalid command format or invalid tag name (tags must be alphanumeric).
+   5. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, `Sports-Hall-1 IHG`, `tag-r Sports-Hall-1 invalid@tag`<br>
+      Expected: Error message showing invalid command format or invalid tag name (tags must be alphanumeric).
 
 2. Adding a tag to equipment
 
-  1. Prerequisites: At least one equipment exists in the system, with name `Wilson-Evolution`. Use `list-e` to view all equipment.
+   1. Prerequisites: At least one equipment exists in the system, with name `Wilson-Evolution`. Use `list-e` to view all equipment.
 
-  2. Test case: `tag-e Wilson-Evolution IHG`<br>
-     Expected: Tag "IHG" is added to Wilson-Evolution equipment. Success message shown with equipment name and tag.
+   2. Test case: `tag-e Wilson-Evolution IHG`<br>
+      Expected: Tag "IHG" is added to Wilson-Evolution equipment. Success message shown with equipment name and tag.
 
-  3. Test case: `tag-e Wilson-Evolution IHG` (adding the same tag again)<br>
-     Expected: No tag is added. Error message indicates the tag already exists for this equipment.
+   3. Test case: `tag-e Wilson-Evolution IHG` (adding the same tag again)<br>
+      Expected: No tag is added. Error message indicates the tag already exists for this equipment.
 
-  4. Test case: `tag-e NonExistentEquipment broken`<br>
-     Expected: No tag is added. Error message indicates the equipment does not exist in the system.
+   4. Test case: `tag-e NonExistentEquipment broken`<br>
+      Expected: No tag is added. Error message indicates the equipment does not exist in the system.
 
-  5. Other incorrect  commands to try: `tag-e`, ` tag-e Wilson-Evolution`, ` tag-x Wilson-Evolution IHG`<br>
-     Expected: Error message showing invalid command format or invalid flag.
+   5. Other incorrect  commands to try: `tag-e`, `tag-e Wilson-Evolution`, `tag-x Wilson-Evolution IHG`<br>
+      Expected: Error message showing invalid command format or invalid flag.
 
 ### Deleting a tag
 
 1. Deleting a tag from a room
 
-  1. Prerequisites: At least one room with tags exists in the system. For example, Sports-Hall-1 has the tag "maintenance".
+   1. Prerequisites: At least one room with tags exists in the system. For example, Sports-Hall-1 has the tag "maintenance".
 
-  2. Test case: `tag-r Sports-Hall-1 maintenance`<br>
-     Expected: Tag "maintenance" is deleted from Sports-Hall-1. Success message shown with room name and deleted tag. Room list updates to remove the tag.
+   2. Test case: `tag-r Sports-Hall-1 maintenance`<br>
+      Expected: Tag "maintenance" is deleted from Sports-Hall-1. Success message shown with room name and deleted tag. Room list updates to remove the tag.
 
-  3. Test case: `tag-r Sports-Hall-1 nonexistent`<br>
-     Expected: No tag is deleted. Error message indicates the tag does not exist for this room.
+   3. Test case: `tag-r Sports-Hall-1 nonexistent`<br>
+      Expected: No tag is deleted. Error message indicates the tag does not exist for this room.
 
-  4. Test case: ` tag-r NonExistentRoom maintenance`<br>
-     Expected: No tag is deleted. Error message indicates the room does not exist in the system.
+   4. Test case: `tag-r NonExistentRoom maintenance`<br>
+      Expected: No tag is deleted. Error message indicates the room does not exist in the system.
 
-  5. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, ` Sports-Hall-1 maintenance`, ` tag-r Sports-Hall-1 invalid@tag`<br>
-     Expected: Error message showing invalid command format or invalid tag name.
+   5. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, `Sports-Hall-1 maintenance`, `tag-r Sports-Hall-1 invalid@tag`<br>
+      Expected: Error message showing invalid command format or invalid tag name.
 
 2. Deleting a tag from equipment
 
-  1. Prerequisites: At least one equipment with tags exists in the system. For example, Wilson-Evolution has the tag "IHG".
+   1. Prerequisites: At least one equipment with tags exists in the system. For example, Wilson-Evolution has the tag "IHG".
 
-  2. Test case: `untag-e Wilson-Evolution IHG`<br>
-     Expected: Tag "IHG" is deleted from Wilson-Evolution equipment. Success message shown with equipment name and deleted tag.
+   2. Test case: `untag-e Wilson-Evolution IHG`<br>
+      Expected: Tag "IHG" is deleted from Wilson-Evolution equipment. Success message shown with equipment name and deleted tag.
 
-  3. Test case: `untag-e Wilson-Evolution nonexistent`<br>
-     Expected: No tag is deleted. Error message indicates the tag does not exist for this equipment.
+   3. Test case: `untag-e Wilson-Evolution nonexistent`<br>
+      Expected: No tag is deleted. Error message indicates the tag does not exist for this equipment.
 
-  4. Test case: `untag-e NonExistentEquipment IHG`<br>
-     Expected: No tag is deleted. Error message indicates the equipment does not exist in the system.
+   4. Test case: `untag-e NonExistentEquipment IHG`<br>
+      Expected: No tag is deleted. Error message indicates the equipment does not exist in the system.
 
-  5. Other incorrect  commands to try: `tag-e`, ` tag-e Wilson-Evolution`, ` tag-x Wilson-Evolution IHG`<br>
-     Expected: Error message showing invalid command format or invalid flag.
+   5. Other incorrect  commands to try: `tag-e`, `tag-e Wilson-Evolution`, `tag-x Wilson-Evolution IHG`<br>
+      Expected: Error message showing invalid command format or invalid flag.
 
 ### Filtering items
 
 1. Filtering rooms by tag
 
-  1. Prerequisites: Rooms exist with various tag. For example, `Sports-Hall-1` has "maintenance" tag, Tennis-Court has "outdoor" tag.
+   1. Prerequisites: Rooms exist with various tag. For example, `Sports-Hall-1` has "maintenance" tag, Tennis-Court has "outdoor" tag.
 
-  2. Test case: `filter l/ t/maintenance`<br>
-     Expected: Only rooms with the "maintenance" tag are displayed.
+   2. Test case: `filter l/ t/maintenance`<br>
+      Expected: Only rooms with the "maintenance" tag are displayed.
 
-  3. Test case: `filter l/ t/nonexistent`<br>
-     Expected: No rooms are displayed. Message indicates 0 rooms listed.
+   3. Test case: `filter l/ t/nonexistent`<br>
+      Expected: No rooms are displayed. Message indicates 0 rooms listed.
 
-  4. Other incorrect filter commands to try: `filter`, `filter maintenance`, `filter l/ t/invalid@tag`<br>
-     Expected: Error message showing invalid command format or invalid tag name.
+   4. Other incorrect filter commands to try: `filter`, `filter maintenance`, `filter l/ t/invalid@tag`<br>
+      Expected: Error message showing invalid command format or invalid tag name.
 
 2. Filtering equipment by tag
 
-  1. Prerequisites: Equipment exist with various tag. For example, `Wilson-Evolution` has "IHG" tag, Mx-Volleyball has "borrowed" tag.
+   1. Prerequisites: Equipment exist with various tag. For example, `Wilson-Evolution` has "IHG" tag, Mx-Volleyball has "borrowed" tag.
 
-  2. Test case: `filter c/ IHG`<br>
-     Expected: Only equipment with the "IHG" tag are displayed. Number of filtered equipment shown in the status message.
+   2. Test case: `filter c/ IHG`<br>
+      Expected: Only equipment with the "IHG" tag are displayed. Number of filtered equipment shown in the status message.
 
-  3. Test case: `filter l/ nonexistent`<br>
-     Expected: No equipment are displayed. Message indicates 0 equipment listed.
+   3. Test case: `filter l/ nonexistent`<br>
+      Expected: No equipment are displayed. Message indicates 0 equipment listed.
 
-
-  4. Other incorrect filter commands to try: `filter IHG`, `filter c/ invalid tag` (with space)<br>
-     Expected: Error message showing invalid command format or invalid flag/tag name.
+   4. Other incorrect filter commands to try: `filter IHG`, `filter c/ invalid tag` (with space)<br>
+      Expected: Error message showing invalid command format or invalid flag/tag name.
 
 3. Clearing filters
 
-  1. Prerequisites: A filter is currently active (e.g., `filter c/ maintenance` was executed).
+   1. Prerequisites: A filter is currently active (e.g., `filter c/ maintenance` was executed).
 
-  2. Test case: `list-r` (for rooms) or `list-e` (for equipment)<br>
-     Expected: All rooms/equipment are displayed again. Filter is cleared and full list is shown.
+   2. Test case: `list-r` (for rooms) or `list-e` (for equipment)<br>
+      Expected: All rooms/equipment are displayed again. Filter is cleared and full list is shown.
 
 
 ### Reserving a room/equipment
 
 1. Reserving a room/equipment with valid details( only one reservation per room or equipment allowed)
 
-  1. Test case: `reserve Mpsh-1 a1234567a f/2099-04-10 1000 t/2099-04-10 1200`<br>
-     Expected: Reservation confirmed:
-     Reserved MPSH-1 by Student a1234567a from 2099-04-10 1000 to 2099-04-10 1200
+   1. Test case: `reserve Mpsh-1 a1234567a f/2099-04-10 1000 t/2099-04-10 1200`<br>
+      Expected: Reservation confirmed:
+      Reserved MPSH-1 by Student a1234567a from 2099-04-10 1000 to 2099-04-10 1200
 
-  2. Test case: `reserve Wilson-Evolution a1234567a f/2099-04-10 1400 t/2099-04-10 1600`<br>
-     Expected: Reservation confirmed:
-     Reserved WILSON-EVOLUTION by Student a1234567a from 2099-04-10 1400 to 2099-04-10 1600
+   2. Test case: `reserve Wilson-Evolution a1234567a f/2099-04-10 1400 t/2099-04-10 1600`<br>
+      Expected: Reservation confirmed:
+      Reserved WILSON-EVOLUTION by Student a1234567a from 2099-04-10 1400 to 2099-04-10 1600
 
 2. Reserving with invalid input
 
-  1. Test case: `reserve Invalid-Item a1234567a f/2099-04-10 1000 t/2099-04-10 1200`<br>
-     Expected: No reservation added. Error message states that the room/item is not a valid registered room/item.
+   1. Test case: `reserve Invalid-Item a1234567a f/2099-04-10 1000 t/2099-04-10 1200`<br>
+      Expected: No reservation added. Error message states that the room/item is not a valid registered room/item.
 
-  2. Test case: `reserve Mpsh-1 invalidId f/2099-04-10 1000 t/2099-04-10 1200`<br>
-     Expected: No reservation added. Error message states that the matric number should start with an alphabet, followed by 7 digits, and end with an alphabet.
+   2. Test case: `reserve Mpsh-1 invalidId f/2099-04-10 1000 t/2099-04-10 1200`<br>
+      Expected: No reservation added. Error message states that the matric number should start with an alphabet, followed by 7 digits, and end with an alphabet.
 
-  3. Test case: `reserve Mpsh-1 a1234567a f/2020-04-10 1000 t/2020-04-10 1200`<br>
-     Expected: No reservation added. Error message states that start date/time must not be in the past.
+   3. Test case: `reserve Mpsh-1 a1234567a f/2020-04-10 1000 t/2020-04-10 1200`<br>
+      Expected: No reservation added. Error message states that start date/time must not be in the past.
 
-  4. Test case: `reserve Mpsh-1 a1234567a f/2099-04-10 1200 t/2099-04-10 1000`<br>
-     Expected: No reservation added. Error message states that end date/time must be after start date/time.
+   4. Test case: `reserve Mpsh-1 a1234567a f/2099-04-10 1200 t/2099-04-10 1000`<br>
+      Expected: No reservation added. Error message states that end date/time must be after start date/time.
 
 3. Reserving when there is already an existing reservation
 
-  1. Prerequisites: A reservation for `Mpsh-1` already exists.
+   1. Prerequisites: A reservation for `Mpsh-1` already exists.
 
-  2. Test case: `reserve Mpsh-1 a7654321b f/2099-04-10 1030 t/2099-04-10 1130`<br>
-     Expected: No reservation added. Error message states that MPSH-1 is already booked and cannot be reserved.
+   2. Test case: `reserve Mpsh-1 a7654321b f/2099-04-10 1030 t/2099-04-10 1130`<br>
+      Expected: No reservation added. Error message states that MPSH-1 is already booked and cannot be reserved.
 
-  3. Prerequisites: Student `a1234567a` already has a reservation from `2099-04-10 1000` to `2099-04-10 1200`.
+   3. Prerequisites: Student `a1234567a` already has a reservation from `2099-04-10 1000` to `2099-04-10 1200`.
 
-  4. Test case: `reserve Sports-Hall-2 a1234567a f/2099-04-10 1030 t/2099-04-10 1130`<br>
-     Expected: No reservation added. Error message states that the student already has another reservation during that period.
+   4. Test case: `reserve Sports-Hall-2 a1234567a f/2099-04-10 1030 t/2099-04-10 1130`<br>
+      Expected: No reservation added. Error message states that the student already has another reservation during that period.
 
 4. Incorrect command formats
 
-  1. Test case: `reserve Mpsh-1 a1234567a 2099-04-10 1000 2099-04-10 1200` (Missing prefixes)<br>
-     Expected: Error message shows invalid command format and provides the correct usage example with `f/` and `t/`.
+   1. Test case: `reserve Mpsh-1 a1234567a 2099-04-10 1000 2099-04-10 1200` (Missing prefixes)<br>
+      Expected: Error message shows invalid command format and provides the correct usage example with `f/` and `t/`.
 
-  2. Other incorrect commands: `reserve Mpsh-1 a1234567a f/2099-04-10 1000`, `reserve Mpsh-1`, `reserve`<br>
-     Expected: Similar to previous, informs user of missing required fields.
+   2. Other incorrect commands: `reserve Mpsh-1 a1234567a f/2099-04-10 1000`, `reserve Mpsh-1`, `reserve`<br>
+      Expected: Similar to previous, informs user of missing required fields.
 
 
 
@@ -1366,31 +1368,31 @@ testers are expected to do more *exploratory* testing.
 
 1. Issuing equipment with valid details
 
-  1. Test case: `issue Wilson-Evolution a1234567a 2099-04-10 1700`<br>
-     Expected: Equipment `Wilson-Evolution` is issued successfully to student `a1234567a`. Success message shown.
+   1. Test case: `issue Wilson-Evolution a1234567a 2099-04-10 1700`<br>
+      Expected: Equipment `Wilson-Evolution` is issued successfully to student `a1234567a`. Success message shown.
 
 2. Issuing with invalid input
 
-  1. Test case: `issue Invalid-Item a1234567a 2099-04-10 1700`<br>
-     Expected: No equipment issued. Error message states that the item is not a valid registered item.
+   1. Test case: `issue Invalid-Item a1234567a 2099-04-10 1700`<br>
+      Expected: No equipment issued. Error message states that the item is not a valid registered item.
 
-  2. Test case: `issue Wilson-Evolution invalidId 2099-04-10 1700`<br>
-     Expected: No equipment issued. Error message states that the matric number format is invalid.
+   2. Test case: `issue Wilson-Evolution invalidId 2099-04-10 1700`<br>
+      Expected: No equipment issued. Error message states that the matric number format is invalid.
 
 3. Issuing equipment that is not available
 
-  1. Prerequisites: `Wilson-Evolution` is not in `AVAILABLE` status.
+   1. Prerequisites: `Wilson-Evolution` is not in `AVAILABLE` status.
 
-  2. Test case: `issue Wilson-Evolution a1234567a 2099-04-10 1700`<br>
-     Expected: No equipment issued. Error message states that the item cannot be issued because of its current status.
+   2. Test case: `issue Wilson-Evolution a1234567a 2099-04-10 1700`<br>
+      Expected: No equipment issued. Error message states that the item cannot be issued because of its current status.
 
 4. Incorrect command formats
 
-  1. Test case: `issue Wilson-Evolution a1234567a` (Missing due date/time)<br>
-     Expected: Error message shows invalid command format and provides the correct usage example.
+   1. Test case: `issue Wilson-Evolution a1234567a` (Missing due date/time)<br>
+      Expected: Error message shows invalid command format and provides the correct usage example.
 
-  2. Other incorrect commands: `issue`, `issue Wilson-Evolution`, `issue Wilson-Evolution a1234567a 2099-04-10`<br>
-     Expected: Similar to previous, informs user of missing required fields.
+   2. Other incorrect commands: `issue`, `issue Wilson-Evolution`, `issue Wilson-Evolution a1234567a 2099-04-10`<br>
+      Expected: Similar to previous, informs user of missing required fields.
 
 
 
@@ -1398,61 +1400,61 @@ testers are expected to do more *exploratory* testing.
 
 1. Returning equipment with valid details
 
-  1. Prerequisites: `Wilson-Evolution` has previously been issued (this is different from reserved).
+   1. Prerequisites: `Wilson-Evolution` has previously been issued (this is different from reserved).
 
-  2. Test case: `return Wilson-Evolution`<br>
-     Expected: Equipment `Wilson-Evolution` is returned successfully. Success message shown.
+   2. Test case: `return Wilson-Evolution`<br>
+      Expected: Equipment `Wilson-Evolution` is returned successfully. Success message shown.
 
 2. Returning equipment that is not currently issued
 
-  1. Prerequisites: `Wilson-Evolution` is currently not issued.
+   1. Prerequisites: `Wilson-Evolution` is currently not issued.
 
-  2. Test case: `return Wilson-Evolution`<br>
-     Expected: No equipment returned. Error message states that `Wilson-Evolution` is not currently issued.
+   2. Test case: `return Wilson-Evolution`<br>
+      Expected: No equipment returned. Error message states that `Wilson-Evolution` is not currently issued.
 
 3. Returning equipment with invalid input
 
-  1. Test case: `return Invalid Item` (Contains space)<br>
-     Expected: Error message indicates invalid item ID format.
+   1. Test case: `return Invalid Item` (Contains space)<br>
+      Expected: Error message indicates invalid item ID format.
 
 4. Incorrect command formats
 
-  1. Test case: `return`<br>
-     Expected: Error message shows invalid command format and provides the correct usage example.
+   1. Test case: `return`<br>
+      Expected: Error message shows invalid command format and provides the correct usage example.
 
-  2. Test case: `return Wilson-Evolution extraArg`<br>
-     Expected: Error message shows invalid command format.
+   2. Test case: `return Wilson-Evolution extraArg`<br>
+      Expected: Error message shows invalid command format.
 
 
 ### Cancelling a reservation
 
 1. Cancelling a reservation with valid details
 
-  1. Prerequisites: A reservation exists for student `a1234567a` on `Mpsh-1` starting at `2099-04-10 1000`.
+   1. Prerequisites: A reservation exists for student `a1234567a` on `Mpsh-1` starting at `2099-04-10 1000`.
 
-  2. Test case: `cancel Mpsh-1 a1234567a f/2099-04-10 1000`<br>
-     Expected: Reservation is cancelled successfully. Success message shown.
+   2. Test case: `cancel Mpsh-1 a1234567a f/2099-04-10 1000`<br>
+      Expected: Reservation is cancelled successfully. Success message shown.
 
 2. Cancelling a reservation that does not exist
 
-  1. Test case: `cancel Mpsh-1 a1234567a f/2099-04-11 1000`<br>
-     Expected: No reservation cancelled. Error message states that no matching reservation was found.
+   1. Test case: `cancel Mpsh-1 a1234567a f/2099-04-11 1000`<br>
+      Expected: No reservation cancelled. Error message states that no matching reservation was found.
 
 3. Cancelling with invalid input
 
-  1. Test case: `cancel Invalid-Item a1234567a f/2099-04-10 1000`<br>
-     Expected: No reservation cancelled. Error message states that the resource ID is invalid.
+   1. Test case: `cancel Invalid-Item a1234567a f/2099-04-10 1000`<br>
+      Expected: No reservation cancelled. Error message states that the resource ID is invalid.
 
-  2. Test case: `cancel Mpsh-1 invalidId f/2099-04-10 1000`<br>
-     Expected: No reservation cancelled. Error message states that the matric number format is invalid.
+   2. Test case: `cancel Mpsh-1 invalidId f/2099-04-10 1000`<br>
+      Expected: No reservation cancelled. Error message states that the matric number format is invalid.
 
 4. Incorrect command formats
 
-  1. Test case: `cancel Mpsh-1 a1234567a 2099-04-10 1000` (Missing `f/` prefix)<br>
-     Expected: Error message shows invalid command format and provides the correct usage example.
+   1. Test case: `cancel Mpsh-1 a1234567a 2099-04-10 1000` (Missing `f/` prefix)<br>
+      Expected: Error message shows invalid command format and provides the correct usage example.
 
-  2. Other incorrect commands: `cancel`, `cancel Mpsh-1`, `cancel Mpsh-1 a1234567a`<br>
-     Expected: Similar to previous, informs user of missing required fields.
+   2. Other incorrect commands: `cancel`, `cancel Mpsh-1`, `cancel Mpsh-1 a1234567a`<br>
+      Expected: Similar to previous, informs user of missing required fields.
 
 
 
@@ -1460,42 +1462,42 @@ testers are expected to do more *exploratory* testing.
 
 1. Creating an alias with valid details
 
-  1. Test case: `alias Mpsh-1 mpsh1`<br>
-     Expected: Alias `mpsh1` is created successfully for room `Mpsh-1`. Success message shown.
+   1. Test case: `alias Mpsh-1 mpsh1`<br>
+      Expected: Alias `mpsh1` is created successfully for room `Mpsh-1`. Success message shown.
 
-  2. Test case: `alias Wilson-Evolution ball_1`<br>
-     Expected: Alias `ball_1` is created successfully for equipment `Wilson-Evolution`.
+   2. Test case: `alias Wilson-Evolution ball_1`<br>
+      Expected: Alias `ball_1` is created successfully for equipment `Wilson-Evolution`.
 
 2. Creating an alias for an invalid target
 
-  1. Test case: `alias Invalid-Item testalias`<br>
-     Expected: No alias created. Error message states that the target is not a valid registered item or room.
+   1. Test case: `alias Invalid-Item testalias`<br>
+      Expected: No alias created. Error message states that the target is not a valid registered item or room.
 
 3. Creating a duplicate alias
 
-  1. Prerequisites: Alias `mpsh1` already exists.
+   1. Prerequisites: Alias `mpsh1` already exists.
 
-  2. Test case: `alias Mpsh-1 mpsh1`<br>
-     Expected: No alias created. Error message states that the alias is already in use.
+   2. Test case: `alias Mpsh-1 mpsh1`<br>
+      Expected: No alias created. Error message states that the alias is already in use.
 
 4. Creating an alias with invalid alias format
 
-  1. Test case: `alias Mpsh-1 mpsh-1`<br>
-     Expected: No alias created. Error message indicates alias names should contain only letters, digits, and underscores.
+   1. Test case: `alias Mpsh-1 mpsh-1`<br>
+      Expected: No alias created. Error message indicates alias names should contain only letters, digits, and underscores.
 
-  2. Test case: `alias Mpsh-1 ""`<br>
-     Expected: No alias created. Error message indicates invalid command format or invalid alias format.
+   2. Test case: `alias Mpsh-1 ""`<br>
+      Expected: No alias created. Error message indicates invalid command format or invalid alias format.
 
 5. Incorrect command formats
 
-  1. Test case: `alias Mpsh-1`<br>
-     Expected: Error message shows invalid command format and provides the correct usage example.
+   1. Test case: `alias Mpsh-1`<br>
+      Expected: Error message shows invalid command format and provides the correct usage example.
 
-  2. Test case: `alias`<br>
-     Expected: Error message shows invalid command format.
+   2. Test case: `alias`<br>
+      Expected: Error message shows invalid command format.
 
-  3. Test case: `alias Mpsh-1 mpsh1 extraArg`<br>
-     Expected: Error message shows invalid command format.
+   3. Test case: `alias Mpsh-1 mpsh1 extraArg`<br>
+      Expected: Error message shows invalid command format.
 
 ---
 
@@ -1503,26 +1505,26 @@ testers are expected to do more *exploratory* testing.
 
 1. Showing the general help message
 
-  1. Test case: `help`<br>
-     Expected: General help message is displayed, listing available commands and command scope notes.
+   1. Test case: `help`<br>
+      Expected: General help message is displayed, listing available commands and command scope notes.
 
 2. Showing help for a specific command
 
-  1. Test case: `help reserve`<br>
-     Expected: Success message shown for the `RESERVE` command, followed by the detailed usage format for `reserve`.
+   1. Test case: `help reserve`<br>
+      Expected: Success message shown for the `RESERVE` command, followed by the detailed usage format for `reserve`.
 
-  2. Test case: `help issue`<br>
-     Expected: Success message shown for the `ISSUE` command, followed by the detailed usage format for `issue`.
+   2. Test case: `help issue`<br>
+      Expected: Success message shown for the `ISSUE` command, followed by the detailed usage format for `issue`.
 
 3. Showing help for an unknown command
 
-  1. Test case: `help helpplease`<br>
-     Expected: Failure message states that the command was not found.
+   1. Test case: `help helpplease`<br>
+      Expected: Failure message states that the command was not found.
 
 4. Extra input handling
 
-  1. Test case: `help reserve extra`<br>
-     Expected: Since the parser passes the whole remaining input as a topic, the system treats `reserve extra` as one command topic and shows a command not found failure message.
+   1. Test case: `help reserve extra`<br>
+      Expected: Since the parser passes the whole remaining input as a topic, the system treats `reserve extra` as one command topic and shows a command not found failure message.
 
 
 ### Saving data
