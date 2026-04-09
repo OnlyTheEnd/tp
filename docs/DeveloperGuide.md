@@ -799,21 +799,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * Use case ends.
 
 
-**Use case: UC021 - View all commands**
-
-**MSS**
-
-1. User requests to view all available commands
-2. System displays the full list of supported commands
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. No commands available (system error case)
-  * 2a1. System shows an empty list message
-  * Use case ends
-
 *{More to be added}*
 
 ### Non-Functional Requirements
