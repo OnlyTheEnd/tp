@@ -1,12 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.equipment.Equipment;
@@ -28,32 +26,31 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteTagCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args,
-                        PREFIX_LOCATION, PREFIX_TAG, PREFIX_CATEGORY);
+        String trimmedArgs = args.trim();
+        String[] parts = trimmedArgs.split("\\s+");
 
-        if (!argMultimap.getPreamble().isEmpty()) {
+        if (parts.length != 3) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
         }
 
-        boolean hasLocation = arePrefixesPresent(argMultimap, PREFIX_LOCATION, PREFIX_TAG);
-        boolean hasEquipment = arePrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_TAG);
+        String flag = parts[0];
+        String name = parts[1];
+        String tagName = parts[2];
 
-        argMultimap.verifyNoDuplicatePrefixesFor(
-                PREFIX_LOCATION, PREFIX_TAG, PREFIX_CATEGORY);
-
-        //verify either location or equipment with tag
-        if ((!hasLocation && !hasEquipment) || (hasLocation && hasEquipment)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
-        }
-        if (hasLocation) {
-            RoomName roomName = ParserUtil.parseRoomName(argMultimap.getValue(PREFIX_LOCATION).get());
-            Tag roomTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
-            return new DeleteTagCommand(new Room(roomName), roomTag);
-        } else {
-            EquipmentName equipmentName = ParserUtil.parseEquipmentName(argMultimap.getValue(PREFIX_CATEGORY).get());
-            Tag equipmentTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
-            return new DeleteTagCommand(new Equipment(equipmentName), equipmentTag);
+        try {
+            if (flag.equals("room")) {
+                RoomName roomName = ParserUtil.parseRoomName(name);
+                Tag tag = ParserUtil.parseTag(tagName);
+                return new DeleteTagCommand(new Room(roomName), tag);
+            } else if (flag.equals("equipment")) {
+                EquipmentName equipmentName = ParserUtil.parseEquipmentName(name);
+                Tag tag = ParserUtil.parseTag(tagName);
+                return new DeleteTagCommand(new Equipment(equipmentName), tag);
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+            }
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(iae.getMessage(), iae);
         }
     }
 

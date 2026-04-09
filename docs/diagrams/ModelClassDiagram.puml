@@ -20,14 +20,10 @@ Class UniqueIssueRecordList
 Class UniqueAliasMappingList
 
 Class Person
-Class Address
 Class Email
 Class Name
 Class Phone
 Class StudentId
-Class Tag
-
-
 
 Class Reservation
 Class IssueRecord
@@ -65,12 +61,14 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
 AddressBook *--> "1" UniqueEquipmentList
+AddressBook *--> "1" UniqueRoomList
 AddressBook *--> "1" UniqueReservationList
 AddressBook *--> "1" UniqueIssueRecordList
 AddressBook *--> "1" UniqueAliasMappingList
 
 UniquePersonList --> "~* all" Person
 UniqueEquipmentList --> "~* all" Equipment
+UniqueRoomList --> "~* all" Room
 UniqueReservationList --> "~* all" Reservation
 UniqueIssueRecordList --> "~* all" IssueRecord
 UniqueAliasMappingList --> "~* all" AliasMapping
@@ -80,17 +78,27 @@ Person *--> Phone
 Person *--> Email
 Person *--> Address
 Person *--> StudentId
-Person *--> "*" Tag
+
 
 Equipment *--> EquipmentName
+Equipment *--> Category
 Equipment *--> EquipmentStatus
+Equipment *--> "*" Tag
+
+Room *--> RoomName
+Room *--> Location
+Room *--> Status
+Room *--> "*" Tag
 
 Reservation --> StudentId
-IssueRecord --> StudentId
+IssueRecord ----> StudentId
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
+Equipment -[hidden]up--> I
 UniqueEquipmentList -[hidden]right-> I
+Room -[hidden]up--> I
+UniqueRoomList -[hidden]right-> I
 UniqueReservationList -[hidden]right-> I
 UniqueIssueRecordList -[hidden]right-> I
 
@@ -99,39 +107,16 @@ Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 Email -[hidden]right-> StudentId
 
-ModelManager --> "~* filtered" Person
-ModelManager --> "~* filtered" Equipment
-ModelManager --> "~* all" Reservation
-ModelManager --> "~* all" IssueRecord
-ModelManager --> "~* all" AliasMapping
-
-'---Equipment Section---'
-AddressBook *--> "1" UniqueEquipmentList
-UniqueEquipmentList --> "~* all" Equipment
-Equipment *--> EquipmentName
-Equipment *--> Category
-Equipment *--> EquipmentStatus
-
-Equipment -[hidden]up--> I
-UniqueEquipmentList -[hidden]right-> I
-
 EquipmentName -[hidden]right-> Category
 Category -[hidden]right-> EquipmentStatus
-
-ModelManager --> "~* filtered" Equipment
-
-'---Room Section---'
-AddressBook *--> "1" UniqueRoomList
-UniqueRoomList --> "~* all" Room
-Room *--> RoomName
-Room *--> Location
-Room *--> Status
-
-Room -[hidden]up--> I
-UniqueRoomList -[hidden]right-> I
 
 RoomName -[hidden]right-> Location
 Location -[hidden]right-> Status
 
+ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" Equipment
 ModelManager --> "~* filtered" Room
+ModelManager --> "~* all" Reservation
+ModelManager --> "~* all" IssueRecord
+ModelManager --> "~* all" AliasMapping
 @enduml
