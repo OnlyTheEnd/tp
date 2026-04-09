@@ -717,19 +717,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User chooses to tag an equipment or room.
-2. User enters the equipment/room ID and tag.
-3. System requests for the equipment/room ID and tag.
+2. User enters the equipment/room name and tag.
+3. System requests for the equipment/room name and tag.
 4. System applies the tag and displays a success message.
 
    Use case ends.
 
 **Extensions**
 
-* 3a. System detects that the equipment/room ID is invalid.
+* 3a. System detects that the equipment/room name is invalid.
     * 3a1. System displays a failure message.
-    * 3a2. User re-enters a valid equipment/room ID and tag.
-    * Steps 3a1-3a2 are repeated until a valid ID is entered.
-    * Use case resumes from step 4.
+    * Use case ends.
 
 * 3b. System detects that the equipment/room has already been tagged with the same tag.
     * 3b1. System displays a duplicate tag failure message.
@@ -741,20 +739,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User chooses to untag an equipment or room.
-2. User enters the equipment/room ID and tag.
-3. System requests for the equipment/room ID and tag to remove.
+2. User enters the equipment/room name and tag.
+3. System requests for the equipment/room name and tag to remove.
 4. System removes the tag and displays a success message.
 
    Use case ends.
 
 **Extensions**
 
-* 3a. System detects that the equipment/room ID is invalid.
+* 3a. System detects that the equipment/room name is invalid.
     * 3a1. System displays a failure message.
     * Use case ends.
 
 * 3b. System detects that the tag does not exist on the equipment/room.
-    * 3b1. System displays an already-untagged failure message.
+    * 3b1. System displays a missing tag failure message.
     * Use case ends.
 
 
@@ -764,7 +762,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User chooses to filter by tag.
 2. System requests for the type and tag to filter by.
-3. User enters the type (equipment, room, or student) and tag.
+3. User enters the type (equipment, room) and tag.
 4. System retrieves and displays all matching results under the specified tag.
 
    Use case ends.
@@ -773,9 +771,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. System detects that the specified type is invalid.
     * 3a1. System displays a failure message.
-    * 3a2. User re-enters a valid type and tag.
-    * Steps 3a1-3a2 are repeated until a valid type is entered.
-    * Use case resumes from step 4.
+    * Use case ends.
 
 * 3b. System detects that the specified tag does not exist.
     * 3b1. System displays a failure message indicating nothing was found under the tag.
@@ -1123,6 +1119,111 @@ testers are expected to do more *exploratory* testing.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+
+### Adding a tag
+
+1. Adding a tag to a room
+
+  1. Prerequisites: At least one room exists in the system, with name `Sports-Hall-1`. Use `list-r` to view all rooms.
+
+  1. Test case: `tag-r Sports-Hall-1 maintenance`<br>
+     Expected: Tag "maintenance" is added to Sports-Hall-1. Success message shown with room name and tag. Room list updates to show the new tag.
+
+  1. Test case: `tag-r Sports-Hall-1 maintenance` (adding the same tag again)<br>
+     Expected: No tag is added. Error message indicates the tag already exists for this room.
+
+  1. Test case: `tag-r NonExistentRoom IHG`<br>
+     Expected: No tag is added. Error message indicates the room does not exist in the system.
+
+  1. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, `Sports-Hall-1 IHG`, ` tag-r Sports-Hall-1 invalid@tag`<br>
+     Expected: Error message showing invalid command format or invalid tag name (tags must be alphanumeric).
+
+2. Adding a tag to equipment
+
+  1. Prerequisites: At least one equipment exists in the system, with name `Wilson-Evolution`. Use `list-e` to view all equipment.
+
+  1. Test case: `tag-e Wilson-Evolution IHG`<br>
+     Expected: Tag "IHG" is added to Wilson-Evolution equipment. Success message shown with equipment name and tag.
+
+  1. Test case: `tag-e Wilson-Evolution IHG` (adding the same tag again)<br>
+     Expected: No tag is added. Error message indicates the tag already exists for this equipment.
+
+  1. Test case: `tag-e NonExistentEquipment broken`<br>
+     Expected: No tag is added. Error message indicates the equipment does not exist in the system.
+
+  1. Other incorrect  commands to try: `tag-e`, ` tag-e Wilson-Evolution`, ` tag-x Wilson-Evolution IHG`<br>
+     Expected: Error message showing invalid command format or invalid flag.
+
+### Deleting a tag
+
+1. Deleting a tag from a room
+
+  1. Prerequisites: At least one room with tags exists in the system. For example, Sports-Hall-1 has the tag "maintenance".
+
+  1. Test case: `tag-r Sports-Hall-1 maintenance`<br>
+     Expected: Tag "maintenance" is deleted from Sports-Hall-1. Success message shown with room name and deleted tag. Room list updates to remove the tag.
+
+  1. Test case: `tag-r Sports-Hall-1 nonexistent`<br>
+     Expected: No tag is deleted. Error message indicates the tag does not exist for this room.
+
+  1. Test case: ` tag-r NonExistentRoom maintenance`<br>
+     Expected: No tag is deleted. Error message indicates the room does not exist in the system.
+
+  1. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, ` Sports-Hall-1 maintenance`, ` tag-r Sports-Hall-1 invalid@tag`<br>
+     Expected: Error message showing invalid command format or invalid tag name.
+
+2. Deleting a tag from equipment
+
+  1. Prerequisites: At least one equipment with tags exists in the system. For example, Wilson-Evolution has the tag "IHG".
+
+  1. Test case: `untag-e Wilson-Evolution IHG`<br>
+     Expected: Tag "IHG" is deleted from Wilson-Evolution equipment. Success message shown with equipment name and deleted tag.
+
+  1. Test case: `untag-e Wilson-Evolution nonexistent`<br>
+     Expected: No tag is deleted. Error message indicates the tag does not exist for this equipment.
+
+  1. Test case: `untag-e NonExistentEquipment IHG`<br>
+     Expected: No tag is deleted. Error message indicates the equipment does not exist in the system.
+
+  1. Other incorrect  commands to try: `tag-e`, ` tag-e Wilson-Evolution`, ` tag-x Wilson-Evolution IHG`<br>
+     Expected: Error message showing invalid command format or invalid flag.
+
+### Filtering items
+
+1. Filtering rooms by tag
+
+  1. Prerequisites: Rooms exist with various tag. For example, `Sports-Hall-1` has "maintenance" tag, Tennis-Court has "outdoor" tag.
+
+  1. Test case: `filter l/ t/maintenance`<br>
+     Expected: Only rooms with the "maintenance" tag are displayed.
+
+  1. Test case: `filter l/ t/nonexistent`<br>
+     Expected: No rooms are displayed. Message indicates 0 rooms listed.
+
+  1. Other incorrect filter commands to try: `filter`, `filter maintenance`, `filter l/ t/invalid@tag`<br>
+     Expected: Error message showing invalid command format or invalid tag name.
+
+2. Filtering equipment by tag
+
+  1. Prerequisites: Equipment exist with various tag. For example, `Wilson-Evolution` has "IHG" tag, Mx-Volleyball has "borrowed" tag.
+
+  1. Test case: `filter c/ IHG`<br>
+     Expected: Only equipment with the "IHG" tag are displayed. Number of filtered equipment shown in the status message.
+
+  1. Test case: `filter l/ nonexistent`<br>
+     Expected: No equipment are displayed. Message indicates 0 equipment listed.
+
+
+  1. Other incorrect filter commands to try: `filter IHG`, `filter c/ invalid tag` (with space)<br>
+     Expected: Error message showing invalid command format or invalid flag/tag name.
+
+3. Clearing filters
+
+  1. Prerequisites: A filter is currently active (e.g., `filter c/ maintenance` was executed).
+
+  1. Test case: `list-r` (for rooms) or `list-e` (for equipment)<br>
+     Expected: All rooms/equipment are displayed again. Filter is cleared and full list is shown.
+
 
 1. _{ more test cases …​ }_
 
