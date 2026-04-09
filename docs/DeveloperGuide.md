@@ -1212,110 +1212,6 @@ testers are expected to do more *exploratory* testing.
 2. Test case: `check-s A0123456B`<br>
    Expected: Shows "Basketball-1" is currently borrowed by the student.
 
-### Adding a tag
-
-1. Adding a tag to a room
-
-   1. Prerequisites: At least one room exists in the system, with name `Sports-Hall-1`. Use `list-r` to view all rooms.
-
-   2. Test case: `tag-r Sports-Hall-1 maintenance`<br>
-      Expected: Tag "maintenance" is added to Sports-Hall-1. Success message shown with room name and tag. Room list updates to show the new tag.
-
-   3. Test case: `tag-r Sports-Hall-1 maintenance` (adding the same tag again)<br>
-      Expected: No tag is added. Error message indicates the tag already exists for this room.
-
-   4. Test case: `tag-r NonExistentRoom IHG`<br>
-      Expected: No tag is added. Error message indicates the room does not exist in the system.
-
-   5. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, `Sports-Hall-1 IHG`, `tag-r Sports-Hall-1 invalid@tag`<br>
-      Expected: Error message showing invalid command format or invalid tag name (tags must be alphanumeric).
-
-2. Adding a tag to equipment
-
-   1. Prerequisites: At least one equipment exists in the system, with name `Wilson-Evolution`. Use `list-e` to view all equipment.
-
-   2. Test case: `tag-e Wilson-Evolution IHG`<br>
-      Expected: Tag "IHG" is added to Wilson-Evolution equipment. Success message shown with equipment name and tag.
-
-   3. Test case: `tag-e Wilson-Evolution IHG` (adding the same tag again)<br>
-      Expected: No tag is added. Error message indicates the tag already exists for this equipment.
-
-   4. Test case: `tag-e NonExistentEquipment broken`<br>
-      Expected: No tag is added. Error message indicates the equipment does not exist in the system.
-
-   5. Other incorrect  commands to try: `tag-e`, `tag-e Wilson-Evolution`, `tag-x Wilson-Evolution IHG`<br>
-      Expected: Error message showing invalid command format or invalid flag.
-
-### Deleting a tag
-
-1. Deleting a tag from a room
-
-   1. Prerequisites: At least one room with tags exists in the system. For example, Sports-Hall-1 has the tag "maintenance".
-
-   2. Test case: `tag-r Sports-Hall-1 maintenance`<br>
-      Expected: Tag "maintenance" is deleted from Sports-Hall-1. Success message shown with room name and deleted tag. Room list updates to remove the tag.
-
-   3. Test case: `tag-r Sports-Hall-1 nonexistent`<br>
-      Expected: No tag is deleted. Error message indicates the tag does not exist for this room.
-
-   4. Test case: `tag-r NonExistentRoom maintenance`<br>
-      Expected: No tag is deleted. Error message indicates the room does not exist in the system.
-
-   5. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, `Sports-Hall-1 maintenance`, `tag-r Sports-Hall-1 invalid@tag`<br>
-      Expected: Error message showing invalid command format or invalid tag name.
-
-2. Deleting a tag from equipment
-
-   1. Prerequisites: At least one equipment with tags exists in the system. For example, Wilson-Evolution has the tag "IHG".
-
-   2. Test case: `untag-e Wilson-Evolution IHG`<br>
-      Expected: Tag "IHG" is deleted from Wilson-Evolution equipment. Success message shown with equipment name and deleted tag.
-
-   3. Test case: `untag-e Wilson-Evolution nonexistent`<br>
-      Expected: No tag is deleted. Error message indicates the tag does not exist for this equipment.
-
-   4. Test case: `untag-e NonExistentEquipment IHG`<br>
-      Expected: No tag is deleted. Error message indicates the equipment does not exist in the system.
-
-   5. Other incorrect  commands to try: `tag-e`, `tag-e Wilson-Evolution`, `tag-x Wilson-Evolution IHG`<br>
-      Expected: Error message showing invalid command format or invalid flag.
-
-### Filtering items
-
-1. Filtering rooms by tag
-
-   1. Prerequisites: Rooms exist with various tag. For example, `Sports-Hall-1` has "maintenance" tag, Tennis-Court has "outdoor" tag.
-
-   2. Test case: `filter l/ t/maintenance`<br>
-      Expected: Only rooms with the "maintenance" tag are displayed.
-
-   3. Test case: `filter l/ t/nonexistent`<br>
-      Expected: No rooms are displayed. Message indicates 0 rooms listed.
-
-   4. Other incorrect filter commands to try: `filter`, `filter maintenance`, `filter l/ t/invalid@tag`<br>
-      Expected: Error message showing invalid command format or invalid tag name.
-
-2. Filtering equipment by tag
-
-   1. Prerequisites: Equipment exist with various tag. For example, `Wilson-Evolution` has "IHG" tag, Mx-Volleyball has "borrowed" tag.
-
-   2. Test case: `filter c/ IHG`<br>
-      Expected: Only equipment with the "IHG" tag are displayed. Number of filtered equipment shown in the status message.
-
-   3. Test case: `filter l/ nonexistent`<br>
-      Expected: No equipment are displayed. Message indicates 0 equipment listed.
-
-   4. Other incorrect filter commands to try: `filter IHG`, `filter c/ invalid tag` (with space)<br>
-      Expected: Error message showing invalid command format or invalid flag/tag name.
-
-3. Clearing filters
-
-   1. Prerequisites: A filter is currently active (e.g., `filter c/ maintenance` was executed).
-
-   2. Test case: `list-r` (for rooms) or `list-e` (for equipment)<br>
-      Expected: All rooms/equipment are displayed again. Filter is cleared and full list is shown.
-
-
 ### Reserving a room/equipment
 
 1. Reserving a room/equipment with valid details( only one reservation per room or equipment allowed)
@@ -1457,7 +1353,6 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous, informs user of missing required fields.
 
 
-
 ### Creating an alias
 
 1. Creating an alias with valid details
@@ -1499,6 +1394,109 @@ testers are expected to do more *exploratory* testing.
    3. Test case: `alias Mpsh-1 mpsh1 extraArg`<br>
       Expected: Error message shows invalid command format.
 
+### Adding a tag
+
+1. Adding a tag to a room
+
+   1. Prerequisites: At least one room exists in the system, with name `Sports-Hall-1`. Use `list-r` to view all rooms.
+
+   2. Test case: `tag-r Sports-Hall-1 maintenance`<br>
+      Expected: Tag "maintenance" is added to Sports-Hall-1. Success message shown with room name and tag. Room list updates to show the new tag.
+
+   3. Test case: `tag-r Sports-Hall-1 maintenance` (adding the same tag again)<br>
+      Expected: No tag is added. Error message indicates the tag already exists for this room.
+
+   4. Test case: `tag-r NonExistentRoom IHG`<br>
+      Expected: No tag is added. Error message indicates the room does not exist in the system.
+
+   5. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, `Sports-Hall-1 IHG`, `tag-r Sports-Hall-1 invalid@tag`<br>
+      Expected: Error message showing invalid command format or invalid tag name (tags must be alphanumeric).
+
+2. Adding a tag to equipment
+
+   1. Prerequisites: At least one equipment exists in the system, with name `Wilson-Evolution`. Use `list-e` to view all equipment.
+
+   2. Test case: `tag-e Wilson-Evolution IHG`<br>
+      Expected: Tag "IHG" is added to Wilson-Evolution equipment. Success message shown with equipment name and tag.
+
+   3. Test case: `tag-e Wilson-Evolution IHG` (adding the same tag again)<br>
+      Expected: No tag is added. Error message indicates the tag already exists for this equipment.
+
+   4. Test case: `tag-e NonExistentEquipment broken`<br>
+      Expected: No tag is added. Error message indicates the equipment does not exist in the system.
+
+   5. Other incorrect  commands to try: `tag-e`, `tag-e Wilson-Evolution`, `tag-x Wilson-Evolution IHG`<br>
+      Expected: Error message showing invalid command format or invalid flag.
+
+### Deleting a tag
+
+1. Deleting a tag from a room
+
+   1. Prerequisites: At least one room with tags exists in the system. For example, `Sports-Hall-1` has the tag "maintenance".
+
+   2. Test case: `tag-r Sports-Hall-1 maintenance`<br>
+      Expected: Tag "maintenance" is deleted from Sports-Hall-1. Success message shown with room name and deleted tag. Room list updates to remove the tag.
+
+   3. Test case: `tag-r Sports-Hall-1 nonexistent`<br>
+      Expected: No tag is deleted. Error message indicates the tag does not exist for this room.
+
+   4. Test case: `tag-r NonExistentRoom maintenance`<br>
+      Expected: No tag is deleted. Error message indicates the room does not exist in the system.
+
+   5. Other incorrect  commands to try: `tag-r`, `tag-r Sports-Hall-1`, `Sports-Hall-1 maintenance`, `tag-r Sports-Hall-1 invalid@tag`<br>
+      Expected: Error message showing invalid command format or invalid tag name.
+
+2. Deleting a tag from equipment
+
+   1. Prerequisites: At least one equipment with tags exists in the system. For example, `Wilson-Evolution` has the tag "IHG".
+
+   2. Test case: `untag-e Wilson-Evolution IHG`<br>
+      Expected: Tag "IHG" is deleted from Wilson-Evolution equipment. Success message shown with equipment name and deleted tag.
+
+   3. Test case: `untag-e Wilson-Evolution nonexistent`<br>
+      Expected: No tag is deleted. Error message indicates the tag does not exist for this equipment.
+
+   4. Test case: `untag-e NonExistentEquipment IHG`<br>
+      Expected: No tag is deleted. Error message indicates the equipment does not exist in the system.
+
+   5. Other incorrect  commands to try: `tag-e`, `tag-e Wilson-Evolution`, `tag-x Wilson-Evolution IHG`<br>
+      Expected: Error message showing invalid command format or invalid flag.
+
+### Filtering items
+
+1. Filtering rooms by tag
+
+   1. Prerequisites: Rooms exist with various tag. For example, `Sports-Hall-1` has "maintenance" tag, `Tennis-Court` has "outdoor" tag.
+
+   2. Test case: `filter-r maintenance`<br>
+      Expected: Only rooms with the "maintenance" tag are displayed.
+
+   3. Test case: `filter-r nonexistent`<br>
+      Expected: No rooms are displayed. Message indicates 0 rooms listed.
+
+   4. Other incorrect filter commands to try: `filter`, `filter maintenance`<br>
+      Expected: Error message showing invalid command format or invalid tag name.
+
+2. Filtering equipment by tag
+
+   1. Prerequisites: Equipment exist with various tag. For example, `Wilson-Evolution` has "IHG" tag, `Mx-Volleyball` has "borrowed" tag.
+
+   2. Test case: `filter-e IHG`<br>
+      Expected: Only equipment with the "IHG" tag are displayed. Number of filtered equipment shown in the status message.
+
+   3. Test case: `filter-e nonexistent`<br>
+      Expected: No equipment are displayed. Message indicates 0 equipment listed.
+
+   4. Other incorrect filter commands to try: `filter IHG`, `filter-e invalid tag` (with space)<br>
+      Expected: Error message showing invalid command format or invalid flag/tag name.
+
+3. Clearing filters
+
+   1. Prerequisites: A filter is currently active (e.g., `filter-e maintenance` was executed).
+
+   2. Test case: `list-r` (for rooms) or `list-e` (for equipment)<br>
+      Expected: All rooms/equipment are displayed again. Filter is cleared and full list is shown.
+
 
 ### Help command
 
@@ -1539,7 +1537,7 @@ testers are expected to do more *exploratory* testing.
 3. Enforce date validation for future reservations. Currently, users are able to reserve items for unrealistic 
    dates far into the future, such as the year 2099. To prevent this, we will introduce a booking window that only 
    allows reservations within a reasonable time range.
-4. Item status handling will be improved.In the current system, once an item is reserved, its status is immediately 
+4. Item status handling will be improved. In the current system, once an item is reserved, its status is immediately 
    changed to Booked, which prevents it from being issued even when there is still free time before the reservation 
    begins.
 

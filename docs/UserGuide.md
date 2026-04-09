@@ -719,7 +719,7 @@ Aliases are useful for long item or room IDs, especially during busy periods whe
 
 **Possible errors:**
 * Invalid `ITEM_OR_ROOM_ID`
-* Alias already exists
+* Alias already exists.
 
 ---
 
@@ -904,6 +904,9 @@ Furthermore, certain edits can cause the TrackMasterPro to behave in unexpected 
 
 3. **Strict Name Validation:** The current system only accepts alphabetic characters and spaces for student names. Names containing special characters such as hyphens (e.g., `Al-Haddad`) or apostrophes (e.g., `D'Souza`) will currently trigger a validation error.
 **Workaround**: Enter the name without the special character (e.g., `Al Haddad` or `DSouza`) until a future update expands the character support. Removing special characters from the requirements allows for faster command entry and fewer parsing errors during high-pressure facility management scenarios
+
+4. **UI Refresh Latency:** The student list does not refresh in real-time when a reservation or equipment loan becomes overdue. While the system correctly identifies the status change in the database, the Graphical User Interface (GUI) may still show the old status (e.g., "Booked" instead of "Overdue").
+**Workaround:*** Simply click anywhere within the application window to force the UI to refresh and display the most current statuses.
 
 --------------------------------------------------------------------------------------------------------------------
 
