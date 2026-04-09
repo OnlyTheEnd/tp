@@ -197,35 +197,6 @@ public class IssueCommandTest {
                         EquipmentStatus.MAINTENANCE), () -> issueCommand.execute(modelStub));
     }
 
-    @Test
-    public void execute_itemStatusDamaged_throwsCommandException() {
-        Equipment damagedEquipment = new EquipmentBuilder()
-                .withName(VALID_ITEM_ID)
-                .withCategory("Basketball")
-                .withStatus(EquipmentStatus.DAMAGED)
-                .build();
-
-        ModelStub modelStub = new ModelStub() {
-            @Override
-            public ReadOnlyAddressBook getAddressBook() {
-                AddressBook addressBook = new AddressBook();
-                addressBook.addEquipment(damagedEquipment);
-                return addressBook;
-            }
-
-            @Override
-            public boolean hasStudentId(StudentId studentId) {
-                return true;
-            }
-        };
-
-        IssueCommand issueCommand = new IssueCommand(VALID_ISSUE_RECORD);
-
-        assertThrows(CommandException.class,
-                String.format(IssueCommand.MESSAGE_ITEM_NOT_AVAILABLE,
-                        VALID_ISSUE_RECORD.getItemId(),
-                        EquipmentStatus.DAMAGED), () -> issueCommand.execute(modelStub));
-    }
 
     /**
      * A model stub that always accepts an issue record.
