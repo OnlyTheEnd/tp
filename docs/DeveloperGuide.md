@@ -1124,6 +1124,216 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
+### Reserving a room/equipment
+
+1. Reserving a room/equipment with valid details( only one reservation per room or equipment allowed)
+
+  1. Test case: `reserve Mpsh-1 a1234567a f/2099-04-10 1000 t/2099-04-10 1200`<br>
+     Expected: Reservation confirmed:
+     Reserved MPSH-1 by Student a1234567a from 2099-04-10 1000 to 2099-04-10 1200
+
+  2. Test case: `reserve Wilson-Evolution a1234567a f/2099-04-10 1400 t/2099-04-10 1600`<br>
+     Expected: Reservation confirmed:
+     Reserved WILSON-EVOLUTION by Student a1234567a from 2099-04-10 1400 to 2099-04-10 1600
+
+2. Reserving with invalid input
+
+  1. Test case: `reserve Invalid-Item a1234567a f/2099-04-10 1000 t/2099-04-10 1200`<br>
+     Expected: No reservation added. Error message states that the room/item is not a valid registered room/item.
+
+  2. Test case: `reserve Mpsh-1 invalidId f/2099-04-10 1000 t/2099-04-10 1200`<br>
+     Expected: No reservation added. Error message states that the matric number should start with an alphabet, followed by 7 digits, and end with an alphabet.
+
+  3. Test case: `reserve Mpsh-1 a1234567a f/2020-04-10 1000 t/2020-04-10 1200`<br>
+     Expected: No reservation added. Error message states that start date/time must not be in the past.
+
+  4. Test case: `reserve Mpsh-1 a1234567a f/2099-04-10 1200 t/2099-04-10 1000`<br>
+     Expected: No reservation added. Error message states that end date/time must be after start date/time.
+
+3. Reserving when there is already an existing reservation
+
+  1. Prerequisites: A reservation for `Mpsh-1` already exists.
+
+  2. Test case: `reserve Mpsh-1 a7654321b f/2099-04-10 1030 t/2099-04-10 1130`<br>
+     Expected: No reservation added. Error message states that MPSH-1 is already booked and cannot be reserved.
+
+  3. Prerequisites: Student `a1234567a` already has a reservation from `2099-04-10 1000` to `2099-04-10 1200`.
+
+  4. Test case: `reserve Sports-Hall-2 a1234567a f/2099-04-10 1030 t/2099-04-10 1130`<br>
+     Expected: No reservation added. Error message states that the student already has another reservation during that period.
+
+4. Incorrect command formats
+
+  1. Test case: `reserve Mpsh-1 a1234567a 2099-04-10 1000 2099-04-10 1200` (Missing prefixes)<br>
+     Expected: Error message shows invalid command format and provides the correct usage example with `f/` and `t/`.
+
+  2. Other incorrect commands: `reserve Mpsh-1 a1234567a f/2099-04-10 1000`, `reserve Mpsh-1`, `reserve`<br>
+     Expected: Similar to previous, informs user of missing required fields.
+
+
+
+### Issuing equipment
+
+1. Issuing equipment with valid details
+
+  1. Test case: `issue Wilson-Evolution a1234567a 2099-04-10 1700`<br>
+     Expected: Equipment `Wilson-Evolution` is issued successfully to student `a1234567a`. Success message shown.
+
+2. Issuing with invalid input
+
+  1. Test case: `issue Invalid-Item a1234567a 2099-04-10 1700`<br>
+     Expected: No equipment issued. Error message states that the item is not a valid registered item.
+
+  2. Test case: `issue Wilson-Evolution invalidId 2099-04-10 1700`<br>
+     Expected: No equipment issued. Error message states that the matric number format is invalid.
+
+3. Issuing equipment that is not available
+
+  1. Prerequisites: `Wilson-Evolution` is not in `AVAILABLE` status.
+
+  2. Test case: `issue Wilson-Evolution a1234567a 2099-04-10 1700`<br>
+     Expected: No equipment issued. Error message states that the item cannot be issued because of its current status.
+
+4. Incorrect command formats
+
+  1. Test case: `issue Wilson-Evolution a1234567a` (Missing due date/time)<br>
+     Expected: Error message shows invalid command format and provides the correct usage example.
+
+  2. Other incorrect commands: `issue`, `issue Wilson-Evolution`, `issue Wilson-Evolution a1234567a 2099-04-10`<br>
+     Expected: Similar to previous, informs user of missing required fields.
+
+
+
+### Returning equipment
+
+1. Returning equipment with valid details
+
+  1. Prerequisites: `Wilson-Evolution` has previously been issued (this is different from reserved).
+
+  2. Test case: `return Wilson-Evolution`<br>
+     Expected: Equipment `Wilson-Evolution` is returned successfully. Success message shown.
+
+2. Returning equipment that is not currently issued
+
+  1. Prerequisites: `Wilson-Evolution` is currently not issued.
+
+  2. Test case: `return Wilson-Evolution`<br>
+     Expected: No equipment returned. Error message states that `Wilson-Evolution` is not currently issued.
+
+3. Returning equipment with invalid input
+
+  1. Test case: `return Invalid Item` (Contains space)<br>
+     Expected: Error message indicates invalid item ID format.
+
+4. Incorrect command formats
+
+  1. Test case: `return`<br>
+     Expected: Error message shows invalid command format and provides the correct usage example.
+
+  2. Test case: `return Wilson-Evolution extraArg`<br>
+     Expected: Error message shows invalid command format.
+
+
+### Cancelling a reservation
+
+1. Cancelling a reservation with valid details
+
+  1. Prerequisites: A reservation exists for student `a1234567a` on `Mpsh-1` starting at `2099-04-10 1000`.
+
+  2. Test case: `cancel Mpsh-1 a1234567a f/2099-04-10 1000`<br>
+     Expected: Reservation is cancelled successfully. Success message shown.
+
+2. Cancelling a reservation that does not exist
+
+  1. Test case: `cancel Mpsh-1 a1234567a f/2099-04-11 1000`<br>
+     Expected: No reservation cancelled. Error message states that no matching reservation was found.
+
+3. Cancelling with invalid input
+
+  1. Test case: `cancel Invalid-Item a1234567a f/2099-04-10 1000`<br>
+     Expected: No reservation cancelled. Error message states that the resource ID is invalid.
+
+  2. Test case: `cancel Mpsh-1 invalidId f/2099-04-10 1000`<br>
+     Expected: No reservation cancelled. Error message states that the matric number format is invalid.
+
+4. Incorrect command formats
+
+  1. Test case: `cancel Mpsh-1 a1234567a 2099-04-10 1000` (Missing `f/` prefix)<br>
+     Expected: Error message shows invalid command format and provides the correct usage example.
+
+  2. Other incorrect commands: `cancel`, `cancel Mpsh-1`, `cancel Mpsh-1 a1234567a`<br>
+     Expected: Similar to previous, informs user of missing required fields.
+
+
+
+### Creating an alias
+
+1. Creating an alias with valid details
+
+  1. Test case: `alias Mpsh-1 mpsh1`<br>
+     Expected: Alias `mpsh1` is created successfully for room `Mpsh-1`. Success message shown.
+
+  2. Test case: `alias Wilson-Evolution ball_1`<br>
+     Expected: Alias `ball_1` is created successfully for equipment `Wilson-Evolution`.
+
+2. Creating an alias for an invalid target
+
+  1. Test case: `alias Invalid-Item testalias`<br>
+     Expected: No alias created. Error message states that the target is not a valid registered item or room.
+
+3. Creating a duplicate alias
+
+  1. Prerequisites: Alias `mpsh1` already exists.
+
+  2. Test case: `alias Mpsh-1 mpsh1`<br>
+     Expected: No alias created. Error message states that the alias is already in use.
+
+4. Creating an alias with invalid alias format
+
+  1. Test case: `alias Mpsh-1 mpsh-1`<br>
+     Expected: No alias created. Error message indicates alias names should contain only letters, digits, and underscores.
+
+  2. Test case: `alias Mpsh-1 ""`<br>
+     Expected: No alias created. Error message indicates invalid command format or invalid alias format.
+
+5. Incorrect command formats
+
+  1. Test case: `alias Mpsh-1`<br>
+     Expected: Error message shows invalid command format and provides the correct usage example.
+
+  2. Test case: `alias`<br>
+     Expected: Error message shows invalid command format.
+
+  3. Test case: `alias Mpsh-1 mpsh1 extraArg`<br>
+     Expected: Error message shows invalid command format.
+
+---
+
+### Help command
+
+1. Showing the general help message
+
+  1. Test case: `help`<br>
+     Expected: General help message is displayed, listing available commands and command scope notes.
+
+2. Showing help for a specific command
+
+  1. Test case: `help reserve`<br>
+     Expected: Success message shown for the `RESERVE` command, followed by the detailed usage format for `reserve`.
+
+  2. Test case: `help issue`<br>
+     Expected: Success message shown for the `ISSUE` command, followed by the detailed usage format for `issue`.
+
+3. Showing help for an unknown command
+
+  1. Test case: `help helpplease`<br>
+     Expected: Failure message states that the command was not found.
+
+4. Extra input handling
+
+  1. Test case: `help reserve extra`<br>
+     Expected: Since the parser passes the whole remaining input as a topic, the system treats `reserve extra` as one command topic and shows a command not found failure message.
+
 1. _{ more test cases …​ }_
 
 ### Saving data
