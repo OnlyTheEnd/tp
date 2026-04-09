@@ -687,8 +687,7 @@ Tag equipment as `t/IHG` during competition weeks to quickly filter items that s
 **Acceptable values:**
 * `NAME:` Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
   no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`, `Basketball-1`)
-* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and 
-*  should not be blank.
+* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
 * The system will detect and warn against duplicate tags.
 
 **Duplicate handling:**
@@ -728,8 +727,7 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 **Acceptable values:**
 * `NAME:` Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
   no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`, `Basketball-1`)
-* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and
-*  should not be blank.
+* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
 * `untag-r` targets rooms. `untag-e` targets equipments.
 * The command will be rejected if the specified tag does not exist on the item or room.
 
@@ -738,8 +736,8 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 
 **Examples:**
-* * `untag-e Wilson-Evolution-Basketball-1 IHG` 
-* * `untag-r MPSH-1 IHG`
+* `untag-e Wilson-Evolution-Basketball-1 IHG` 
+* `untag-r MPSH-1 IHG`
 
 
 **Outputs:**
@@ -767,8 +765,7 @@ Use this command to quickly find all equipment or rooms associated with a partic
 
 
 **Acceptable values:**
-* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and
-*  should not be blank.
+* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
 *  `l/` targets rooms. `c/` targets equipments.
 
 
