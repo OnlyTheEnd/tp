@@ -29,7 +29,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 2. Download the latest `TrackMasterPro.jar` file [here](https://github.com/AY2526S2-CS2103T-T14-4/tp/releases/).
 
 3. Copy the file to the folder you want to use as the _home folder_ for TrackMasterPro
-   (e.g create a new folder called `TrackMasterPro`  on your Desktop).
+   (e.g., create a new folder called `TrackMasterPro`  on your Desktop).
 
 4. TrackMasterPro is launched from the **terminal**. Here's how to run it:
 
@@ -50,7 +50,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
    
-   4. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will show all the command in the result box.
+   4. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will show all the command in the result box.
    
    Some example commands you can try:
 
@@ -75,16 +75,16 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add-s n/NAME`, `NAME` is a parameter which can be used as `add-s n/John-Doe`.
+  e.g., in `add-s n/NAME`, `NAME` is a parameter which can be used as `add-s n/John-Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John-Doe t/friend` or as `n/John-Doe`.
+  e.g., `n/NAME [t/TAG]` can be used as `n/John-Doe t/friend` or as `n/John-Doe`.
 
 * Items with `…` after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…` can be used as many times (i.e. 0 times), `t/ICG`, `t/IFG t/CareerFest` etc.
+  e.g., `[t/TAG]…` can be used as many times (i.e. 0 times), `t/ICG`, `t/IFG t/CareerFest` etc.
 
 * Parameters with prefixes can be in any order(eg. n/,p/).<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g., if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
@@ -102,15 +102,15 @@ New equipment is set to `Available` status by default.
 
 **Acceptable values:**
 * `NAME`: Equipment Name should only contain alphanumeric characters and single hyphens (`-`) in between,
-  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Wilson-Evolution`)
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Wilson-Evolution`)
 * `CATEGORY`: Equipment Category should only contain alphanumeric characters and single hyphens (`-`) in between,
-  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Basketball`) <br><br>
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Basketball`) <br><br>
 * *Case Sensitivity:* Both fields are case-insensitive. `n/Wilson-Evolution` and `n/WILSON-EVOLUTION` are treated as the same name. `c/Basketball` and `c/BASKETBALL` are treated as the same category.
 
 **Duplicate handling:**
 * The system enforces unique names across the equipment list.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-To add multiple Equipment of the same name, append a unique number (e.g. `Wilson-Evolution-1`, `Wilson-Evolution-2`).
+To add multiple Equipment of the same name, append a unique number (e.g., `Wilson-Evolution-1`, `Wilson-Evolution-2`).
 </div>
 
 **Examples:**
@@ -123,14 +123,14 @@ To add multiple Equipment of the same name, append a unique number (e.g. `Wilson
 Output of Name and Category will be title case -> `yonex-astrox` will be `Yonex-Astrox` in the equipment list.
 </div>
 
-* Success
+* Success <br>
 ![addEquipmentSuccess.png](images/addEquipmentSuccess.png)
-* Failure
+* Failure <br>
 ![addEquipmentFail.png](images/addEquipmentFail.png)
 
 **Possible errors:**
 * *Invalid command:* Missing `n/` and `c/` prefix.
-* *Invalid name/category:* Using spaces, special characters (e.g. `#`, `@` etc.), or leaving fields blank.
+* *Invalid name/category:* Using spaces, special characters (e.g., `#`, `@` etc.), or leaving fields blank.
 * *This equipment already exists:* Attempting to add a name that is already in the inventory.
 
 ---
@@ -138,7 +138,7 @@ Output of Name and Category will be title case -> `yonex-astrox` will be `Yonex-
 #### View equipment list : `list-e`
 
 Displays a complete list of all equipment currently stored in the equipment list. This command serves to clear 
-any active filters (such as those from filter c/ t/TAG command), resetting the equipment list to show all entries.
+any active filters (such as those from filter-e command), resetting the equipment list to show all entries.
 
 **Format:** `list-e`
 
@@ -152,14 +152,14 @@ any active filters (such as those from filter c/ t/TAG command), resetting the e
 * `list-e` — Resets the view of equipment list and displays all equipment.
 
 **Outputs:**
-* Success
+* Success <br>
   ![viewEquipmentListSuccess.png](images/viewEquipmentListSuccess.png)
 * Failure <br>
   ![viewEquipmentListFail.png](images/viewEquipmentListFail.png)
 
 **Possible errors:**
 * Inventory list has not been created.
-* Any extra input after `list-e`, (e.g. `list-e Basketball`, `list-e 123` etc.) will be invalid command.
+* Any extra input after `list-e`, (e.g., `list-e Basketball`, `list-e 123` etc.) will be invalid command.
 
 ---
 
@@ -170,7 +170,7 @@ Deletes equipment from the equipment list.
 **Format:** `delete-e INDEX`
 
 **Acceptable values:**
-* `INDEX`: Positive integer corresponding to the current displayed list from `list-e`. (e.g `list-e` have a size of 4, valid index range would be 1,2,3, or 4)
+* `INDEX`: Positive integer corresponding to the current displayed list from `list-e`. (e.g., `list-e` have a size of 4, valid index range would be 1, 2, 3, or 4)
 <div markdown="span" class="alert alert-warning">:warning: **Warning:**
 **Strict Lockdown:** You cannot delete equipment that currently has a **Booked** status. The equipment must be returned or canceled before it can be deleted from the system.
 </div>
@@ -183,9 +183,9 @@ Deletes equipment from the equipment list.
 * `delete-e 4` — Deletes the fourth equipment in the current equipment list.
 
 **Outputs:**
-* Success
+* Success <br>
   ![deleteEquipmentSuccess.png](images/deleteEquipmentSuccess.png)
-* Failure
+* Failure <br>
   ![deleteEquipmentFail.png](images/deleteEquipmentFail.png)
 
 **Possible errors:**
@@ -202,12 +202,12 @@ Edit details for existing equipment from the equipment list.
 **Format:** `edit-e INDEX [n/NAME] [c/CATEGORY] [s/STATUS]`
 
 **Acceptable values:**
-* `INDEX`: Positive integer corresponding to the current displayed list from `list-e`. (e.g `list-e` have a size of 4, valid index range would be 1,2,3, or 4).
+* `INDEX`: Positive integer corresponding to the current displayed list from `list-e`. (e.g., `list-e` have a size of 4, valid index range would be 1, 2, 3, or 4).
 * *(With at least one of the fields)*
     * `NAME`: Equipment Name should only contain alphanumeric characters and single hyphens (`-`) in between,
-      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Wilson-Evolution`)
+      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Wilson-Evolution`)
     * `CATEGORY`: Equipment Category should only contain alphanumeric characters and single hyphens (`-`) in between,
-      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Basketball`)
+      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Basketball`)
     * `STATUS`: If status is `Available`, it can only be changed to `Maintenance` or `Damaged`. If status is `Maintenance` or `Damaged`, it can only be changed back to `Available`.
 <div markdown="span" class="alert alert-warning">:warning: **Warning:**
 **Strict Lockdown:** You cannot edit equipment that currently has a **Booked** status. The equipment must be returned or canceled before it can be edited.
@@ -216,7 +216,7 @@ Edit details for existing equipment from the equipment list.
 **Duplicate handling:**
 * The system enforces unique names across the Equipment inventory list.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-To add multiple Equipment of the same name, append a unique number (e.g. `Wilson-Evolution-1`, `Wilson-Evolution-2`).
+To add multiple Equipment of the same name, append a unique number (e.g., `Wilson-Evolution-1`, `Wilson-Evolution-2`).
 </div>
 
 **Examples:**
@@ -228,9 +228,9 @@ To add multiple Equipment of the same name, append a unique number (e.g. `Wilson
 Output of Name and Category will be title case -> `yonex-astrox` will be `Yonex-Astrox` in the equipment list.
 </div>
 
-* Success
+* Success <br>
   ![editEquipmentSuccess.png](images/editEquipmentSuccess.png)
-* Failure
+* Failure <br>
   ![editEquipmentFail.png](images/editEquipmentFail.png)
 
 **Possible errors:**
@@ -252,15 +252,15 @@ New room is set to `Available` status by default.
 
 **Acceptable values:**
 * `NAME`: Room Name should only contain alphanumeric characters and single hyphens (`-`) in between,
-  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`)
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Sports-Hall-1`)
 * `LOCATION`: Room Location should only contain alphanumeric characters and single hyphens (`-`) in between,
-  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `University-Town`) <br><br>
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `University-Town`) <br><br>
 * *Case Sensitivity:* Both fields are case-insensitive. `n/Sports-Hall-1` and `n/SPORTS-HALL-1` are treated as the same name. `l/University-Town` and `l/UNIVERSITY-TOWN` are treated as the same location.
 
 **Duplicate handling:**
 * The system enforces unique names across the room list.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-To add multiple Room of the same name, append a unique number (e.g. `Sports-Hall-1`, `Sports-Hall-2`).
+To add multiple Room of the same name, append a unique number (e.g., `Sports-Hall-1`, `Sports-Hall-2`).
 </div>
 
 **Examples:**
@@ -272,14 +272,14 @@ To add multiple Room of the same name, append a unique number (e.g. `Sports-Hall
 Output of Name and Location will be title case -> `MPSH-1` will be `Mpsh-1` in the room list.
 </div>
 
-* Success
+* Success <br>
   ![addRoomSuccess.png](images/addRoomSuccess.png)
-* Failure
+* Failure <br>
   ![addRoomFail.png](images/addRoomFail.png)
 
 **Possible errors:**
 * *Invalid command:* Missing `n/` and `l/` prefix.
-* *Invalid name/location:* Using spaces, special characters (e.g. `#`, `@` etc.), or leaving fields blank.
+* *Invalid name/location:* Using spaces, special characters (e.g., `#`, `@` etc.), or leaving fields blank.
 * *This room already exists:* Attempting to add a name that is already in the inventory.
 
 ---
@@ -287,7 +287,7 @@ Output of Name and Location will be title case -> `MPSH-1` will be `Mpsh-1` in t
 #### View room list : `list-r`
 
 Displays a complete list of all facilities and venue currently stored in the room list. This command serves to clear
-any active filters (such as those from filter l/ t/TAG command), resetting the room list to show all entries.
+any active filters (such as those from filter-r command), resetting the room list to show all entries.
 
 **Format:** `list-r`
 
@@ -308,7 +308,7 @@ any active filters (such as those from filter l/ t/TAG command), resetting the r
 
 **Possible errors:**
 * Room list has not been created.
-* Any extra input after `list-r`, (e.g, `list-r Sports-Hall`, `list-r YIH` etc.) will be invalid command.
+* Any extra input after `list-r`, (e.g., `list-r Sports-Hall`, `list-r YIH` etc.) will be invalid command.
 
 ---
 
@@ -319,7 +319,7 @@ Deletes a room from the room list.
 **Format:** `delete-r INDEX`
 
 **Acceptable values:**
-* `INDEX`: Positive integer corresponding to the current displayed list from `list-r`. (e.g `list-r` have a size of 4, valid index range would be 1,2,3, or 4)
+* `INDEX`: Positive integer corresponding to the current displayed list from `list-r`. (e.g., `list-r` have a size of 4, valid index range would be 1, 2, 3, or 4)
 <div markdown="span" class="alert alert-warning">:warning: **Warning:**
 **Strict Lockdown:** You cannot delete room that currently has a **Booked** status. The room must be canceled before it can be deleted from the room list.
 </div>
@@ -332,9 +332,9 @@ Deletes a room from the room list.
 * `delete-r 8` — Deletes the eighth room in the current room list.
 
 **Outputs:**
-* Success
+* Success <br>
   ![deleteRoomSucces.png](images/deleteRoomSucces.png)
-* Failure
+* Failure <br>
   ![deleteRoomFail.png](images/deleteRoomFail.png)
 
 **Possible errors:**
@@ -351,12 +351,12 @@ Edit details for existing room from the room list.
 **Format:** `edit-r INDEX [n/NAME] [l/LOCATION] [s/STATUS]`
 
 **Acceptable values:**
-* `INDEX`: Positive integer corresponding to the current displayed list from `list-r`. (e.g `list-r` have a size of 4, valid index range would be 1,2,3, or 4)
+* `INDEX`: Positive integer corresponding to the current displayed list from `list-r`. (e.g., `list-r` have a size of 4, valid index range would be 1, 2, 3, or 4)
 * *(With at least one of the fields)*
     * `NAME`: Room Name should only contain alphanumeric characters and single hyphens (`-`) in between,
-      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`)
+      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Sports-Hall-1`)
     * `LOCATION`: Room Location should only contain alphanumeric characters and single hyphens (`-`) in between,
-      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `University-Town`)
+      no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `University-Town`)
     * `STATUS`: If status is `Available`, it can only be changed to `Maintenance`. If status is `Maintenance`, it can only be changed to `Available`.
 <div markdown="span" class="alert alert-warning">:warning: **Warning:**
 **Strict Lockdown:** You cannot edit room that currently has a **Booked** status. The room must be canceled before it can be edited.
@@ -365,7 +365,7 @@ Edit details for existing room from the room list.
 **Duplicate handling:**
 * The system enforces unique names across the room list.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-To add multiple Room of the same name, append a unique number (e.g. `Sports-Hall-1`, `Sports-Hall-2`).
+To add multiple Room of the same name, append a unique number (e.g., `Sports-Hall-1`, `Sports-Hall-2`).
 </div>
 
 **Examples:**
@@ -377,9 +377,9 @@ To add multiple Room of the same name, append a unique number (e.g. `Sports-Hall
 Output of Name and Location will be title case -> `MPSH-1` will be `Mpsh-1` in the room list.
 </div>
 
-* Success
+* Success <br>
   ![editRoomSuccess.png](images/editRoomSuccess.png)
-* Failure
+* Failure <br>
   ![editRoomFail.png](images/editRoomFail.png)
 
 **Possible errors:**
@@ -401,7 +401,7 @@ Adds a new student in the database so they can begin borrowing equipment or book
 **Acceptable values:**
 * `NAME`: Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`). The system trims any spaces at the very beginning or end of a name.
 * `MATRIC_NUMBER`: Must be exactly 9 characters long. Starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.
-* `PHONE_NUMBER`: 8-digit mobile number (e.g `81234567`).
+* `PHONE_NUMBER`: 8-digit mobile number (e.g., `81234567`).
 * `EMAIL`: Valid email format (e.g., `e0123456@u.nus.edu`). Case insensitive.
 
 **Duplicate handling:**
@@ -474,7 +474,7 @@ Displays a list of all registered students in the system.
 ![ListStudentsSuccess.png](images/ListStudentsSuccess.png)
 
 **Possible errors:**
-* Any extra input after `list-s`, (e.g. `list-s 1`, `list-e a` etc.) will be invalid command.
+* Any extra input after `list-s`, (e.g., `list-s 1`, `list-e a` etc.) will be invalid command.
 
 ---
 
@@ -525,7 +525,7 @@ Edits an existing student's details in the address book.
 * (With at least one of the fields)
     * `NAME`: Alphabets and internal spaces only (e.g., `John Lim`). No special characters or numbers (e.g., `-`, `.`, `*`).
     * `MATRIC_NUMBER`: Must be exactly 9 characters long. Starts with a letter (usually 'A'), followed by 7 digits, and ends with a check letter. (e.g., `A0123456B`). Case insensitive.
-    * `PHONE_NUMBER`: 8-digit mobile number (e.g `81234567`).
+    * `PHONE_NUMBER`: 8-digit mobile number (e.g., `81234567`).
     * `EMAIL`: Valid email format (e.g., `e0123456@u.nus.edu`).
 
 <div markdown="span" class="alert alert-primary">:bulb: **Important:**
@@ -740,7 +740,7 @@ Tag equipment as `t/IHG` during competition weeks to quickly filter items that s
 
 **Acceptable values:**
 * `NAME:` Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
-  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`, `Basketball-1`)
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Sports-Hall-1`, `Basketball-1`)
 * `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
 * The system will detect and warn against duplicate tags.
 
@@ -761,7 +761,7 @@ Tag equipment as `t/IHG` during competition weeks to quickly filter items that s
 
 **Possible errors:**
 * *Invalid command:* Extra input.
-* *Invalid name/tag:* Using spaces, special characters (e.g. `#`, `@` etc.), or leaving fields blank.
+* *Invalid name/tag:* Using spaces, special characters (e.g., `#`, `@` etc.), or leaving fields blank.
 * *The tag already exists on room/equipment:* Attempting to add a duplicate tag.
 
 
@@ -780,7 +780,7 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 **Acceptable values:**
 * `NAME:` Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
-  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`, `Basketball-1`)
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Sports-Hall-1`, `Basketball-1`)
 * `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
 * `untag-r` targets rooms. `untag-e` targets equipments.
 * The command will be rejected if the specified tag does not exist on the item or room.
@@ -802,7 +802,7 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 **Possible errors:**
 * *Invalid command:* Extra input.
-* *Invalid name/tag:* Using spaces, special characters (e.g. `#`, `@` etc.), or leaving fields blank.
+* *Invalid name/tag:* Using spaces, special characters (e.g., `#`, `@` etc.), or leaving fields blank.
 * *The tag does not exist on room/equipment:* Attempting to delete non-existent tag.
 
 ---
@@ -900,20 +900,20 @@ Action | Format, Examples
 **Add Equipment** | `add-e n/NAME c/CATEGORY` <br> e.g., `add-e n/Wilson-Evolution c/Basketball`
 **List Equipment** | `list-e`
 **Delete Equipment**| `delete-e INDEX` <br> e.g., `delete-e 3`
-**Edit Equipment** | `edit-e INDEX [n/NAME] [c/CATEGORY] [s/STATUS]` <br> e.g. `edit-e 6 n/Wilson-Evo`
+**Edit Equipment** | `edit-e INDEX [n/NAME] [c/CATEGORY] [s/STATUS]` <br> e.g., `edit-e 6 n/Wilson-Evo`
 **Add Room** | `add-r n/NAME l/LOCATION` <br> e.g., `add-r n/MPSH-2 l/Sports-Centre`
 **List Rooms** | `list-r`
 **Delete Room** | `delete-r INDEX` <br> e.g., `delete-r 1`
-**Edit Room** | `edit-r INDEX [n/NAME] [l/LOCATION] [s/STATUS]` <br> e.g. `edit-r 3 n/Tennis-Court s/Maintenance`
+**Edit Room** | `edit-r INDEX [n/NAME] [l/LOCATION] [s/STATUS]` <br> e.g., `edit-r 3 n/Tennis-Court s/Maintenance`
 **Add Student** | `add-s n/NAME m/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL` <br> e.g., `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu`
 **Check Loans** | `check-s MATRIC_NUMBER` <br> e.g., `check-s A0123456B`
 **List Students** | `list-s`
 **Delete Student** | `delete-s MATRIC_NUMBER` <br> e.g., `delete-s A0123456B`
-**Edit Student** | `edit-s INDEX [n/NAME] [m/MATRIC_NUMBER] [p/PHONE_NUMBER] [e/EMAIL]` <br> e.g. `edit-s 2 m/a1234567b n/Tom p/91234561 e/e1234567@u.nus.edu`
+**Edit Student** | `edit-s INDEX [n/NAME] [m/MATRIC_NUMBER] [p/PHONE_NUMBER] [e/EMAIL]` <br> e.g., `edit-s 2 m/a1234567b n/Tom p/91234561 e/e1234567@u.nus.edu`
 **Reserve** | `reserve ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME` <br> e.g., `reserve mpsh-1 a1234567a f/2027-03-01 1400 t/2027-03-01 1600`
 **Cancel** | `cancel ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME` <br> e.g., `cancel mpsh-1 a1234567a f/2099-03-15 0900`
 **Issue** | `issue ITEM_ID STUDENT_ID DUE_DATE_TIME` <br> e.g., `issue Wilson-Basketball-1 a1234567a 2027-03-05 1700`
-**Return** | `return ITEM_ID` <br> e.g. `return Wilson-Evolution-Basketball-1`
+**Return** | `return ITEM_ID` <br> e.g., `return Wilson-Evolution-Basketball-1`
 **Tag** | `tag NAME TAG` <br> e.g., `tag-e Basketball-1 IHG or tag-r MPSH-1 IHG`
 **Untag** | `untag NAME TAG` <br> e.g., `untag-e Basketball-1 IHG or untag-r MPSH-1 IHG`
 **Filter** | `filter TAG` <br> e.g., `filter-e IHG or filter-r IHG`
