@@ -1,11 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FilterTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -23,40 +18,21 @@ public class FilterTagCommandParser implements Parser<FilterTagCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FilterTagCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args,
-                        PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION);
+        String trimmedArgs = args.trim();
+        String[] parts = trimmedArgs.split("\\s+");
 
-        if (!argMultimap.getPreamble().isEmpty()) {
+        if (parts.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterTagCommand.MESSAGE_USAGE));
         }
 
-        boolean hasLocation = arePrefixesPresent(argMultimap, PREFIX_LOCATION, PREFIX_TAG);
-        boolean hasEquipment = arePrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_TAG);
-
-        argMultimap.verifyNoDuplicatePrefixesFor(
-                PREFIX_LOCATION, PREFIX_TAG, PREFIX_CATEGORY);
-
-        if (hasLocation && hasEquipment) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterTagCommand.MESSAGE_USAGE));
+        String flag = parts[0];
+        String tagName = parts[1];
+        try {
+            return new FilterTagCommand(flag, new Tag(tagName));
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(iae.getMessage(), iae);
         }
 
-        if (hasLocation) {
-            Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
-            return new FilterTagCommand("Room", tag);
-        } else if (hasEquipment) {
-            Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
-            return new FilterTagCommand("Equipment", tag);
-        } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterTagCommand.MESSAGE_USAGE));
-        }
-    }
-
-    /**
-     * Returns true if all prefixes contain non-empty values.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 
