@@ -98,8 +98,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a person to the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addPerson(Person person) {
+        persons.add(person);
     }
 
     /**
@@ -142,8 +142,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a room to the address book.
      */
-    public void addRoom(Room r) {
-        rooms.add(r);
+    public void addRoom(Room room) {
+        rooms.add(room);
     }
 
     /**
@@ -209,7 +209,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .toString();
     }
 
-    /// Equipment-level operations
+
 
     /**
      * Returns true if an equipment with the same identity as {@code equipment} exists in the address book.

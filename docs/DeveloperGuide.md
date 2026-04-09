@@ -1499,7 +1499,6 @@ testers are expected to do more *exploratory* testing.
    3. Test case: `alias Mpsh-1 mpsh1 extraArg`<br>
       Expected: Error message shows invalid command format.
 
----
 
 ### Help command
 
@@ -1523,9 +1522,26 @@ testers are expected to do more *exploratory* testing.
 
 4. Extra input handling
 
-   1. Test case: `help reserve extra`<br>
-      Expected: Since the parser passes the whole remaining input as a topic, the system treats `reserve extra` as one command topic and shows a command not found failure message.
 
+  1. Test case: `help reserve extra`<br>
+     Expected: Since the parser passes the whole remaining input as a topic, the system treats `reserve extra` as 
+      one command topic and shows a command not found failure message.
+
+
+
+## **Appendix: Planned Enhancements**
+
+1. Support multiple reservations for the same room or equipment, as long as the booking periods do not overlap.
+   In the current system, once an equipment/room is reserved, its status is immediately
+   changed to Booked which prevent it from being reserved even when there is no time conflict
+2. Include clear constraints on the booking period such as minimum and maximum reservation lengths, 
+   allowed booking hours.
+3. Enforce date validation for future reservations. Currently, users are able to reserve items for unrealistic 
+   dates far into the future, such as the year 2099. To prevent this, we will introduce a booking window that only 
+   allows reservations within a reasonable time range.
+4. Item status handling will be improved.In the current system, once an item is reserved, its status is immediately 
+   changed to Booked, which prevents it from being issued even when there is still free time before the reservation 
+   begins.
 
 ### Saving data
 

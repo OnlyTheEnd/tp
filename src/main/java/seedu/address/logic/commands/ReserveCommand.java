@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -41,7 +43,7 @@ public class ReserveCommand extends Command {
             "Error:\n%1$s is already reserved from %2$s to %3$s.";
     public static final String MESSAGE_STUDENT_CONFLICT =
             "Error:\nStudent %1$s already has another reservation from %2$s to %3$s.";
-
+    private static final Logger logger = LogsCenter.getLogger(ReserveCommand.class);
     private final Reservation reservationToAdd;
 
     /**
@@ -55,6 +57,12 @@ public class ReserveCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        logger.info("Starting reserve command for resource="
+                + reservationToAdd.getResourceId()
+                + ", student=" + reservationToAdd.getStudentId()
+                + ", from=" + reservationToAdd.getFormattedStartDateTime()
+                + ", to=" + reservationToAdd.getFormattedEndDateTime());
 
         String resolvedResourceId = model.resolveAlias(reservationToAdd.getResourceId());
         Reservation resolvedReservation = new Reservation(
