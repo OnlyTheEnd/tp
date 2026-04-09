@@ -125,10 +125,16 @@ public class AddressBookParser {
             return new ListStudentCommandParser().parse(arguments);
 
         case AddTagCommand.COMMAND_WORD:
-            return new AddTagCommandParser().parse(arguments);
+            return new AddTagCommandParser().parse("room" + arguments);
+
+        case AddTagCommand.COMMAND_WORD2:
+            return new AddTagCommandParser().parse("equipment" + arguments);
 
         case DeleteTagCommand.COMMAND_WORD:
-            return new DeleteTagCommandParser().parse(arguments);
+            return new DeleteTagCommandParser().parse("room" + arguments);
+
+        case DeleteTagCommand.COMMAND_WORD2:
+            return new DeleteTagCommandParser().parse("equipment" + arguments);
 
         case FilterTagCommand.COMMAND_WORD:
             return new FilterTagCommandParser().parse(arguments);

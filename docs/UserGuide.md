@@ -81,9 +81,9 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
   e.g `n/NAME [t/TAG]` can be used as `n/John-Doe t/friend` or as `n/John-Doe`.
 
 * Items with `…` after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…` can be used as many times (i.e. 0 times), `t/ICG`, `t/IFG t/CareerFest` etc.
 
-* Parameters can be in any order.<br>
+* Parameters with prefixes can be in any order(eg. n/,p/).<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -722,96 +722,125 @@ Aliases are useful for long item or room IDs, especially during busy periods whe
 
 ### 2.5 Tag & Filter
 
-#### Tagging an item or room: `tag`
+#### Tagging an equipment or room: `tag-e` or `tag-r`
 
 Tags an equipment item or room with a label for categorisation.
+`tag-r` targets rooms. `tag-e` targets equipments.
 
-**Format**: `tag c/EQUIPMENT_NAME t/TAG` or `tag l/ROOM_NAME t/TAG`
+**Format:** `tag-e NAME TAG` or `tag-r NAME TAG`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Tags are useful for categorising equipment or rooms
+Tags are useful for categorising equipment or rooms for quick viewing, and will be displayed in the UI as a blue label
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip for IHG:**
 Tag equipment as `t/IHG` during competition weeks to quickly filter items that should not be loaned out for casual use.
 </div>
 
-* Assigns a tag to the specified equipment item or room.
-* `TAG` should be a short string containing letters, numbers, or underscores. It is not case-sensitive.
+
+**Acceptable values:**
+* `NAME:` Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`, `Basketball-1`)
+* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
 * The system will detect and warn against duplicate tags.
 
-**Duplicate handling**:
+**Duplicate handling:**
 * Duplicate tags on the same equipment or room are not allowed.
 * If the tag already exists on the item or room, the command will be rejected.
 
-**Examples**:
-* `tag c/Wilson-Evolution-Basketball-1 t/IHG`
-* `tag l/MPSH-1 t/IHG`
+**Examples:**
+* `tag-e Wilson-Evolution-Basketball-1 IHG` 
+* `tag-r MPSH-1 IHG` 
 
+
+**Outputs:**
+* Success
+
+* Failure
 ![tag command screenshot](images/TagSuccess.png)
 
-**Possible errors**:
-* Invalid equipment or room ID
-* Tag already exists on the specified equipment or room
-* Missing command indicators, e.g. missing `t/`
+**Possible errors:**
+* *Invalid command:* Extra input.
+* *Invalid name/tag:* Using spaces, special characters (e.g. `#`, `@` etc.), or leaving fields blank.
+* *The tag already exists on room/equipment:* Attempting to add a duplicate tag.
+
 
 ---
 
-#### Removing a tag from an equipment or room: `untag`
+#### Removing a tag from an equipment or room: `untag-e` or `untag-e`
 
 Removes an existing tag from an equipment item or room.
 
-**Format**: `untag c/EQUIPMENT_NAME t/TAG` or `untag l/ROOM_NAME t/TAG`
+**Format:** `untag-e NAME TAG` or `untag-r NAME TAG`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use this command to remove outdated or incorrect tags from equipment or rooms.
 </div>
 
-* Removes the specified tag from the specified equipment item or room.
-* `TAG` should be a short string containing letters, numbers, or underscores. It is not case-sensitive.
+
+**Acceptable values:**
+* `NAME:` Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
+  no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g. `Sports-Hall-1`, `Basketball-1`)
+* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
+* `untag-r` targets rooms. `untag-e` targets equipments.
 * The command will be rejected if the specified tag does not exist on the item or room.
 
-**Duplicate handling**:
+**Duplicate handling:**
 * Not applicable.
 
-**Examples**:
-* `untag c/Wilson-Evolution-Basketball-1 t/IHG`
-* `untag l/MPSH-1 t/IHG`
 
+**Examples:**
+* `untag-e Wilson-Evolution-Basketball-1 IHG` 
+* `untag-r MPSH-1 IHG`
+
+
+**Outputs:**
+* Success
+
+* Failure
 ![untag command screenshot](images/UntagSuccess.png)
 
-**Possible errors**:
-* Invalid equipment or room ID
-* Tag does not exist on the specified equipment or room
-* Missing command indicators, e.g. missing `t/`
+**Possible errors:**
+* *Invalid command:* Extra input.
+* *Invalid name/tag:* Using spaces, special characters (e.g. `#`, `@` etc.), or leaving fields blank.
+* *The tag does not exist on room/equipment:* Attempting to delete non-existent tag.
 
 ---
 
 #### Filtering by tag: `filter`
 
-Filters equipment items or rooms by a specified tag.
+Filters equipment items or rooms by a specified tag. Displays all equipment items or rooms that have the specified tag.
 
-**Format**: `filter c/ t/TAG` or `filter l/ t/TAG`
+**Format:** `filter c/ t/TAG` or `filter l/ t/TAG`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use this command to quickly find all equipment or rooms associated with a particular tag, such as all items marked as spoilt.
 </div>
 
-* Displays all equipment items or rooms that have the specified tag.
-* `TAG` should be a string containing letters, numbers, or underscores. It is not case-sensitive.
 
-**Duplicate handling**:
+**Acceptable values:**
+* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
+*  `l/` targets rooms. `c/` targets equipments.
+
+
+**Duplicate handling:**
 * Not applicable.
 
-**Examples**:
+**Examples:**
 * `filter c/ t/IHG`
 * `filter l/ t/IHG`
 
+
+**Outputs:**
+* Success
+  ![addRoomSuccess.png](images/addRoomSuccess.png)
+* Failure
 ![filter command screenshot](images/FilterSuccess.png)
 
-**Possible errors**:
-* No equipment or rooms found with the specified tag
-* Missing command indicators, e.g. missing `t/`
+**Possible errors:**
+* *Invalid command:* Missing `t/` prefix.
+* *Nothing tagged:* No equipment or rooms found with the specified tag
+
 
 ### 2.6 System Utilities
 
@@ -885,8 +914,10 @@ Action | Format, Examples
 **Cancel** | `cancel ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME` <br> e.g., `cancel mpsh-1 a1234567a f/2099-03-15 0900`
 **Issue** | `issue ITEM_ID STUDENT_ID DUE_DATE_TIME` <br> e.g., `issue Wilson-Basketball-1 a1234567a 2027-03-05 1700`
 **Return** | `return ITEM_ID` <br> e.g. `return Wilson-Evolution-Basketball-1`
-**Tag** | `tag c/EQUIPMENT_NAME or l/ROOM_NAME t/TAG` <br> e.g., `tag c/Wilson-Evolution t/ICG` <br> or  `tag l/Mpsh-1 t/IHG`
-**Filter** | `filter c/ or l/ t/TAG` <br> e.g., `filter c/ t/ICG` <br> or `filter l/ t/IHG`
+**Tag** | `tag NAME TAG` <br> e.g., `tag Basketball-1 IHG or tag-r MPSH-1 IHG`
+**Untag** | `untag NAME TAG` <br> e.g., `untag Basketball-1 IHG or untag-r MPSH-1 IHG`
+**Filter** | `filter [c/ or l/] t/TAG` <br> e.g., `filter l/ t/IHG or filter c/ t/IHG`
 **Alias** | `alias ITEM_OR_ROOM_ID ALIAS_NAME` <br> e.g., `alias MPSH-1 hall1`
 **Clear** | `clear`
 **Exit** | `exit`
+
