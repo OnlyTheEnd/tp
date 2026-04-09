@@ -405,7 +405,7 @@ Adds a new student in the database so they can begin borrowing equipment or book
 * `EMAIL`: Valid email format (e.g., `e0123456@u.nus.edu`). Case insensitive.
 
 **Duplicate handling:**
-* To ensure data integrity, each Student must have a unique `MATRIC_NUMBER`, `PHONE_NUMBER`, and `EMAIL`. If any of these are already registered to another student, the command will fail.
+* To ensure data integrity, each Student must have a unique `MATRIC_NUMBER`, `PHONE_NUMBER`, and `EMAIL`. If any of these are already registered to another student, the command will fail. <br>
 ![AddStudentDuplicate.png](images/AddStudentDuplicate.png)
 
 **Examples:**
@@ -413,9 +413,9 @@ Adds a new student in the database so they can begin borrowing equipment or book
 
 **Outputs:**
 
-* Success<br>
+* Success <br>
   ![AddStudentSuccess.png](images/AddStudentSuccess.png)
-* Failure
+* Failure <br>
   ![AddStudentFailure.png](images/AddStudentFailure.png)
 
 **Possible errors:**
@@ -443,9 +443,9 @@ To check the list of equipment or rooms loaned to a student.
 * `check-s A0123456B`
 
 **Outputs:**
-* Success<br>
+* Success <br>
   ![CheckStudentLoanSuccess.png](images/CheckStudentLoanSuccess.png)
-* Failure<br>
+* Failure <br>
   ![CheckStudentLoanFailure.png](images/CheckStudentLoanFailure.png)
 
 **Possible errors:**
@@ -492,13 +492,13 @@ Deletes a student’s record from the system database.
 * `delete-s A0123456B`
 
 **Outputs:**
-Success:<br>
+* Success:<br>
 ![DeleteStudentSuccess.png](images/DeleteStudentSuccess.png)
 
-Failure:
-  * Student's matric number not found in system
+* Failure:
+  * Student's matric number not found in system <br>
   ![DeleteCommandFailure.png](images/DeleteCommandFailure.png)
-  * Student with existing loans/reservations
+  * Student with existing loans/reservations <br>
   ![DeleteCommandActiveLoans.png](images/DeleteCommandActiveLoans.png)
 
 **Possible errors:**
@@ -536,14 +536,14 @@ You **cannot** edit any details of a student if they currently have an active eq
 * `edit-s 2 n/Tom p/91234561 e/e1234567@u.nus.edu`.
 
 **Outputs**
-* Success<br>
+* Success <br>
 ![EditStudentCommandSuccess.png](images/EditStudentCommandSuccess.png)
 
 * Failure
-  * Missing fields<br>
+  * Missing fields <br>
   ![EditStudentCommandMissingField.png](images/EditStudentCommandMissingField.png)
 
-  * Student with existing loans/reservations<br>
+  * Student with existing loans/reservations <br>
   ![EditStudentCommandExistingLoan.png](images/EditStudentCommandExistingLoan.png)
 
 **Possible errors:**
@@ -573,9 +573,10 @@ You can reserve facilities such as halls, courts, and multi-purpose rooms as wel
 * The start and end date/time must be valid and the end date/time must be later than the start date/time.
 * The reservation will be rejected if it conflicts with an existing booking for the same item or room.
 
-**WARNING:**
+<div markdown="span" class="alert alert-warning">:warning: **Warning:**
 * Reservation can only be made when the room status is **Available**.
 * A room or equipment can only have **one active reservation** at a time.
+</div>
 
 **Duplicate handling:**
 * Duplicate or overlapping reservations are not allowed.
@@ -585,10 +586,10 @@ You can reserve facilities such as halls, courts, and multi-purpose rooms as wel
 * `reserve MPSH-1 a1234567a f/2027-03-10 0900 t/2027-03-10 1200`
 
 **Outputs:**
-* Success<br>
+* Success <br>
 ![reserve command screenshot](images/reserveCommand.png)
 
-* Failure<br>
+* Failure <br>
 ![failed reserve command screenshot 1](images/bookedReserveCommand.png)
 ![failed reserve command screenshot 2](images/itemReserveCommand.png)
 
@@ -613,12 +614,12 @@ Cancels an **existing** reservation.
 **Example:**
 `cancel MPSH-1 a1234567a f/2027-03-10 0900`
 
-**Success**
+**Outputs:**
 
+* Success <br>
 ![cancel command screenshot](images/cancelCommand.png)
 
-**Failure**
-
+* Failure <br>
 ![failed cancel command screenshot](images/faliedCancelCommand.png)
 
 ---
@@ -644,11 +645,11 @@ Use this command to keep track of borrowed equipment and who is responsible for 
 **Examples:**
 * `issue Wilson-Evolution a1234567a 2027-03-05 1700`
 
-**Outputs**
-* Success
+**Outputs:**
+* Success <br>
 ![issue command screenshot](images/issueCommand.png)
 
-* Failure
+* Failure <br>
 ![failed issue command screenshot](images/failedIssueCommand.png)
 
 **Possible errors:**
@@ -670,11 +671,11 @@ Returns an issued equipment item back to the inventory.
 **Example:**
 `return Wilson-Evolution`
 
-**Outputs**
-* Success
+**Outputs:**
+* Success <br>
 ![return command screenshot](images/returnCommand.png)
 
-* Failure
+* Failure <br>
 ![failed return command screenshot](images/faliedReturnCommand.png)
 
 **Possible errors:**
@@ -708,10 +709,12 @@ Aliases are useful for long item or room IDs, especially during busy periods whe
 **Examples:**
 * `alias MPSH-1 hall1`
 
-**Success**
+**Outputs:**
+
+* Success <br>
 ![alias command screenshot](images/aliasCommand.png)
 
-**Failure**
+* Failure <br>
 ![failed alias command screenshot](images/faliedAliasCommand.png)
 
 **Possible errors:**
@@ -739,9 +742,9 @@ Tag equipment as `t/IHG` during competition weeks to quickly filter items that s
 
 
 **Acceptable values:**
-* `NAME:` Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
+* `NAME`: Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
   no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Sports-Hall-1`, `Basketball-1`)
-* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
+* `TAG`: should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
 * The system will detect and warn against duplicate tags.
 
 **Duplicate handling:**
@@ -754,9 +757,9 @@ Tag equipment as `t/IHG` during competition weeks to quickly filter items that s
 
 
 **Outputs:**
-* Success
+* Success <br>
 
-* Failure
+* Failure <br>
 ![tag command screenshot](images/TagSuccess.png)
 
 **Possible errors:**
@@ -779,9 +782,9 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 
 **Acceptable values:**
-* `NAME:` Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
+* `NAME`: Equipment or room name should only contain alphanumeric characters and single hyphens (`-`) in between,
   no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Sports-Hall-1`, `Basketball-1`)
-* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
+* `TAG`: should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
 * `untag-r` targets rooms. `untag-e` targets equipments.
 * The command will be rejected if the specified tag does not exist on the item or room.
 
@@ -795,9 +798,9 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 
 **Outputs:**
-* Success
+* Success <br>
 
-* Failure
+* Failure <br>
 ![untag command screenshot](images/UntagSuccess.png)
 
 **Possible errors:**
@@ -819,7 +822,7 @@ Use this command to quickly find all equipment or rooms associated with a partic
 
 
 **Acceptable values:**
-* `TAG` should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
+* `TAG`: should only contain alphanumeric characters, not allowing punctuation or spaces. It is not case-sensitive, and should not be blank.
 * `filter-r` targets rooms. `filter-e` targets equipments.
 
 
@@ -832,9 +835,9 @@ Use this command to quickly find all equipment or rooms associated with a partic
 
 
 **Outputs:**
-* Success
+* Success <br>
   ![addRoomSuccess.png](images/addRoomSuccess.png)
-* Failure
+* Failure <br>
 ![filter command screenshot](images/FilterSuccess.png)
 
 **Possible errors:**
@@ -851,6 +854,16 @@ Shows a message explaining how to access the help page.
 ![help message](images/helpMessage.png)
 
 Format: `help`
+
+---
+
+#### Clearing the program : `clear`
+
+Clears the program.
+
+Format: `clear`
+
+---
 
 #### Exiting the program : `exit`
 
