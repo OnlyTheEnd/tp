@@ -18,7 +18,7 @@ public class FilterTagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "/" + COMMAND_WORD2
             + ": Filters out all room/equipment by tag\n"
-            + "Parameters: " + COMMAND_WORD + "/" + COMMAND_WORD2 + " TAG\n"
+            + "Parameters: " + " TAG\n"
             + "Example: " + COMMAND_WORD + " IHG\n"
             + COMMAND_WORD2 + " IHG";
 
