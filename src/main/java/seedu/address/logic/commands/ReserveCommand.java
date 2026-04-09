@@ -7,8 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.reservation.Reservation;
@@ -19,7 +19,6 @@ import seedu.address.model.reservation.Reservation;
 public class ReserveCommand extends Command {
 
     public static final String COMMAND_WORD = "reserve";
-    private static final Logger logger = LogsCenter.getLogger(ReserveCommand.class);
     public static final String MESSAGE_RESOURCE_BOOKED =
             "Error:\n%1$s is already booked and cannot be reserved.";
     public static final String MESSAGE_RESOURCE_MAINTENANCE =
@@ -44,7 +43,7 @@ public class ReserveCommand extends Command {
             "Error:\n%1$s is already reserved from %2$s to %3$s.";
     public static final String MESSAGE_STUDENT_CONFLICT =
             "Error:\nStudent %1$s already has another reservation from %2$s to %3$s.";
-
+    private static final Logger logger = LogsCenter.getLogger(ReserveCommand.class);
     private final Reservation reservationToAdd;
 
     /**
