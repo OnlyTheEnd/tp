@@ -19,8 +19,7 @@ public class AddTagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "/" + COMMAND_WORD2
             + ": Tags an existing room/equipment to the system.\n"
-            + "Parameters: "
-            + " ROOM_NAME_OR_EQUIPMENT_NAME TAG\n"
+            + "Parameters: " + COMMAND_WORD + "/" + COMMAND_WORD2 + " TAG\n"
             + "Example: " + COMMAND_WORD + " MPSH-1 "
             + "Renovation\n"
             + COMMAND_WORD2 + " "
