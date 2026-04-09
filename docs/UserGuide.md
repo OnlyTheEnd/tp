@@ -752,13 +752,16 @@ Tag equipment as e.g., `tag-e Wilson-Evolution IHG` during competition weeks to 
 
 **Examples:**
 * `tag-e Wilson-Evolution IHG` 
-* `tag-r MPSH-1 IHG` 
+* `tag-r MPSH-2 IHG` 
 
 
 **Outputs:**
 * Success <br>
-![TagSuccess.png](images/TagSuccess.png)
+![tag-e_success.png](images/tag-e_success.png)
+![tag-r_success](images/tag-r_success.png)
 * Failure <br>
+![tag_failure](images/tag_failure.png)
+
 
 
 **Possible errors:**
@@ -793,14 +796,15 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 **Examples:**
 * `untag-e Wilson-Evolution IHG` 
-* `untag-r MPSH-1 IHG`
+* `untag-r MPSH-2 IHG`
 
 
 **Outputs:**
 * Success <br>
-![UntagSuccess.png](images/UntagSuccess.png)
+![untag-e_success](images/untag-e_success.png)
+![untag-r_success](images/untag-r_success.png)
 * Failure <br>
-
+![untag_failure](images/untag_failure.png)
 
 **Possible errors:**
 * *Invalid command:* Extra input.
@@ -835,9 +839,10 @@ Use this command to quickly find all equipment or rooms associated with a partic
 
 **Outputs:**
 * Success <br>
-![FilterSuccess.png](images/FilterSuccess.png)
+  ![filter-e_success](images/filter-e_success.png)
+  ![filter-r_success](images/filter-r_success.png)
 * Failure <br>
-![FilterFail.png](images/FilterFail.png)
+  ![filter_failure](images/filter_failure.png)
 
 **Possible errors:**
 * *Nothing tagged:* No equipment or rooms found with the specified tag

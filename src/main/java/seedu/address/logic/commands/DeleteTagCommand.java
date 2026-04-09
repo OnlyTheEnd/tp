@@ -15,9 +15,10 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
 public class DeleteTagCommand extends Command {
     public static final String COMMAND_WORD = "untag-r";
     public static final String COMMAND_WORD2 = "untag-e";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": untags an existing tag from an existing room in the system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "/" + COMMAND_WORD2
+            + ": untags an existing tag from an existing room in the system.\n"
             + "Parameters: "
+            + " ROOM_NAME_OR_EQUIPMENT_NAME TAG\n"
             + "Example: " + COMMAND_WORD + " MPSH-1 "
             + "Renovation\n"
             + COMMAND_WORD2 + " "
