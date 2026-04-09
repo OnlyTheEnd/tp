@@ -56,7 +56,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
    * `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` : Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
 
-   * `edit-r 2 n/Outdoor-Tennis-Court` : Edits the room in the second index of room list to a name `Outdoor-Tennis-Court`.
+   * `edit-r 3 n/Tennis-Court` : Edits the room in the second index of room list to a name `Tennis-Court`.
 
    * `add-r n/Outdoor-Basketball-Court l/Kent-Ridge` : Adds a new room with name `Outdoor-Basketball-Court`, location `Kent-Ridge`, and a `Available` status by default.
    
@@ -119,7 +119,7 @@ To add multiple Equipment of the same name, append a unique number (e.g., `Wilso
 * `add-e n/Decathlon-Soccer-Ball c/Soccer` — Adds an equipment with Name: Decathlon-Soccer-Ball, Category: Soccer, and a `Available` status by default in the current equipment list.
 
 **Outputs:**
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary">:bulb: **Note:**
 Output of Name and Category will be title case -> `yonex-astrox` will be `Yonex-Astrox` in the equipment list.
 </div>
 
@@ -172,7 +172,7 @@ Deletes equipment from the equipment list.
 **Acceptable values:**
 * `INDEX`: Positive integer corresponding to the current displayed list from `list-e`. (e.g., `list-e` have a size of 4, valid index range would be 1, 2, 3, or 4)
 <div markdown="span" class="alert alert-warning">:warning: **Warning:**
-**Strict Lockdown:** You cannot delete equipment that currently has a **Booked** status. The equipment must be returned or canceled before it can be deleted from the system.
+The equipment has to be in **Available** status, before it can be deleted.
 </div>
 
 **Duplicate handling:**
@@ -210,7 +210,7 @@ Edit details for existing equipment from the equipment list.
       no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `Basketball`)
     * `STATUS`: If status is `Available`, it can only be changed to `Maintenance` or `Damaged`. If status is `Maintenance` or `Damaged`, it can only be changed back to `Available`.
 <div markdown="span" class="alert alert-warning">:warning: **Warning:**
-**Strict Lockdown:** You cannot edit equipment that currently has a **Booked** status. The equipment must be returned or canceled before it can be edited.
+The equipment should not be in **Booked** status, before editing it.
 </div>
 
 **Duplicate handling:**
@@ -224,7 +224,7 @@ To add multiple Equipment of the same name, append a unique number (e.g., `Wilso
 * `edit-e 3 n/Wilson-Evo c/Bball s/Available` — Edit the third equipment to Name: Wilson-Evo, Category: Bball, Status: Available. Assuming initial status is Maintenance.
 
 **Outputs:**
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary">:bulb: **Note:**
 Output of Name and Category will be title case -> `yonex-astrox` will be `Yonex-Astrox` in the equipment list.
 </div>
 
@@ -321,7 +321,7 @@ Deletes a room from the room list.
 **Acceptable values:**
 * `INDEX`: Positive integer corresponding to the current displayed list from `list-r`. (e.g., `list-r` have a size of 4, valid index range would be 1, 2, 3, or 4)
 <div markdown="span" class="alert alert-warning">:warning: **Warning:**
-**Strict Lockdown:** You cannot delete room that currently has a **Booked** status. The room must be canceled before it can be deleted from the room list.
+The room has to be in **Available** status, before it can be deleted.
 </div>
 
 **Duplicate handling:**
@@ -359,7 +359,7 @@ Edit details for existing room from the room list.
       no spaces or consecutive hyphens (`--`) are allowed, and it should not be blank. (e.g., `University-Town`)
     * `STATUS`: If status is `Available`, it can only be changed to `Maintenance`. If status is `Maintenance`, it can only be changed to `Available`.
 <div markdown="span" class="alert alert-warning">:warning: **Warning:**
-**Strict Lockdown:** You cannot edit room that currently has a **Booked** status. The room must be canceled before it can be edited.
+The room should not be in **Booked** status, before editing it.
 </div>
 
 **Duplicate handling:**
@@ -370,7 +370,7 @@ To add multiple Room of the same name, append a unique number (e.g., `Sports-Hal
 
 **Examples:**
 * `edit-r 2 l/UTown` — Edit the second room to Location: UTown.
-* `edit-r 3 n/Tennis-Court s/Maintenance` — Edit the third room to Name: Tennis-Court, and Status: Maintenance. Assuming initial status is Available.
+* `edit-r 3 n/Outdoor-Tennis-Court s/Maintenance` — Edit the third room to Name: Outdoor-Tennis-Court, and Status: Maintenance. Assuming initial status is Available.
 
 **Outputs:**
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -737,7 +737,7 @@ Tags are useful for categorising equipment or rooms for quick viewing, and will 
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip for IHG:**
-Tag equipment as `t/IHG` during competition weeks to quickly filter items that should not be loaned out for casual use.
+Tag equipment as `tag-e NAME IHG` during competition weeks to quickly filter items that should not be loaned out for casual use.
 </div>
 
 
@@ -752,15 +752,15 @@ Tag equipment as `t/IHG` during competition weeks to quickly filter items that s
 * If the tag already exists on the item or room, the command will be rejected.
 
 **Examples:**
-* `tag-e Wilson-Evolution-Basketball-1 IHG` 
+* `tag-e Wilson-Evolution IHG` 
 * `tag-r MPSH-1 IHG` 
 
 
 **Outputs:**
 * Success <br>
-
+![TagSuccess.png](images/TagSuccess.png)
 * Failure <br>
-![tag command screenshot](images/TagSuccess.png)
+
 
 **Possible errors:**
 * *Invalid command:* Extra input.
@@ -793,15 +793,15 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 
 **Examples:**
-* `untag-e Wilson-Evolution-Basketball-1 IHG` 
+* `untag-e Wilson-Evolution IHG` 
 * `untag-r MPSH-1 IHG`
 
 
 **Outputs:**
 * Success <br>
-
+![UntagSuccess.png](images/UntagSuccess.png)
 * Failure <br>
-![untag command screenshot](images/UntagSuccess.png)
+
 
 **Possible errors:**
 * *Invalid command:* Extra input.
@@ -836,12 +836,11 @@ Use this command to quickly find all equipment or rooms associated with a partic
 
 **Outputs:**
 * Success <br>
-  ![addRoomSuccess.png](images/addRoomSuccess.png)
+![FilterSuccess.png](images/FilterSuccess.png)
 * Failure <br>
-![filter command screenshot](images/FilterSuccess.png)
+![FilterFail.png](images/FilterFail.png)
 
 **Possible errors:**
-* *Invalid command:* Missing `t/` prefix.
 * *Nothing tagged:* No equipment or rooms found with the specified tag
 
 
