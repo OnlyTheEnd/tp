@@ -47,7 +47,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
    3. Launch the App: Type the following command and press Enter: `java -jar TrackMasterPro.jar`
 
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   A GUI similar to what is shown below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
    
    4. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will show all the command in the result box.
