@@ -49,9 +49,9 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
    A GUI similar to what is shown below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-   
+
    4. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will show all the command in the result box.
-   
+
    Some example commands you can try:
 
    * `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` : Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
@@ -59,7 +59,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
    * `edit-r 3 n/Tennis-Court` : Edits the room in the third index of room list to a name `Tennis-Court`.
 
    * `add-r n/Outdoor-Basketball-Court l/Kent-Ridge` : Adds a new room with name `Outdoor-Basketball-Court`, location `Kent-Ridge`, and a `Available` status by default.
-   
+
    * `delete-e 2` : Deletes the second equipment shown in the equipment list.
 
    * `exit` : Exits the app.
@@ -134,7 +134,7 @@ Output of Name and Category will be title case -> `yonex-astrox` will be `Yonex-
 
 #### View equipment list : `list-e`
 
-Displays a complete list of all equipment currently stored in the equipment list. This command serves to clear 
+Displays a complete list of all equipment currently stored in the equipment list. This command serves to clear
 any active filters (such as those from filter-e command), resetting the equipment list to show all entries.
 
 **Format:** `list-e`
@@ -187,7 +187,7 @@ The equipment has to be in **Available** status, before it can be deleted.
 
 **Possible errors:**
 * *Invalid index:* The index provided is positive but exceeds the current equipment list index.
-* *Invalid command format:* Typing delete-e without providing an index. <br> OR <br> Providing an index that is not a positive integer (e.g., delete-e 0, delete-e -1). 
+* *Invalid command format:* Typing delete-e without providing an index. <br> OR <br> Providing an index that is not a positive integer (e.g., delete-e 0, delete-e -1).
 The system strictly expects a positive integer (1, 2, 3...) for the index parameter.
 * *Equipment is Booked:* Attempt to delete equipment that is having a ‘Booked’ status.
 
@@ -702,7 +702,7 @@ Aliases are useful for long item or room IDs, especially during busy periods whe
 * Assigns a short alias to the specified item or room.
 * `ALIAS_NAME` should be a short string containing letters, numbers, or underscores.
 * Each alias must be unique across the system.
-* Aliased equipments only work for issue, return commands. Although users can alias room, current reserve command does 
+* Aliased equipments only work for issue, return commands. Although users can alias room, current reserve command does
   not support it.
 
 **Duplicate handling:**
@@ -755,8 +755,8 @@ Tag equipment as e.g., `tag-e Wilson-Evolution IHG` during competition weeks to 
 * If the tag already exists on the item or room, the command will be rejected.
 
 **Examples:**
-* `tag-e Wilson-Evolution IHG` 
-* `tag-r MPSH-2 IHG` 
+* `tag-e Wilson-Evolution IHG`
+* `tag-r MPSH-2 IHG`
 
 
 **Outputs:**
@@ -799,7 +799,7 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 
 **Examples:**
-* `untag-e Wilson-Evolution IHG` 
+* `untag-e Wilson-Evolution IHG`
 * `untag-r MPSH-2 IHG`
 
 
