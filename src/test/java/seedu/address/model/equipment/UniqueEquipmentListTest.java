@@ -132,7 +132,7 @@ public class UniqueEquipmentListTest {
 
         // Verify tag was added
         assertTrue(laptop.getTags().stream()
-                .anyMatch(tag -> tag.tagName.equals("working")));
+                .anyMatch(tag -> tag.tagName.equals("WORKING")));
         assertEquals(1, laptop.getTags().size());
 
 
@@ -213,11 +213,11 @@ public class UniqueEquipmentListTest {
 
         assertEquals(2, laptop.getTags().size());
         assertTrue(laptop.getTags().stream()
-                .anyMatch(tag -> tag.tagName.equals("working")));
+                .anyMatch(tag -> tag.tagName.equals("WORKING")));
         assertTrue(laptop.getTags().stream()
-                .anyMatch(tag -> tag.tagName.equals("available")));
+                .anyMatch(tag -> tag.tagName.equals("AVAILABLE")));
         assertTrue(laptop.getTags().stream()
-                .noneMatch(tag -> tag.tagName.equals("new")));
+                .noneMatch(tag -> tag.tagName.equals("NEW")));
     }
 
 }

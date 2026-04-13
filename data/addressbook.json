@@ -73,11 +73,12 @@
     "studentId" : "a3456789c",
     "dueDateTime" : "2027-03-31 1300"
   } ],
+  "aliasMappings" : [ ],
   "equipments" : [ {
     "name" : "Wilson-Evolution",
     "category" : "Basketball",
     "status" : "Available",
-    "tags" : [ ]
+    "tags" : [ "IHG" ]
   }, {
     "name" : "Mx-Volleyball",
     "category" : "Volleyball",
@@ -87,6 +88,6 @@
     "name" : "Track-Stand",
     "category" : "Track-And-Field",
     "status" : "Available",
-    "tags" : [ ]
+    "tags" : [ "IHG" ]
   } ]
 }

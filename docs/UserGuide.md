@@ -733,6 +733,7 @@ Tags an equipment item or room with a label for categorisation.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Tags are useful for categorising equipment or rooms for quick viewing, and will be displayed in the UI as a blue label
+Tags are automatically capitalized upon creation
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip for IHG:**
@@ -756,8 +757,10 @@ Tag equipment as e.g., `tag-e Wilson-Evolution IHG` during competition weeks to 
 
 
 **Outputs:**
-* Success <br>
+* Success: Equipment tagged with IHG <br>
 ![tag-e_success.png](images/tag-e_success.png)
+<br>
+* Success: Room tagged with IHG <br>
 ![tag-r_success](images/tag-r_success.png)
 * Failure <br>
 ![tag_failure](images/tag_failure.png)
@@ -800,8 +803,10 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 
 **Outputs:**
-* Success <br>
+* Success: Equipment tagged with IHG <br>
 ![untag-e_success](images/untag-e_success.png)
+<br>
+* Success: Room tagged with IHG <br>
 ![untag-r_success](images/untag-r_success.png)
 * Failure <br>
 ![untag_failure](images/untag_failure.png)
@@ -838,8 +843,10 @@ Use this command to quickly find all equipment or rooms associated with a partic
 
 
 **Outputs:**
-* Success <br>
+* Success: Equipment list filtered by `IHG` tag <br>
   ![filter-e_success](images/filter-e_success.png)
+<br>
+* Success: Room list filtered by `IHG` tag <br>
   ![filter-r_success](images/filter-r_success.png)
 * Failure <br>
   ![filter_failure](images/filter_failure.png)

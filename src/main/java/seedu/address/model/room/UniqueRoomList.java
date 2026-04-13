@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.room.exceptions.DuplicateRoomException;
 import seedu.address.model.room.exceptions.RoomNotFoundException;
-import seedu.address.model.tag.exceptions.DuplicateTagException;
 
 /**
  * A list of rooms that enforces uniqueness between its elements and does not allow nulls.
@@ -106,11 +105,7 @@ public class UniqueRoomList implements Iterable<Room> {
                 .filter(toCheck::isSameRoom)
                 .findFirst()
                 .orElseThrow(() -> new RoomNotFoundException());
-        boolean hasDuplicateTag = roomToUpdate.getTags().stream()
-                .anyMatch(existingTag -> existingTag.tagName.equalsIgnoreCase(tag));
-        if (hasDuplicateTag) {
-            throw new DuplicateTagException();
-        }
+
         int index = internalList.indexOf(roomToUpdate);
         roomToUpdate.addTag(tag);
         internalList.set(index, roomToUpdate);

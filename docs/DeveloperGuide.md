@@ -1435,7 +1435,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a tag from a room
 
-   1. Prerequisites: At least one room with tags exists in the system. For example, `Sports-Hall-1` has the tag "maintenance".
+   1. Prerequisites: At least one room with tags exists in the system. For example, `Sports-Hall-1` has the tag "MAINTENANCE".
 
    2. Test case: `untag-r Sports-Hall-1 maintenance`<br>
       Expected: Tag "maintenance" is deleted from Sports-Hall-1. Success message shown with room name and deleted tag. Room list updates to remove the tag.
@@ -1469,7 +1469,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Filtering rooms by tag
 
-   1. Prerequisites: Rooms exist with various tag. For example, `Sports-Hall-1` has "maintenance" tag, `Tennis-Court` has "outdoor" tag.
+   1. Prerequisites: Rooms exist with various tag. For example, `Sports-Hall-1` has "MAINTENANCE" tag, `Tennis-Court` has "outdoor" tag.
 
    2. Test case: `filter-r maintenance`<br>
       Expected: Only rooms with the "maintenance" tag are displayed.

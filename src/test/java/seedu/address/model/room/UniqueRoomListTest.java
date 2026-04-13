@@ -115,7 +115,7 @@ public class UniqueRoomListTest {
         assertTrue(mpsh.getTags().stream()
                 .anyMatch(tag -> tag.tagName.equals("IFG")));
         assertTrue(mpsh.getTags().stream()
-                .anyMatch(tag -> tag.tagName.equals("Talk")));
+                .anyMatch(tag -> tag.tagName.equals("TALK")));
     }
 
     @Test
@@ -207,7 +207,7 @@ public class UniqueRoomListTest {
 
         assertEquals(1, mpsh.getTags().size());
         assertTrue(mpsh.getTags().stream()
-                .anyMatch(tag -> tag.tagName.equals("Talk")));
+                .anyMatch(tag -> tag.tagName.equals("TALK")));
         assertTrue(mpsh.getTags().stream()
                 .noneMatch(tag -> tag.tagName.equals("IFG")));
     }
