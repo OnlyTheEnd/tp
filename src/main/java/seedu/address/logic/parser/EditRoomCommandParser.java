@@ -24,6 +24,8 @@ public class EditRoomCommandParser implements Parser<EditRoomCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LOCATION, PREFIX_STATUS);
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_LOCATION, PREFIX_STATUS);
+
         Index index;
 
         try {
