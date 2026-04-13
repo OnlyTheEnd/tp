@@ -18,12 +18,19 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.alias.AliasMapping;
+import seedu.address.model.equipment.Category;
 import seedu.address.model.equipment.Equipment;
+import seedu.address.model.equipment.EquipmentName;
+import seedu.address.model.equipment.EquipmentStatus;
 import seedu.address.model.issue.IssueRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.reservation.Reservation;
+import seedu.address.model.room.Location;
+import seedu.address.model.room.Room;
+import seedu.address.model.room.RoomName;
+import seedu.address.model.room.Status;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -100,6 +107,40 @@ public class AddressBookTest {
     @Test
     public void getAliasMappingList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getAliasMappingList().remove(0));
+    }
+
+    @Test
+    public void removeEquipment_removesAssociatedAliases() {
+        Equipment equipment = new Equipment(
+                new EquipmentName("Wilson-Evolution-3"),
+                new Category("Soccer"),
+                EquipmentStatus.AVAILABLE);
+
+        AliasMapping aliasMapping = new AliasMapping("Wilson-Evolution-3", "w3");
+
+        addressBook.addEquipment(equipment);
+        addressBook.addAliasMapping(aliasMapping);
+
+        addressBook.removeEquipment(equipment);
+
+        assertFalse(addressBook.hasAliasName("w3"));
+    }
+
+    @Test
+    public void removeRoom_removesAssociatedAliases() {
+        Room room = new Room(
+                new RoomName("TR-16"),
+                new Location("Level-1"),
+                Status.AVAILABLE);
+
+        AliasMapping aliasMapping = new AliasMapping("TR-16", "tr16");
+
+        addressBook.addRoom(room);
+        addressBook.addAliasMapping(aliasMapping);
+
+        addressBook.removeRoom(room);
+
+        assertFalse(addressBook.hasAliasName("tr16"));
     }
 
     @Test

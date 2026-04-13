@@ -60,6 +60,15 @@ public class UniqueAliasMappingList implements Iterable<AliasMapping> {
     }
 
     /**
+     * Removes all alias mappings that point to {@code targetId}.
+     */
+    public void removeByTargetId(String targetId) {
+        requireNonNull(targetId);
+        String normalizedTargetId = AliasMapping.normalizeTargetId(targetId);
+        internalList.removeIf(alias -> alias.getTargetId().equals(normalizedTargetId));
+    }
+
+    /**
      * Replaces the contents of this list with {@code aliasMappings}.
      */
     public void setAliasMappings(List<AliasMapping> aliasMappings) {

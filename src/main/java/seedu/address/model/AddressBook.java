@@ -150,6 +150,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      */
     public void removeRoom(Room key) {
+        requireNonNull(key);
+        aliasMappings.removeByTargetId(key.getName().fullName);
         rooms.remove(key);
     }
 
@@ -239,6 +241,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      */
     public void removeEquipment(Equipment key) {
+        requireNonNull(key);
+        aliasMappings.removeByTargetId(key.getName().fullName);
         equipments.remove(key);
     }
 
