@@ -158,6 +158,9 @@ public class HelpCommand extends Command {
         entries.put(AddTagCommand.COMMAND_WORD, AddTagCommand.MESSAGE_USAGE);
         entries.put(DeleteTagCommand.COMMAND_WORD, DeleteTagCommand.MESSAGE_USAGE);
         entries.put(FilterTagCommand.COMMAND_WORD, FilterTagCommand.MESSAGE_USAGE);
+        entries.put(AddTagCommand.COMMAND_WORD2, AddTagCommand.MESSAGE_USAGE);
+        entries.put(DeleteTagCommand.COMMAND_WORD2, DeleteTagCommand.MESSAGE_USAGE);
+        entries.put(FilterTagCommand.COMMAND_WORD2, FilterTagCommand.MESSAGE_USAGE);
 
         return entries;
     }

@@ -17,13 +17,17 @@ public class AddTagCommand extends Command {
     public static final String COMMAND_WORD = "tag-r";
     public static final String COMMAND_WORD2 = "tag-e";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Tags an existing room/equipment to the system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "/" + COMMAND_WORD2
+            + ": Tags an existing room/equipment to the system.\n"
             + "Parameters: "
+            + " ROOM_NAME_OR_EQUIPMENT_NAME TAG\n"
             + "Example: " + COMMAND_WORD + " MPSH-1 "
             + "Renovation\n"
             + COMMAND_WORD2 + " "
             + "Wilson-Basketball "
             + "IHG";
+
+
 
     public static final String MESSAGE_SUCCESS = "Success! %1$s has been tagged to %2$s";
     public static final String MESSAGE_ERROR = "Failure! Tagging was unsuccessful";

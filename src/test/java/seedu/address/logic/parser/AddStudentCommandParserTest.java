@@ -42,6 +42,10 @@ public class AddStudentCommandParserTest {
 
     private final AddStudentCommandParser parser = new AddStudentCommandParser();
 
+    /**
+     * EP: Valid inputs — all compulsory fields present with valid values and correct prefixes.
+     * BVA: Preamble with whitespace should be ignored and not affect parsing success.
+     */
     @Test
     public void parse_allFieldsPresent_success() {
         // We set address to "N/A" and tags to empty
@@ -53,6 +57,10 @@ public class AddStudentCommandParserTest {
                 new AddStudentCommand(expectedPerson));
     }
 
+    /**
+     * EP: Invalid inputs — repeated prefixes.
+     * Logic: The parser should only allow one instance of each prefix to prevent ambiguity.
+     */
     @Test
     public void parse_repeatedValue_failure() {
         String validExpectedPersonString = NAME_DESC_BOB + STUDENT_ID_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB;
@@ -117,6 +125,10 @@ public class AddStudentCommandParserTest {
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
     }
 
+    /**
+     * EP: Invalid class — missing compulsory prefixes.
+     * Logic: Each mandatory field must have its respective prefix for the parser to identify the data.
+     */
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE);
@@ -174,7 +186,7 @@ public class AddStudentCommandParserTest {
                 INVALID_NAME_DESC + STUDENT_ID_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
-        // non-empty preamble
+        // non-empty preamble (BVA)
         assertParseFailure(parser,
                 PREAMBLE_NON_EMPTY + NAME_DESC_BOB + STUDENT_ID_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));

@@ -38,6 +38,9 @@ public class EditStudentCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    /**
+     * EP: Valid class — all fields specified, no constraints violated.
+     */
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Person editedPerson = new PersonBuilder().build();
@@ -52,6 +55,10 @@ public class EditStudentCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
+    /**
+     * EP: Valid class — partial fields specified; unspecified fields retain original values.
+     * BVA: Uses the last person in the list (upper boundary of valid index).
+     */
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
@@ -72,6 +79,9 @@ public class EditStudentCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
+    /**
+     * EP: Invalid class — edit results in a duplicate Student ID.
+     */
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -81,6 +91,10 @@ public class EditStudentCommandTest {
         assertCommandFailure(editCommand, model, expectedMessage);
     }
 
+    /**
+     * EP: Invalid class — index does not correspond to any person in the list.
+     * BVA: Index is exactly one beyond the last valid index (list.size() + 1).
+     */
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
@@ -90,6 +104,9 @@ public class EditStudentCommandTest {
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    /**
+     * EP: Invalid class — student has an active reservation, edit should be blocked.
+     */
     @Test
     public void execute_editNameWithActiveReservation_failure() {
         Person personInList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -104,6 +121,9 @@ public class EditStudentCommandTest {
         assertCommandFailure(editCommand, model, EditStudentCommand.MESSAGE_HAS_ACTIVE_LOANS);
     }
 
+    /**
+     * EP: Invalid class — student has an active loan, edit should be blocked regardless of field edited.
+     */
     @Test
     public void execute_editPhoneWithActiveLoan_failure() {
         Person personInList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -117,6 +137,9 @@ public class EditStudentCommandTest {
         assertCommandFailure(editCommand, model, EditStudentCommand.MESSAGE_HAS_ACTIVE_LOANS);
     }
 
+    /**
+     * EP: Invalid class — phone number conflicts with another existing student's phone.
+     */
     @Test
     public void execute_duplicatePhoneOtherStudent_failure() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -130,6 +153,9 @@ public class EditStudentCommandTest {
         assertCommandFailure(editCommand, model, expectedMessage);
     }
 
+    /**
+     * EP: Invalid class — email conflicts with another existing student's email.
+     */
     @Test
     public void execute_duplicateEmailOtherStudent_failure() {
         Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
@@ -167,6 +193,9 @@ public class EditStudentCommandTest {
         assertFalse(standardCommand.equals(new EditStudentCommand(INDEX_FIRST_PERSON, DESC_BOB)));
     }
 
+    /**
+     * EP: Valid class — verifies correct string format for a command with a known index and empty descriptor.
+     */
     @Test
     public void toStringMethod() {
         Index index = Index.fromOneBased(1);

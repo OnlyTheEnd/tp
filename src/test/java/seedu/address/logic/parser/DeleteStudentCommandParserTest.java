@@ -19,6 +19,10 @@ public class DeleteStudentCommandParserTest {
 
     private DeleteStudentCommandParser parser = new DeleteStudentCommandParser();
 
+    /**
+     * EP: Valid class — valid Student ID format (1 letter, 7 digits, 1 letter).
+     * BVA: Input with surrounding whitespace and different casing should be handled correctly.
+     */
     @Test
     public void parse_validArgs_returnsDeleteStudentCommand() {
         // Valid matric number format: Start alphabet, 7 digits, end alphabet
@@ -33,32 +37,36 @@ public class DeleteStudentCommandParserTest {
         assertParseSuccess(parser, "A1234567a", new DeleteStudentCommand(expectedId));
     }
 
+    /**
+     * EP: Invalid class — non-alphanumeric, missing components, or incorrect length.
+     * BVA: Empty/blank strings and IDs with extra digits are tested at the boundaries.
+     */
     @Test
     public void parse_invalidArgs_throwsParseException() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteStudentCommand.MESSAGE_USAGE);
 
-        // Test Case 1: Pure alphabetic input
+        // EP: Pure alphabetic input
         assertParseFailure(parser, "abc", expectedMessage);
 
-        // Test Case 2: Pure numeric input
+        // EP: Pure numeric input
         assertParseFailure(parser, "12345678", expectedMessage);
 
-        // Test Case 3: Empty input
+        // BVA: Empty input
         assertParseFailure(parser, "  ", expectedMessage);
 
-        // Test Case 4: Invalid Matric format (missing ending alphabet)
+        // EP: Invalid Matric format (missing ending alphabet)
         assertParseFailure(parser, "A1234567", expectedMessage);
 
-        // Test Case 5: Invalid Matric format (missing starting alphabet)
+        // EP: Invalid Matric format (missing starting alphabet)
         assertParseFailure(parser, "10123456X", expectedMessage);
 
-        // Test Case 6: Too many digits
+        // BVA: Too many digits
         assertParseFailure(parser, "A012345678X", expectedMessage);
 
-        // Test Case 7: Internal whitespace
+        // EP: Internal whitespace
         assertParseFailure(parser, "A012 3456X", expectedMessage);
 
-        // Test Case 8: Special characters
+        // EP: Special characters
         assertParseFailure(parser, "A0123456!", expectedMessage);
     }
 }

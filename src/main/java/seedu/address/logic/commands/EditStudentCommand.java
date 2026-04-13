@@ -117,6 +117,7 @@ public class EditStudentCommand extends Command {
                 throw new CommandException(MESSAGE_DUPLICATE_FIELDS + specificConflict);
             }
 
+            // Ensure the 'target' ID is not already associated with active obligations.
             if (!personToEdit.getStudentId().equals(editedPerson.getStudentId())) {
                 boolean newIdHasActive = model.getAddressBook().getIssueRecordList().stream()
                         .anyMatch(loan -> loan.getStudentId().equals(editedPerson.getStudentId()))

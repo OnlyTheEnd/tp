@@ -26,6 +26,11 @@ public class CheckStudentLoansCommandTest {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     }
 
+    /**
+     * EP: Valid class — student exists in the system and has an active loan record.
+     * Logic: Verifies that the command correctly retrieves the student's name and
+     * displays the correct status for their borrowed items.
+     */
     @Test
     public void execute_loanStatusComparison_success() throws Exception {
         // Use ALICE's ID from TypicalPersons so the command can find the student name
@@ -45,6 +50,11 @@ public class CheckStudentLoansCommandTest {
         assertTrue(feedback.contains("[BORROWED] MPSH-1"));
     }
 
+    /**
+     * EP: Invalid class — student ID does not exist in the model's address book.
+     * Logic: Ensures the command fails gracefully with a "Student Not Found" message
+     * when querying a non-existent ID.
+     */
     @Test
     public void execute_studentNotFound_throwsCommandException() {
         CheckStudentLoansCommand command = new CheckStudentLoansCommand(new StudentId("A9999999Z"));

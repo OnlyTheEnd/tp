@@ -25,6 +25,8 @@ public class AddEquipmentCommandParser implements Parser<AddEquipmentCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CATEGORY);
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_CATEGORY);
+
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

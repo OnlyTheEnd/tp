@@ -20,11 +20,17 @@ import seedu.address.testutil.PersonBuilder;
 
 public class AddStudentCommandTest {
 
+    /**
+     * EP: Invalid class — null input to constructor should throw NullPointerException.
+     */
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
     }
 
+    /**
+     * EP: Valid class — valid person accepted by model results in successful add and correct feedback.
+     */
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
@@ -40,8 +46,11 @@ public class AddStudentCommandTest {
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
 
+    /**
+     * EP: Invalid class — adding an exact duplicate student (same identity) throws CommandException.
+     */
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateStudent_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
         AddStudentCommand addStudentCommand = new AddStudentCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
@@ -50,10 +59,14 @@ public class AddStudentCommandTest {
                 AddStudentCommand.MESSAGE_DUPLICATE_STUDENT, () -> addStudentCommand.execute(modelStub));
     }
 
+    /**
+     * EP: Invalid class — adding a different student with a duplicate matric number throws CommandException.
+     * Verifies that matric number uniqueness is enforced independently of other fields.
+     */
     @Test
     public void execute_duplicateStudentId_throwsCommandException() {
         Person alice = new PersonBuilder().withName("Alice").withStudentId("A1234567Z").build();
-        // Bob has a different name but the same Student ID
+        // Bob has a different name but the same matric number
         Person bobWithSameId = new PersonBuilder().withName("Bob").withStudentId("A1234567Z").build();
 
         AddStudentCommand addStudentCommand = new AddStudentCommand(bobWithSameId);
@@ -129,6 +142,9 @@ public class AddStudentCommandTest {
         }
     }
 
+    /**
+     * EP: Valid class — verifies correct string format for a command with a known person.
+     */
     @Test
     public void toStringMethod() {
         Person alice = new PersonBuilder().withName("Alice").build();

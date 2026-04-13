@@ -35,6 +35,9 @@ public class EditStudentCommandParserTest {
 
     private EditStudentCommandParser parser = new EditStudentCommandParser();
 
+    /**
+     * EP: Invalid class — input missing index, missing fields, or both should fail parsing.
+     */
     @Test
     public void parse_missingParts_failure() {
         // no index specified
@@ -47,6 +50,10 @@ public class EditStudentCommandParserTest {
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
+    /**
+     * EP: Invalid class — non-positive or non-numeric index values should fail parsing.
+     * BVA: Includes boundary values zero and negative (-5) just below the valid index range.
+     */
     @Test
     public void parse_invalidIndex_failure() {
         // negative index
@@ -62,6 +69,10 @@ public class EditStudentCommandParserTest {
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 
+    /**
+     * EP: Invalid class — invalid field values (name, phone, email) should fail with the
+     * respective field constraint message. Only the first invalid value is reported.
+     */
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1 " + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
@@ -73,6 +84,9 @@ public class EditStudentCommandParserTest {
                 Name.MESSAGE_CONSTRAINTS);
     }
 
+    /**
+     * EP: Valid class — all fields specified with valid values produces the correct EditStudentCommand.
+     */
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
@@ -86,6 +100,9 @@ public class EditStudentCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
+    /**
+     * EP: Valid class — exactly one field specified per parse call produces the correct EditStudentCommand.
+     */
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
@@ -102,6 +119,9 @@ public class EditStudentCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
+    /**
+     * EP: Invalid class — repeated prefixes for the same field should fail with a duplicate prefix error.
+     */
     @Test
     public void parse_multipleRepeatedFields_failure() {
         // repeated prefixes

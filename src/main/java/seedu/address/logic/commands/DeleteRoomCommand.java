@@ -22,8 +22,7 @@ public class DeleteRoomCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_ROOM_SUCCESS = "Deleted Room: \n%1$s";
-    public static final String MESSAGE_FAILURE = "Fail to delete the room. Please ensure the index is in the list "
-            + "and you have input the right format.\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE = "The room index provided is invalid";
     public static final String MESSAGE_ROOM_BOOKED = "Cannot delete a room that currently has a 'Booked' status.";
 
     private final Index targetIndex;

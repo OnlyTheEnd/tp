@@ -28,6 +28,9 @@ public class DeleteStudentCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    /**
+     * EP: Valid class — existing Student ID on unfiltered list results in successful deletion.
+     */
     @Test
     public void execute_validStudentIdUnfilteredList_success() {
         StudentId idToDelete = ALICE.getStudentId();
@@ -42,6 +45,9 @@ public class DeleteStudentCommandTest {
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
+    /**
+     * EP: Invalid class — Student ID that does not exist in the address book throws CommandException.
+     */
     @Test
     public void execute_nonExistentStudentIdUnfilteredList_throwsCommandException() {
         StudentId nonExistentId = new StudentId("A9999999Z");
@@ -51,6 +57,10 @@ public class DeleteStudentCommandTest {
                 String.format(DeleteStudentCommand.MESSAGE_STUDENT_NOT_FOUND, nonExistentId));
     }
 
+    /**
+     * EP: Valid class — deletion by Student ID succeeds even when the student is not visible
+     * in the current filtered list, confirming deletion is ID-based, not index-based.
+     */
     @Test
     public void execute_validStudentIdFilteredList_success() {
         // Filter list so Alice is NOT visible, but she is still in the AddressBook
@@ -95,6 +105,9 @@ public class DeleteStudentCommandTest {
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
+    /**
+     * EP: Invalid class — student with an active loan cannot be deleted.
+     */
     @Test
     public void execute_studentWithActiveLoan_throwsCommandException() {
         StudentId targetId = ALICE.getStudentId();
@@ -107,6 +120,9 @@ public class DeleteStudentCommandTest {
         assertCommandFailure(deleteCommand, model, DeleteStudentCommand.MESSAGE_HAS_ACTIVE_LOANS);
     }
 
+    /**
+     * EP: Invalid class — student with an active reservation cannot be deleted.
+     */
     @Test
     public void execute_studentWithReservation_throwsCommandException() {
         StudentId targetId = ALICE.getStudentId();
@@ -120,6 +136,9 @@ public class DeleteStudentCommandTest {
         assertCommandFailure(deleteCommand, model, DeleteStudentCommand.MESSAGE_HAS_ACTIVE_LOANS);
     }
 
+    /**
+     * EP: Valid class — verifies correct string format for a command with a known Student ID.
+     */
     @Test
     public void toStringMethod() {
         StudentId targetId = new StudentId("A0123456X");

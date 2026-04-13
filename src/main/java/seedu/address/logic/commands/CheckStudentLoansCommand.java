@@ -29,10 +29,22 @@ public class CheckStudentLoansCommand extends Command {
 
     private final StudentId targetId;
 
+    /**
+     * Constructs a {@code CheckStudentLoansCommand} to view the records of a specific student.
+     *
+     * @param targetStudentId The student ID used to filter records.
+     */
     public CheckStudentLoansCommand(StudentId targetId) {
         this.targetId = targetId;
     }
 
+    /**
+     * Executes the command by fetching associated records and generating a formatted output.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A {@code CommandResult} containing the student's status report.
+     * @throws CommandException If the target student does not exist in the system.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -76,12 +88,18 @@ public class CheckStudentLoansCommand extends Command {
         return new CommandResult(sb.toString().trim());
     }
 
+    /**
+     * Formats an individual loan record with an overdue check.
+     */
     private String formatLoan(IssueRecord record) {
         String status = record.getDueDateTime().isBefore(LocalDateTime.now()) ? "[OVERDUE]" : "[BORROWED]";
         return String.format("%s %s | Due: %s",
                 status, record.getItemId(), record.getFormattedDueDateTime());
     }
 
+    /**
+     * Formats an individual reservation record.
+     */
     private String formatReservation(Reservation res) {
         return String.format("[RESERVED] %s | From: %s to %s",
                 res.getResourceId(),

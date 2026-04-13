@@ -15,7 +15,7 @@ public class AddEquipmentCommand extends Command {
     public static final String COMMAND_WORD = "add-e";
     public static final String MESSAGE_SUCCESS = "New Equipment Added:\nName: %1$s | Category: %2$s | Status: %3$s";
     public static final String MESSAGE_DUPLICATE_EQUIPMENT = "This equipment already exists in the inventory. "
-            + "Please use a unique identifier (e.g., Basketball-1).";
+            + "Please use a unique name (e.g., Wilson-Evolution-1).";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a piece of equipment to the inventory. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "

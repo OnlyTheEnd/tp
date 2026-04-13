@@ -39,6 +39,14 @@ public class DeleteStudentCommand extends Command {
         this.targetId = targetId;
     }
 
+    /**
+     * Executes the deletion logic.
+     * Validates student existence and ensures no active loans or reservations exist before deletion.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A {@code CommandResult} indicating the successful removal.
+     * @throws CommandException If the student is not found or has active obligations.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
