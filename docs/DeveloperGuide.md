@@ -882,15 +882,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 * **AddressBook**: The internal data store that holds all student, equipment, and room records. Inherited from the AB3 base project.
+* **Alias**: A user-defined short-form name for a specific piece of equipment or a room to enable faster command entry.
 * **API (Application Programming Interface)**: A defined contract (typically a Java interface) through which one software component exposes its functionality to other components.
+* **Available**: The default status for equipment and rooms, indicating they are currently in the store/facility and ready to be issued or reserved.
+* **Booked**: A status indicating that a resource is currently reserved for a future time slot or is currently in use, preventing other actions like deletion or editing.
+* **CCA (Co-Curricular Activity)**: Non-academic programs at NUS (e.g., sports, arts, or clubs) that frequently request facility and equipment resources.
+* **CLI (Command Line Interface)**:  The primary user interface style for TrackMasterPro, where users interact with the system by typing text commands.
 * **Equipment** : Any item that is being loaned out for the school, saved as a string, with spaces replaced as hyphens.<br>
    Example: `Wilson-Evolution-Basketball`
-* **Room** : Any facility or venue that is being reserved, saved as a string, with spaces replaced as hyphens.<br>
-   Example: `MPSH-1`
+* **ICG (Inter-College Games)**: A multi-sport competition between the various Residential Colleges in NUS, generating high-volume booking requests.
+* **IHG (Inter-Hall Games)**: A multi-sport competition between the various Halls of Residences in NUS, generating high-volume booking requests.
+* **Loan**: The operational act of issuing equipment to a student. Unlike a reservation, a loan implies the physical movement of an asset out of the inventory and into the possession of a student.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Matric Number (StudentId)**: A unique NUS matriculation number assigned to each student (e.g. `A0123456B`). Used as the primary identifier for student records. Must follow the format: letter, 7 digits, letter.
 * **MSS (Main Success Scenario)**: The primary, happy-path sequence of steps in a use case describing how the system behaves when everything goes as expected.
+* **Room** : Any facility or venue that is being reserved, saved as a string, with spaces replaced as hyphens.<br>
+   Example: `MPSH-1`
 * **Student (Person)**: An individual registered in the system, uniquely identified by their matric number, phone number and email address. They are the primary actors for borrowing equipment and booking rooms.
+
 
 
 --------------------------------------------------------------------------------------------------------------------
