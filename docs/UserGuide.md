@@ -875,7 +875,7 @@ Displays usage format of found command.
 **Format:** `help COMMAND`
 
 **Acceptable values:**
-* `COMMAND`: A valid command that is not case-sensitive, excluding system utility commands
+* `COMMAND`: A valid command that is case-sensitive, excluding system utility commands
 
 **Outputs:<br>**
 *Success: <br>*
