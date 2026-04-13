@@ -564,7 +564,7 @@ You **cannot** edit any details of a student if they currently have an active eq
 
 Reserves a room or equipment for a student at a specified date and time.
 
-**Format:** `reserve ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME`
+**Format:** `reserve ITEM_OR_ROOM_ID MATRIC_NUMBER f/START_DATE_TIME t/END_DATE_TIME`
 
 **Date/time format:**
 `yyyy-MM-dd HHmm`
@@ -577,9 +577,12 @@ You can reserve facilities such as halls, courts, and multi-purpose rooms as wel
 * The start and end date/time must be valid and the end date/time must be later than the start date/time.
 * The reservation will be rejected if it conflicts with an existing booking for the same item or room.
 
-<div markdown="span" class="alert alert-warning">:warning: Warning:
+<div markdown="span" class="alert alert-warning">:warning: 
+Warning:
 Reservation can only be made when the room status is **Available**.
 A room or equipment can only have one active reservation at a time.
+Room/Equipment status will be 'Booked' by default upon reservation.
+Time component uses the 24-hour format.
 </div>
 
 
@@ -600,7 +603,7 @@ A room or equipment can only have one active reservation at a time.
 
 **Possible errors:**
 * Invalid `ITEM_OR_ROOM_ID`
-* Invalid `STUDENT_ID`
+* Invalid `MATRIC_NUMBER`
 * Invalid date/time format
 * End time is earlier than start time
 
@@ -611,10 +614,13 @@ A room or equipment can only have one active reservation at a time.
 Cancels an **existing** reservation.
 
 **Format:**
-`cancel ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME`
+`cancel ITEM_OR_ROOM_ID MATRIC_NUMBER f/START_DATE_TIME`
 
 **Date/time format:**
 `yyyy-MM-dd HHmm`
+
+* Time component uses the 24-hour format.
+* The command will be rejected if no matching reservation is found
 
 **Example:**
 `cancel MPSH-1 a1234567a f/2027-03-10 0900`
@@ -627,13 +633,19 @@ Cancels an **existing** reservation.
 * Failure <br>
 ![failed cancel command screenshot](images/faliedCancelCommand.png)
 
+**Possible errors:**
+* Invalid `ITEM_OR_ROOM_ID`
+* Invalid `MATRIC_NUMBER`
+* Invalid date/time format
+* Invalid reservation details
+
 ---
 
 #### Issuing an equipment item: `issue`
 
 Issues an equipment item to a student with a due date and time for return.
 
-**Format:** `issue ITEM_ID STUDENT_ID DUE_DATE_TIME`
+**Format:** `issue ITEM_ID MATRIC_NUMBER DUE_DATE_TIME`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use this command to keep track of borrowed equipment and who is responsible for returning it.
@@ -642,6 +654,7 @@ Use this command to keep track of borrowed equipment and who is responsible for 
 * Issues the specified equipment item to the specified student.
 * The due date/time must be in the future and follow the format `yyyy-MM-dd HHmm`.
 * The command will be rejected if the item is already issued to another student.
+* Time component uses the 24-hour format.
 
 **Duplicate handling:**
 * If the item is already issued, the system will reject the command.
@@ -659,7 +672,7 @@ Use this command to keep track of borrowed equipment and who is responsible for 
 
 **Possible errors:**
 * Invalid `ITEM_ID`
-* Invalid `STUDENT_ID`
+* Invalid `MATRIC_NUMBER`
 * Item is already issued
 * Invalid due date/time format
 * Due date/time is in the past
@@ -705,8 +718,8 @@ Aliases are useful for long item or room IDs, especially during busy periods whe
 * Assigns a short alias to the specified item or room.
 * `ALIAS_NAME` should be a short string containing letters, numbers, or underscores.
 * Each alias must be unique across the system.
-* Aliased equipments only work for issue, return commands. Although users can alias room, current reserve command does
-  not support it.
+* Aliased equipment/rooms only work for issue, return, reserve, cancel commands. 
+
 
 **Duplicate handling:**
 * Duplicate aliases are not allowed.
@@ -979,9 +992,9 @@ Action | Format, Examples
 **List Students** | `list-s`
 **Delete Student** | `delete-s MATRIC_NUMBER` <br> e.g., `delete-s A0123456B`
 **Edit Student** | `edit-s INDEX [n/NAME] [m/MATRIC_NUMBER] [p/PHONE_NUMBER] [e/EMAIL]` <br> e.g., `edit-s 2 m/a1234567b n/Tom p/91234561 e/e1234567@u.nus.edu`
-**Reserve** | `reserve ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME t/END_DATE_TIME` <br> e.g., `reserve mpsh-1 a1234567a f/2027-03-01 1400 t/2027-03-01 1600`
-**Cancel** | `cancel ITEM_OR_ROOM_ID STUDENT_ID f/START_DATE_TIME` <br> e.g., `cancel mpsh-1 a1234567a f/2099-03-15 0900`
-**Issue** | `issue ITEM_ID STUDENT_ID DUE_DATE_TIME` <br> e.g., `issue Wilson-Basketball-1 a1234567a 2027-03-05 1700`
+**Reserve** | `reserve ITEM_OR_ROOM_ID MATRIC_NUMBER f/START_DATE_TIME t/END_DATE_TIME` <br> e.g., `reserve mpsh-1 a1234567a f/2027-03-01 1400 t/2027-03-01 1600`
+**Cancel** | `cancel ITEM_OR_ROOM_ID MATRIC_NUMBER f/START_DATE_TIME` <br> e.g., `cancel mpsh-1 a1234567a f/2099-03-15 0900`
+**Issue** | `issue ITEM_ID MATRIC_NUMBER DUE_DATE_TIME` <br> e.g., `issue Wilson-Basketball-1 a1234567a 2027-03-05 1700`
 **Return** | `return ITEM_ID` <br> e.g., `return Wilson-Evolution-Basketball-1`
 **Alias** | `alias ITEM_OR_ROOM_ID ALIAS_NAME` <br> e.g., `alias MPSH-1 hall1`
 **Tag** | `tag-e NAME TAG` or `tag-r NAME TAG` <br> e.g., `tag-e Basketball-1 IHG` or `tag-r MPSH-1 IHG`

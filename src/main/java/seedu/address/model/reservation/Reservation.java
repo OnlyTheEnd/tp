@@ -39,19 +39,36 @@ public class Reservation {
      */
     public Reservation(String resourceId, StudentId studentId,
                        LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        this(resourceId, studentId, startDateTime, endDateTime, true);
+    }
+
+    private Reservation(String resourceId, StudentId studentId,
+                        LocalDateTime startDateTime, LocalDateTime endDateTime,
+                        boolean validateStartNotPast) {
         requireNonNull(resourceId);
         requireNonNull(studentId);
         requireNonNull(startDateTime);
         requireNonNull(endDateTime);
 
         checkArgument(isValidResourceId(resourceId), MESSAGE_RESOURCE_ID_CONSTRAINTS);
-        checkArgument(!startDateTime.isBefore(LocalDateTime.now()), MESSAGE_START_DATE_TIME_CONSTRAINTS);
+        if (validateStartNotPast) {
+            checkArgument(!startDateTime.isBefore(LocalDateTime.now()), MESSAGE_START_DATE_TIME_CONSTRAINTS);
+        }
         checkArgument(endDateTime.isAfter(startDateTime), MESSAGE_TIME_RANGE_CONSTRAINTS);
 
         this.resourceId = normalizeResourceId(resourceId);
         this.studentId = studentId;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
+    }
+
+    /**
+     * Creates a {@code Reservation} loaded from storage.
+     * Past start times are allowed so previously saved reservations do not break app startup.
+     */
+    public static Reservation fromStorage(String resourceId, StudentId studentId,
+                                          LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return new Reservation(resourceId, studentId, startDateTime, endDateTime, false);
     }
 
     public String getResourceId() {

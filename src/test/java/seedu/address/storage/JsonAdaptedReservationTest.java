@@ -93,4 +93,21 @@ public class JsonAdaptedReservationTest {
                 reservation::toModelType);
     }
 
+    @Test
+    public void toModelType_pastStartDateTime_returnsReservation() throws Exception {
+        String pastStart = "2000-01-01 1000";
+        String pastEnd = "2000-01-01 1200";
+
+        JsonAdaptedReservation reservation =
+                new JsonAdaptedReservation(VALID_RESOURCE_ID, VALID_STUDENT_ID, pastStart, pastEnd);
+
+        Reservation expected = Reservation.fromStorage(
+                VALID_RESOURCE_ID,
+                new StudentId(VALID_STUDENT_ID),
+                LocalDateTime.of(2000, 1, 1, 10, 0),
+                LocalDateTime.of(2000, 1, 1, 12, 0));
+
+        assertEquals(expected, reservation.toModelType());
+    }
+
 }

@@ -71,7 +71,7 @@ class JsonAdaptedReservation {
             StudentId modelStudentId = new StudentId(studentId);
             LocalDateTime modelStart = LocalDateTime.parse(startDateTime, Reservation.DATE_TIME_FORMATTER);
             LocalDateTime modelEnd = LocalDateTime.parse(endDateTime, Reservation.DATE_TIME_FORMATTER);
-            return new Reservation(resourceId, modelStudentId, modelStart, modelEnd);
+            return Reservation.fromStorage(resourceId, modelStudentId, modelStart, modelEnd);
         } catch (DateTimeParseException dtpe) {
             throw new IllegalValueException("Reservation date/time must be in yyyy-MM-dd HHmm format.");
         } catch (IllegalArgumentException iae) {
