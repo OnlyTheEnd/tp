@@ -24,6 +24,8 @@ public class EditEquipmentCommandParser implements Parser<EditEquipmentCommand> 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CATEGORY, PREFIX_STATUS);
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_CATEGORY, PREFIX_STATUS);
+
         Index index;
 
         try {

@@ -47,19 +47,19 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
    3. Launch the App: Type the following command and press Enter: `java -jar TrackMasterPro.jar`
 
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   A GUI similar to what is shown below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-   
+
    4. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will show all the command in the result box.
-   
+
    Some example commands you can try:
 
    * `add-s n/John Doe m/A0123456B p/91234567 e/e0123456@u.nus.edu` : Adds a new student with the name `John Doe`, matric number `A0123456B`, phone number `91234567` and email address `e0123456@u.nus.edu`.
 
-   * `edit-r 3 n/Tennis-Court` : Edits the room in the second index of room list to a name `Tennis-Court`.
+   * `edit-r 3 n/Tennis-Court` : Edits the room in the third index of room list to a name `Tennis-Court`.
 
    * `add-r n/Outdoor-Basketball-Court l/Kent-Ridge` : Adds a new room with name `Outdoor-Basketball-Court`, location `Kent-Ridge`, and a `Available` status by default.
-   
+
    * `delete-e 2` : Deletes the second equipment shown in the equipment list.
 
    * `exit` : Exits the app.
@@ -134,7 +134,7 @@ Output of Name and Category will be title case -> `yonex-astrox` will be `Yonex-
 
 #### View equipment list : `list-e`
 
-Displays a complete list of all equipment currently stored in the equipment list. This command serves to clear 
+Displays a complete list of all equipment currently stored in the equipment list. This command serves to clear
 any active filters (such as those from filter-e command), resetting the equipment list to show all entries.
 
 **Format:** `list-e`
@@ -186,8 +186,9 @@ The equipment has to be in **Available** status, before it can be deleted.
   ![deleteEquipmentFail.png](images/deleteEquipmentFail.png)
 
 **Possible errors:**
-* *Invalid index:* The index provided is 0, negative or exceeds the current equipment list index.
-* *Invalid command format:* Typing delete-e without providing an index.
+* *Invalid index:* The index provided is positive but exceeds the current equipment list index.
+* *Invalid command format:* Typing delete-e without providing an index. <br> OR <br> Providing an index that is not a positive integer (e.g., delete-e 0, delete-e -1).
+The system strictly expects a positive integer (1, 2, 3...) for the index parameter.
 * *Equipment is Booked:* Attempt to delete equipment that is having a ‘Booked’ status.
 
 ---
@@ -255,7 +256,8 @@ New room is set to `Available` status by default.
 * *Case Sensitivity:* Both fields are case-insensitive. `n/Sports-Hall-1` and `n/SPORTS-HALL-1` are treated as the same name. `l/University-Town` and `l/UNIVERSITY-TOWN` are treated as the same location.
 
 **Duplicate handling:**
-* The system enforces unique names across the room list.
+* *Name-Based Uniqueness:* The system enforces unique names across the entire room list, regardless of location.
+* *Scope of Detection:* Two rooms are considered duplicates if they share the exact same name (e.g., seminar-room-1), even if they are situated in different buildings or locations.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 To add multiple Room of the same name, append a unique number (e.g., `Sports-Hall-1`, `Sports-Hall-2`).
 </div>
@@ -335,8 +337,9 @@ The room has to be in **Available** status, before it can be deleted.
   ![deleteRoomFail.png](images/deleteRoomFail.png)
 
 **Possible errors:**
-* *Invalid index:* The index provided is 0, negative or exceeds the current room list index.
-* *Invalid command format:* Typing delete-r without providing an index.
+* *Invalid index:* The index provided is positive but exceeds the current room list index.
+* *Invalid command format:* Typing delete-r without providing an index. <br> OR <br> Providing an index that is not a positive integer (e.g., delete-r 0, delete-r -1).
+  The system strictly expects a positive integer (1, 2, 3...) for the index parameter.
 * *Room is Booked:* Attempt to delete room that is having a ‘Booked’ status.
 
 ---
@@ -360,7 +363,8 @@ The room should not be in **Booked** status, before editing it.
 </div>
 
 **Duplicate handling:**
-* The system enforces unique names across the room list.
+* *Name-Based Uniqueness:* The system enforces unique names across the entire room list, regardless of location.
+* *Scope of Detection:* Two rooms are considered duplicates if they share the exact same name (e.g., seminar-room-1), even if they are situated in different buildings or locations.
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 To add multiple Room of the same name, append a unique number (e.g., `Sports-Hall-1`, `Sports-Hall-2`).
 </div>
@@ -383,7 +387,7 @@ Output of Name and Location will be title case -> `MPSH-1` will be `Mpsh-1` in t
 * *This room is currently 'Booked':* Attempting to edit a reserved room.
 * *This room already exists:* Renaming room to a name already in use.
 * *Invalid status transition:* Trying to move a room status from Maintenance to Booked.
-* *Invalid command:* Missing `n/`, `c/`, or `s/` prefix.
+* *Invalid command:* Missing `n/`, `l/`, or `s/` prefix.
 
 ---
 
@@ -698,7 +702,7 @@ Aliases are useful for long item or room IDs, especially during busy periods whe
 * Assigns a short alias to the specified item or room.
 * `ALIAS_NAME` should be a short string containing letters, numbers, or underscores.
 * Each alias must be unique across the system.
-* Aliased equipments only work for issue, return commands. Although users can alias room, current reserve command does 
+* Aliased equipments only work for issue, return commands. Although users can alias room, current reserve command does
   not support it.
 
 **Duplicate handling:**
@@ -751,8 +755,8 @@ Tag equipment as e.g., `tag-e Wilson-Evolution IHG` during competition weeks to 
 * If the tag already exists on the item or room, the command will be rejected.
 
 **Examples:**
-* `tag-e Wilson-Evolution IHG` 
-* `tag-r MPSH-2 IHG` 
+* `tag-e Wilson-Evolution IHG`
+* `tag-r MPSH-2 IHG`
 
 
 **Outputs:**
@@ -795,7 +799,7 @@ Use this command to remove outdated or incorrect tags from equipment or rooms.
 
 
 **Examples:**
-* `untag-e Wilson-Evolution IHG` 
+* `untag-e Wilson-Evolution IHG`
 * `untag-r MPSH-2 IHG`
 
 
@@ -906,11 +910,13 @@ Furthermore, certain edits can cause the TrackMasterPro to behave in unexpected 
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 3. **Strict Name Validation:** The current system only accepts alphabetic characters and spaces for student names. Names containing special characters such as hyphens (e.g., `Al-Haddad`) or apostrophes (e.g., `D'Souza`) will currently trigger a validation error.
-**Workaround**: Enter the name without the special character (e.g., `Al Haddad` or `DSouza`) until a future update expands the character support. Removing special characters from the requirements allows for faster command entry and fewer parsing errors during high-pressure facility management scenarios
+**Workaround:** Enter the name without the special character (e.g., `Al Haddad` or `DSouza`) until a future update expands the character support. Removing special characters from the requirements allows for faster command entry and fewer parsing errors during high-pressure facility management scenarios
 
 4. **UI Refresh Latency:** The student list does not refresh in real-time when a reservation or equipment loan becomes overdue. While the system correctly identifies the status change in the database, the Graphical User Interface (GUI) may still show the old status (e.g., "Booked" instead of "Overdue").
 **Workaround:*** Simply click anywhere within the application window to force the UI to refresh and display the most current statuses.
 
+5. **Room Name Based Uniqueness:** The current iteration of the system does not support identical room names across different locations. (e.g., `add-r n/seminar-room-1 l/Com1` and following that input `add-r n/seminar-room-1 l/Rc4`) will trigger room already exists in system.
+   **Workaround:** Input `add-r n/seminar-room-1 l/Com1` for location Com1 and input `add-r n/SR1 l/Rc4` for location Rc4.
 --------------------------------------------------------------------------------------------------------------------
 
 ## 6. Command summary
