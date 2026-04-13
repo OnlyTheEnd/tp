@@ -64,7 +64,7 @@ During high-pressure periods such as the Inter-Hall Games (IHG), Inter-College G
 
    * `exit` : Exits the app.
 
-5. Refer to the [Features](#features) below for details of each command.
+5. Refer to the features below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -421,7 +421,7 @@ Adds a new student in the database so they can begin borrowing equipment or book
 
 **Possible errors:**
 * *Invalid command*: Missing any of `n/`, `m/`, `p/`, `e/` prefix.
-* *Invalid name*: Hyphens `-`, periods `.`, and apostrophes `'`, numbers `1` in name will cause an error.
+* *Invalid name*: Hyphens `-`, periods `.`, and apostrophes `'`, numbers in name will cause an error.
 * *Student already exists*: Attempting to add a student whose `Matric Number`, `Phone Number`, or `Email`are already in the system.
 
 ---
@@ -473,6 +473,9 @@ Displays a list of all registered students in the system.
 **Outputs:**
 * Success <br>
 ![ListStudentsSuccess.png](images/ListStudentsSuccess.png)
+
+* Failure <br>
+![ListStudentCommandFailure.png](images/ListStudentCommandFailure.png)
 
 **Possible errors:**
 * Any extra input after `list-s`, (e.g., `list-s 1`, `list-e a` etc.) will be invalid command.
@@ -866,9 +869,13 @@ Format: `help`
 
 #### Clearing the program : `clear`
 
-Clears the program.
+Clears all the data in TrackMasterPro. 
 
 Format: `clear`
+
+<div markdown="span" class="alert alert-primary">:bulb: **IMPORTANT:**
+IMPORTANT! This command is irreversible.
+</div>
 
 ---
 
