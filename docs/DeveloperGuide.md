@@ -265,8 +265,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete-s`, just save the student being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -875,8 +873,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  The application should be distributed in a single JAR file.
 
 **Performance and Scalability**
-1.  The system must be able to handle at least 1,000 equipment items, 50 rooms, and 2,000 student profiles without any perceptible lag in command execution.
-2.  The system should be handle to multiple rapid commands during peak period (etc 1 command every 2 seconds)
+1.  The system should be able to multiple rapid commands during peak period such as one command every 2 seconds.
 
 **Reliability & Data Integrity**
 1.   All data (equipment, rooms, students, and loans) must be saved to the local storage immediately after any state-changing command is executed for persistency.
