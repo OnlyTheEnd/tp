@@ -1579,15 +1579,16 @@ being reserved/issued even when there is no time conflict
 
 2. Enforce time check for reservations. Currently, users are able to reserve items for unrealistic dates far into the 
 future, such as the year 2099. Also, extremely long reservation period is allowed. To prevent this, we will introduce a 
-booking window that only allows reservations within a reasonable time range. Also, overdue reservations for room does 
-not automatically clear. In future iterations, a time check will be applied so overdue room reservations will be removed 
-automatically. Currently, time check is done by Java’s default resolver, which can accept invalid dates like 2027-02-30 
-and normalise them into the nearest valid date.
+booking window that only allows reservations within a reasonable time range. Currently, time check is done by Java’s 
+default resolver, which can accept invalid dates like 2027-02-30 and normalise them into the nearest valid date.
 
 3. Alias of rooms and equipment will be available on the UI. 
 
 4. Allow student to reserve a room and equipment at the same timing. Currently, student reserving a room and equipment 
 at the same timing is not allowed due to reservation checking on time clashes.
+
+5. Currently, overdue reservations for room does not automatically clear. In future iterations, a time check will be applied 
+so overdue room reservations will be removed automatically.
 
 
 ### Saving data
